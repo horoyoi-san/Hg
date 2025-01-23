@@ -25,3 +25,29 @@ dotnet build
 dotnet run --project EndFieldPS/EndFieldPS.csproj
 ```
 This will start the application. Make sure you have the .NET SDK installed on your machine. If you encounter any issues, please provide the error messages for further assistance.
+
+## Use this fiddler script, also make sure to use the os client, the cn one is not yet supported
+```
+import System;
+import System.Windows.Forms;
+import Fiddler;
+import System.Text.RegularExpressions;
+
+class Handlers
+{
+    static function OnBeforeRequest(oS: Session) {
+        if(oS.host.Contains("gryphline.com") || oS.host.Contains("hg-cdn.com")) {
+            if(oS.host.Contains("as") || oS.host.Contains("u8")){
+              //  return;   
+            }
+            if(oS.HTTPMethodIs("CONNECT")){
+                return;
+            }
+            FiddlerObject.log(">>>>>>>>>>>> URL:" + oS.fullUrl);
+            oS.oRequest.headers.UriScheme = "http";
+            oS.oRequest["Cookie"] = (oS.oRequest["Cookie"] + ";OriginalHost=" + oS.host + ";OriginalUrl=" + oS.fullUrl);
+            oS.host = "localhost:5000";
+        }
+    }
+};
+```
