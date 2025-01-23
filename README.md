@@ -3,6 +3,7 @@ Paste Json folder from [EndFieldData](https://github.com/PotRooms/EndFieldData/t
 --
 ## Requirements
 - ## [NET 8.0](https://download.visualstudio.microsoft.com/download/pr/136f4593-e3cd-4d52-bc25-579cdf46e80c/8b98c1347293b48c56c3a68d72f586a1/dotnet-runtime-8.0.12-win-x64.exe)
+- ## [Fiddler](https://downloads.getfiddler.com/fiddler-classic/FiddlerSetup.5.0.20245.10105-latest.exe)
 
 ## 1. Open the project in Visual Studio Code:
 
