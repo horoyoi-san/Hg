@@ -88,6 +88,7 @@ namespace ArkFieldPS.Game.Character
                     }
                 }
             }
+            attributes[AttributeType.MaxHp] = (attributes[AttributeType.MaxHp].baseVal, attributes[AttributeType.MaxHp].val + attributes[AttributeType.Str].val * 10);
             return attributes;
         }
         public double GetValueDic(Dictionary<AttributeType, (double baseVal, double val)> dic, AttributeType type)
