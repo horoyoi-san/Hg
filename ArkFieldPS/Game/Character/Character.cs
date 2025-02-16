@@ -1,4 +1,4 @@
-﻿using ArkFieldPS.Game.Inventory;
+using ArkFieldPS.Game.Inventory;
 using ArkFieldPS.Packets.Sc;
 using ArkFieldPS.Protocol;
 using ArkFieldPS.Resource;
@@ -64,6 +64,7 @@ namespace ArkFieldPS.Game.Character
                 attributes[AttributeType.Atk] = (attributes[AttributeType.Atk].baseVal + curve.baseAtk, attributes[AttributeType.Atk].baseVal + curve.baseAtk);
 
             }
+            
             //Won't be very precise but for now
             foreach (var equip in equipCol)
             {
