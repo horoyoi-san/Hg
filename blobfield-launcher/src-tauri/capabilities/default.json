@@ -1,0 +1,35 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "process:default",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "notification:default",
+    "store:default",
+    "fs:default",
+    "opener:default",
+    "fs:allow-resource-meta",
+    "fs:allow-resource-meta-recursive",
+    "fs:allow-resource-read",
+    "fs:allow-resource-read-recursive",
+    "fs:allow-resource-write",
+    "fs:allow-resource-write-recursive",
+    "fs:allow-write-file",
+    {
+      "identifier": "fs:default",
+      "allow": ["*/**"]
+    },
+    "dialog:default",
+    "http:default",
+    {
+      "identifier": "http:allow-fetch",
+      "allow": ["https://www.7-zip.org/*", "https://beyond.hg-cdn.com/*", "https://github.com/Xannix246/BlobField-Launcher/*", "https://huggingface.co/Xannix-8248/Beyond-Release-2089329/*", "https://raw.githubusercontent.com/Xannix246/BlobField-Launcher/*"]
+    }
+  ]
+}
