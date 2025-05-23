@@ -20,4 +20,9 @@
 | :--- | :--- | :--- |
 | BETA 0.5.28 | installer.exe | https://launcher.hycdn.cn/CAdYGoQmEUZnxXGf/launcher/1/1/Windows/0.3.9_tnY2aLGHGaqhdTlZ/rm42-launcher-client-windows-0.3.9.201-cn-prod-cbt2.zip |
 | BETA 0.5.28 | OS Client (001-008) | https://beyond.hycdn.cn/CAdYGoQmEUZnxXGf/0.5/update/1/1/Windows/0.5.28_AfxncF6zDVSgL54X/packs/Beyond_Release-2089329-32_cn_prod_cbt.zip.001 |
+# Arknights Endfield CBT2 Download CN 0.5.28
+| Version | File name | Download link|
+| :--- | :--- | :--- |
+| BETA 0.5.5 | installer.exe | https://launcher.hycdn.cn/EndField/0.5.5_ue6CODTS8UuMXxYW/EndField-055.apk |
+| BETA 0.5.5 | CN Client (001-008) |  |
 
