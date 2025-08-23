@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Campofinale.Resource.Table
+﻿namespace Campofinale.Resource.Table
 {
-    public class LevelGradeTable
+    [TableCfgType("TableCfg/LevelGradeTable.json", LoadPriority.LOW)]
+    public class LevelGradeTable : TableCfgResource
     {
         public string name;
         public List<LevelGradeInfo> grades;

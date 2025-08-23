@@ -1,13 +1,6 @@
-﻿using Campofinale.Game.Entities;
-using Campofinale.Network;
+﻿using Campofinale.Network;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campofinale.Packets.Sc
 {
@@ -29,7 +22,7 @@ namespace Campofinale.Packets.Sc
                     TeamType = CharBagTeamType.Main
 
                 },
-                SceneGrade = 4,
+                SceneGrade = session.sceneManager.GetCurScene().grade,
                 
                 Detail = new()
                 {
@@ -66,22 +59,56 @@ namespace Campofinale.Packets.Sc
                 sceneInfo.Detail.CharList.Add(session.chars.Find(c => c.guid == m).ToSceneProto());
             });
 
-            //Levelscripts here?
+            if (infoReason == SelfInfoReasonType.SlrSeamlesslyEnterScene)
+            {
+                sceneInfo.TeamInfo = null;
+            }
+            if(infoReason!= SelfInfoReasonType.SlrChangeTeam)
             ResourceManager.GetLevelData(session.curSceneNumId).levelData.levelScripts.ForEach(l =>
             {
                 LevelScriptInfo script = new LevelScriptInfo()
                 {
                     ScriptId = l.scriptId,
                     IsDone = false,
-                    State = 1,
-
+                    State = 2,
+                    
                 };
-                int i = 0;
-                foreach (var item in l.properties)
+                var sceneScript=session.sceneManager.GetCurScene().scripts.Find(s => s.scriptId == l.scriptId);
+                if (sceneScript == null)
                 {
-                    DynamicParameter p=item.ToProto();
-                    if (p != null)
-                    script.Properties.Add(l.GetPropertyId(item.key,script.Properties.Keys.ToList()), p);
+                    sceneScript = new()
+                    {
+                        scriptId = l.scriptId,
+                        
+                        state = 2
+                    };
+                    l.properties.ForEach(p =>
+                    {
+                        if(!sceneScript.properties.ContainsKey(p.key))
+                        sceneScript.properties.Add(p.key,p.ToScriptProperty());
+                    });
+                    
+                    session.sceneManager.GetCurScene().scripts.Add(sceneScript);
+                }
+                if (Server.config.serverOptions.disableLevelscripts)
+                {
+                    script.State = 1;
+                }
+                else
+                {
+                    script.State = sceneScript.state;
+                }
+                
+                int i = 0;
+                foreach (var item in sceneScript.properties)
+                {
+                   if(item.Value != null)
+                   {
+                        DynamicParameter p = item.Value.ToProto();
+                        if (p != null)
+                            script.Properties.Add(l.GetPropertyId(item.Key, script.Properties.Keys.ToList()), p);
+                   }
+                   
                 }
                 sceneInfo.LevelScripts.Add(script);
             });

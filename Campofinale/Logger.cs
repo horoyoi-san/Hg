@@ -1,9 +1,7 @@
 using Campofinale;
+
 using Pastel;
-using System;
 using System.Diagnostics;
-using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 public static class Logger
 {
 
@@ -20,6 +18,10 @@ public static class Logger
         var method = frame?.GetMethod();
         return method?.DeclaringType?.Name ?? "Server";
     }
+    /// <summary>
+    /// Print a text in the console
+    /// </summary>
+    /// <param name="text"></param>
     public static void Print(string text)
     {
         string className = GetCallingClassName();
@@ -27,6 +29,10 @@ public static class Logger
         string prefix = "<" + "INFO".Pastel("03fcce") + $":{className.Pastel("999")}>";
         Console.WriteLine($"{prefix} " + text);
     }
+    /// <summary>
+    /// Print a text in the console as Error
+    /// </summary>
+    /// <param name="text"></param>
     public static void PrintError(string text)
     {
         string className = GetCallingClassName();
@@ -34,8 +40,15 @@ public static class Logger
         string prefix = "<" + "ERROR".Pastel("eb4034") + $":{className.Pastel("999")}>";
         Console.WriteLine($"{prefix} " + text.Pastel("917e7e"));
     }
+    /// <summary>
+    /// Print a text in the console as a Warn
+    /// </summary>
+    /// <param name="text"></param>
     public static void PrintWarn(string text)
     {
+        if (!Server.config.logOptions.packetWarnings)
+            return;
+
         string className = GetCallingClassName();
         Logger.Log(text);
         string prefix = "<" + "WARN".Pastel("ff9100") + $":{className.Pastel("999")}>";
@@ -43,7 +56,9 @@ public static class Logger
     }
     public static string GetColor(string c)
     {
-        if (ClassColors.ContainsKey(c)) return ClassColors[c];
+        if (ClassColors.ContainsKey(c))
+            return ClassColors[c];
+        
         return "999";
     }
     private static StreamWriter logWriter;
@@ -52,23 +67,26 @@ public static class Logger
     public static void Initialize(bool hideLogs = false)
     {
         Logger.hideLogs = hideLogs;
+        
         logWriter = new StreamWriter("latest.log", false);
+        logWriter.AutoFlush = true;
     }
-
-    public static void Log(string message)
+    /// <summary>
+    /// Log a message
+    /// </summary>
+    /// <param name="message"></param>
+    private static void Log(string message)
     {
-        if (!hideLogs)
+        if(hideLogs)
+            return;
+        
+        try
         {
-            try
-            {
-                logWriter.WriteLine($"{DateTime.Now}: {message}");
-                logWriter.Flush();
-            }
-            catch(Exception e)
-            {
+            logWriter.WriteLine($"{DateTime.Now}: {message}");
+        }
+        catch(Exception e)
+        {
 
-            }
-           
         }
     }
 

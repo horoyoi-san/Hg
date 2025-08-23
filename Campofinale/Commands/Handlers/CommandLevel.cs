@@ -1,9 +1,8 @@
 ﻿using Campofinale.Commands;
-using Campofinale.Database;
 using Campofinale.Packets.Sc;
 using Campofinale.Resource;
 
-namespace Campofinale.Game.Character
+namespace Campofinale.Game.Char
 {
     public static class CharacterManager
     {
@@ -61,7 +60,7 @@ namespace Campofinale.Game.Character
             }
 
             int updatedItemCount = 0;
-            foreach (var item in target.inventoryManager.items)
+            foreach (var item in target.inventoryManager.items.items)
             {
                 if (item.id.StartsWith("wpn_"))
                 {

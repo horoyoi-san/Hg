@@ -2,17 +2,16 @@
 using Campofinale.Game.Inventory;
 using Campofinale.Packets.Sc;
 using Campofinale.Resource;
+using Campofinale.Resource.Dynamic;
+using Campofinale.Resource.Table;
 using MongoDB.Bson.Serialization.Attributes;
-using SharpCompress.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
+using System.Diagnostics;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using static Campofinale.Resource.Dynamic.SpawnerConfig;
 using static Campofinale.Resource.ResourceManager;
 using static Campofinale.Resource.ResourceManager.LevelScene.LevelData;
+using static Campofinale.Resource.ResourceManager.LevelScene.LevelData.LevelFunctionAreaData;
 
 namespace Campofinale.Game
 {
@@ -28,8 +27,18 @@ namespace Campofinale.Game
         }
         public void Update()
         {
-            if (GetCurScene()!=null)
-            GetCurScene().UpdateShowEntities();
+            if (GetCurScene() != null)
+            {
+                try
+                {
+                    GetCurScene().UpdateShowEntities();
+                }
+                catch(Exception e)
+                {
+
+                }
+            }
+            
         }
         public Entity GetEntity(ulong guid)
         {
@@ -49,7 +58,7 @@ namespace Campofinale.Game
         public void LoadCurrentTeamEntities()
         {
             globalEntities.RemoveAll(e => e is EntityCharacter);
-            foreach (Character.Character chara in player.GetCurTeam())
+            foreach (Char.Character chara in player.GetCurTeam())
             {
                 EntityCharacter ch = new(chara.guid, player.roleId);
                 globalEntities.Add(ch);
@@ -95,42 +104,39 @@ namespace Campofinale.Game
 
             if (scene != null)
             {
-                if(GetEntity(guid) is EntityMonster)
+                Entity entity = GetEntity(guid);
+                if (entity != null)
                 {
-                    EntityMonster monster = (EntityMonster)GetEntity(guid);
-                    CreateDrop(monster.Position, new RewardTable.ItemBundle()
+                    entity.OnDie();
+                    if (killClient)
                     {
-                        id = "item_gem_rarity_3",
-                        count=1
-                    });
-                    LevelScene lv_scene = ResourceManager.GetLevelData(GetEntity(guid).sceneNumId);
-                    LevelEnemyData d = lv_scene.levelData.enemies.Find(l => l.levelLogicId == monster.guid);
-                    if (d != null)
-                    {
-                        if (!d.respawnable)
+                        ScSceneDestroyEntity destroy = new()
                         {
-                            player.noSpawnAnymore.Add(monster.guid);
+                            Id = guid,
+                            Reason = reason,
+                            SceneNumId = GetEntity(guid).sceneNumId,
+                        };
+                        player.Send(Protocol.ScMsgId.ScSceneDestroyEntity, destroy);
+                        
+                    }
+                    if (entity is EntityMonster monster)
+                    {
+                        LevelScene lv_scene = ResourceManager.GetLevelData(entity.sceneNumId);
+                        LevelEnemyData d = lv_scene.levelData.enemies.Find(l => l.levelLogicId == monster.guid);
+                        if (d != null)
+                        {
+                            if (!d.respawnable)
+                            {
+                                player.noSpawnAnymore.Add(monster.guid);
+                            }
                         }
                     }
-                }
-                if (killClient)
-                {
-                    ScSceneDestroyEntity destroy = new()
+                    if (scenes.Find(s => s.sceneNumId == entity.sceneNumId) != null)
                     {
-                        Id = guid,
-                        Reason = reason,
-                        SceneNumId = GetEntity(guid).sceneNumId,
-                    };
-                    player.Send(Protocol.ScMsgId.ScSceneDestroyEntity, destroy);
-                }
-                if (GetEntity(guid) != null)
-                {
-                    if(scenes.Find(s => s.sceneNumId == GetEntity(guid).sceneNumId) != null)
-                    {
-                        scenes.Find(s => s.sceneNumId == GetEntity(guid).sceneNumId).entities.Remove(GetEntity(guid));
+                        scenes.Find(s => s.sceneNumId == entity.sceneNumId).entities.Remove(entity);
                     }
+                    
                 }
-                
                 
             }
         }
@@ -222,18 +228,22 @@ namespace Campofinale.Game
         {
             return scenes.Find(s=>s.sceneNumId == sceneNumId).guid;
         }
-        //TODO Save and get
         public void Load()
         {
             foreach (var level in ResourceManager.levelDatas)
             {
-                if(scenes.Find(s=>s.sceneNumId==level.idNum) == null)
+                int grade = 1;
+                if (ResourceManager.levelGradeTable.ContainsKey(level.id))
+                {
+                    grade = ResourceManager.levelGradeTable[level.id].grades.Last().grade;
+                }
+                if (scenes.Find(s=>s.sceneNumId==level.idNum) == null)
                 scenes.Add(new Scene()
                 {
                     guid = (ulong)player.random.Next(),
                     ownerId=player.roleId,
                     sceneNumId=level.idNum,
-                    
+                    grade= grade
                 });
             }
         }
@@ -244,13 +254,17 @@ namespace Campofinale.Game
             {
                 if (scene != null)
                 {
-                    scene.alreadyLoaded = false;
                     scene.Unload();
                 }
             }
         }
     }
-
+    public class LevelScript
+    {
+        public ulong scriptId;
+        public int state; 
+        public Dictionary<string, ScriptProperty> properties = new();
+    }
     public class Scene
     {
         public ulong ownerId;
@@ -260,7 +274,11 @@ namespace Campofinale.Game
         [BsonIgnore,JsonIgnore]
         public List<Entity> entities = new();
         [BsonIgnore, JsonIgnore]
-        public bool alreadyLoaded = false;
+        public List<ulong> activeScripts = new();
+
+        public List<LevelScript> scripts = new();
+        public int grade = 1;
+
         public int GetCollection(string id)
         {
             if (collections.ContainsKey(id))
@@ -285,12 +303,14 @@ namespace Campofinale.Game
         {
             return entities.FindAll(c => c is not EntityCharacter);
         }
+
         public void Unload()
         {
             List<ulong> guids = new();
-            foreach(Entity e in entities)
+            foreach(Entity e in GetEntityExcludingChar().FindAll(e => e.spawned))
             {
                 guids.Add(e.guid);
+                e.spawned = false;
             }
             entities.Clear();
             GetOwner().Send(new PacketScObjectLeaveView(GetOwner(), guids));
@@ -301,14 +321,27 @@ namespace Campofinale.Game
         }
         public void Load()
         {
-            if (info().isSeamless && alreadyLoaded) return;
-            alreadyLoaded = true;
+            if (grade == 0)
+            {
+                grade = 1;
+            }
             Unload();
             LevelScene lv_scene = ResourceManager.GetLevelData(sceneNumId);
-           
+            
+            LevelGradeInfo sceneGrade = null;
+            LevelGradeTable table = null;
+            ResourceManager.levelGradeTable.TryGetValue(lv_scene.id, out table);
+            if (table != null)
+            {
+                sceneGrade=table.grades.Find(g=>g.grade==grade);
+            }
+            if (sceneGrade == null)
+            {
+                sceneGrade = new();
+            }
             lv_scene.levelData.interactives.ForEach(en =>
             {
-                if (en.defaultHide || GetOwner().noSpawnAnymore.Contains(en.levelLogicId))
+                if (GetOwner().noSpawnAnymore.Contains(en.levelLogicId) && sceneNumId != 87)
                 {
                     return;
                 }
@@ -325,7 +358,7 @@ namespace Campofinale.Game
             });
             lv_scene.levelData.factoryRegions.ForEach(en =>
             {
-                if (en.defaultHide || GetOwner().noSpawnAnymore.Contains(en.levelLogicId))
+                if (GetOwner().noSpawnAnymore.Contains(en.levelLogicId) && sceneNumId!=87)
                 {
                     return;
                 }
@@ -336,23 +369,27 @@ namespace Campofinale.Game
                     levelLogicId = en.levelLogicId,
                     type = en.entityType,
                 };
+                
                 entities.Add(entity);
             });
             lv_scene.levelData.enemies.ForEach(en =>
             {
-                if(en.defaultHide || GetOwner().noSpawnAnymore.Contains(en.levelLogicId)) return;
-                EntityMonster entity = new(en.entityDataIdKey,en.level,ownerId,en.position,en.rotation, sceneNumId, en.levelLogicId)
+                if(GetOwner().noSpawnAnymore.Contains(en.levelLogicId) && sceneNumId != 87) return;
+                
+                EntityMonster entity = new(en.entityDataIdKey,sceneGrade.monsterBaseLevel+ en.level,ownerId,en.position,en.rotation, sceneNumId, en.levelLogicId)
                 {
                     type=en.entityType,
                     belongLevelScriptId=en.belongLevelScriptId,
-                    levelLogicId = en.levelLogicId
+                    levelLogicId = en.levelLogicId,
+                    
                 };
+                entity.defaultHide=en.defaultHide;
                 entities.Add(entity);
             });
             lv_scene.levelData.npcs.ForEach(en =>
             {
-                if (en.defaultHide) return;
-                if (en.npcGroupId.Contains("chr")) return;
+                
+                if (en.npcGroupId.Contains("chr") && sceneNumId == 98) return;
                 EntityNpc entity = new(en.entityDataIdKey,ownerId,en.position,en.rotation, sceneNumId, en.levelLogicId)
                 {
                     belongLevelScriptId = en.belongLevelScriptId,
@@ -360,45 +397,140 @@ namespace Campofinale.Game
                     type = en.entityType,
                     
                 };
+                entity.defaultHide = en.defaultHide;
                 entities.Add(entity);
             });
-            /*GetEntityExcludingChar().ForEach(e =>
+            GetOwner().factoryManager.chapters.ForEach(ch =>
             {
-                GetOwner().Send(new PacketScObjectEnterView(GetOwner(),new List<Entity>() { e}));
-            });*/
+                ch.nodes.ForEach(n =>
+                {
+                    if (n.sceneNumId == sceneNumId)
+                    {
+                        n.SendEntity(GetOwner(), ch.chapterId);
+                    }
+                });
+            });
             UpdateShowEntities();
-
-
         }
-        public void UpdateShowEntities()
+        
+        public void SpawnEntity(Entity en,bool spawnedCheck=true)
         {
-            foreach(Entity en in GetEntityExcludingChar())
+            en.spawned = true;
+            GetOwner().Send(new PacketScObjectEnterView(GetOwner(), new List<Entity>() { en }));
+        }
+        public bool GetActiveScript(ulong id)
+        {
+            LevelScript script = scripts.Find(s => s.scriptId == id);
+            if (script != null)
             {
-                if (en.Position.Distance(GetOwner().position) < 200)
+                return script.state > 2;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        //Bug on scene 101: spawning entities in this way make the game break if you try to load another scene from scene 101
+        public async void UpdateShowEntities()
+        {
+            List<Entity> toSpawn = new();
+            List<Entity> toCheck = GetEntityExcludingChar().FindAll(e => e.spawned == false);
+            toCheck.Sort((a, b) => a.Position.Distance(GetOwner().position).CompareTo(b.Position.Distance(GetOwner().position)));
+            foreach (Entity e in toCheck)
+            {
+                if(e.Position.Distance(GetOwner().position) > 300 && sceneNumId != 87)
                 {
-                    if (!en.spawned)
-                    {
-                        en.spawned = true;
-                        GetOwner().Send(new PacketScObjectEnterView(GetOwner(), new List<Entity>() { en }));
-                    }
+                    continue;
                 }
-                else
+                if(e.spawned==false)
                 {
-                    if (en.spawned)
+                    if (!e.defaultHide)
                     {
-                        
-                        en.spawned = false;
-                        GetOwner().Send(new PacketScObjectLeaveView(GetOwner(), new List<ulong>() { en.guid }));
-                        en.Position=en.BornPos;
-                        en.Rotation = en.Rotation;
+                        if (GetActiveScript(e.belongLevelScriptId))
+                        {
+                            toSpawn.Add(e);
+                            e.spawned = true;
+                        }
                     }
+                    
+                }
+                
+            }
+            if (toSpawn.Count > 0)
+            {
+                for (int i = 0; i < toSpawn.Count; i += 5)
+                {
+                    int chunkSize = Math.Min(5, toSpawn.Count - i);
+                    var chunk = toSpawn.GetRange(i, chunkSize);
+                    
+                    GetOwner().Send(new PacketScObjectEnterView(GetOwner(), chunk));
                 }
             }
         }
-        
+
         public Player GetOwner()
         {
             return Server.clients.Find(c => c.roleId == ownerId);
+        }
+        public void SpawnEnemyByScriptId(ulong id)
+        {
+            GetEntityExcludingChar().FindAll(e => e.belongLevelScriptId == id).ForEach(e =>
+            {
+                e.spawned = true;
+            });
+            GetOwner().Send(new PacketScObjectEnterView(GetOwner(), GetEntityExcludingChar().FindAll(e => e.belongLevelScriptId == id)));
+        }
+        public void SpawnEnemy(ulong v, bool scriptSpawn=false)
+        {
+            LevelScene lv_scene = ResourceManager.GetLevelData(sceneNumId);
+            LevelEnemyData en = lv_scene.levelData.enemies.Find(e=>e.levelLogicId == v);
+            if(en!=null)
+            {
+                EntityMonster entity = new(en.entityDataIdKey, en.level, ownerId, en.position, en.rotation, sceneNumId, en.levelLogicId)
+                {
+                    type = en.entityType,
+                    belongLevelScriptId = en.belongLevelScriptId,
+                    levelLogicId = en.levelLogicId,
+                };
+                entities.Add(entity);
+                Logger.Print($"Enemy Id {v} found on scene {sceneNumId}:{lv_scene.mapIdStr}");
+                SpawnEntity(entity);
+            }
+            else
+            {
+                Logger.PrintWarn($"Enemy Id {v} not found on scene {sceneNumId}:{lv_scene.mapIdStr}");
+            }
+        }
+
+        public void SpawnWaveEnemy(ulong spawnerId, int waveId)
+        {
+            LevelSpawnerData data=info().levelData.spawners.Find(s => s.spawnerId == spawnerId);
+            if (data!=null)
+            {
+                SpawnerConfig config = spawnerConfigs.Find(s => s.configId == data.configId);
+                if (config != null)
+                {
+                    foreach(var group in config.waveMap[$"{waveId}"].groupMap.Values)
+                    {
+                        foreach (var act in group.actionMap.Values)
+                        {
+                            EnemyLibraryData enemyData = config.enemyLibrary.Find(e=>e.key==act.libraryKey);
+                            if (enemyData != null)
+                            {
+                                entities.Add(new EntityMonster(enemyData.enemyId, enemyData.enemyLevel, ownerId, act.position, act.rotation, sceneNumId)
+                                {
+                                    
+                                    defaultHide = false,
+                                    spawned = false,
+                                    belongLevelScriptId = data.belongLevelScriptId
+                                });
+                            }
+                            
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -1,14 +1,7 @@
 ﻿using Campofinale.Network;
 using Campofinale.Protocol;
-using Google.Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using Campofinale.Utils;
+using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Packets.Cs
 {
@@ -23,9 +16,6 @@ namespace Campofinale.Packets.Cs
             if (session.curSceneNumId != req.SceneNumId)
             {
                 session.EnterScene(req.SceneNumId, new Resource.ResourceManager.Vector3f(req.Position), new Resource.ResourceManager.Vector3f(req.Rotation));
-            }
-            else
-            {
                 ScSceneTeleport t = new()
                 {
                     TeleportReason = req.TeleportReason,
@@ -34,7 +24,27 @@ namespace Campofinale.Packets.Cs
                     Rotation = req.Rotation,
                     SceneNumId = req.SceneNumId,
                 };
+                session.Send(ScMsgId.ScSceneTeleport, t);
+            }
+            else
+            {
+                uint unixTimestamp = (uint)DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                var generator = new SnowflakeIdGenerator(machineId: 1);
+                long id = generator.GenerateId();
+                ScSceneTeleport t = new()
+                {
+                    TeleportReason = req.TeleportReason,
+                    PassThroughData = req.PassThroughData,
+                    Position = req.Position,
+                    Rotation = req.Rotation,
+                    SceneNumId = req.SceneNumId,
+                    ServerTime = unixTimestamp,
+                    TpUuid= (ulong)id
+                };
                 session.curSceneNumId = t.SceneNumId;
+                session.position = new Vector3f(req.Position);
+                session.rotation = new Vector3f(req.Rotation);
+                session.sceneLoadState = Player.SceneLoadState.Loading;
                 session.Send(ScMsgId.ScSceneTeleport, t);
             }
             

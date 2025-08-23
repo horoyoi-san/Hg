@@ -1,29 +1,15 @@
-﻿
-using BeyondTools.VFS.Crypto;
-using Campofinale.Commands;
+﻿using Campofinale.Commands;
 using Campofinale.Database;
 using Campofinale.Game;
 using Campofinale.Http;
-using Campofinale.Network;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using Google.Protobuf;
-using Newtonsoft.Json;
 using Pastel;
-using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using static Campofinale.Http.Dispatch;
-
+using System.ServiceProcess;
 
 namespace Campofinale
 {
@@ -34,6 +20,17 @@ namespace Campofinale
         public static long ToUnixTimestampMilliseconds(this DateTime dateTime)
         {
             return (long)(dateTime - UnixEpoch).TotalMilliseconds;
+        }
+        public static DateTime GetNextDailyReset(this DateTime dateTime)
+        {
+            DateTime now = DateTime.UtcNow;
+            DateTime todayReset = new DateTime(now.Year, now.Month, now.Day, 6, 0, 0, DateTimeKind.Utc);
+
+            // Se siamo già passati oltre le 6:00 AM di oggi, ritorna le 6:00 AM di domani
+            if (now >= todayReset)
+                return todayReset.AddDays(1);
+            else
+                return todayReset;
         }
     }
     public class Server
@@ -62,19 +59,16 @@ namespace Campofinale
             public delegate void HandlerDelegate(Player sender, string command, string[] args, Player target);
         }
         public static List<Player> clients = new List<Player>();
-        public static string ServerVersion = "1.1.2-dev";
+        public static string ServerVersion = "1.1.7";
         public static bool Initialized = false;
         public static bool showLogs = true;
-        public static Dispatch dispatch;
-        public static ResourceManager resourceManager;
-        public static ConfigFile config;
+        public static bool showWarningLogs = true;
+        public static bool showBodyLogs = false;
+        public static Dispatch? dispatch;
+        public static ConfigFile? config;
         public static List<CsMsgId> csMessageToHide = new() { CsMsgId.CsMoveObjectMove, CsMsgId.CsBattleOp,CsMsgId.CsPing };
-        public static List<ScMsgId> scMessageToHide = new() { ScMsgId.ScMoveObjectMove, ScMsgId.ScPing };
-        public static ResourceManager GetResources()
-        {
-            return resourceManager;
-        }
-        public void Start(bool hideLogs = false, ConfigFile config = null)
+        public static List<ScMsgId> scMessageToHide = new() { ScMsgId.ScMoveObjectMove, ScMsgId.ScPing,ScMsgId.ScObjectEnterView,ScMsgId.ScFactoryHsSync };
+        public void Start(ConfigFile config)
         {
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
@@ -91,10 +85,15 @@ namespace Campofinale
             }
             
             Logger.Initialize();
-            Logger.Print($"Starting server version {ServerVersion} with supported client version {GameConstants.GAME_VERSION}");
-            showLogs = !hideLogs;
-            Logger.Print($"Logs are {(showLogs ? "enabled" : "disabled")}");
             Server.config = config;
+            showLogs = config.logOptions.packets;
+            showWarningLogs = config.logOptions.packetWarnings;
+            showBodyLogs = config.logOptions.packetBodies;
+            Logger.Print($"Starting server version {ServerVersion} with supported client version: WINDOWS-{GameConstants.GAME_VERSION} and MOBILE-{GameConstants.GAME_VERSION_ANDROID}");
+            Logger.Print($"Logs are {(showLogs ? "enabled" : "disabled")}");
+            Logger.Print($"Warning logs are {(showWarningLogs ? "enabled" : "disabled")}");
+            Logger.Print($"Packet body logs are {(showBodyLogs ? "enabled" : "disabled")}");
+            StartDBService();
             DatabaseManager.Init();
             ResourceManager.Init();
             new Thread(new ThreadStart(DispatchServer)).Start();
@@ -116,11 +115,20 @@ namespace Campofinale
                     
                     if (clientSocket.Connected)
                     {
-                        Player client = new Player(clientSocket);
-                        clients.Add(client);
-                        client.receivorThread.Start();
+                        Logger.Print("Connected new client: " + clients.Count()+1);
+                        try
+                        {
+                            Player client = new Player(clientSocket);
+                            clients.Add(client);
+                            client.receivorThread.Start();
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.PrintError($" {e.Message}");
+                        }
+                        
 
-                        Logger.Print("Connected new client: " + clients.Count());
+                        
                     }
 
 
@@ -144,7 +152,7 @@ namespace Campofinale
                 try
                 {
                     clients.ForEach(client => { if (client != null) client.Update(); });
-                    Thread.Sleep(1000);
+                    Thread.Sleep(250);
                 }
                 catch (Exception ex)
                 {
@@ -177,7 +185,6 @@ namespace Campofinale
             dispatch = new Dispatch();
             dispatch.Start();
         }
-        public static CsMsgId[] hideLog = [];
 
         public static string ColoredText(string text, string color)
         {
@@ -191,6 +198,28 @@ namespace Campofinale
                 player.Save();
                 player.Kick(CODE.ErrServerClosed);
             }
+        }
+        private static void StartDBService()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                try
+                {
+                    string mongodbService = "MongoDB";
+                    using (ServiceController service = new ServiceController(mongodbService))
+                    {
+                        if (service.Status != ServiceControllerStatus.Running)
+                        {
+                            Logger.Print($"Starting {mongodbService} service...");
+                            service.Start();
+                            service.WaitForStatus(ServiceControllerStatus.Running, TimeSpan.FromSeconds(30));
+                            Logger.Print($"Started {mongodbService} service");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.PrintError($"Failed to Start MongoDB service: {e}");
+                }
         }
     }
 }

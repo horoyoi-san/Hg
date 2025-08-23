@@ -1,21 +1,8 @@
-﻿using BeyondTools.VFS.Crypto;
-using Campofinale.Network;
+﻿using Campofinale.Network;
 using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using Google.Protobuf;
-using Google.Protobuf.WellKnownTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using static Campofinale.Resource.ResourceManager;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Campofinale.Packets.Cs
 {
@@ -26,16 +13,11 @@ namespace Campofinale.Packets.Cs
         {
             CsSceneLoadFinish req = packet.DecodeBody<CsSceneLoadFinish>();
 
-
+            session.curSceneNumId=req.SceneNumId;
             session.Send(new PacketScSelfSceneInfo(session, SelfInfoReasonType.SlrEnterScene));
             session.sceneManager.LoadCurrentTeamEntities();
             session.sceneManager.LoadCurrent();
-            session.LoadFinish = true;
-            /*session.Send(ScMessageId.ScSceneClientIdInfo, new ScSceneClientIdInfo()
-            {
-                RoleIdx = (uint)session.roleId,
-                LastMaxIdx = session.random.usedGuids.Max()
-            });*/
+            
             if (session.curSceneNumId == 98)
             {
                 session.Send(new PacketScSyncGameMode(session, "spaceship"));
@@ -54,7 +36,7 @@ namespace Campofinale.Packets.Cs
                 }
                     
             }
-            session.LoadFinish = true;
+            session.sceneLoadState = Player.SceneLoadState.OK;
         }
     }
 }

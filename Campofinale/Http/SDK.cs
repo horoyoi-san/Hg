@@ -1,11 +1,9 @@
 ﻿using Campofinale.Database;
-using Campofinale.Resource;
 using HttpServerLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 using static Campofinale.Game.Gacha.GachaManager;
 using static Campofinale.Http.Dispatch;
 
@@ -20,16 +18,24 @@ namespace Campofinale.Http
             string requestBody = ctx.Request.DataAsString;
             Console.WriteLine(requestBody);
             string resp = "{}";
-            
-
             ctx.Response.StatusCode = 200;
-            //ctx.Response.ContentLength = resp.Length;
             ctx.Response.ContentType = "application/json";
 
             await ctx.Response.SendAsync(resp);
 
         }
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/user/pay/v1/query_app_order")]
+        public static async Task query_app_order(HttpContext ctx)
+        {
+            string requestBody = ctx.Request.DataAsString;
+            Console.WriteLine(requestBody);
+            string resp = "{\"data\":{\"paidApp\":true,\"hasMinorOrder\":false},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
+            ctx.Response.StatusCode = 200;
+            ctx.Response.ContentType = "application/json";
 
+            await ctx.Response.SendAsync(resp);
+
+        }
         [StaticRoute(HttpServerLite.HttpMethod.POST, "/user/auth/v1/token_by_phone_password")]
         public static async Task token_login_phone_cn(HttpContext ctx)
         {
@@ -48,7 +54,6 @@ namespace Campofinale.Http
             }
 
             ctx.Response.StatusCode = 200;
-            //ctx.Response.ContentLength = resp.Length;
             ctx.Response.ContentType = "application/json";
 
             await ctx.Response.SendAsync(resp);
@@ -72,14 +77,17 @@ namespace Campofinale.Http
             }
 
             ctx.Response.StatusCode = 200;
-            //ctx.Response.ContentLength = resp.Length;
             ctx.Response.ContentType = "application/json";
 
             await ctx.Response.SendAsync(resp);
 
         }
-        
-        
+
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/batch_event")]
+        public static async Task batch_event(HttpContext ctx)
+        {
+            await ctx.Response.SendAsync("OK");
+        }
         [StaticRoute(HttpServerLite.HttpMethod.GET, "/user/info/v1/basic")]
         public static async Task account_info_get(HttpContext ctx)
         {
@@ -88,7 +96,10 @@ namespace Campofinale.Http
             string resp = "{\"data\":{\"hgId\":\"1799321925\",\"email\":\"dispatch@endfield.ps\",\"realEmail\":\"dispatch@endfield.ps\",\"isLatestUserAgreement\":true,\"nickName\":\"Campofinale\"},\"msg\":\"OK\",\"status\":0,\"type\":1}";
             if (account != null)
             {
-                resp = "{\"data\":{\"idCardNum\": 110102200610048887,\"hgId\":\"" + account.id + "\",\"email\":\"" + account.username +Server.config.dispatchServer.emailFormat +"\",\"realEmail\":\"" + account.username + Server.config.dispatchServer.emailFormat + "\",\"isLatestUserAgreement\":true,\"nickName\":\"" + account.username + "\",\"name\":\"AAAA\"},\"msg\":\"OK\",\"status\":0,\"type\":1}";
+                /*
+                 * {"data":{"hgId":"**********","phone":"153****5243","email":null,"identityNum":"5002**********1619","identityName":"金*","isMinor":false,"isLatestUserAgreement":true},"msg":"OK","status":0,"type":"A"}
+                 */
+                resp = "{\"data\":{\"phone\":\"153****5243\", \"identityNum\": \"5002**********1619\",\"identityName\":\"金*\",\"isMinor\":false,\"hgId\":\"" + account.id + "\",\"email\":\"" + account.username +Server.config.dispatchServer.emailFormat +"\",\"realEmail\":\"" + account.username + Server.config.dispatchServer.emailFormat + "\",\"isLatestUserAgreement\":true,\"nickName\":\"" + account.username + "\"},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
             }
             else
             {
@@ -99,27 +110,74 @@ namespace Campofinale.Http
 
 
             ctx.Response.StatusCode = 200;
-            //ctx.Response.ContentLength = resp.Length;
             ctx.Response.ContentType = "application/json";
 
             await ctx.Response.SendAsync(resp);
         }
 
-        public struct GrantData
+        public class GrantReqData
         {
             public string token;
+            public string encodeNonce;
+            public string appCode;
         }
-        [StaticRoute(HttpServerLite.HttpMethod.POST, "/user/oauth2/v2/grant")]
-        public static async Task account_ugrant(HttpContext ctx)
+        public class GrantRsp
+        {
+            public Data data;
+            public string msg;
+            public int status;
+            public string type;
+
+            public class Data
+            {
+                public string token;
+                public string code;
+                public string hgId;
+                public string uid;
+                public string encodeSign;
+            }
+        }
+
+        
+        /*[StaticRoute(HttpServerLite.HttpMethod.POST, "/user/oauth2/v2/grant")]
+        public static async Task account_ugrant_old(HttpContext ctx)
         {
             string requestBody = ctx.Request.DataAsString;
 
-            GrantData grant = Newtonsoft.Json.JsonConvert.DeserializeObject<GrantData>(requestBody);
+            GrantReqData grant = Newtonsoft.Json.JsonConvert.DeserializeObject<GrantReqData>(requestBody);
             Account account = DatabaseManager.db.GetAccountByToken(grant.token);
             string resp = "{\"msg\": \"Error\",  \"status\": 2,  \"type\": \"A\"}";
             if (account != null)
             {
                 resp = "{\"data\": {  \"uid\": \"" + account.id + "\",  \"code\": \"" + DatabaseManager.db.GrantCode(account) + "\"  },  \"msg\": \"OK\",  \"status\": 0,  \"type\": \"A\"}";
+                if(grant.appCode== "2289f1dd2b923c53")
+                {
+                    var url = "https://as.hypergryph.com/user/oauth2/v2/grant";
+
+                    var b = new
+                    {
+                        appCode = "2289f1dd2b923c53",
+                        encodeNonce = grant.encodeNonce,
+                        token = "/kKCPAzTCkGOKft+X7sE7T0W",
+                        type = 1
+                    };
+
+                    var json = JsonSerializer.Serialize(b);
+
+                    var handler = new HttpClientHandler
+                    {
+                        UseProxy = false,
+                    };
+
+                    using var client = new HttpClient(handler);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = await client.PostAsync(url, content);
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    Logger.Print(responseString);
+                    GrantRspOff rsp = JsonSerializer.Deserialize<GrantRspOff>(responseString);
+                    resp = "{    \"data\": {        \"token\": \"" + DatabaseManager.db.GrantCode(account) + "\",        \"hgId\": \"" + account.id + "\",        \"encodeSign\": \""+ rsp.data.encodeSign + "\"    },    \"msg\": \"OK\",    \"status\": 0,    \"type\": \"A\"}";
+                }
             }
 
             ctx.Response.StatusCode = 200;
@@ -127,25 +185,70 @@ namespace Campofinale.Http
             ctx.Response.ContentType = "application/json";
 
             await ctx.Response.SendAsync(resp);
+        }*/
+        [StaticRoute(HttpServerLite.HttpMethod.POST, "/user/oauth2/v2/grant")]
+        public static async Task account_ugrant(HttpContext ctx)
+        {
+            string requestBody = ctx.Request.DataAsString;
+
+            GrantReqData grant = Newtonsoft.Json.JsonConvert.DeserializeObject<GrantReqData>(requestBody);
+            GrantRsp rsp = new GrantRsp();
+            Account account = DatabaseManager.db.GetAccountByToken(grant.token);
+            rsp.type = "A";
+            if (account != null)
+            {
+                rsp.msg = "OK";
+                string grantedToken = DatabaseManager.db.GrantCode(account);
+                rsp.data = new()
+                {
+                    hgId = account.id,
+                    uid = account.id,
+                    token = grantedToken,
+                    code = grantedToken
+                };
+            }
+            else
+            {
+                rsp.status = 2;
+                rsp.msg = "Error";
+                
+            }
+
+            ctx.Response.StatusCode = 200;
+            ctx.Response.ContentType = "application/json";
+            await ctx.Response.SendAsync(JsonConvert.SerializeObject(rsp));
         }
         [StaticRoute(HttpServerLite.HttpMethod.POST, "/u8/user/auth/v2/grant")]
         public static async Task account_grant(HttpContext ctx)
         {
             string requestBody = ctx.Request.DataAsString;
 
-            GrantData grant = Newtonsoft.Json.JsonConvert.DeserializeObject<GrantData>(requestBody);
+            GrantReqData grant = Newtonsoft.Json.JsonConvert.DeserializeObject<GrantReqData>(requestBody);
+            GrantRsp rsp = new GrantRsp();
             Account account = DatabaseManager.db.GetAccountByTokenGrant(grant.token);
-            string resp = "{\"msg\": \"Error\",  \"status\": 2,  \"type\": \"A\"}";
+            rsp.type = "A";
             if (account != null)
             {
-                resp = "{\"data\": {  \"uid\": \"" + account.id + "\",  \"code\": \"" + account.grantToken + "\"  },  \"msg\": \"OK\",  \"status\": 0,  \"type\": \"A\"}";
+                rsp.msg = "OK";
+                rsp.data = new()
+                {
+                    hgId = account.id,
+                    uid = account.id,
+                    token = account.token,
+                    code = account.grantToken,
+                };
+            }
+            else
+            {
+                rsp.status = 2;
+                rsp.msg = "Error";
             }
 
             ctx.Response.StatusCode = 200;
 
             ctx.Response.ContentType = "application/json";
 
-            await ctx.Response.SendAsync(resp);
+            await ctx.Response.SendAsync(JsonConvert.SerializeObject(rsp));
         }
         
         public class TokenChannelData
@@ -180,14 +283,7 @@ namespace Campofinale.Http
             }
 
         }
-        /*{
-            "appCode": "2fe67ec91610377d",
-            "code": "121212",
-            "email": "aaaa@a.cc",
-            "from": 0,
-            "password": "aaaaaaaaaaaaaa1"
-        }*/
-        public struct RegisterData
+        public struct RegisterFormData
         {
             public string appCode;
             public string code;
@@ -201,7 +297,7 @@ namespace Campofinale.Http
             {
                 string requestBody = ctx.Request.DataAsString;
                 Console.WriteLine(requestBody);
-                RegisterData data = Newtonsoft.Json.JsonConvert.DeserializeObject<RegisterData>(requestBody);
+                RegisterFormData data = Newtonsoft.Json.JsonConvert.DeserializeObject<RegisterFormData>(requestBody);
                 string username = data.email.Split("@")[0];
                 (string,int) msg=DatabaseManager.db.CreateAccount(username);
                 string resp = "";
@@ -244,10 +340,8 @@ namespace Campofinale.Http
             {
                 transactions.transactionList = new();
             }
-            string resp = Newtonsoft.Json.JsonConvert.SerializeObject(transactions);
-
             ctx.Response.StatusCode = 200;
-            await ctx.Response.SendAsync(resp);
+            await ctx.Response.SendAsync(JsonConvert.SerializeObject(transactions));
         }
         [StaticRoute(HttpServerLite.HttpMethod.GET, "/gachahistory")]
         public static async Task gachahistory(HttpContext ctx)
@@ -264,9 +358,6 @@ namespace Campofinale.Http
             {
                 resp = File.ReadAllText("Data/GachaHistory/index_noplayerfound.html");
             }
-
-
-
 
             ctx.Response.StatusCode = 200;
 

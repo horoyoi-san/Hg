@@ -1,12 +1,6 @@
 ﻿using Campofinale.Database;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Game.Gacha
@@ -16,7 +10,7 @@ namespace Campofinale.Game.Gacha
 
         public Player player;
         internal ulong upSeqId;
-        const double fiftyfifty = 0.45; // 50% (make it less than real 50, because the randomness make win fifty fifty every time
+        const double fiftyfifty = 0.50;
 
         private static readonly Random random = new Random();
         public GachaManager(Player player)
@@ -176,7 +170,6 @@ namespace Campofinale.Game.Gacha
                     RewardIds =
                     {
                         $"reward_{transaction.rarity}starChar_weaponCoin",
-                       
                     },
                     
                 });
@@ -220,11 +213,7 @@ namespace Campofinale.Game.Gacha
             }
             else
             {
-                int index = random.Next(0,items.Count); // Miglior randomizzazione
-               //  index = (int)((1 - Math.Pow(random.NextDouble(), 2)) * (items.Count - 1));
-
-                // Se vuoi evitare di prendere spesso i primi 2-3 elementi:
-                // index = (int)Math.Pow(random.NextDouble(), 1.5) * items.Count;
+                int index = random.Next(0,items.Count);
                 if (index > items.Count-1)
                 {
                     index = items.Count-1;

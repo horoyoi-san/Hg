@@ -7,7 +7,6 @@
     using System.Collections.Immutable;
     using System.Linq.Expressions;
     using System.Reflection;
-    using System.Net.Sockets;
     using Campofinale.Protocol;
     using Campofinale.Network;
 
@@ -48,17 +47,23 @@
             s_notifyReqGroup = handlers.ToImmutable();
         }
 
-        public static void Notify(Player session, CsMsgId cmdId, Network.Packet packet)
+        public static async void Notify(Player session, CsMsgId cmdId, Network.Packet packet)
         {
-            if (s_notifyReqGroup.TryGetValue(cmdId, out var handler))
+            await Task.Run(() =>
             {
-                handler.Item2.Invoke(session, ((int)cmdId), packet);
-            }
-            else
-            {
-                if (!Server.hideLog.Contains(cmdId) && Server.config.logOptions.packets)
-                    Logger.PrintWarn($"Can't find handler for {(Enum.GetName(typeof(CsMsgId), cmdId)).ToString().Pastel(Color.FromArgb(165, 229, 250))} ({(cmdId).ToString().Pastel(Color.FromArgb(165, 229, 250))})");
-            }
+
+                if (s_notifyReqGroup.TryGetValue(cmdId, out var handler))
+                {
+
+                    handler.Item2.Invoke(session, ((int)cmdId), packet);
+                }
+                else
+                {
+                    if (!Server.csMessageToHide.Contains(cmdId) && Server.config.logOptions.packets)
+                        Logger.PrintWarn($"Can't find handler for {(Enum.GetName(typeof(CsMsgId), cmdId)).ToString().Pastel(Color.FromArgb(165, 229, 250))} ({(cmdId).ToString().Pastel(Color.FromArgb(165, 229, 250))})");
+                }
+            });
+            
         }
 
         public static void AddReqGroupHandler(Type type)

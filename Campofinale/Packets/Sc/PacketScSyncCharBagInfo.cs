@@ -1,12 +1,5 @@
 ﻿using Campofinale.Network;
 using Campofinale.Protocol;
-using Campofinale.Resource;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campofinale.Packets.Sc
 {
@@ -17,6 +10,7 @@ namespace Campofinale.Packets.Sc
 
             ScSyncCharBagInfo proto = new()
             {
+                
                 ScopeName=1,
                 
                 CharInfo =
@@ -32,7 +26,10 @@ namespace Campofinale.Packets.Sc
                 },
                
             };
-            client.chars.ForEach(c => proto.CharInfo.Add(c.ToProto()));
+            client.chars.ForEach(c =>
+            {
+                proto.CharInfo.Add(c.ToProto());
+            });
             client.teams.ForEach(c =>
             {
                 proto.TeamInfo.Add(new CharTeamInfo()

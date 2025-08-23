@@ -1,21 +1,7 @@
-﻿using BeyondTools.VFS.Crypto;
-using Campofinale.Network;
+﻿using Campofinale.Network;
 using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using Google.Protobuf;
-using Google.Protobuf.WellKnownTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static Campofinale.Resource.ResourceManager;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Campofinale.Packets.Cs
 {

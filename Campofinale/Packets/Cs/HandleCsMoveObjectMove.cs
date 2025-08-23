@@ -1,15 +1,6 @@
 ﻿using Campofinale.Game.Entities;
 using Campofinale.Network;
 using Campofinale.Protocol;
-using Google.Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Packets.Cs
@@ -21,6 +12,7 @@ namespace Campofinale.Packets.Cs
         public static void Handle(Player session, CsMsgId cmdId, Packet packet)
         {
             CsMoveObjectMove req = packet.DecodeBody<CsMoveObjectMove>();
+            if (session.sceneLoadState != Player.SceneLoadState.OK) return;
             foreach (var moveInfo in req.MoveInfo)
             {
               

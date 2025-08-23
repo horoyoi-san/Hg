@@ -1,18 +1,208 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Campofinale.Resource
+﻿namespace Campofinale.Resource
 {
-    public enum MissionState : int// TypeDefIndex: 33630
+    public enum MissionState
     {
         None = 0,
         Available = 1,
         Processing = 2,
         Completed = 3,
         Failed = 4
+    }
+    public enum QuestState
+    {
+    
+        None = 0,
+        Available = 1,
+        Processing = 2,
+        Completed = 3,
+        Failed = 4,
+    }
+    public enum AdventureTaskState
+    {
+        None = 0,
+        Processing = 1,
+        Completed = 2,
+        Rewarded = 3
+    }
+    public enum ConditionType
+    {
+        Combined = 0,
+        NumberOfKills = 1,
+        TotalOfKills = 2,
+        MissionGroupComplete = 3,
+        MissionAvailable = 4,
+        MissionProcessing = 5,
+        MissionCompleted = 6,
+        MissionAction = 7,
+        ReachDestination = 8,
+        NumOfProduceItems = 9,
+        TotalOfProduceItems = 10,
+        GuideFinish = 11,
+        RepairBuilding = 12,
+        TotalOfOrder = 13,
+        BlocLevel = 14,
+        BlocExpFull = 15,
+        CanChangeGold = 16,
+        CharMaxLevel = 17,
+        QuestStateEqual = 18,
+        MissionStateEqual = 19,
+        CheckMissionSucceedId = 20,
+        ItemBagHasItem = 106,
+        PlayerHasItem = 107,
+        CastSkill = 108,
+        DepotHasItem = 109,
+        CheckGetEnoughItem = 110,
+        CheckGetEnoughItemInBag = 111,
+        CheckGetEnoughItemInDepot = 112,
+        FacBuildingConnected = 501,
+        FacBuildingUpgrade = 502,
+        FacBuildingAdded = 503,
+        FacBuildingWorking = 504,
+        FacRepairBuilding = 505,
+        FacProducePowerReach = 511,
+        FacProductivityReach = 512,
+        KillSpecificEnemy = 1000,
+        CheckBaseAndPoleConnected = 1001,
+        CheckBaseAndMinerRunning = 1002,
+        CheckTotalMinerRunning = 1003,
+        CheckInteract = 1004,
+        OnInteract = 1005,
+        CheckInteractiveBool = 1006,
+        CheckPlayerInMap = 1007,
+        CheckInteractiveInt = 1008,
+        SceneCollectionProgress = 2000,
+        CompareProperty = 4000,
+        PlusThenCompareTargetInteractiveProperty = 4001,
+        CheckTriggerSpecificInteractiveEvent = 4002,
+        CheckClientObjectiveCommon = 4003,
+        CompareTargetInteractiveProperty = 4004,
+        HasItemCount = 4501,
+        DungeonKeptTime = 4502,
+        CheckDoodadIsPickable = 5000,
+        CheckDoodadIsBreakable = 5001,
+        CheckInteractiveDestroyed = 5002,
+        CheckUnlockTech = 5003,
+        CheckRepairBuilding = 5004,
+        CheckStorageBoxHasEnoughItem = 5005,
+        CheckBuildingConnected = 5006,
+        CheckBuildingStateInArea = 5007,
+        CheckBuildingConnectedAsMA2SB = 5008,
+        CheckUnlockMultipleTech = 5009,
+        DoFacTradeCashAnyOrder = 5010,
+        CheckSceneAreaUnlocked = 5011,
+        CheckUnlockTechPackage = 5012,
+        CheckUnlockTechLayer = 5013,
+        FacBuildingCountInScene = 5014,
+        FacBuildingProducingCountInScene = 5015,
+        FacProducingFormulaCountInScene = 5016,
+        FacStatisticItemGenRate = 5017,
+        FacStatisticItemGen = 5018,
+        FacPowerCostSum = 5019,
+        FacBoxConveyorLengthSum = 5020,
+        FacStorageBoxHasItems = 5021,
+        CheckSpaceshipRoomLevel = 5022,
+        CheckAdventureLevel = 5023,
+        CheckShopNothingToBuy = 5024,
+        CheckLiquidInBag = 5025,
+        SettlementCheckExpEnoughToLevelup = 5026,
+        CheckBuildingConnectedSpecify = 5027,
+        CheckSpaceshipRoomUnlock = 5028,
+        CheckSpaceshipRoomBuilt = 5029,
+        CheckSpaceshipRoomStationCount = 5030,
+        CheckPassGameMechanicsId = 5031,
+        FacBuildingFluidContainerHasItem = 5032,
+        CheckFacSoilHarvest = 5033,
+        CheckFacBuildingState = 5034,
+        FacBattleBuildingCurEnergy = 5035,
+        CheckSpaceshipGrowCabinHarvest = 5036,
+        CheckGameInstCompletionStatus = 5037,
+        CheckItemGot = 5038,
+        CheckBuildingConnectedExist = 5039,
+        CheckFacSoilPlacedInPanel = 5040,
+        CheckWeaponGachaPoolIsOpen = 5041,
+        CheckShopGoodsIsSoldOut = 5042,
+        CheckPassedGameMechanicsNum = 5044,
+        CheckSettlementLevelSum = 5045,
+        CheckInteractiveLock = 5244,
+        CheckRichContentReadingDone = 5245,
+        CheckInteractiveSubmitSuccess = 5246,
+        CheckInteractiveNextAvailableTime = 5247,
+        CheckMonsterSpawnerComplete = 5248,
+        CheckItemBagCanPutIn = 5249,
+        CheckFluidVolume = 5250,
+        CheckGreaterWeapeonStageNum = 5251,
+        CheckRoleCreateTime = 5252,
+        CheckSceneGrade = 5253,
+        CheckUnlockGroupTechNum = 5254,
+        CheckCharSkillLevel = 5255,
+        CheckCharUnlockBreakTalentId = 5256,
+        CheckFactoryBlackBoxStateNum = 5257,
+        CheckDungeonTypePassNum = 5258,
+        CheckEquipTierLevelNumCharNum = 5259,
+        CheckInteractiveIsActivable = 5260,
+        CheckInteractiveIsActived = 5261,
+        CheckSceneScope = 5262,
+        CheckGameInstStartDuration = 5263,
+        CheckPlayerInDungeon = 5264,
+        CheckCharUnlock = 5265,
+        CheckCharFavorability = 5266,
+        CheckEtherSubmitCount = 5267,
+        CheckTDStart = 5600,
+        CheckTDSettlement = 5601,
+        CheckPanelOpen = 6000,
+        CheckQuestSubmitItem = 6001,
+        CheckLevelScriptProperty = 6002,
+        CheckRepeatableTalkFinish = 6003,
+        KillEnemyIdList = 6004,
+        CheckCompletedBlocMissionNum = 6005,
+        CheckSceneCollectionNum = 6006,
+        CheckPRTSCollectionUnlock = 6007,
+        CheckCostStamina = 6008,
+        CheckTmpShopAlreadyBuyCount = 6009,
+        CheckInPowerMinerCount = 6010,
+        CheckTimestamp = 6011,
+        CheckMissionProperty = 6012,
+        CheckProperty = 6015,
+        CheckClientGameVar = 6016,
+        CheckServerGameVar = 6017,
+        CheckPlayerHasEnoughItemList = 6018,
+        CheckMiniGameCompletedCount = 6019,
+        CheckMonsterKilledNum = 6020,
+        CheckTerminalReadingDone = 6021,
+        CheckScriptTaskStateEqual = 6022,
+        CheckFactoryBlackBoxState = 6023,
+        CheckTeamMemberNumberEven = 6024,
+        CheckDaysNumAfterMissionComplete = 6025,
+        CheckTimelineFinish = 6026,
+        CheckFmvFinish = 6027,
+        CheckRemoteCommFinish = 6028,
+        CheckTalkFinish = 6029,
+        CheckPrtsInvestigateFinish = 6030,
+        CheckSNSDialogComplete = 6500,
+        CheckSNSDialogContent = 6501,
+        CheckGreaterCharLevelNum = 6502,
+        CheckGreaterWeapeonLevelNum = 6503,
+        CheckGreaterCharStageNum = 6504,
+        CheckGreaterCharPotentialNum = 6505,
+        CheckGreaterSettlementLevelNum = 6506,
+        CheckStatisticVal = 6507,
+        ClientOnly = 9999,
+        SystemUnlocked = 10000,
+        None = 2147483647
+    }
+    public enum AdventureTaskType
+    {
+        None = 0,
+        Daily = 1,
+        AdventureBook = 2
+    }
+    public enum LevelScriptState 
+    {
+        None = 0,
+        Disabled = 1,
+        Enabled = 2,
+        Active = 3,
+        Running = 4
     }
     public enum InteractiveComponentType
     {
@@ -347,13 +537,6 @@ namespace Campofinale.Resource
         KeyStepFinish = 2,
         Completed = 3
     }
-    public enum AdventureTaskState // TypeDefIndex: 33702
-    {
-        None = 0,
-        Processing = 1,
-        Completed = 2,
-        Rewarded = 3
-    }
     public enum EntryState // TypeDefIndex: 24402
     {
         Empty = 0,
@@ -361,12 +544,6 @@ namespace Campofinale.Resource
         SameMap = 2,
         LevelLoaded = 3,
         Invalid = 4
-    }
-    public enum AdventureTaskType // TypeDefIndex: 33687
-    {
-        None = 0,
-        Daily = 1,
-        AdventureBook = 2
     }
     public enum ItemStorageSpace // TypeDefIndex: 33575
     {

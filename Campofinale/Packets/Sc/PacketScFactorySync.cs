@@ -1,6 +1,5 @@
 ﻿using Campofinale.Network;
 using Campofinale.Protocol;
-using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Packets.Sc
 {

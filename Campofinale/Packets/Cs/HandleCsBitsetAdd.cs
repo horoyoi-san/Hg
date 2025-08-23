@@ -1,17 +1,7 @@
-﻿using Campofinale.Game.Character;
-using Campofinale.Network;
+﻿using Campofinale.Network;
 using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using Google.Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Campofinale.Packets.Cs
 {
@@ -26,7 +16,7 @@ namespace Campofinale.Packets.Cs
             {
                 session.bitsetManager.AddValue((BitsetType)req.Type, (int)item);
             }
-            session.Send(new PacketScBitsetAdd(session,req.Type,req.Value.ToList()));    
+            session.Send(new PacketScBitsetAdd(session,req.Type,req.Value.ToList()),packet.csHead.UpSeqid);    
 
         }
        

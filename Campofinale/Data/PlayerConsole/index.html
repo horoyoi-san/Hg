@@ -154,7 +154,7 @@
 
             try {
                 const url = new URL('%dispatchip%/pcSdk/console');
-                url.searchParams.append('command', command);
+                url.searchParams.append('command', btoa(unescape(encodeURIComponent(command))));
                 url.searchParams.append('token', token);
 
                 const response = await fetch(url.toString(), {

@@ -1,11 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Campofinale.Resource.ResourceManager;
 using MongoDB.Bson.Serialization.IdGenerators;
 using Campofinale.Resource;
 
@@ -46,6 +40,7 @@ namespace Campofinale.Game.Spaceship
                 IsWorking = isWorking,
                 PhysicalStrength = physicalStrength,
                 StationedRoomId = stationedRoomId,
+                
                 Skills =
                 {
                     new ScdSpaceshipCharSkill()

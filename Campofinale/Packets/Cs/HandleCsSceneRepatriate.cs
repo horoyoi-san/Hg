@@ -1,6 +1,7 @@
 ﻿using Campofinale.Network;
 using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
+using Campofinale.Resource;
 
 namespace Campofinale.Packets.Cs
 {
@@ -31,6 +32,7 @@ namespace Campofinale.Packets.Cs
             }
             // Not correctly fixed, need to find the issue - SuikoAkari
             // No idea how pass_through_data is used, it's not part of the packet sent by the official server
+            session.Send(new PacketScSelfSceneInfo(session, SelfInfoReasonType.SlrReviveRest));
             session.Send(ScMsgId.ScSceneRepatriate, new ScSceneRepatriate()
             {
                 SceneNumId = session.savedSaveZone.sceneNumId,

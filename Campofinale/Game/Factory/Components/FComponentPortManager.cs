@@ -1,9 +1,4 @@
 ﻿using Campofinale.Resource;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Campofinale.Game.Factory.FactoryNode;
 
 namespace Campofinale.Game.Factory.Components
@@ -40,9 +35,45 @@ namespace Campofinale.Game.Factory.Components
                 });
             }
         }
-
+        public FComponentPortManager(uint id, int size) : base(id, FCComponentType.PortManager)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                ports.Add(new FPort()
+                {
+                    index = i,
+                    ownerComId = 0,
+                    touchComId = 0
+                });
+            }
+        }
+        public FComponentPortManager(uint id, int size, FComponentCache cache) : base(id, FCComponentType.PortManager)
+        {
+            if( cache.customPos == FCComponentPos.CacheIn1 ||
+                cache.customPos == FCComponentPos.CacheIn2 ||
+                cache.customPos == FCComponentPos.CacheIn3 ||
+                cache.customPos == FCComponentPos.CacheIn4)
+            {
+                customPos = FCComponentPos.PortInManager;
+            }
+            else
+            {
+                customPos = FCComponentPos.PortOutManager;
+            }
+            
+            for (int i = 0; i < size; i++)
+            {
+                ports.Add(new FPort()
+                {
+                    index = i,
+                    ownerComId = cache.compId,
+                    touchComId = 0
+                });
+            }
+        }
         public override void SetComponentInfo(ScdFacCom proto)
         {
+
             proto.PortManager = new();
             foreach(FPort port in ports)
             {

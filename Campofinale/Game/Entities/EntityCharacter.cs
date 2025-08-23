@@ -1,10 +1,4 @@
-﻿using Campofinale.Game.Character;
-using Campofinale.Protocol;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Campofinale.Protocol;
 using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Game.Entities
@@ -104,7 +98,7 @@ namespace Campofinale.Game.Entities
             GetOwner().Send(ScMsgId.ScCharSyncStatus, state);
             GetOwner().Send(ScMsgId.ScEntityPropertyChange, prop);
         }
-        public Character.Character GetChar()
+        public Char.Character GetChar()
         {
             return GetOwner().chars.Find(c => c.guid == guid);
         }

@@ -1,16 +1,6 @@
-﻿using Campofinale.Game;
-using Campofinale.Game.Entities;
+﻿using Campofinale.Game.Entities;
 using Campofinale.Network;
 using Campofinale.Protocol;
-using Google.Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Packets.Cs
@@ -22,7 +12,12 @@ namespace Campofinale.Packets.Cs
         public static void Handle(Player session, CsMsgId cmdId, Packet packet)
         {
             CsSceneSetSafeZone req = packet.DecodeBody<CsSceneSetSafeZone>();
-
+            ScSceneSetSafeZone rsp = new()
+            {
+                Id = req.Id,
+                InZone = req.InZone,
+            };
+            session.Send(ScMsgId.ScSceneSetSafeZone, rsp);
             if (req.InZone)
             {
                 var entity = session.sceneManager.GetEntity(req.Id) as EntityInteractive;

@@ -1,20 +1,9 @@
 ﻿using Campofinale.Protocol;
 using Google.Protobuf;
 using Pastel;
-using System;
-using System.Buffers.Binary;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Campofinale.Network
 {
@@ -61,6 +50,11 @@ namespace Campofinale.Network
             byte networkValue = buf[index];
             return networkValue;
         }
+        /// <summary>
+        /// Parse the body using a specific IMessage proto class
+        /// </summary>
+        /// <typeparam name="TBody"></typeparam>
+        /// <returns></returns>
         public TBody DecodeBody<TBody>() where TBody : IMessage<TBody>, new()
         {
             return new MessageParser<TBody>(() => new()).ParseFrom(finishedBody);
@@ -76,35 +70,10 @@ namespace Campofinale.Network
 
             Buffer.BlockCopy(source, 0, destination, offset, source.Length);
         }
-        public static byte[] ToByteArray(IntPtr ptr, int length)
-        {
-            if (ptr == IntPtr.Zero)
-            {
-                throw new ArgumentException("Pointer cannot be null", nameof(ptr));
-            }
-
-            byte[] byteArray = new byte[length];
-            Marshal.Copy(ptr, byteArray, 0, length);
-            return byteArray;
-        }
-        public static IntPtr ByteArrayToIntPtr(byte[] data)
-        {
-            if (data == null) throw new ArgumentNullException(nameof(data));
-
-            // Allocate unmanaged memory
-            IntPtr ptr = Marshal.AllocHGlobal(data.Length);
-
-            // Copy the byte array to the unmanaged memory
-            Marshal.Copy(data, 0, ptr, data.Length);
-
-            return ptr;
-        }
         public static byte[] EncryptWithPublicKey(byte[] data, string publicKey)
         {
-            // Crea un oggetto RSA
             using (RSA rsa = RSA.Create())
             {
-
                 publicKey = publicKey.Replace("-----BEGIN PUBLIC KEY-----", "");
                 publicKey = publicKey.Replace("\r", "");
                 publicKey = publicKey.Replace("\n", "");
@@ -112,24 +81,44 @@ namespace Campofinale.Network
                 publicKey = publicKey.Trim();
                 Logger.Print(publicKey);
                 byte[] publicKey_ = Convert.FromBase64String(publicKey);
-                // Importa la chiave pubblica
                 rsa.ImportSubjectPublicKeyInfo(publicKey_, out _);
-
-                // Crittografa i dati
                 return rsa.Encrypt(data, RSAEncryptionPadding.OaepSHA256);
             }
         }
+        /// <summary>
+        /// Set the data of the packet with the Message Id and the body
+        /// </summary>
+        /// <param name="msgId"></param>
+        /// <param name="body">The proto message</param>
+        /// <returns>The current Packet</returns>
         public Packet SetData(ScMsgId msgId, IMessage body)
         {
             set_body = body;
             cmdId = (int)msgId;
             return this;
         }
+        /// <summary>
+        /// Encode the packet using the Packet class
+        /// </summary>
+        /// <param name="packet">The packet</param>
+        /// <param name="seq">the sequence id</param>
+        /// <param name="totalPackCount">the pack count</param>
+        /// <param name="currentPackIndex"></param>
+        /// <returns></returns>
         public static byte[] EncodePacket(Packet packet,ulong seq = 0, uint totalPackCount = 1, uint currentPackIndex = 0)
         {
             return EncodePacket(packet.cmdId,packet.set_body,seq, totalPackCount, currentPackIndex);
         }
         public static ulong seqNext = 1;
+        /// <summary>
+        /// Encode the packet using the msgId and the body
+        /// </summary>
+        /// <param name="msgId"></param>
+        /// <param name="body"></param>
+        /// <param name="seqNext_"></param>
+        /// <param name="totalPackCount"></param>
+        /// <param name="currentPackIndex"></param>
+        /// <returns></returns>
         public static byte[] EncodePacket(int msgId, IMessage body, ulong seqNext_ = 0, uint totalPackCount=1,uint currentPackIndex=0)
         {
             if (seqNext_ == 0)
@@ -145,10 +134,19 @@ namespace Campofinale.Network
             PutByteArray(data, head.ToByteArray(), 3);
             PutByteArray(data, body.ToByteArray(), 3+head.ToByteArray().Length);
             if(Server.config.logOptions.packets && !Server.scMessageToHide.Contains((ScMsgId)msgId))
-                Logger.Print($"Sending packet: {((ScMsgId)msgId).ToString().Pastel(Color.LightBlue)} id: {msgId} with {data.Length} bytes");
+                Logger.Print($"Sending Packet: {((ScMsgId)msgId).ToString().Pastel(Color.LightBlue)} Id: {msgId} with {data.Length} Bytes");
 
             return data;
         }
+        /// <summary>
+        /// Encode the packet with msgId and body as byte array
+        /// </summary>
+        /// <param name="msgId"></param>
+        /// <param name="body"></param>
+        /// <param name="seqNext_"></param>
+        /// <param name="totalPackCount"></param>
+        /// <param name="currentPackIndex"></param>
+        /// <returns></returns>
         public static byte[] EncodePacket(int msgId, byte[] body, ulong seqNext_ = 0, uint totalPackCount = 1, uint currentPackIndex = 0)
         {
             if (seqNext_ == 0)
@@ -167,11 +165,18 @@ namespace Campofinale.Network
             PutUInt16(data, (ushort)body.Length, 1);
             PutByteArray(data, head.ToByteArray(), 3);
             PutByteArray(data, body, 3 + head.ToByteArray().Length);
+            if(Server.config!=null)
             if (Server.config.logOptions.packets && !Server.scMessageToHide.Contains((ScMsgId)msgId))
-                Logger.Print($"Sending packet: {((ScMsgId)msgId).ToString().Pastel(Color.LightBlue)} id: {msgId} with {data.Length} bytes");
+                Logger.Print($"Sending Packet: {((ScMsgId)msgId).ToString().Pastel(Color.LightBlue)} Id: {msgId} with {data.Length} Bytes");
 
             return data;
         }
+        /// <summary>
+        /// Read the byteArray as a valid packet
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="byteArray"></param>
+        /// <returns>The decoded packet</returns>
         public static Packet Read(Player client,byte[] byteArray)
         {
             byte headLength = GetByte(byteArray, 0);
@@ -182,12 +187,34 @@ namespace Campofinale.Network
             Array.Copy(byteArray, 3, csHeadBytes, 0, headLength);
             Array.Copy(byteArray, 3+ headLength, BodyBytes, 0, bodyLength);
             CSHead csHead_ = CSHead.Parser.ParseFrom(csHeadBytes);
-            if (Server.config.logOptions.packets)
+            /*if (Server.config.logOptions.packets && !Server.csMessageToHide.Contains((CsMsgId)csHead_.Msgid))
             {
                 Logger.Print(csHead_.ToString());
-            }
+            }*/
             seqNext = csHead_.UpSeqid;
             return new Packet() { csHead = csHead_, finishedBody = BodyBytes,cmdId=csHead_.Msgid };
+        }
+        /// <summary>
+        /// Read the byteArray as a valid packet
+        /// </summary>
+        /// <param name="byteArray"></param>
+        /// <returns>The decoded packet</returns>
+        public static Packet Read(byte[] byteArray)
+        {
+            byte headLength = GetByte(byteArray, 0);
+            ushort bodyLength = GetUInt16(byteArray, 1);
+
+            byte[] csHeadBytes = new byte[headLength];
+            byte[] BodyBytes = new byte[bodyLength];
+            Array.Copy(byteArray, 3, csHeadBytes, 0, headLength);
+            Array.Copy(byteArray, 3 + headLength, BodyBytes, 0, bodyLength);
+            CSHead csHead_ = CSHead.Parser.ParseFrom(csHeadBytes);
+            /*if (Server.config.logOptions.packets && !Server.csMessageToHide.Contains((CsMsgId)csHead_.Msgid))
+            {
+                Logger.Print(csHead_.ToString());
+            }*/
+            seqNext = csHead_.UpSeqid;
+            return new Packet() { csHead = csHead_, finishedBody = BodyBytes, cmdId = csHead_.Msgid };
         }
     }
 }

@@ -24,5 +24,5 @@
 | idlist    | 显示所有角色(chars)、敌人(enemies)和场景(scenes)的id | `<chars\|enemies\|scenes>`              | 否                 | idlist `<chars\|enemies\|scenes>`           | idlist chars              |
 
 ---
-> [!WARNING]警告
+> [!WARNING]
 > `level` 指令: 如果你没有指定具体的`id`字段, 那么等级变化将会被应用在**所有**武器和干员身上

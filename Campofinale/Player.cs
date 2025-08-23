@@ -1,19 +1,9 @@
-﻿
-using Campofinale.Network;
+﻿using Campofinale.Network;
 using Campofinale.Protocol;
 using Google.Protobuf;
-using Google.Protobuf.Collections;
-using Pastel;
-using SQLite;
-using SQLiteNetExtensions.Attributes;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using MongoDB.Bson.Serialization.Attributes;
-using System.Reflection;
 using System.Net.Sockets;
 using Campofinale.Packets.Sc;
-using Campofinale.Game.Character;
+using Campofinale.Game.Char;
 using Campofinale.Resource;
 using Campofinale.Game.Inventory;
 using static Campofinale.Resource.ResourceManager;
@@ -23,6 +13,11 @@ using Campofinale.Game.Gacha;
 using Campofinale.Game.Spaceship;
 using Campofinale.Game.Dungeons;
 using Campofinale.Game.Factory;
+using Campofinale.Game.MissionSys;
+using Pastel;
+using System.Drawing;
+using Campofinale.Game.Adventure;
+using static Campofinale.Player;
 
 
 namespace Campofinale
@@ -88,7 +83,8 @@ namespace Campofinale
         //Data
         public string accountId = "";
         public string nickname = "Endministrator";
-        public ulong roleId= 1;
+        public ulong roleId = 1;
+        public Gender gender = Gender.GenFemale;
         public uint level = 20;
         public uint xp = 0;
         //
@@ -103,14 +99,17 @@ namespace Campofinale
         public GachaManager gachaManager;
         public BitsetManager bitsetManager;
         public FactoryManager factoryManager;
+        public MissionSystem missionSystem;
+        public AdventureBookManager adventureBookManager;
         public int teamIndex = 0;
-        public List<Team> teams= new List<Team>();
+        public List<Team> teams = new List<Team>();
         public List<Mail> mails = new List<Mail>();
         public List<int> unlockedSystems = new();
         public List<ulong> noSpawnAnymore = new();
         public long maxDashEnergy = 250;
         public uint curStamina = 10;
         public long nextRecoverTime = 0;
+        public long nextDailyReset = 0;
         public Dungeon currentDungeon;
         public PlayerSafeZoneInfo savedSaveZone;
         
@@ -132,6 +131,8 @@ namespace Campofinale
             gachaManager = new(this);
             spaceshipManager = new(this);   
             factoryManager = new(this);
+            missionSystem = new(this);
+            adventureBookManager = new(this);
             receivorThread = new Thread(new ThreadStart(Receive));
            
         }
@@ -139,7 +140,7 @@ namespace Campofinale
         {
             return chars.FindAll(c=> teams[teamIndex].members.Contains(c.guid));
         }
-        public void Load(string accountId)
+        public bool Load(string accountId)
         {
             this.accountId = accountId;
             PlayerData data = DatabaseManager.db.GetPlayerById(this.accountId);
@@ -161,56 +162,146 @@ namespace Campofinale
                 maxDashEnergy = data.maxDashEnergy;
                 curStamina = data.curStamina;
                 nextRecoverTime=data.nextRecoverTime;
+                if (data.gender > 0) gender = data.gender;
+                
                 LoadCharacters();
                 mails = DatabaseManager.db.LoadMails(roleId);
                 inventoryManager.Load();
+                if (data.bag != null) inventoryManager.items.bag = data.bag;
                 spaceshipManager.Load();
                 if (data.scenes != null)
                 {
                     sceneManager.scenes = data.scenes;
                 }
+                nextDailyReset = data.nextDailyReset;
                 bitsetManager.Load(data.bitsets);
                 savedSaveZone = data.savedSafeZone;
+                if(Server.config.serverOptions.missionsEnabled) missionSystem.Load();
             }
             else
             {
                 Initialize(); //only if no account found
             }
+            adventureBookManager.Load();
             sceneManager.Load();
             factoryManager.Load();
+            return (data != null);
         }
         public void LoadCharacters()
         {
             chars = DatabaseManager.db.LoadCharacters(roleId);
         }
-        //Added in 1.0.7
+        /// <summary>
+        /// Get the character using the guid *Added in 1.0.7*
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public Character GetCharacter(ulong guid)
         {
             return chars.Find(c => c.guid == guid);
         }
-        
+        /// <summary>
+        /// Get the character using the template id
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns>Character</returns>
         public Character GetCharacter(string templateId)
         {
             return chars.Find(c => c.id==templateId);
         }
+        /// <summary>
+        /// Add a character with template id if not present in the chars list *Added in 1.1.6*
+        /// </summary>
+        /// <param name="id"></param>
+        public Character AddCharacter(string id, bool notify = false)
+        {
+            Character chara = GetCharacter(id);
+            if (chara == null)
+            {
+                chara = new Character(roleId, id, 1);
+                chars.Add(chara);
+                if (notify)
+                {
+                    Send(new PacketScCharBagAddChar(this,chara));
+                }
+            }
+            return chara;
+        }
+        /// <summary>
+        /// Add a character with template id and level if not present in the chars list *Added in 1.1.6*
+        /// </summary>
+        /// <param name="id"></param>
+        public Character AddCharacter(string id, int level, bool notify = false)
+        {
+            Character chara = GetCharacter(id);
+            if (chara == null)
+            {
+                chara = new Character(roleId, id, level);
+                chars.Add(chara);
+                if (notify)
+                {
+                    Send(new PacketScCharBagAddChar(this, chara));
+                }
+            }
+            return chara;
+        }
+        /// <summary>
+        /// Remove a character using template id *Added in 1.1.6*
+        /// </summary>
+        /// <param name="id"></param>
+        public void RemoveCharacter(string id)
+        {
+            Character chara = GetCharacter(id);
+            if (chara == null)
+            {
+                return;
+            }
+            chars.Remove(chara);
+            Send(new PacketScCharBagDelChar(this,chara));
+        }
+        public void ReplaceCharacter(string id, string newId)
+        {
+            Character chara = GetCharacter(id);
+            if (chara == null)
+            {
+                return;
+            }
+            chara.id = newId;
+            Send(new PacketScSyncCharBagInfo(this));
+        }
         public void Initialize()
         {
-            foreach (var item in ResourceManager.characterTable)
+            if (Server.config.serverOptions.missionsEnabled)
             {
-                chars.Add(new Character(roleId,item.Key,20));
+                chars.Add(new Character(roleId, "chr_0002_endminm", 1));
+                missionSystem.AddMission("e0m0", MissionState.Processing);
             }
-            foreach(var item in itemTable)
+            else
             {
-                if(item.Value.maxStackCount == -1)
+                foreach (var item in ResourceManager.characterTable)
                 {
-                    inventoryManager.items.Add(new Item(roleId, item.Value.id, 10000000));
+                    chars.Add(new Character(roleId, item.Key, 1));
                 }
-                else
-                {
-                    inventoryManager.items.Add(new Item(roleId, item.Value.id, item.Value.maxStackCount));
-                }
-                
+                UnlockImportantSystems();
             }
+            if (Server.config.serverOptions.giveAllItems)
+            {
+                foreach (var item in itemTable)
+                {
+                    if (item.Value.GetStorage() != ItemStorageSpace.BagAndFactoryDepot)
+                    {
+                        if (item.Value.maxStackCount == -1)
+                        {
+                            inventoryManager.items.Add(new Item(roleId, item.Value.id, 10000000));
+                        }
+                        else
+                        {
+                            inventoryManager.items.Add(new Item(roleId, item.Value.id, item.Value.maxStackCount));
+                        }
+                    }
+                }
+            }
+            
             teams.Add(new Team()
             {
                 leader = chars[0].guid,
@@ -221,91 +312,11 @@ namespace Campofinale
             teams.Add(new Team());
             teams.Add(new Team());
             bitsetManager.Load(new Dictionary<int, List<int>>());
-            /*mails.Add(new Mail()
-            {
-                expireTime=DateTime.UtcNow.AddDays(30).Ticks,
-                sendTime=DateTime.UtcNow.Ticks,
-                claimed=false,
-                guid=random.Next(),
-                owner=roleId,
-                isRead=false,
-                content=new Mail_Content()
-                {
-                    content= "Welcome to Campofinale, Join our Discord for help: https://discord.gg/5uJGJJEFHa",
-                    senderName="SuikoAkari",
-                    title="Welcome",
-                    templateId="",
-                }
 
-            });*/
-
-            UnlockImportantSystems();
             spaceshipManager.Load();
         }
         public void UnlockImportantSystems()
         {
-            /*unlockedSystems.Add((int)UnlockSystemType.Watch);
-            unlockedSystems.Add((int)UnlockSystemType.Weapon);
-            unlockedSystems.Add((int)UnlockSystemType.Equip);
-            unlockedSystems.Add((int)UnlockSystemType.EquipEnhance);
-            unlockedSystems.Add((int)UnlockSystemType.NormalAttack);
-            unlockedSystems.Add((int)UnlockSystemType.NormalSkill);
-            unlockedSystems.Add((int)UnlockSystemType.UltimateSkill);
-            unlockedSystems.Add((int)UnlockSystemType.TeamSkill);
-            unlockedSystems.Add((int)UnlockSystemType.ComboSkill);
-            unlockedSystems.Add((int)UnlockSystemType.TeamSwitch);
-            unlockedSystems.Add((int)UnlockSystemType.Dash);
-            unlockedSystems.Add((int)UnlockSystemType.Jump);
-            unlockedSystems.Add((int)UnlockSystemType.Friend);
-            unlockedSystems.Add((int)UnlockSystemType.SNS);
-            unlockedSystems.Add((int)UnlockSystemType.Settlement);
-            unlockedSystems.Add((int)UnlockSystemType.Map);
-
-            unlockedSystems.Add((int)UnlockSystemType.FacTechTree);
-            unlockedSystems.Add((int)UnlockSystemType.FacZone);
-            unlockedSystems.Add((int)UnlockSystemType.FacSplitter);
-            unlockedSystems.Add((int)UnlockSystemType.FacConveyor);
-            unlockedSystems.Add((int)UnlockSystemType.FacBridge);
-            unlockedSystems.Add((int)UnlockSystemType.FacPipe);
-            unlockedSystems.Add((int)UnlockSystemType.FacBuildingPin);
-            unlockedSystems.Add((int)UnlockSystemType.FacBUS);
-            unlockedSystems.Add((int)UnlockSystemType.FacPipeConnector);
-            unlockedSystems.Add((int)UnlockSystemType.FacOverview);
-            unlockedSystems.Add((int)UnlockSystemType.FacCraftPin);
-            unlockedSystems.Add((int)UnlockSystemType.FacMerger);
-            unlockedSystems.Add((int)UnlockSystemType.FacYieldStats);
-            unlockedSystems.Add((int)UnlockSystemType.FacTransferPort);
-            unlockedSystems.Add((int)UnlockSystemType.FacHub);
-            unlockedSystems.Add((int)UnlockSystemType.FacMode);
-            unlockedSystems.Add((int)UnlockSystemType.FacSystem);
-            unlockedSystems.Add((int)UnlockSystemType.FacPipeSplitter);
-            unlockedSystems.Add((int)UnlockSystemType.FacPipeConverger);
-            unlockedSystems.Add((int)UnlockSystemType.AdventureBook);
-            unlockedSystems.Add((int)UnlockSystemType.CharUI);
-            unlockedSystems.Add((int)UnlockSystemType.EquipProduce);
-            unlockedSystems.Add((int)UnlockSystemType.EquipTech);
-            unlockedSystems.Add((int)UnlockSystemType.Gacha);
-            unlockedSystems.Add((int)UnlockSystemType.Inventory);
-            unlockedSystems.Add((int)UnlockSystemType.ItemQuickBar);
-            unlockedSystems.Add((int)UnlockSystemType.ItemSubmitRecycle);
-            unlockedSystems.Add((int)UnlockSystemType.ItemUse);
-            unlockedSystems.Add((int)UnlockSystemType.Mail);
-            unlockedSystems.Add((int)UnlockSystemType.ValuableDepot);
-            unlockedSystems.Add((int)UnlockSystemType.Wiki);
-            unlockedSystems.Add((int)UnlockSystemType.AIBark);
-            unlockedSystems.Add((int)UnlockSystemType.AdventureExpAndLv);
-            unlockedSystems.Add((int)UnlockSystemType.CharTeam);
-            
-            
-            unlockedSystems.Add((int)UnlockSystemType.SpaceshipSystem);
-            unlockedSystems.Add((int)UnlockSystemType.SpaceshipControlCenter);
-            
-            unlockedSystems.Add((int)UnlockSystemType.PRTS);
-            unlockedSystems.Add((int)UnlockSystemType.Dungeon);
-            unlockedSystems.Add((int)UnlockSystemType.RacingDungeon);
-            unlockedSystems.Add((int)UnlockSystemType.CheckIn);
-            unlockedSystems.Add((int)UnlockSystemType.SubmitEther);*/
-            
             foreach(UnlockSystemType type in Enum.GetValues(typeof(UnlockSystemType)))
             {
                 unlockedSystems.Add((int)type);
@@ -319,9 +330,7 @@ namespace Campofinale
             }
             else
             {
-                //sceneManager.UnloadCurrent(false);
-                //sceneManager.LoadCurrent();
-                LoadFinish = false;
+                sceneLoadState = SceneLoadState.Loading;
                 Send(new PacketScEnterSceneNotify(this, curSceneNumId));
             }
             if (savedSaveZone == null || savedSaveZone.sceneNumId == 0)
@@ -334,7 +343,13 @@ namespace Campofinale
                 };
             }
         }
-        public bool LoadFinish = true;
+        public enum SceneLoadState
+        {
+            OK=0,
+            Loading=1,
+
+        }
+        public SceneLoadState sceneLoadState=0;
         public void EnterScene(int sceneNumId, Vector3f pos, Vector3f rot, PassThroughData passThroughData = null)
         {
            // if (!LoadFinish) return;
@@ -353,13 +368,44 @@ namespace Campofinale
                 curSceneNumId = sceneNumId;
                 position = pos;
                 rotation = rot;
-                LoadFinish = false;
+                sceneLoadState = SceneLoadState.Loading;
                 Send(new PacketScEnterSceneNotify(this, sceneNumId, pos, passThroughData));
                 //sceneManager.LoadCurrent();
             }
             else
             {
                 Logger.PrintError($"Scene {sceneNumId} not found");
+            }
+        }
+        /// <summary>
+        /// Seamless Crossing scene is not working, self scene info is not modifying the current scene num id in the client...
+        /// </summary>
+        /// <param name="sceneNumId"></param>
+        public void SeamlessEnterScene(int sceneNumId)
+        {
+            if(curSceneNumId != sceneNumId && sceneLoadState == SceneLoadState.OK)
+            {
+                sceneLoadState=SceneLoadState.Loading;
+                curSceneNumId = sceneNumId;
+                Send(new PacketScSelfSceneInfo(this, SelfInfoReasonType.SlrSeamlesslyEnterScene));
+                ScFactoryModifyChapterScene modify = new()
+                {
+                    ChapterId=GetCurrentChapter(),
+                    SceneId=sceneNumId,
+                    Tms=DateTime.UtcNow.ToUnixTimestampMilliseconds()
+                };
+                Send(ScMsgId.ScFactoryModifyChapterScene, modify);
+                ScSceneCrossSceneStatus cross = new()
+                {
+                    ObjId = teams[teamIndex].leader,
+                    SceneNumId = curSceneNumId
+                };
+                Send(ScMsgId.ScSceneCrossSceneStatus, cross);
+                
+               
+                sceneManager.LoadCurrentTeamEntities();
+                sceneManager.LoadCurrent();
+                sceneLoadState = SceneLoadState.OK;
             }
         }
         public void EnterScene(int sceneNumId)
@@ -382,7 +428,7 @@ namespace Campofinale
                 position = GetLevelData(sceneNumId).playerInitPos;
                 rotation = GetLevelData(sceneNumId).playerInitRot;
                 // sceneManager.LoadCurrent();
-                LoadFinish = false;
+                sceneLoadState = SceneLoadState.Loading;
                 Send(new PacketScEnterSceneNotify(this, sceneNumId));
                 
             }
@@ -413,7 +459,7 @@ namespace Campofinale
         {
             Send(Packet.EncodePacket((int)id, mes, seq, totalPackCount, currentPackIndex));
         }
-        public void Send(Packet packet)
+        public async void Send(Packet packet)
         {
             byte[] datas = packet.set_body.ToByteArray();
             int maxChunkSize = 65535;
@@ -440,11 +486,11 @@ namespace Campofinale
                 Send(Packet.EncodePacket(packet.cmdId, data, seqNext, (uint)chunks.Count, (uint)i));
             }
         }
-        public void Send(byte[] data)
+        public async void Send(byte[] data)
         {
             try
             {
-                socket.Send(data);
+                await socket.SendAsync(data);
             }
             catch (Exception e)
             {
@@ -483,8 +529,9 @@ namespace Campofinale
 
                             if (Server.config.logOptions.packets && !Server.csMessageToHide.Contains((CsMsgId)packet.csHead.Msgid))
                             {
-                                Logger.Print("CmdId: " + (CsMsgId)packet.csHead.Msgid);
-                                Logger.Print(BitConverter.ToString(packet.finishedBody).Replace("-", string.Empty).ToLower());
+                                Logger.Print("Recieved Packet: " + ((CsMsgId)packet.csHead.Msgid).ToString().Pastel(Color.LightCyan) + $" Id: {packet.csHead.Msgid} with {packet.finishedBody.Length} Bytes");
+                                if (Server.config.logOptions.packetBodies)
+                                    Logger.Print(BitConverter.ToString(packet.finishedBody).Replace("-", string.Empty).ToLower());
                             }
                            
                             try
@@ -505,15 +552,10 @@ namespace Campofinale
             {
 
             }
-            
-
-
-
             Disconnect();
         }
         public void Kick(CODE code, string optionalMsg="")
         {
-
             Send(ScMsgId.ScNtfErrorCode, new ScNtfErrorCode()
             {
                 Details = optionalMsg,
@@ -538,8 +580,6 @@ namespace Campofinale
                 Logger.Print($"{nickname} Disconnected");
                 socket.Disconnect(false);
             }
-            
-            
         }
         public void Save()
         {
@@ -548,12 +588,16 @@ namespace Campofinale
             DatabaseManager.db.SavePlayerData(this);
             inventoryManager.Save();
             spaceshipManager.Save();
+            adventureBookManager.Save();
+            factoryManager.Save();
+            if(Server.config.serverOptions.missionsEnabled) missionSystem.Save();
             SaveCharacters();
             SaveMails();
             
         }
         public void AddStamina(uint stamina)
         {
+            
             curStamina += stamina;
             if(curStamina > maxStamina)
             {
@@ -570,7 +614,14 @@ namespace Campofinale
                 nextRecoverTime= DateTime.UtcNow.AddMinutes(7).ToUnixTimestampMilliseconds();
                 AddStamina(1);
             }
-            if(LoadFinish)
+            if(curtimestamp >= nextDailyReset && adventureBookManager.data!=null)
+            {
+                nextDailyReset = DateTime.UtcNow.GetNextDailyReset().ToUnixTimestampMilliseconds();
+                adventureBookManager.DailyReset();
+                if (Initialized)
+                    this.Send(new PacketScAdventureBookSync(this));
+            }
+            if(sceneLoadState==0)
             sceneManager.Update();
             factoryManager.Update();
         }
@@ -600,30 +651,13 @@ namespace Campofinale
                 table = ResourceManager.dungeonTable[dungeonId],
             };
             this.currentDungeon = dungeon;
-            ScEnterDungeon enter = new()
-            {
-                DungeonId = dungeonId,
-                SceneId = dungeon.table.sceneId,
-                
-            };
-           
-            Send(new PacketScSyncAllUnlock(this));
-            
-            EnterScene(GetSceneNumIdFromLevelData(dungeon.table.sceneId));
-            Send(ScMsgId.ScEnterDungeon, enter);
-
+            dungeon.Enter();
         }
 
         public void LeaveDungeon(CsLeaveDungeon req)
         {
-            ScLeaveDungeon rsp = new()
-            {
-                DungeonId = req.DungeonId,
-            };
-            Send(ScMsgId.ScLeaveDungeon, rsp);
-            Dungeon dungeon = currentDungeon;
-            currentDungeon = null;
-            EnterScene(dungeon.prevPlayerSceneNumId, dungeon.prevPlayerPos, dungeon.prevPlayerRot);
+            if(currentDungeon!=null)
+                currentDungeon.Leave();
         }
 
         public string GetCurrentChapter()
@@ -644,6 +678,77 @@ namespace Campofinale
             {
                 return "";
             }
+        }
+
+        public RoleBaseInfo GetRoleBaseInfo()
+        {
+            long curtimestamp = DateTime.UtcNow.ToUnixTimestampMilliseconds();
+            try
+            {
+                return new RoleBaseInfo()
+                {
+                    LeaderCharId = teams[teamIndex].leader,
+                    LeaderPosition = position.ToProto(),
+                    LeaderRotation = rotation.ToProto(),
+                    ServerTs = (ulong)curtimestamp,
+                    SceneName = ResourceManager.levelDatas.Find(l => l.idNum == curSceneNumId).mapIdStr
+                };
+            }
+            catch (Exception e)
+            {
+
+                return new RoleBaseInfo()
+                {
+                    LeaderCharId = teams[teamIndex].leader,
+                    LeaderPosition = position.ToProto(),
+                    LeaderRotation = rotation.ToProto(),
+                    ServerTs = (ulong)curtimestamp
+                };
+            }
+            
+        }
+        /// <summary>
+        /// Unlock a system
+        /// </summary>
+        /// <param name="none"></param>
+        public void UnlockSystem(UnlockSystemType t)
+        {
+            unlockedSystems.Add((int)t);
+            Send(ScMsgId.ScUnlockSystem, new ScUnlockSystem()
+            {
+                UnlockSystemType = (int)t
+            });
+        }
+
+        public void AddToTeam(int index, ulong guid)
+        {
+            if (teams[index].members.Count < 4)
+            {
+                teams[index].members.Add(guid);
+                Send(new PacketScCharBagSetTeam(this, teams[index], index));
+                if(index==this.teamIndex)
+                Send(new PacketScSelfSceneInfo(this, Resource.SelfInfoReasonType.SlrChangeTeam));
+            }
+                
+        }
+
+        public void RestTeam()
+        {
+            GetCurTeam().ForEach(chara =>
+            {
+                chara.curHp = chara.CalcAttributes()[AttributeType.MaxHp].val;
+                ScCharSyncStatus state = new ScCharSyncStatus()
+                {
+                    Objid = chara.guid,
+                    IsDead = chara.curHp < 1,
+                    BattleInfo = new()
+                    {
+                        Hp = chara.curHp,
+                        Ultimatesp = chara.ultimateSp
+                    }
+                };
+                Send(ScMsgId.ScCharSyncStatus, state);
+            });
         }
     }
 }

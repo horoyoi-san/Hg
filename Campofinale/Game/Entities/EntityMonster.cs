@@ -1,10 +1,7 @@
 ﻿using Campofinale.Protocol;
 using Campofinale.Resource;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Campofinale.Resource.Table;
+using System.Threading;
 using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Game.Entities
@@ -12,6 +9,7 @@ namespace Campofinale.Game.Entities
     public class EntityMonster : Entity
     {
         public string templateId;
+        public ulong originId;
         public EntityMonster()
         {
 
@@ -45,7 +43,11 @@ namespace Campofinale.Game.Entities
         {
             List<AttrInfo> attrInfo = new();
             EnemyTable table = ResourceManager.enemyTable[templateId];
-            enemyAttributeTemplateTable[table.attrTemplateId].levelDependentAttributes[level].attrs.ForEach(attr =>
+            if(level >= enemyAttributeTemplateTable[table.attrTemplateId].levelDependentAttributes.Count)
+            {
+                level = 80;
+            }
+            enemyAttributeTemplateTable[table.attrTemplateId].levelDependentAttributes[level-1].attrs.ForEach(attr =>
             {
                 attrInfo.Add(new AttrInfo()
                 {
@@ -85,9 +87,10 @@ namespace Campofinale.Game.Entities
                     SceneNumId = sceneNumId,
                     Position = Position.ToProto(),
                     Rotation = Rotation.ToProto(),
-
+                    
                     Type =(int) ObjectTypeIndex.Enemy, 
                 },
+                OriginId= originId,
                 Attrs =
                 {
                     GetAttributes()
@@ -99,6 +102,23 @@ namespace Campofinale.Game.Entities
                 
             };
             return proto;
+        }
+        public override void OnDie()
+        {
+            if (!wikiEnemyDropTable.ContainsKey(templateId)) return;
+            WikiEnemyDropTable table = wikiEnemyDropTable[templateId];
+            if (table!=null)
+            {
+                table.dropItemIds.ForEach(id =>
+                {
+                    GetOwner().sceneManager.CreateDrop(Position, new RewardTable.ItemBundle()
+                    {
+                        id = id,
+                        count = 1
+                    });
+                });
+            }
+            
         }
         public override void Damage(double dmg)
         {

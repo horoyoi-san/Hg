@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Campofinale.Packets.Sc;
+using Campofinale.Protocol;
 using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Game.Dungeons
@@ -17,6 +14,35 @@ namespace Campofinale.Game.Dungeons
         public Dungeon()
         {
 
+        }
+
+        public void Enter()
+        {
+            player.sceneManager.GetScene(GetSceneNumIdFromLevelData(table.sceneId)).activeScripts.Clear();
+            player.sceneManager.GetScene(GetSceneNumIdFromLevelData(table.sceneId)).scripts.ForEach(script =>
+            {
+                script.state = 1;
+            });
+            ScEnterDungeon enter = new()
+            {
+                DungeonId = table.dungeonId,
+                SceneId = table.sceneId,
+            };
+            player.Send(new PacketScSyncAllUnlock(player));
+
+            player.EnterScene(GetSceneNumIdFromLevelData(table.sceneId));
+            player.Send(ScMsgId.ScEnterDungeon, enter);
+        }
+        public void Leave()
+        {
+            ScLeaveDungeon rsp = new()
+            {
+                DungeonId = table.dungeonId,
+            };
+            player.Send(new PacketScSyncAllUnlock(player));
+            player.currentDungeon = null;
+            player.EnterScene(prevPlayerSceneNumId, prevPlayerPos, prevPlayerRot);
+            player.Send(ScMsgId.ScLeaveDungeon, rsp);
         }
     }
 }

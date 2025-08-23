@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Campofinale
+﻿namespace Campofinale
 {
     public class ConfigFile
     {
@@ -14,43 +8,54 @@ namespace Campofinale
         public ServerOptions serverOptions = new();
         public LogSettings logOptions = new();
     }
-    public struct ServerOptions
+    public class ServerOptions
     {
-        public int defaultSceneNumId = 98;
+        public int defaultSceneNumId = 87;
         public int maxPlayers = 20;
-
+        /// <summary>
+        /// Experimental, Mission System is still a work in progress.
+        /// </summary>
+        public bool missionsEnabled = false;
+        public bool giveAllItems = false;
+        /// <summary>
+        /// Bug: on mobile some scenes doesn't want to load fine
+        /// </summary>
+        public bool disableLevelscripts = true;
+        /// <summary>
+        /// Not yet implemented
+        /// </summary>
+        public bool useEncryption = false;
         public ServerOptions()
         {
         }
 
-
-       /* public struct WelcomeMail
-        {
-        }*/
     }
-    public struct LogSettings
+    public class LogSettings
     {
-        public bool packets;
-        public bool debugPrint=false;
+        public bool packets = true;
+        public bool packetWarnings = true;
+        public bool packetBodies = false;
+        public bool debugPrint = false;
 
         public LogSettings()
         {
         }
     }
-    public struct GameserverSettings
+    public class GameserverSettings
     {
         public string bindAddress = "127.0.0.1";
         public int bindPort = 30000;
         public string accessAddress = "127.0.0.1";
         public int accessPort = 30000;
+        public bool useExternalAuthSdk = false;
+        public string externalAuthSdkUrl = "";
         public GameserverSettings()
         {
         }
     }
-    public struct DispatchServerSettings
+    public class DispatchServerSettings
     {
         public string bindAddress = "127.0.0.1";
-       
         public int bindPort = 5000;
         public string accessAddress = "127.0.0.1";
         public int accessPort = 5000;
@@ -60,7 +65,7 @@ namespace Campofinale
 
         }
     }
-    public struct MongoDatabaseSettings
+    public class MongoDatabaseSettings
     {
         public string uri = "mongodb://localhost:27017";
         public string collection = "Campofinale";

@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Campofinale.Game.Character;
+using Campofinale.Game.Char;
 using Campofinale.Game.Inventory;
 using Campofinale.Packets.Sc;
 
@@ -28,15 +23,12 @@ public static class CommandAdd
                 case "item":
                     Item item=target.inventoryManager.AddItem(args[1], int.Parse(args[2]));
                     message = $"Item {args[1]} was added to {target.nickname}";
-
-                    target.Send(new PacketScItemBagScopeModify(target, item));
                     break;
 
                 case "weapon":
                     Item wep = target.inventoryManager.AddWeapon(args[1], Convert.ToUInt64(args[2]));
                     message = $"Weapon {args[1]} was added to {target.nickname}";
 
-                    target.Send(new PacketScItemBagScopeModify(target, wep));
                     break;
 
                 case "char":
@@ -77,7 +69,7 @@ public static class CommandAdd
                     return;
             }
 
-            target.inventoryManager.Save();
+            
             CommandManager.SendMessage(sender, $"{message}.");
         }
         catch (Exception err)

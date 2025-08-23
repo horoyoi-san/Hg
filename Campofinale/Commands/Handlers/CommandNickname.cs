@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Campofinale.Packets.Sc;
 
 namespace Campofinale.Commands.Handlers
@@ -17,11 +12,6 @@ namespace Campofinale.Commands.Handlers
             {
                 CommandManager.SendMessage(sender, "Use: /nickname (your new nickname)");
                 return;
-            }
-
-            for (int i=0; i < args.Length; i++) 
-            {
-                args[i] = Uri.UnescapeDataString(args[i]);
             }
 
             target.nickname = string.Join(" ", args);

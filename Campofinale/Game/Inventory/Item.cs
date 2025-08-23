@@ -48,6 +48,10 @@ namespace Campofinale.Game.Inventory
             this.level = level;
             guid = GetOwner().random.Next();
         }
+        public ItemStorageSpace StorageSpace()
+        {
+            return ResourceManager.itemTypeTable[GetItemTable().type].storageSpace;
+        }
         public ulong GetDefaultLevel()
         {
             switch (ItemType)
@@ -68,9 +72,14 @@ namespace Campofinale.Game.Inventory
         }
         public ItemValuableDepotType ItemType
         {
-            get{
+            get
+            {
                 return ResourceManager.GetItemTable(id).valuableTabType;
             }
+        }
+        public ItemTable GetItemTable()
+        {
+            return ResourceManager.GetItemTable(id);
         }
         public virtual ScdItemGrid ToProto()
         {
@@ -92,7 +101,7 @@ namespace Campofinale.Game.Inventory
                                     GemId = guid,
                                     TemplateId= ResourceManager.GetItemTemplateId(id),
                                     WeaponId= GetOwner().inventoryManager.items.Find(i=>i.attachGemId==guid)!=null ? GetOwner().inventoryManager.items.Find(i => i.attachGemId == guid).guid: 0,
-                                
+                                    
                                 },
                                 IsLock = locked
                             }
@@ -131,13 +140,14 @@ namespace Campofinale.Game.Inventory
                             Inst = new()
                             {
                                 InstId = guid,
-
+                                
                                 Equip = new()
                                 {
-
+                                    
                                     EquipCharId = GetOwner().chars.Find(c => c.IsEquipped(guid)) != null ? GetOwner().chars.Find(c => c.IsEquipped(guid)).guid : 0,
                                     Equipid = guid,
                                     Templateid = ResourceManager.GetItemTemplateId(id),
+                                    
                                     
                                 },
                                 IsLock = locked
@@ -231,6 +241,7 @@ namespace Campofinale.Game.Inventory
 
                 };
                 GetOwner().Send(ScMsgId.ScWeaponAddExp, levelUp);
+                
                 GetOwner().Send(new PacketScSyncWallet(GetOwner()));
             }
         }
@@ -248,6 +259,10 @@ namespace Campofinale.Game.Inventory
                     return false;
                 case ItemValuableDepotType.MissionItem:
                     return true;
+                case ItemValuableDepotType.Factory:
+                    return false;
+                case ItemValuableDepotType.CommercialItem:
+                    return false;
                 default:
                     return false;
             }

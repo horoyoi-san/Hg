@@ -1,18 +1,6 @@
-﻿using Campofinale.Database;
-using Campofinale.Game;
-using Campofinale.Game.Gacha;
-using Google.Protobuf.WellKnownTypes;
+﻿using Campofinale.Game;
 using HttpServerLite;
-using MongoDB.Bson.IO;
-using SQLite;
-using SQLiteNetExtensions.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
-using static Campofinale.Game.Gacha.GachaManager;
+using Newtonsoft.Json;
 
 namespace Campofinale.Http
 {
@@ -65,11 +53,10 @@ namespace Campofinale.Http
             await data(ctx);
 
         }
-
-        [StaticRoute(HttpServerLite.HttpMethod.POST, "/u8/pay/getAllProductList")]
-        public static async Task getAllProductList(HttpContext ctx)
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/serverStatus")]
+        public static async Task serverStatus(HttpContext ctx)
         {
-            string resp = "{\"productList\":[]}";
+            string resp = "{\"maxPlayers\":" + Server.config.serverOptions.maxPlayers + ", \"players\":" + Server.clients.Count + ", \"status\":\"Online\", \"gameVersion\": \"" + GameConstants.GAME_VERSION + "\", \"serverVersion\": \"" + Server.ServerVersion + "\"}";
 
             ctx.Response.StatusCode = 200;
             ctx.Response.ContentLength = resp.Length;
@@ -77,11 +64,70 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(resp);
         }
+        public class U8ProductInfo
+        {
+            public string app_id; 
+            public string channel_id; 
+            public int world_id; 
+            public int store_id; 
+            public string product_id; 
+            public string desc;
+            public string name; 
+            public int type; 
+            public long price; 
+            public string extra_data;
+            public string appstore_id;
+            public string channel_product_id;
+        }
+        public class U8ProductListData
+        {
+            public List<U8ProductInfo> productList = new();
+        }
+        [StaticRoute(HttpServerLite.HttpMethod.POST, "/u8/pay/getAllProductList")]
+        public static async Task getAllProductList(HttpContext ctx)
+        {
+            string resp = "{\"productList\":[]}";
+            U8ProductListData rsp = new();
+            rsp.productList.Add(new U8ProductInfo()
+            {
+                appstore_id="0",
+                app_id="1",
+                channel_id="1",
+                channel_product_id="1",
+                desc="Test",
+                name="Test",
+                price=10,
+                type=0,
+                product_id="1",
+                store_id=1,
+                world_id=0,
+                
+            });
+            resp = JsonConvert.SerializeObject(rsp);
+            ctx.Response.StatusCode = 200;
+            ctx.Response.ContentLength = resp.Length;
+            ctx.Response.ContentType = "application/json";
+
+            await ctx.Response.SendAsync(resp);
+        }
+        //WINDOWS
         [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/game/get_latest")]
         public static async Task get_latest(HttpContext ctx)
         {
             string requestVersion = ctx.Request.Query.Elements["version"];
             string resp = "{\"action\":0,\"version\":\"" + GameConstants.GAME_VERSION + "\",\"request_version\":\"" + requestVersion + "\",\"pkg\":{\"packs\":[],\"total_size\":\"0\",\"file_path\":\"" + GameConstants.GAME_VERSION_ASSET_URL + "\",\"url\":\"\",\"md5\":\"\",\"package_size\":\"0\",\"file_id\":\"0\",\"sub_channel\":\"\"},\"patch\":null}";
+
+            ctx.Response.StatusCode = 200;
+            ctx.Response.ContentLength = resp.Length;
+            ctx.Response.ContentType = "application/json";
+
+            await ctx.Response.SendAsync(resp);
+        }
+        //ANDROID
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/game/get_latest_game_info")]
+        public static async Task get_latest_game_info(HttpContext ctx)
+        {
+            string resp = "{\"version\":\""+ GameConstants.GAME_VERSION_ANDROID + "\",\"action\":0,\"update_type\":0,\"update_info\":{\"package\":null,\"patch\":null,\"custom_info\":\"\",\"source_package\":null},\"client_version\":\"\"}";
 
             ctx.Response.StatusCode = 200;
             ctx.Response.ContentLength = resp.Length;
@@ -100,21 +146,11 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(resp);
         }
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/3/prod-cbt/default/default/network_config")]
-        public static async Task network_config_cn(HttpContext ctx)
-        {
-            string resp = "{\"asset\":\"https://beyond.hg-cdn.com/asset/\",\"hgage\":\"\",\"sdkenv\":\"2\",\"u8root\":\"https://u8.gryphline.com/u8\",\"appcode\":4,\"channel\":\"prod\",\"netlogid\":\"GFz8RRMDN45w\",\"gameclose\":false,\"netlogurl\":\"http://native-log-collect.gryphline.com:32000/\",\"accounturl\":\"https://binding-api-account-prod.gryphline.com\",\"launcherurl\":\"https://launcher.gryphline.com\"}";
-
-            ctx.Response.StatusCode = 200;
-            ctx.Response.ContentLength = resp.Length;
-            ctx.Response.ContentType = "application/json";
-
-            await ctx.Response.SendAsync(resp);
-        }
+        
         [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/Windows/game_config")]
         public static async Task game_config(HttpContext ctx)
         {
-            string resp = "{\"mockLogin\": false, \"selectSrv\": false, \"enableHotUpdate\": false, \"enableEntitySpawnLog\": false}";
+            string resp = "{\"mockLogin\": false, \"selectSrv\": false, \"enableHotUpdate\": false, \"enableEntitySpawnLog\": false, \"enableCBT2AccessForbidden\": false}";
 
             ctx.Response.StatusCode = 200;
             ctx.Response.ContentLength = resp.Length;
@@ -122,13 +158,15 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(resp);
         }
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/3/prod-cbt/default/Windows/game_config")]
-        public static async Task game_config_cn(HttpContext ctx)
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/Windows/res_version")]
+        public static async Task os_windows_res_version(HttpContext ctx)
         {
-            string resp = "{\"mockLogin\": false, \"selectSrv\": false, \"enableHotUpdate\": false, \"enableEntitySpawnLog\": false}";
+
+            string resp = "{\"version\": \"2089329-32\", \"kickFlag\": true}";
+
 
             ctx.Response.StatusCode = 200;
-            ctx.Response.ContentLength = resp.Length;
+            //ctx.Response.ContentLength = resp.Length;
             ctx.Response.ContentType = "application/json";
 
             await ctx.Response.SendAsync(resp);
@@ -151,7 +189,25 @@ namespace Campofinale.Http
         [StaticRoute(HttpServerLite.HttpMethod.GET, "/app/v1/config")]
         public static async Task config_check(HttpContext ctx)
         {
-            string resp = "{\"data\":{\"agreementUrl\":{\"register\":\"https://user.gryphline.com/{language}/protocol/plain/terms_of_service\",\"privacy\":\"https://user.gryphline.com/{language}/protocol/plain/privacy_policy\",\"unbind\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/privacy_policy\",\"account\":\"https://user.gryphline.com/{language}/protocol/plain/terms_of_service\",\"game\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/privacy_policy\"},\"app\":{\"googleAndroidClientId\":\"\",\"googleIosClientId\":\"\",\"enableAutoLogin\":true,\"enablePayment\":true,\"enableGuestRegister\":false,\"needShowName\":true,\"displayName\":{\"en-us\":\"Arknights: Endfield\",\"ja-jp\":\"アークナイツ：エンドフィールド\",\"ko-kr\":\"명일방주：엔드필드\",\"zh-cn\":\"明日方舟：终末地\",\"zh-tw\":\"明日方舟：終末地\"},\"unbindAgreement\":[],\"unbindLimitedDays\":30,\"unbindCoolDownDays\":14,\"customerServiceUrl\":\"https://gryphline.helpshift.com/hc/{language}/4-arknights-endfield\",\"enableUnbindGrant\":false},\"customerServiceUrl\":\"https://gryphline.helpshift.com/hc/{language}/4-arknights-endfield\",\"thirdPartyRedirectUrl\":\"https://web-api.gryphline.com/callback/thirdPartyAuth.html\",\"scanUrl\":{\"login\":\"yj://scan_login\"},\"loginChannels\":[],\"userCenterUrl\":\"https://user.gryphline.com/pcSdk/userInfo?language={language}\"},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
+            string appCode = ctx.Request.Query.Elements["appCode"];
+
+
+            string resp = "{\"data\":{\"agreementUrl\":{\"register\":\"https://user.gryphline.com/{language}/protocol/plain/terms_of_service\",\"privacy\":\"https://user.gryphline.com/{language}/protocol/plain/privacy_policy\",\"unbind\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/privacy_policy\",\"account\":\"https://user.gryphline.com/{language}/protocol/plain/terms_of_service\",\"game\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/privacy_policy\"},\"app\":{\"googleAndroidClientId\":\"\",\"googleIosClientId\":\"\",\"enableAutoLogin\":true,\"enablePayment\":true,\"enableGuestRegister\":true,\"needShowName\":true,\"displayName\":{\"en-us\":\"Arknights: Endfield\",\"ja-jp\":\"アークナイツ：エンドフィールド\",\"ko-kr\":\"명일방주：엔드필드\",\"zh-cn\":\"明日方舟：终末地\",\"zh-tw\":\"明日方舟：終末地\"},\"unbindAgreement\":[],\"unbindLimitedDays\":30,\"unbindCoolDownDays\":14,\"customerServiceUrl\":\"https://gryphline.helpshift.com/hc/{language}/4-arknights-endfield\",\"enableUnbindGrant\":false},\"customerServiceUrl\":\"https://gryphline.helpshift.com/hc/{language}/4-arknights-endfield\",\"thirdPartyRedirectUrl\":\"https://web-api.gryphline.com/callback/thirdPartyAuth.html\",\"scanUrl\":{\"login\":\"yj://scan_login\"},\"loginChannels\":[],\"userCenterUrl\":\"https://user.gryphline.com/pcSdk/userInfo?language={language}\"},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
+
+            if(appCode == "a65356244d22261b")
+            {
+                resp = "{  \"data\": {    \"antiAddiction\": {      \"minorPeriodEnd\": 21,      \"minorPeriodStart\": 20    },    \"payment\": [      {        \"key\": \"alipay\",        \"recommend\": true      },      {        \"key\": \"wechat\",        \"recommend\": false      },      {        \"key\": \"pcredit\",        \"recommend\": false      }    ],    \"customerServiceUrl\": \"https://chat.hypergryph.com/chat/h5/v2/index.html?sysnum=889ee281e3564ddf883942fe85764d44&channelid=2\",    \"cancelDeactivateUrl\": \"https://user-stable.hypergryph.com/cancellation\",    \"agreementUrl\": {      \"game\": \"https://hg-protocol-static-web-stable.hypergryph.net/protocol/plain/ak/index\",      \"unbind\": \"https://hg-protocol-static-web-stable.hypergryph.net/protocol/plain/ak/cancellation\",      \"gameService\": \"https://hg-protocol-static-web-stable.hypergryph.net/protocol/plain/ak/service\",      \"account\": \"https://user.hypergryph.com/protocol/plain/index\",      \"privacy\": \"https://user.hypergryph.com/protocol/plain/privacy\",      \"register\": \"https://user.hypergryph.com/protocol/plain/registration\",      \"updateOverview\": \"https://user.hypergryph.com/protocol/plain/overview_of_changes\",      \"childrenPrivacy\": \"https://user.hypergryph.com/protocol/plain/children_privacy\"    },    \"app\": {      \"enablePayment\": true,      \"enableAutoLogin\": true,      \"enableAuthenticate\": true,      \"enableAntiAddiction\": true,      \"enableUnbindGrant\": true,      \"wechatAppId\": \"wxeea7cc50e03edb28\",      \"alipayAppId\": \"2021004129658342\",      \"oneLoginAppId\": \"496b284079be97612a46266a9fdbfbd7\",      \"enablePaidApp\": false,      \"appName\": \"明日方舟终末地\",      \"appAmount\": 600,      \"needShowName\": true,      \"customerServiceUrl\": \"https://web-biz-platform-cs-center-stable.hypergryph.net/hg/?hg_token={hg_token}&source_from=sdk\",      \"needAntiAddictionAlert\": true,      \"enableScanLogin\": false,      \"deviceCheckMode\": 0,      \"enableGiftCode\": false    },    \"scanUrl\": {      \"login\": \"hypergryph://scan_login\"    },    \"userCenterUrl\": \"https://user-center-account-stable.hypergryph.net/pcSdk/userInfo\"  },  \"msg\": \"OK\",  \"status\": 0,  \"type\": \"A\"}";
+            }
+
+            ctx.Response.StatusCode = 200;
+            ctx.Response.ContentType = "application/json";
+
+            await ctx.Response.SendAsync(resp);
+        }
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/general/v1/server_time")]
+        public static async Task server_time(HttpContext ctx)
+        {
+            string resp = "{\"data\":{\"serverTime\":1748021408,\"isHoliday\":true},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
 
 
 
@@ -169,35 +225,8 @@ namespace Campofinale.Http
             public string password;
         }
 
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/3/prod-cbt/default/Windows/res_version")]
-        public static async Task cn_res_version(HttpContext ctx)
-        {
-
-            string resp = "{\"version\": \"2089329-32\", \"kickFlag\": true}";
-
-
-            ctx.Response.StatusCode = 200;
-            //ctx.Response.ContentLength = resp.Length;
-            ctx.Response.ContentType = "application/json";
-
-            await ctx.Response.SendAsync(resp);
-        }
-
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/3/prod-cbt/default/default/server_config_China")]
-        public static async Task server_config_China(HttpContext ctx)
-        {
-            string requestBody = ctx.Request.DataAsString;
-            Console.WriteLine(requestBody);
-            string resp = "{\"addr\": \"" + Server.config.gameServer.accessAddress + "\", \"port\": " + Server.config.gameServer.accessPort + "}";
-
-
-
-            ctx.Response.StatusCode = 200;
-
-            ctx.Response.ContentType = "application/json";
-
-            await ctx.Response.SendAsync(resp);
-        }
+        
+        
         [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/default/server_config_EUAndUS")]
         public static async Task server_config_EUAndUS(HttpContext ctx)
         {
@@ -259,7 +288,32 @@ namespace Campofinale.Http
             await ctx.Response.SendAsync(resp);
         }
 
-        
+        //ANDROID
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/Android/res_version")]
+        public static async Task os_android_res_version(HttpContext ctx)
+        {
+
+            string resp = "{\"version\": \"2413221-312\", \"kickFlag\": false}";
+
+
+            ctx.Response.StatusCode = 200;
+            //ctx.Response.ContentLength = resp.Length;
+            ctx.Response.ContentType = "application/json";
+
+            await ctx.Response.SendAsync(resp);
+        }
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/Android/game_config")]
+        public static async Task game_config_os_android(HttpContext ctx)
+        {
+            string resp = "{\"mockLogin\": false, \"selectSrv\": false, \"enableHotUpdate\": true, \"enableNpcOptimize\": false, \"enableEntitySpawnLog\": false, \"enableCBT2AccessForbidden\": false, \"enableMobileFullScreenWaterMark\": false}";
+
+            ctx.Response.StatusCode = 200;
+            ctx.Response.ContentLength = resp.Length;
+            ctx.Response.ContentType = "application/json";
+
+            await ctx.Response.SendAsync(resp);
+        }
+
         public static async Task data(HttpContext ctx)
         {
             string fileId = ctx.Request.Url.Elements.LastOrDefault();

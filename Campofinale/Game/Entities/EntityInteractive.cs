@@ -1,11 +1,6 @@
 ﻿using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Campofinale.Resource.ResourceManager;
 using static Campofinale.Resource.ResourceManager.LevelScene.LevelData;
 
@@ -19,6 +14,7 @@ namespace Campofinale.Game.Entities
         {
 
         }
+        
         public EntityInteractive(string templateId, ulong worldOwner, Vector3f pos, Vector3f rot, int scene, ulong g=0)
         {
             if (g == 0)
@@ -37,9 +33,25 @@ namespace Campofinale.Game.Entities
             this.BornRot = rot;
             this.templateId = templateId;
             this.sceneNumId = scene;
+           
         }
         
-        
+        public void InitDefaultProperties()
+        {
+            InteractiveData data = ResourceManager.interactiveData.Find(i => i.id == templateId);
+            if (data != null)
+            {
+                properties.AddRange(data.saveProperties);
+            }
+        }
+        public void SetPropValue(uint val, string key)
+        {
+            ParamKeyValue keyValue = properties.Find(p => p.key == key);
+            if (keyValue != null)
+            {
+                keyValue.value.valueArray[0].valueBit64 = val;
+            }
+        }
         public SceneInteractive ToProto()
         {
             
@@ -47,7 +59,7 @@ namespace Campofinale.Game.Entities
             {
                 CommonInfo = new()
                 {
-                    Hp = 100,
+                    Hp = 1,
                     
                     Id = guid,
                     Templateid = templateId,
@@ -59,7 +71,7 @@ namespace Campofinale.Game.Entities
                     
                     Type = (int)5,
                 },
-
+                
                 //Meta =dependencyGroupId,
                 BattleInfo = new()
                 {
@@ -91,6 +103,7 @@ namespace Campofinale.Game.Entities
                     (bool, int) index = GetPropertyIndex(prop.key, proto.Properties.Keys.Count > 0 ? proto.Properties.Keys.Max() : 0);
                     if (p != null && index.Item1)
                     {
+                        if(!proto.Properties.ContainsKey(index.Item2))
                         proto.Properties.Add(index.Item2, p);
                        
                     }
@@ -108,15 +121,17 @@ namespace Campofinale.Game.Entities
             {
                 string oriTemplateId = ResourceManager.interactiveTable.interactiveDataDict[templateId].templateId;
                 InteractiveData data=ResourceManager.interactiveData.Find(i=>i.id == oriTemplateId);
+
                 if(data != null)
                 {
                     return (true,data.propertyKeyToIdMap[key]);
                 }
+                Logger.PrintError("Interactive Data not found");
                 return (false, maxCur + 1);
             }
             catch (Exception ex)
             {
-                //Logger.PrintError(ex.Message);
+                Logger.PrintError(ex.Message);
                 return (false,maxCur+1);
             }
 

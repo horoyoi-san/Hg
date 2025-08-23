@@ -25,7 +25,7 @@
 | eny_0059_erhound   | Blighted Tuskbeast| 侵蚀牙兽             |
 | eny_0060_lbmad     | Blighted Klaw| 侵蚀爪牙             |
 | eny_0061_palecore  | Marble Agellomoirai| 白垩界卫一阶段       |
-| eny_0062_paletent  | Marble Appendage| 白垩界卫一阶段触手   |
+| eny_0062_paletent  | Marble Appendage| 白垩附肢   |
 | eny_0063_agmelee2  | Ram α        | 大角天使α            |
 | eny_0064_agrange2  | Sting α      | 针刺天使α            |
 | eny_0065_lbmob2    | Elite Raider | 精锐劫掠者           |

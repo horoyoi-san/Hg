@@ -1,23 +1,60 @@
 ﻿using BeyondTools.VFS.Crypto;
 using Campofinale.Database;
 using Campofinale.Game;
+using Campofinale.Game.Char;
 using Campofinale.Network;
 using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
 using Campofinale.Resource;
 using System.Security.Cryptography;
 using static Campofinale.Resource.ResourceManager;
-using System.Reflection;
 
 namespace Campofinale.Packets.Cs
 {
     public class HandleCsLogin
     {
-        [Server.Handler(CsMsgId.CsCreateRole)]
-        public static void HandleCsCreateRole(Player session, CsMsgId cmdId, Packet packet)
+        [Server.Handler(CsMsgId.CsSetGender)]
+        public static void HandleCsSetGender(Player session, CsMsgId cmdId, Packet packet)
         {
-            CsCreateRole req = packet.DecodeBody<CsCreateRole>();
+            CsSetGender req = packet.DecodeBody<CsSetGender>();
+            if(session.chars.Count < 2)
+            {
+                if (req.Gender == Gender.GenMale)
+                {
+                    session.AddCharacter("chr_0002_endminm", true);
+                    session.RemoveCharacter("chr_0003_endminf");
+                }
+                else
+                {
+                    session.AddCharacter("chr_0003_endminf", true);
+                    session.RemoveCharacter("chr_0002_endminm");
+                }
+                
+                session.teamIndex = 0;
+                session.teams[0].leader = session.chars[0].guid;
+                session.teams[0].members = new() { session.chars[0].guid };
+                ScCharBagSetTeam setTeam = new()
+                {
+                    CharTeam = { session.teams[0].members },
+                    LeaderId = session.teams[0].leader,
+                    ScopeName = 1,
+                    TeamIndex = 0,
+                    TeamType = CharBagTeamType.Main,
+                };
+                
+                session.Send(ScMsgId.ScCharBagSetTeam, setTeam);
+                session.Send(new PacketScCharBagSetCurrTeamIndex(session));
+                
+                session.Send(new PacketScSelfSceneInfo(session,SelfInfoReasonType.SlrChangeTeam));
+            }
             
+            ScSetGender rsp = new()
+            {
+                Gender = req.Gender,
+            };
+            session.gender = rsp.Gender;
+            
+            session.Send(ScMsgId.ScSetGender, rsp);
             
         }
         [Server.Handler(CsMsgId.CsLogin)]
@@ -35,6 +72,16 @@ namespace Campofinale.Packets.Cs
                 return;
             }
             Account account = DatabaseManager.db.GetAccountByTokenGrant(req.Token);
+            if (account==null)
+            {
+                session.Send(ScMsgId.ScNtfErrorCode, new ScNtfErrorCode()
+                {
+                    Details = "Auth Error",
+                    ErrorCode = (int)CODE.ErrLoginProcessLogin,
+                });
+                session.Disconnect();
+                return;
+            }
             ScLogin rsp = new()
             {
                 IsEnc = false,
@@ -42,7 +89,8 @@ namespace Campofinale.Packets.Cs
                 IsFirstLogin = false,
                 IsReconnect=false,
                 LastRecvUpSeqid = packet.csHead.UpSeqid,
-                
+                ServerTimeZone=2,
+                ServerTime=DateTime.UtcNow.ToUnixTimestampMilliseconds(),
             };
             byte[] encKey = GenerateRandomBytes(32);
             string serverPublicKeyPem = req.ClientPublicKey.ToStringUtf8();
@@ -53,7 +101,7 @@ namespace Campofinale.Packets.Cs
            // rsp.ServerPublicKey = ByteString.CopyFrom(encryptedEncKey);
        
             CSChaCha20 cipher = new CSChaCha20(encKey, serverEncrypNonce, 1);
-            if (req.ClientVersion == GameConstants.GAME_VERSION)
+            if (req.ClientVersion == GameConstants.GAME_VERSION || req.ClientVersion == GameConstants.GAME_VERSION_ANDROID)
             {
                 if (account == null)
                 {
@@ -65,9 +113,18 @@ namespace Campofinale.Packets.Cs
                     session.Disconnect();
                     return;
                 }
-                session.Load(account.id);
+                bool exist=session.Load(account.id);
                 
                 rsp.Uid = ""+session.accountId;
+                if (!exist)
+                {
+                    rsp.IsFirstLogin = true;
+                    //session.gender = Gender.GenInvalid;
+
+                    //session.Send(ScMsgId.ScLogin, rsp);
+                    //session.Send(new PacketScSyncBaseData(session));
+                    //return;
+                }
                 session.Send(ScMsgId.ScLogin, rsp);
                 
             }
@@ -82,29 +139,11 @@ namespace Campofinale.Packets.Cs
                 return;
             }
             session.Send(new PacketScSyncBaseData(session));
-            ScItemBagCommonSync common = new()
+            session.Send(ScMsgId.ScSceneClientIdInfo, new ScSceneClientIdInfo()
             {
-                LostAndFound = new()
-                {
-                    InstList =
-                    {
-                        new ScdItemGrid()
-                        {
-                            GridIndex=0,
-                            Count=1,
-                            Id="item_port_power_pole_2",
-                            Inst = new()
-                            {
-                                InstId=300000000000,
-                                
-                            },
-                            
-                        }
-                    }
-                },
-                
-            };
-            session.Send(ScMsgId.ScItemBagCommonSync, common);
+              RoleIdx=6,
+              LastMaxIdx=session.random.v
+            });
             session.Send(new PacketScItemBagScopeSync(session, ItemValuableDepotType.Weapon));
             session.Send(new PacketScItemBagScopeSync(session, ItemValuableDepotType.WeaponGem));
             session.Send(new PacketScItemBagScopeSync(session, ItemValuableDepotType.Equip));
@@ -113,71 +152,7 @@ namespace Campofinale.Packets.Cs
             session.Send(new PacketScItemBagScopeSync(session, ItemValuableDepotType.SpecialItem));
             session.Send(new PacketScSyncAllMail(session));
             session.Send(new PacketScSceneCollectionSync(session));
-            /*ScSyncAllMission missions = new()
-            {
-                Missions =
-                {
-                    {"e0m0", 
-                        new Mission()
-                        {
-                            MissionId="e0m0",
-                            MissionState=(int)MissionState.Processing,
-                            Properties =
-                            {
-                                {1,new DynamicParameter()
-                                {
-                                   ValueType=1,
-                                   RealType=1,
-                                    ValueBoolList =
-                                    {
-                                        true
-                                    }
-                                } 
-                                },
-                                {2,new DynamicParameter()
-                                {
-                                   ValueType=1,
-                                   RealType=1,
-                                    ValueBoolList =
-                                    {
-                                        false
-                                    }
-                                }
-                                },
-                                {3,new DynamicParameter()
-                                {
-                                   ValueType=1,
-                                   RealType=1,
-                                    ValueBoolList =
-                                    {
-                                        false
-                                    }
-                                }
-                                }
-                            }
-                        } 
-                    }
-                },
-                TrackMissionId= "e0m0",
-                CurQuests =
-                {
-                    {"e0m0#1", new Quest(){
-                        QuestId="e0m0#1",
-                        QuestState=2,
-                        QuestObjectives =
-                        {
-                            
-                        }
-                    }}
-                }
-            };*/
-            //session.Send(ScMessageId.ScSyncAllMission, missions);
-            string json1 = File.ReadAllText("44_ScSyncAllMission.json");
-            ScSyncAllMission m = Newtonsoft.Json.JsonConvert.DeserializeObject<ScSyncAllMission>(json1);
-            m.TrackMissionId = "";
-            session.Send(ScMsgId.ScSyncAllMission, m);
-            
-
+            session.Send(new PacketScSyncAllMission(session));
             session.Send(new PacketScGachaSync(session));
             ScSettlementSyncAll settlements = new ScSettlementSyncAll()
             {
@@ -232,13 +207,15 @@ namespace Campofinale.Packets.Cs
             session.Send(new PacketScSpaceshipSync(session));
             session.Send(new PacketScSyncFullDungeonStatus(session));
             session.Send(new PacketScActivitySync(session));
-            
+            session.Send(new PacketScSnsGetChatList(session));
             session.Send(ScMsgId.ScSyncFullDataEnd, new ScSyncFullDataEnd());
             session.EnterScene();
             session.Initialized = true;
             session.Update();
-            
-            
+            session.adventureBookManager.data.dailyLogin++;
+            session.adventureBookManager.TaskUpdate(ConditionType.CheckStatisticVal, null);
+
+
         }
         static byte[] GenerateRandomBytes(int length)
         {

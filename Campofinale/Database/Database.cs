@@ -1,21 +1,18 @@
 ﻿using Campofinale.Game;
-using Campofinale.Game.Character;
+using Campofinale.Game.Adventure;
+using Campofinale.Game.Char;
 using Campofinale.Game.Gacha;
 using Campofinale.Game.Inventory;
+using Campofinale.Game.MissionSys;
 using Campofinale.Game.Spaceship;
-using Campofinale.Resource;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using static Campofinale.Player;
+using static Campofinale.Game.Adventure.AdventureBookManager;
+using static Campofinale.Game.Factory.FactoryManager;
 using static Campofinale.Resource.ResourceManager;
-using static SQLite.SQLite3;
 
 namespace Campofinale.Database
 {
@@ -39,9 +36,20 @@ namespace Campofinale.Database
         public long maxDashEnergy = 250;
         public uint curStamina;
         public long nextRecoverTime;
+        public long nextDailyReset;
         public List<Scene> scenes = new();
         public Dictionary<int, List<int>> bitsets = new();
         public PlayerSafeZoneInfo savedSafeZone = new();
+        public Gender gender = Gender.GenFemale;
+        public Dictionary<int, Item> bag = new();
+    }
+    public class MissionData
+    {
+        [BsonId]
+        public ulong roleId;
+        public List<GameMission> missions = new();
+        public List<GameQuest> quests = new();
+        public string curMission = "e0m0";
     }
     public class Account
     {
@@ -69,11 +77,20 @@ namespace Campofinale.Database
         public Database(string connectionString, string dbName)
         {
             var client = new MongoClient(connectionString);
+            
             _database = client.GetDatabase(dbName);
         }
         public List<Mail> LoadMails(ulong roleId)
         {
             return _database.GetCollection<Mail>("mails").Find(c => c.owner == roleId).ToList();
+        }
+        public MissionData LoadMissionData(ulong roleId)
+        {
+            return _database.GetCollection<MissionData>("missionsData").Find(c => c.roleId == roleId).FirstOrDefault();
+        }
+        public AdventureBookData LoadAdventureBookData(ulong roleId)
+        {
+            return _database.GetCollection<AdventureBookData>("adventureBookData").Find(c => c.roleId == roleId).FirstOrDefault();
         }
         public List<Character> LoadCharacters(ulong roleId)
         {
@@ -87,7 +104,10 @@ namespace Campofinale.Database
         {
             return _database.GetCollection<SpaceshipRoom>("spaceship_rooms").Find(c => c.owner == roleId).ToList();
         }
-        
+        public FactoryData LoadFactoryData(ulong roleId)
+        {
+            return _database.GetCollection<FactoryData>("factory").Find(c => c.roleId == roleId).ToList().FirstOrDefault();
+        }
         public List<Item> LoadInventoryItems(ulong roleId)
         {
             return _database.GetCollection<Item>("items").Find(c => c.owner == roleId).ToList();
@@ -141,7 +161,10 @@ namespace Campofinale.Database
                 noSpawnAnymore = player.noSpawnAnymore,
                 scenes=player.sceneManager.scenes,
                 bitsets=player.bitsetManager.bitsets,
-                savedSafeZone = player.savedSaveZone
+                savedSafeZone = player.savedSaveZone,
+                gender=player.gender,
+                bag=player.inventoryManager.items.bag,
+                nextDailyReset = player.nextDailyReset,
             };
             UpsertPlayerData(data);
         }
@@ -176,6 +199,19 @@ namespace Campofinale.Database
             collection.ReplaceOne(
                 filter,
                 player,
+                new ReplaceOptions { IsUpsert = true }
+            );
+        }
+        public void UpsertMissionData(MissionData data)
+        {
+            var collection = _database.GetCollection<MissionData>("missionsData");
+
+            var filter =
+                Builders<MissionData>.Filter.Eq(p => p.roleId, data.roleId);
+
+            collection.ReplaceOne(
+                filter,
+                data,
                 new ReplaceOptions { IsUpsert = true }
             );
         }
@@ -232,6 +268,23 @@ namespace Campofinale.Database
                 new ReplaceOptions { IsUpsert = true }
             );
         }
+        public void UpsertAdventureBookData(AdventureBookManager.AdventureBookData data)
+        {
+            if (data._id == ObjectId.Empty)
+            {
+                data._id = ObjectId.GenerateNewId();
+            }
+            var collection = _database.GetCollection<AdventureBookManager.AdventureBookData>("adventureBookData");
+
+            var filter =
+                Builders<AdventureBookManager.AdventureBookData>.Filter.Eq(c => c.roleId, data.roleId);
+
+            var result = collection.ReplaceOne(
+                filter,
+                data,
+                new ReplaceOptions { IsUpsert = true }
+            );
+        }
         public void UpsertCharacter(Character character)
         {
             if (character._id == ObjectId.Empty)
@@ -267,6 +320,22 @@ namespace Campofinale.Database
             var result = collection.ReplaceOne(
                 filter,
                 mail,
+                new ReplaceOptions { IsUpsert = true }
+            );
+        }
+        public void UpsertFactoryData(FactoryData item)
+        {
+            if (item._id == ObjectId.Empty)
+            {
+                item._id = ObjectId.GenerateNewId();
+            }
+            var collection = _database.GetCollection<FactoryData>("factory");
+            var filter =
+               Builders<FactoryData>.Filter.Eq(c => c.roleId, item.roleId);
+
+            var result = collection.ReplaceOne(
+                filter,
+                item,
                 new ReplaceOptions { IsUpsert = true }
             );
         }
@@ -338,6 +407,11 @@ namespace Campofinale.Database
         }
         public Account GetAccountByTokenGrant(string token)
         {
+            if (Server.config.gameServer.useExternalAuthSdk)
+            {
+                //TODO get account info from external auth sdk
+                return null;
+            }
             try
             {
                 return _database.GetCollection<Account>("accounts").Find(p => p.grantToken == token).ToList().FirstOrDefault();

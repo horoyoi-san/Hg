@@ -1,12 +1,6 @@
 ﻿using Campofinale.Game.Inventory;
 using Campofinale.Network;
 using Campofinale.Protocol;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campofinale.Packets.Sc
 {
@@ -15,6 +9,11 @@ namespace Campofinale.Packets.Sc
 
         public PacketScItemBagScopeModify(Player client, Item item) {
 
+            if (item == null)
+            {
+                SetData(ScMsgId.ScItemBagScopeModify, new ScItemBagScopeModify());
+                return;
+            }
             ScItemBagScopeModify proto = new ScItemBagScopeModify()
             {
                 Depot =

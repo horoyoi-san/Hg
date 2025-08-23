@@ -1,11 +1,5 @@
 ﻿using Campofinale.Network;
 using Campofinale.Protocol;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campofinale.Packets.Sc
 {
@@ -32,6 +26,7 @@ namespace Campofinale.Packets.Sc
                             {
                                 LoginDays=1,
                                 RewardDays=16,
+                                
                             }
                         }
                     }

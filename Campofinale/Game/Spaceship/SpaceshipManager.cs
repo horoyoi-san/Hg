@@ -1,15 +1,6 @@
 ﻿using Campofinale.Database;
-using Campofinale.Game.Inventory;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MongoDB.Bson.Serialization.IdGenerators;
-using static Campofinale.Resource.ResourceManager;
 using Campofinale.Resource;
+using Campofinale.Resource.Table;
 
 namespace Campofinale.Game.Spaceship
 {
@@ -82,6 +73,39 @@ namespace Campofinale.Game.Spaceship
                 {
                     chara.stationedRoomId = "";
                 }
+            }
+        }
+
+        public void GiftToChar(CsSpaceshipPresentGiftToChar req)
+        {
+            SpaceshipChar chara = GetChar(req.CharId);
+            if (chara != null)
+            {
+                foreach (var item in req.Gifts)
+                {
+                    GiftItemTable giftItem = ResourceManager.giftItemTable[item.Id];
+                    chara.favorability += giftItem.favorablePoint * item.Count;
+                    //TODO item consume
+                }
+                ScSpaceshipPresentGiftToChar confirm = new()
+                {
+                    CurFav = chara.favorability,
+                    CharId = chara.id,
+                    RecvGiftCnt = req.Gifts.Count,
+                };
+                //TODO packet class
+                /*ScSpaceshipCharFavorabilityChange change = new()
+                {
+                    ChangeInfos =
+                    {
+                        new SpaceshipCharFavorabilityChangeInfo()
+                        {
+                            CharId = chara.id,
+                            CurFav=chara.favorability,
+                        }
+                    }
+                };*/
+                owner.Send(Protocol.ScMsgId.ScSpaceshipPresentGiftToChar, confirm);
             }
         }
     }

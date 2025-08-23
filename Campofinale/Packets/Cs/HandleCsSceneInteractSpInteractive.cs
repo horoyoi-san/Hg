@@ -1,18 +1,8 @@
-﻿using Campofinale.Game.Character;
-using Campofinale.Game.Entities;
+﻿using Campofinale.Game.Entities;
 using Campofinale.Network;
 using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using Google.Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Packets.Cs
@@ -40,6 +30,7 @@ namespace Campofinale.Packets.Cs
                 ScSceneInteractSpInteractive rsp = new()
                 {
                     ObjId = req.ObjId,
+                    
                 };
                 session.Send(ScMsgId.ScSceneInteractSpInteractive, rsp);
             }

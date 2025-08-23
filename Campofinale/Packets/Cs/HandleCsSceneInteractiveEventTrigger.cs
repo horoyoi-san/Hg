@@ -1,16 +1,6 @@
-﻿using Campofinale.Game.Character;
-using Campofinale.Game.Entities;
+﻿using Campofinale.Game.Entities;
 using Campofinale.Network;
 using Campofinale.Protocol;
-using Google.Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Campofinale.Packets.Cs
 {
@@ -21,8 +11,11 @@ namespace Campofinale.Packets.Cs
         public static void Handle(Player session, CsMsgId cmdId, Packet packet)
         {
             CsSceneInteractiveEventTrigger  req = packet.DecodeBody<CsSceneInteractiveEventTrigger>();
-            
-            
+            ScSceneInteractiveEventTrigger rsp = new()
+            {
+                
+            };
+            session.Send(ScMsgId.ScSceneInteractiveEventTrigger, rsp,packet.csHead.UpSeqid);
             EntityInteractive entity = (EntityInteractive)session.sceneManager.GetEntity(req.Id);
             if (entity != null)
             {
@@ -30,17 +23,14 @@ namespace Campofinale.Packets.Cs
                 {
 
                 }
-                else
+                ScSceneTriggerClientInteractiveEvent tr = new()
                 {
-                    ScSceneTriggerClientInteractiveEvent tr = new()
-                    {
-                        EventName = req.EventName,
-                        Id = req.Id,
-                        SceneNumId = req.SceneNumId,
-                        
-                    };
-                    session.Send(ScMsgId.ScSceneTriggerClientInteractiveEvent, tr);
-                }
+                    EventName = req.EventName,
+                    Id = req.Id,
+                    SceneNumId = req.SceneNumId,
+
+                };
+                session.Send(ScMsgId.ScSceneTriggerClientInteractiveEvent, tr);
             }
             
         }

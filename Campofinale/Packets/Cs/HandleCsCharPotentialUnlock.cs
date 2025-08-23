@@ -1,16 +1,6 @@
-﻿using Campofinale.Game.Character;
+﻿using Campofinale.Game.Char;
 using Campofinale.Network;
-using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
-using Google.Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Campofinale.Packets.Cs
 {
@@ -25,7 +15,9 @@ namespace Campofinale.Packets.Cs
             Character character = session.chars.Find(c => c.guid == req.CharObjId);
             if (character != null)
             {
+
                 character.potential=req.Level;
+                
                 //TODO consume Item ID
 
                 ScCharPotentialUnlock unlock = new()

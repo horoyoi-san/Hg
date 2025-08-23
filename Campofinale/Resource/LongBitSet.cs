@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Campofinale.Resource
+﻿namespace Campofinale.Resource
 {
     /// <summary>
     /// Utility class for supporting long bit set
@@ -38,10 +32,18 @@ namespace Campofinale.Resource
                 max = values.Max();
             }
             InitializeWithBitCount(max);
-            foreach(var i in values)
+            try
             {
-                SetBit(i, true);
+                foreach (var i in values)
+                {
+                    SetBit(i, true);
+                }
             }
+            catch (Exception ex)
+            {
+
+            }
+           
         }
 
         public LongBitSet(ulong[] bits)

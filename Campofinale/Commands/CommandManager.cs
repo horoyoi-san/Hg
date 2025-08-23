@@ -1,15 +1,10 @@
 ﻿namespace Campofinale.Commands
 {
-    using Pastel;
     using System;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.Collections.Immutable;
     using System.Linq.Expressions;
     using System.Reflection;
-    using System.Net.Sockets;
-    using Campofinale.Protocol;
-    using Campofinale.Network;
 
     public static class CommandManager
     {
