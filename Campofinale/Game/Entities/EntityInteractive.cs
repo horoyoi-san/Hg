@@ -171,6 +171,26 @@ namespace Campofinale.Game.Entities
             }else if(eventName == "pick_inst")
             {
                 //TODO
+            }else if(eventName == "set_state_true")
+            {
+                ScSceneUpdateInteractiveProperty update = new()
+                {
+                    Id = guid,
+                    SceneNumId = GetOwner().curSceneNumId,
+                    Properties =
+                    {
+                        {1, new DynamicParameter()
+                        {
+                            RealType=3,
+                            ValueType=3,
+                            ValueIntList={1}
+                        } }
+                    }
+                };
+                GetOwner().sceneManager.KillEntity(guid, true, 1);
+                GetOwner().noSpawnAnymore.Add(guid);
+                GetOwner().sceneManager.GetScene(sceneNumId).AddCollection(templateId, 1);
+                GetOwner().Send(ScMsgId.ScSceneUpdateInteractiveProperty, update);
             }
             return false;
         }

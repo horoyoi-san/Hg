@@ -25,11 +25,25 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(resp);
         }
+
+
+        
         //DEFAULT
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/3/prod-cbt/default/default/network_config")]
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/v2/3/prod-cbt3/default/default/network_config")]
         public static async Task network_config_cn(HttpContext ctx)
         {
-            string resp = "{  \"asset\": \"https://beyond.hycdn.cn/asset/\",  \"hgage\": \"https://web.hycdn.cn/endfield/protocol/cadpa-age.txt\",  \"sdkenv\": \"2\",  \"u8root\": \"https://as.hypergryph.com/u8\",  \"appcode\": 4,  \"channel\": \"prod\",  \"netlogid\": \"56RqF5G2gU9j\",  \"gameclose\": false,  \"netlogurl\": \"http://native-log-collect.hypergryph.com:32000\",  \"accounturl\": \"https://binding-api-account-prod.hypergryph.com\",  \"launcherurl\": \"https://launcher.hypergryph.com\"}";
+            string resp = "y6q2xWvK+XuOuBVy+Iwxy3fy1Ad8+LRYdHDAPyu4pXIxo1Bc8CgDJxY8JR564abU1mCR6p2lLXnZCpy/CM96LdDGE33i9MCjFSz5y+Aleedh/P9P5bLutzWlLwEd6qYRcLbOjciZTSg/GqD3J8+u/0eXx6rkRqbDfnSp4aGSgCqFBO3GBF6eTvhVv50UDUREEIuUouuWNvoIqmSvhS/UvmjswrJcFD1KMaDju/rI6fYc6SZfpdIDUd4nG0wa8ymbEVUG6Ald4muLqq2HyO6zr8/M8lUImh/BenV98+j6laq3nK0j0KzzGrXEAK05LfDv7JxrhIoBqY4Z93h3kr36R8qjiz4LysUPI5jip37afpzIHZzoo5KuDO+qBKtlrSPiA2VVA19tz76P+6k82e4VQQ==\r\n";
+
+            ctx.Response.StatusCode = 200;
+            ctx.Response.ContentLength = resp.Length;
+            ctx.Response.ContentType = "application/json";
+
+            await ctx.Response.SendAsync(resp);
+        }
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/3/prod-engine/default/default/engine_config")]
+        public static async Task engine_config_cn(HttpContext ctx)
+        {
+            string resp = "{\"CL\": 0, \"Configs\": \"{\\\"Windows\\\":{\\\"Platform\\\":\\\"Windows\\\",\\\"Params\\\":{\\\"disable-streamline-at-startup\\\":\\\"1\\\"}}}\", \"Version\": 0}";
 
             ctx.Response.StatusCode = 200;
             ctx.Response.ContentLength = resp.Length;
@@ -49,10 +63,10 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(resp);
         }
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/3/prod-cbt/default/Windows/game_config")]
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/v2/3/prod-cbt3/default/Windows/game_config")]
         public static async Task game_config_cn_windows(HttpContext ctx)
         {
-            string resp = "{\"mockLogin\": false, \"selectSrv\": false, \"enableHotUpdate\": true, \"enableEntitySpawnLog\": false, \"enableCBT2AccessForbidden\": false}";
+            string resp = "zo00qjNIhRqTS+T7NCi7E8fTrD6ed0rFXDSQmQjyrttYRAQh6sFzcDdwkOII68xiHwtxqCYUqaQihMkD+RzScm0annv6LCAHiyWwRWf2xsyDf6JhSQqUNdzTny9Gk0FCLnFsTp3baXAYRYStEHSpBpLvVH6eTGQtTdoCepL4xGu/oZjgfzb0stxRbF/gszQl\r\n";
 
             ctx.Response.StatusCode = 200;
             ctx.Response.ContentLength = resp.Length;

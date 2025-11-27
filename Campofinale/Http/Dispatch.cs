@@ -135,7 +135,7 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(resp);
         }
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/default/network_config")]
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/default/network_config")]
         public static async Task network_config(HttpContext ctx)
         {
             string resp = "{\"asset\":\"https://beyond.hg-cdn.com/asset/\",\"hgage\":\"\",\"sdkenv\":\"2\",\"u8root\":\"https://u8.gryphline.com/u8\",\"appcode\":4,\"channel\":\"prod\",\"netlogid\":\"GFz8RRMDN45w\",\"gameclose\":false,\"netlogurl\":\"http://native-log-collect.gryphline.com:32000/\",\"accounturl\":\"https://binding-api-account-prod.gryphline.com\",\"launcherurl\":\"https://launcher.gryphline.com\"}";
@@ -147,10 +147,10 @@ namespace Campofinale.Http
             await ctx.Response.SendAsync(resp);
         }
         
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/Windows/game_config")]
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/Windows/game_config")]
         public static async Task game_config(HttpContext ctx)
         {
-            string resp = "{\"mockLogin\": false, \"selectSrv\": false, \"enableHotUpdate\": false, \"enableEntitySpawnLog\": false, \"enableCBT2AccessForbidden\": false}";
+            string resp = "{\"enableHotUpdate\": true, \"memorypackLowIOEnable\": true, \"enableIFixHotKeyReload\": true, \"enableFastSimulatePhysXFix\": true}";
 
             ctx.Response.StatusCode = 200;
             ctx.Response.ContentLength = resp.Length;
@@ -158,11 +158,11 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(resp);
         }
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/Windows/res_version")]
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/Windows/res_version")]
         public static async Task os_windows_res_version(HttpContext ctx)
         {
 
-            string resp = "{\"version\": \"2089329-32\", \"kickFlag\": true}";
+            string resp = "{\"version\": \"1909054-94\", \"kickFlag\": true}";
 
 
             ctx.Response.StatusCode = 200;
@@ -192,11 +192,10 @@ namespace Campofinale.Http
             string appCode = ctx.Request.Query.Elements["appCode"];
 
 
-            string resp = "{\"data\":{\"agreementUrl\":{\"register\":\"https://user.gryphline.com/{language}/protocol/plain/terms_of_service\",\"privacy\":\"https://user.gryphline.com/{language}/protocol/plain/privacy_policy\",\"unbind\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/privacy_policy\",\"account\":\"https://user.gryphline.com/{language}/protocol/plain/terms_of_service\",\"game\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/privacy_policy\"},\"app\":{\"googleAndroidClientId\":\"\",\"googleIosClientId\":\"\",\"enableAutoLogin\":true,\"enablePayment\":true,\"enableGuestRegister\":true,\"needShowName\":true,\"displayName\":{\"en-us\":\"Arknights: Endfield\",\"ja-jp\":\"アークナイツ：エンドフィールド\",\"ko-kr\":\"명일방주：엔드필드\",\"zh-cn\":\"明日方舟：终末地\",\"zh-tw\":\"明日方舟：終末地\"},\"unbindAgreement\":[],\"unbindLimitedDays\":30,\"unbindCoolDownDays\":14,\"customerServiceUrl\":\"https://gryphline.helpshift.com/hc/{language}/4-arknights-endfield\",\"enableUnbindGrant\":false},\"customerServiceUrl\":\"https://gryphline.helpshift.com/hc/{language}/4-arknights-endfield\",\"thirdPartyRedirectUrl\":\"https://web-api.gryphline.com/callback/thirdPartyAuth.html\",\"scanUrl\":{\"login\":\"yj://scan_login\"},\"loginChannels\":[],\"userCenterUrl\":\"https://user.gryphline.com/pcSdk/userInfo?language={language}\"},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
-
+            string resp = "{\"data\":{\"agreementUrl\":{\"register\":\"https://user.gryphline.com/{language}/protocol/plain/terms_of_service\",\"privacy\":\"https://user.gryphline.com/{language}/protocol/plain/privacy_policy\",\"unbind\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/privacy_policy\",\"account\":\"https://user.gryphline.com/{language}/protocol/plain/terms_of_service\",\"game\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/privacy_policy\"},\"app\":{\"googleAndroidClientId\":\"373936584020-pugs37nmbnfs0r72gpls1mkjjoommoga.apps.googleusercontent.com\",\"googleIosClientId\":\"373936584020-ljqhr2vt43di9b0q31g1tcv05cv71ipj.apps.googleusercontent.com\",\"enableAutoLogin\":true,\"enablePayment\":true,\"enableGuestRegister\":false,\"needShowName\":true,\"displayName\":{\"de-de\":\"Arknights: Endfield Beta Test II\",\"en-us\":\"Arknights: Endfield Beta Test II\",\"es-mx\":\"Arknights: Endfield Beta Test II\",\"fr-fr\":\"Arknights: Endfield Beta Test II\",\"id-id\":\"Arknights: Endfield Beta Test II\",\"it-it\":\"Arknights: Endfield Beta Test II\",\"ja-jp\":\"『アークナイツ：エンドフィールド』ベータテストⅡ\",\"ko-kr\":\"명일방주: 엔드필드 2차 베타 테스트\",\"pt-br\":\"Arknights: Endfield Beta Test II\",\"ru-ru\":\"Arknights: Endfield Beta Test II\",\"th-th\":\"Arknights: Endfield Beta Test II\",\"vi-vn\":\"Arknights: Endfield Beta Test II\",\"zh-cn\":\"明日方舟：终末地 全面测试\",\"zh-tw\":\"明日方舟：終末地 全面測試\"},\"unbindAgreement\":[{\"url\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/game/terms_of_service\",\"name\":{\"de-de\":\"Nutzungsbedingungen des Spiels\",\"en-us\":\"Game Terms of Service\",\"es-mx\":\"Términos del Servicio del Juego\",\"fr-fr\":\"Conditions d'Utilisation du Jeu\",\"id-id\":\"Ketentuan Layanan Game\",\"it-it\":\"Termini e Condizioni del Gioco\",\"ja-jp\":\"ゲーム利用規約\",\"ko-kr\":\"게임 이용약관\",\"pt-br\":\"Termos do Serviço do Jogo\",\"ru-ru\":\"Пользовательское соглашение игры\",\"th-th\":\"ข้อกำหนดการใช้บริการเกม\",\"vi-vn\":\"Điều khoản Dịch vụ Trò chơi\",\"zh-cn\":\"游戏用户协议\",\"zh-tw\":\"遊戲服務條款\"}},{\"url\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/game/privacy_policy\",\"name\":{\"de-de\":\"Datenschutzrichtlinie des Spiels\",\"en-us\":\"Game Privacy Policy\",\"es-mx\":\"Política de Privacidad del Juego\",\"fr-fr\":\"Politique de Confidentialité du Jeu\",\"id-id\":\"Kebijakan Privasi Game\",\"it-it\":\"Politica sulla Privacy del Gioco\",\"ja-jp\":\"ゲームプライバシーポリシー\",\"ko-kr\":\"게임 개인정보 처리방침\",\"pt-br\":\"Política de Privacidade do Jogo\",\"ru-ru\":\"Политика конфиденциальности игры\",\"th-th\":\"นโยบายความเป็นส่วนตัวเกม\",\"vi-vn\":\"Chính sách Riêng tư Trò chơi\",\"zh-cn\":\"游戏隐私政策\",\"zh-tw\":\"遊戲隱私權政策\"}}],\"unbindLimitedDays\":30,\"unbindCoolDownDays\":14,\"customerServiceUrl\":\"https://gryphline.helpshift.com/hc/{language}/4-arknights-endfield\",\"enableUnbindGrant\":false,\"gameAgreement\":[{\"url\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/game/terms_of_service\",\"name\":{\"de-de\":\"Nutzungsbedingungen des Spiels\",\"en-us\":\"Game Terms of Service\",\"es-mx\":\"Términos del Servicio del Juego\",\"fr-fr\":\"Conditions d'Utilisation du Jeu\",\"id-id\":\"Ketentuan Layanan Game\",\"it-it\":\"Termini e Condizioni del Gioco\",\"ja-jp\":\"ゲーム利用規約\",\"ko-kr\":\"게임 이용약관\",\"pt-br\":\"Termos do Serviço do Jogo\",\"ru-ru\":\"Пользовательское соглашение игры\",\"th-th\":\"ข้อกำหนดการใช้บริการเกม\",\"vi-vn\":\"Điều khoản Dịch vụ Trò chơi\",\"zh-cn\":\"游戏用户协议\",\"zh-tw\":\"遊戲服務條款\"},\"key\":\"service\"},{\"url\":\"https://user.gryphline.com/{language}/protocol/plain/endfield/game/privacy_policy\",\"name\":{\"de-de\":\"Datenschutzrichtlinie des Spiels\",\"en-us\":\"Game Privacy Policy\",\"es-mx\":\"Política de Privacidad del Juego\",\"fr-fr\":\"Politique de Confidentialité du Jeu\",\"id-id\":\"Kebijakan Privasi Game\",\"it-it\":\"Politica sulla Privacy del Gioco\",\"ja-jp\":\"ゲームプライバシーポリシー\",\"ko-kr\":\"게임 개인정보 처리방침\",\"pt-br\":\"Política de Privacidade do Jogo\",\"ru-ru\":\"Политика конфиденциальности игры\",\"th-th\":\"นโยบายความเป็นส่วนตัวเกม\",\"vi-vn\":\"Chính sách Riêng tư Trò chơi\",\"zh-cn\":\"游戏隐私政策\",\"zh-tw\":\"遊戲隱私權政策\"},\"key\":\"privacy\"}],\"showAccountAgreement\":false,\"enableScanLogin\":false,\"enableScanCamera\":false,\"enableScanAppList\":[],\"enableSandboxPayment\":false,\"deviceCheckMode\":0},\"customerServiceUrl\":\"https://gryphline.helpshift.com/hc/{language}/4-arknights-endfield\",\"thirdPartyRedirectUrl\":\"https://web-api.gryphline.com/callback/thirdPartyAuth.html\",\"scanUrl\":{\"login\":\"yj://scan_login\"},\"loginChannels\":[{\"channelId\":2},{\"channelId\":3},{\"channelId\":4}],\"userCenterUrl\":\"https://user.gryphline.com/pcSdk/userInfo?language={language}\"},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
             if(appCode == "a65356244d22261b")
             {
-                resp = "{  \"data\": {    \"antiAddiction\": {      \"minorPeriodEnd\": 21,      \"minorPeriodStart\": 20    },    \"payment\": [      {        \"key\": \"alipay\",        \"recommend\": true      },      {        \"key\": \"wechat\",        \"recommend\": false      },      {        \"key\": \"pcredit\",        \"recommend\": false      }    ],    \"customerServiceUrl\": \"https://chat.hypergryph.com/chat/h5/v2/index.html?sysnum=889ee281e3564ddf883942fe85764d44&channelid=2\",    \"cancelDeactivateUrl\": \"https://user-stable.hypergryph.com/cancellation\",    \"agreementUrl\": {      \"game\": \"https://hg-protocol-static-web-stable.hypergryph.net/protocol/plain/ak/index\",      \"unbind\": \"https://hg-protocol-static-web-stable.hypergryph.net/protocol/plain/ak/cancellation\",      \"gameService\": \"https://hg-protocol-static-web-stable.hypergryph.net/protocol/plain/ak/service\",      \"account\": \"https://user.hypergryph.com/protocol/plain/index\",      \"privacy\": \"https://user.hypergryph.com/protocol/plain/privacy\",      \"register\": \"https://user.hypergryph.com/protocol/plain/registration\",      \"updateOverview\": \"https://user.hypergryph.com/protocol/plain/overview_of_changes\",      \"childrenPrivacy\": \"https://user.hypergryph.com/protocol/plain/children_privacy\"    },    \"app\": {      \"enablePayment\": true,      \"enableAutoLogin\": true,      \"enableAuthenticate\": true,      \"enableAntiAddiction\": true,      \"enableUnbindGrant\": true,      \"wechatAppId\": \"wxeea7cc50e03edb28\",      \"alipayAppId\": \"2021004129658342\",      \"oneLoginAppId\": \"496b284079be97612a46266a9fdbfbd7\",      \"enablePaidApp\": false,      \"appName\": \"明日方舟终末地\",      \"appAmount\": 600,      \"needShowName\": true,      \"customerServiceUrl\": \"https://web-biz-platform-cs-center-stable.hypergryph.net/hg/?hg_token={hg_token}&source_from=sdk\",      \"needAntiAddictionAlert\": true,      \"enableScanLogin\": false,      \"deviceCheckMode\": 0,      \"enableGiftCode\": false    },    \"scanUrl\": {      \"login\": \"hypergryph://scan_login\"    },    \"userCenterUrl\": \"https://user-center-account-stable.hypergryph.net/pcSdk/userInfo\"  },  \"msg\": \"OK\",  \"status\": 0,  \"type\": \"A\"}";
+                resp = "{\"data\":{\"antiAddiction\":{\"minorPeriodEnd\":21,\"minorPeriodStart\":20},\"payment\":[{\"key\":\"alipay\",\"recommend\":true},{\"key\":\"wechat\",\"recommend\":false},{\"key\":\"pcredit\",\"recommend\":false}],\"customerServiceUrl\":\"https://chat.hypergryph.com/chat/h5/v2/index.html?sysnum=889ee281e3564ddf883942fe85764d44&channelid=2\",\"cancelDeactivateUrl\":\"https://user.hypergryph.com/cancellation\",\"agreementUrl\":{\"game\":\"https://user.hypergryph.com/protocol/plain/endfield/index\",\"unbind\":\"\",\"gameService\":\"https://user.hypergryph.com/protocol/plain/endfield/service\",\"account\":\"https://user.hypergryph.com/protocol/plain/index\",\"privacy\":\"https://user.hypergryph.com/protocol/plain/privacy\",\"register\":\"https://user.hypergryph.com/protocol/plain/registration\",\"updateOverview\":\"https://user.hypergryph.com/protocol/plain/overview_of_changes\",\"childrenPrivacy\":\"https://user.hypergryph.com/protocol/plain/children_privacy\"},\"app\":{\"enablePayment\":true,\"enableAutoLogin\":true,\"enableAuthenticate\":true,\"enableAntiAddiction\":true,\"enableUnbindGrant\":false,\"wechatAppId\":\"wx6bc19bacfdfb3770\",\"alipayAppId\":\"2021005165653195\",\"oneLoginAppId\":\"4a85c670ebb4d446355ed6344d0a8fa9\",\"enablePaidApp\":false,\"appName\":\"明日方舟：终末地 全面测试\",\"appAmount\":9999900,\"needShowName\":true,\"customerServiceUrl\":\"https://customer-service.hypergryph.com/endfield?hg_token={hg_token}&source_from=sdk\",\"needAntiAddictionAlert\":false,\"enableScanLogin\":true,\"deviceCheckMode\":1,\"enableGiftCode\":false,\"enableScanAppList\":[{\"appCode\":\"4ca99fa6b56cc2ba\",\"name\":\"森空岛\",\"iconUrl\":\"https://web.hycdn.cn/app_icons/skland.png\"},{\"appCode\":\"a65356244d22261b\",\"name\":\"明日方舟：终末地 全面测试\",\"iconUrl\":\"https://web.hycdn.cn/biz_toolset/upload/251113/Kb98l78OCbhdAWC3.png\"}],\"gameAgreement\":[{\"url\":\"https://user.hypergryph.com/protocol/plain/endfield/service\",\"name\":\"《游戏使用许可及服务协议》\",\"key\":\"service\"},{\"url\":\"https://user.hypergryph.com/protocol/plain/endfield/privacy\",\"name\":\"《游戏隐私协议》\",\"key\":\"privacy\"}],\"enableScanCamera\":true,\"showCustomerService\":false},\"scanUrl\":{\"login\":\"hypergryph://scan_login\"},\"userCenterUrl\":\"https://user.hypergryph.com/pcSdk/userInfo\"},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
             }
 
             ctx.Response.StatusCode = 200;
@@ -227,20 +226,45 @@ namespace Campofinale.Http
 
         
         
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/default/server_config_EUAndUS")]
+        [StaticRoute(HttpServerLite.HttpMethod.POST, "/game/server/v1/server_list")]
         public static async Task server_config_EUAndUS(HttpContext ctx)
         {
             string requestBody = ctx.Request.DataAsString;
-            Console.WriteLine(requestBody);
-            string resp = "{\"addr\": \"" + Server.config.gameServer.accessAddress + "\", \"port\": " + Server.config.gameServer.accessPort + "}";
-
-
+           
+            object rspObj = new
+            {
+                msg = "OK",
+                status = 0,
+                type = "",
+                data = new
+                {
+                    serverList = new List<object>
+                    {
+                        new
+                        {
+                            serverId = "39",
+                            serverName = "Americas / Europe",
+                            serverDomain = "[{\"host\": \""+Server.config.gameServer.accessAddress+"\", \"port\": "+ Server.config.gameServer.accessPort +"}]",
+                            defaultChoose = true,
+                            extension= "{\"offsetSeconds\": -18000}"
+                        },
+                        new
+                        {
+                            serverId = "40",
+                            serverName = "Campofinale",
+                            serverDomain = "[{\"host\": \""+Server.config.gameServer.accessAddress+"\", \"port\": "+ Server.config.gameServer.accessPort +"}]",
+                            defaultChoose = true,
+                            extension= "{\"offsetSeconds\": -18000}"
+                        }
+                    }
+                }
+            };
 
             ctx.Response.StatusCode = 200;
 
             ctx.Response.ContentType = "application/json";
 
-            await ctx.Response.SendAsync(resp);
+            await ctx.Response.SendAsync(JsonConvert.SerializeObject(rspObj));
         }
         [StaticRoute(HttpServerLite.HttpMethod.GET, "/game/user/v1/query_zone_whitelist")]
         public static async Task query_zone_whitelist(HttpContext ctx)
@@ -289,7 +313,7 @@ namespace Campofinale.Http
         }
 
         //ANDROID
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/Android/res_version")]
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/Android/res_version")]
         public static async Task os_android_res_version(HttpContext ctx)
         {
 
@@ -302,7 +326,7 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(resp);
         }
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt/default/Android/game_config")]
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/Android/game_config")]
         public static async Task game_config_os_android(HttpContext ctx)
         {
             string resp = "{\"mockLogin\": false, \"selectSrv\": false, \"enableHotUpdate\": true, \"enableNpcOptimize\": false, \"enableEntitySpawnLog\": false, \"enableCBT2AccessForbidden\": false, \"enableMobileFullScreenWaterMark\": false}";
