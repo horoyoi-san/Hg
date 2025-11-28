@@ -1,0 +1,3240 @@
+{
+  "id": "int_drop_common",
+  "name": "int_drop_common",
+  "factionIndex": "Neutral",
+  "bornTag": [
+    {
+      "tagName": "Category/Interactive/Drop",
+      "tagId": 1697182811
+    }
+  ],
+  "delayToRecycleTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.ModelComponentData, Gameplay.Beyond",
+      "modelId": "int_doodad_placeholder_postmodel",
+      "randomModelId": [],
+      "modelScale": 1.0,
+      "loadDelayTime": 0.0,
+      "useLod": false,
+      "cullDistance": 100.0,
+      "cullTimeInterval": 2.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.TriggerObserverComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1069547520
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "size",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1065353216
+              }
+            ]
+          }
+        },
+        {
+          "key": "interactive_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_offset",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1092616192
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_height",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1084227584
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_angle",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1135869952
+              }
+            ]
+          }
+        },
+        {
+          "key": "player_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_important",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.DropItemBehaviourComponentData, Gameplay.Beyond",
+      "propertyList": []
+    }
+  ],
+  "facOccDis": 0.5,
+  "hideInDialog": true,
+  "mountPoints": [],
+  "dataMap": {
+    "headerList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+        "_ID": 0,
+        "_nextID": 1,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "0b225054",
+        "_trigger": {
+          "path": "$0@_trigger"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderLeaveTrigger, Gameplay.Beyond",
+        "_ID": 2,
+        "_nextID": 3,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "d51f79ec"
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnEntityStart, Gameplay.Beyond",
+        "_ID": 4,
+        "_nextID": 5,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "6d339268"
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnEntityDestroy, Gameplay.Beyond",
+        "_ID": 15,
+        "_nextID": 16,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "67cfffd7"
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnUIInteract, Gameplay.Beyond",
+        "_ID": 39,
+        "_nextID": 40,
+        "_targetEntityList": {},
+        "_validate": {
+          "paramSource": -1,
+          "constValue": true,
+          "idRef": 38
+        },
+        "_uid": "47940911",
+        "_optionIndex": {
+          "path": "$39@_optionIndex"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.LevelEvent.OnDialogExit, Gameplay.Beyond",
+        "_ID": 59,
+        "_nextID": 60,
+        "_validate": {
+          "paramSource": -1,
+          "constValue": true,
+          "idRef": 58
+        },
+        "_uid": "eb2c58f4",
+        "_dialogId": {
+          "path": "$59@_dialogId"
+        },
+        "_finishId": {
+          "path": "$59@_finishId"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.LevelEvent.OnDialogEnter, Gameplay.Beyond",
+        "_ID": 66,
+        "_nextID": 67,
+        "_validate": {
+          "paramSource": -1,
+          "constValue": true,
+          "idRef": 65
+        },
+        "_uid": "09ea3d63",
+        "_dialogId": {
+          "path": "$66@_dialogId"
+        }
+      }
+    ],
+    "actionList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.OptionPickItemShow, Gameplay.Beyond",
+        "_ID": 1,
+        "_uid": "05e33654",
+        "useCurrentScope": true,
+        "_optionIndex": {
+          "constValue": 0
+        },
+        "_itemId": {
+          "paramSource": 300,
+          "path": "item_id"
+        },
+        "_itemCount": {
+          "paramSource": 300,
+          "path": "count",
+          "constValue": 0
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.OptionPickItemHide, Gameplay.Beyond",
+        "_ID": 3,
+        "_uid": "d1ca384f",
+        "useCurrentScope": true,
+        "_optionIndex": {
+          "constValue": 0
+        },
+        "_playAnim": {
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetTriggerIsActive, Gameplay.Beyond",
+        "_ID": 5,
+        "_nextID": 6,
+        "_uid": "2d4f92a1",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_isActive": {
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.Split, Gameplay.Beyond",
+        "_ID": 6,
+        "_uid": "44a6670d",
+        "_idList": [
+          7,
+          9
+        ]
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+        "_ID": 7,
+        "_uid": "1f5a56c8",
+        "_condition": {
+          "paramSource": -1,
+          "constValue": true,
+          "idRef": 52
+        },
+        "_onTrueID": 0,
+        "_onFalseID": 8
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+        "_ID": 9,
+        "_nextID": 10,
+        "_uid": "8c234e8a",
+        "useCurrentScope": true,
+        "_seconds": {
+          "constValue": 0.5
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetTriggerIsActive, Gameplay.Beyond",
+        "_ID": 8,
+        "_uid": "d56def7e",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_isActive": {
+          "constValue": true
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+        "_ID": 10,
+        "_uid": "5e01efe0",
+        "_condition": {
+          "paramSource": -1,
+          "constValue": true,
+          "idRef": 53
+        },
+        "_onTrueID": 11,
+        "_onFalseID": 14
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IsInteractiveHideInDialog, Gameplay.Beyond",
+        "_ID": 11,
+        "_nextID": 12,
+        "_uid": "b0edff97",
+        "useCurrentScope": true,
+        "_target": {
+          "paramSource": 1001,
+          "constValue": {
+            "logicId": 0
+          }
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CreateDropEffect, Gameplay.Beyond",
+        "_ID": 14,
+        "_uid": "e9209565",
+        "useCurrentScope": true,
+        "_target": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_itemId": {
+          "paramSource": 300,
+          "path": "item_id"
+        },
+        "_effectSaveId": {
+          "paramTarget": 1,
+          "path": "effect"
+        },
+        "_effectSaveId2": {
+          "paramTarget": 1,
+          "path": "effect1"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IfNot, Gameplay.Beyond",
+        "_ID": 12,
+        "_nextID": 13,
+        "_uid": "ad1c6c94",
+        "useCurrentScope": true
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CreateDropEffect, Gameplay.Beyond",
+        "_ID": 13,
+        "_uid": "941acbea",
+        "useCurrentScope": true,
+        "_target": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_itemId": {
+          "paramSource": 300,
+          "path": "item_id"
+        },
+        "_effectSaveId": {
+          "paramTarget": 1,
+          "path": "effect"
+        },
+        "_effectSaveId2": {
+          "paramTarget": 1,
+          "path": "effect1"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.Branch, Gameplay.Beyond",
+        "_ID": 16,
+        "_uid": "21a64475",
+        "_idList": [
+          17,
+          21
+        ]
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetTriggerIsActive, Gameplay.Beyond",
+        "_ID": 17,
+        "_nextID": 18,
+        "_uid": "b4b99868",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_isActive": {
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+        "_ID": 21,
+        "_nextID": 22,
+        "_uid": "67f0ba48",
+        "useCurrentScope": true,
+        "_value": {
+          "paramSource": 300,
+          "path": "is_collected",
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.OptionPickItemHide, Gameplay.Beyond",
+        "_ID": 18,
+        "_nextID": 19,
+        "_uid": "31837b9d",
+        "useCurrentScope": true,
+        "_optionIndex": {
+          "constValue": 0
+        },
+        "_playAnim": {
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.PlayAudioForIntDrop, Gameplay.Beyond",
+        "_ID": 22,
+        "_nextID": 23,
+        "_uid": "d2b0c63f",
+        "useCurrentScope": true,
+        "_key": {
+          "paramSource": -1,
+          "idRef": 37
+        },
+        "_position": {
+          "paramSource": -1,
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "idRef": 36
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.FinishEffect, Gameplay.Beyond",
+        "_ID": 19,
+        "_nextID": 20,
+        "_uid": "ca93d9c4",
+        "useCurrentScope": true,
+        "_effectSaveId": {
+          "paramSource": 100,
+          "path": "effect",
+          "constValue": 0
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CreateSceneEffectOnTargetNoFollowRot, Gameplay.Beyond",
+        "_ID": 23,
+        "_uid": "1428df18",
+        "useCurrentScope": true,
+        "_target": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_effectKey": {
+          "constValue": "P_map_vanished_02"
+        },
+        "_offset": {
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        },
+        "_effectSaveId": {
+          "path": "$23@_effectSaveId"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.FinishEffect, Gameplay.Beyond",
+        "_ID": 20,
+        "_uid": "a63ca598",
+        "useCurrentScope": true,
+        "_effectSaveId": {
+          "paramSource": 100,
+          "path": "effect1",
+          "constValue": 0
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEnableSyncPosition, Gameplay.Beyond",
+        "_ID": 40,
+        "_nextID": 41,
+        "_uid": "432c4912",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_value": {
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+        "_ID": 41,
+        "_uid": "06b8e233",
+        "_condition": {
+          "paramSource": -1,
+          "constValue": true,
+          "idRef": 55
+        },
+        "_onTrueID": 45,
+        "_onFalseID": 42
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+        "_ID": 45,
+        "_uid": "a0daf59d",
+        "_condition": {
+          "paramSource": -1,
+          "constValue": true,
+          "idRef": 57
+        },
+        "_onTrueID": 46,
+        "_onFalseID": 47
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+        "_ID": 42,
+        "_uid": "4222a889",
+        "_condition": {
+          "paramSource": -1,
+          "constValue": true,
+          "idRef": 51
+        },
+        "_onTrueID": 43,
+        "_onFalseID": 44
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+        "_ID": 46,
+        "_uid": "f82abb1a",
+        "useCurrentScope": true,
+        "_useCustomEvent": true,
+        "_eventName": {
+          "constValue": "pick_normal"
+        },
+        "_eventArgsPtr": {
+          "constValue": {
+            "key": "event_args"
+          }
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.ShowUIToast, Gameplay.Beyond",
+        "_ID": 47,
+        "_uid": "1f0d9891",
+        "useCurrentScope": true,
+        "_langKey": {
+          "constValue": {
+            "key": "LUA_ITEM_BAG_NO_CAPACITY"
+          }
+        },
+        "_toastType": {
+          "constValue": "NormalToast"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+        "_ID": 43,
+        "_uid": "3be82b27",
+        "useCurrentScope": true,
+        "_useCustomEvent": true,
+        "_eventName": {
+          "constValue": "pick_inst"
+        },
+        "_eventArgsPtr": {
+          "constValue": {
+            "key": "event_args"
+          }
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.ShowUIToast, Gameplay.Beyond",
+        "_ID": 44,
+        "_uid": "94cd5da5",
+        "useCurrentScope": true,
+        "_langKey": {
+          "constValue": {
+            "key": "LUA_ITEM_BAG_NO_CAPACITY"
+          }
+        },
+        "_toastType": {
+          "constValue": "NormalToast"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetBool, Gameplay.Beyond",
+        "_ID": 60,
+        "_nextID": 61,
+        "_uid": "a594db98",
+        "useCurrentScope": true,
+        "_key": {
+          "paramSource": 100,
+          "path": "inDialog",
+          "constValue": false
+        },
+        "_value": {
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetTriggerIsActive, Gameplay.Beyond",
+        "_ID": 61,
+        "_nextID": 62,
+        "_uid": "e3ac1261",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_isActive": {
+          "constValue": true
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IsInteractiveHideInDialog, Gameplay.Beyond",
+        "_ID": 62,
+        "_nextID": 63,
+        "_uid": "f626ced3",
+        "useCurrentScope": true,
+        "_target": {
+          "paramSource": 1001,
+          "constValue": {
+            "logicId": 0
+          }
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CreateDropEffect, Gameplay.Beyond",
+        "_ID": 63,
+        "_uid": "e9728245",
+        "useCurrentScope": true,
+        "_target": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_itemId": {
+          "paramSource": 300,
+          "path": "item_id"
+        },
+        "_effectSaveId": {
+          "paramTarget": 1,
+          "path": "effect"
+        },
+        "_effectSaveId2": {
+          "paramTarget": 1,
+          "path": "effect1"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetBool, Gameplay.Beyond",
+        "_ID": 67,
+        "_nextID": 68,
+        "_uid": "9b19e611",
+        "useCurrentScope": true,
+        "_key": {
+          "paramSource": 100,
+          "path": "inDialog",
+          "constValue": false
+        },
+        "_value": {
+          "constValue": true
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IsInteractiveHideInDialog, Gameplay.Beyond",
+        "_ID": 68,
+        "_nextID": 69,
+        "_uid": "96f2e8b0",
+        "useCurrentScope": true,
+        "_target": {
+          "paramSource": 1001,
+          "constValue": {
+            "logicId": 0
+          }
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.FinishEffect, Gameplay.Beyond",
+        "_ID": 69,
+        "_nextID": 70,
+        "_uid": "46104cda",
+        "useCurrentScope": true,
+        "_effectSaveId": {
+          "paramSource": 100,
+          "path": "effect",
+          "constValue": 0
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.FinishEffect, Gameplay.Beyond",
+        "_ID": 70,
+        "_uid": "d61b2e6d",
+        "useCurrentScope": true,
+        "_effectSaveId": {
+          "paramSource": 100,
+          "path": "effect1",
+          "constValue": 0
+        }
+      }
+    ],
+    "getterList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.GetterBool, Gameplay.Beyond",
+        "_ID": 52,
+        "_uid": "5dd0e63b",
+        "_value": {
+          "paramSource": 100,
+          "path": "inDialog",
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.GetterBool, Gameplay.Beyond",
+        "_ID": 53,
+        "_uid": "1b77d6f6",
+        "_value": {
+          "paramSource": 100,
+          "path": "inDialog",
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.GetTemplateId, Gameplay.Beyond",
+        "_ID": 37,
+        "_uid": "7a404983",
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.GetEntityPosition, Gameplay.Beyond",
+        "_ID": 36,
+        "_uid": "c4dd5c96",
+        "_target": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.BoolGetterInvert, Gameplay.Beyond",
+        "_ID": 38,
+        "_uid": "4a51c1c4",
+        "_value": {
+          "paramSource": 300,
+          "path": "is_collected",
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.BoolGetterAnd, Gameplay.Beyond",
+        "_ID": 55,
+        "_uid": "ffb9d433",
+        "_valueA": {
+          "paramSource": -1,
+          "constValue": false,
+          "idRef": 54
+        },
+        "_valueB": {
+          "constValue": true
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.StringIsNullOrEmpty, Gameplay.Beyond",
+        "_ID": 54,
+        "_uid": "9f7137b2",
+        "_value": {
+          "paramSource": 200,
+          "path": "item_inst"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.BoolGetterAnd, Gameplay.Beyond",
+        "_ID": 57,
+        "_uid": "4801de61",
+        "_valueA": {
+          "constValue": true
+        },
+        "_valueB": {
+          "paramSource": -1,
+          "constValue": false,
+          "idRef": 56
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.BoolGetterAnd, Gameplay.Beyond",
+        "_ID": 51,
+        "_uid": "7a9511c0",
+        "_valueA": {
+          "constValue": true
+        },
+        "_valueB": {
+          "paramSource": -1,
+          "constValue": false,
+          "idRef": 50
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CheckItemBagCanPutIn, Gameplay.Beyond",
+        "_ID": 56,
+        "_uid": "3a50cc33",
+        "itemId": {
+          "paramSource": 300,
+          "path": "item_id"
+        },
+        "count": {
+          "paramSource": 300,
+          "path": "count",
+          "constValue": 0
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CheckItemBagCanPutIn, Gameplay.Beyond",
+        "_ID": 50,
+        "_uid": "f695d0ed",
+        "itemId": {
+          "paramSource": 300,
+          "path": "item_id"
+        },
+        "count": {
+          "paramSource": 300,
+          "path": "count",
+          "constValue": 0
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.GetterBool, Gameplay.Beyond",
+        "_ID": 58,
+        "_uid": "28e9351b",
+        "_value": {
+          "paramSource": 100,
+          "path": "inDialog",
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.BoolGetterInvert, Gameplay.Beyond",
+        "_ID": 65,
+        "_uid": "36006ab8",
+        "_value": {
+          "paramSource": -1,
+          "constValue": false,
+          "idRef": 64
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.GetterBool, Gameplay.Beyond",
+        "_ID": 64,
+        "_uid": "4974510d",
+        "_value": {
+          "paramSource": 100,
+          "path": "inDialog",
+          "constValue": false
+        }
+      }
+    ]
+  },
+  "tempProperties": [
+    {
+      "key": "effect",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "effect1",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "inDialog",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "configProperties": [],
+  "saveProperties": [
+    {
+      "key": "count",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "is_collected",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "item_id",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "item_inst",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "is_collected",
+    "2": "item_id",
+    "3": "count",
+    "4": "item_inst"
+  },
+  "propertyKeyToIdMap": {
+    "count": 3,
+    "is_collected": 1,
+    "item_id": 2,
+    "item_inst": 4
+  },
+  "templateVariant": {
+    "int_collection_gold_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_collection_item_1"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_collection_item_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_collection_item_1"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_collection_item_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_collection_item_2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_collection_item_3": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_collection_item_3"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_collection_item_gold_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_collection_item_gold_1"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_collection_item_gold_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_collection_item_gold_2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_collection_item_gold_3": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_collection_item_gold_3"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_agmelee": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_agmelee"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_angle_l_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_angle_l_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_angle_m_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_angle_m_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_angle_s_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_angle_s_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_animal_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_animal_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_artificial": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_artificial"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_building": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_building"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_cardexp": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_cardexp"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_copper_ore": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_copper_ore_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_crylplant_2_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_crylplant_2_1_postmodels"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_defalt_common_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_collection_item_2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_droppack_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_droppack_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_eb_jl_m_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_eb_jl_m_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_eb_jl_s_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_eb_jl_s_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_eb_l_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_eb_l_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_eb_m_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_eb_m_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_eb_s_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_eb_s_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_enemycommon_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_enemycommon_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_equip": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_equip"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_ergori": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_ergori"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_erosion_m_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_erosion_m_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_erosion_s_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_erosion_s_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_gem": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_gem"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_insect_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_insect_1"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_insect_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_insect_2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_iron_ore": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_iron_ore"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_lbmob": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_lbmob"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_mimi": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_mimi"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_monstercore": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_monstercore"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_mushroom_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_mushroom_1"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_mushroom_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_mushroom_2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_mushroom_3": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_mushroom_3"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_mushroom_4": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_mushroom_4"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_mushroom_5": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_mushroom_5"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_mushroom_6": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_mushroom_6"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_mushroom_seed": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_mushroom_seed"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_mushroom_spc_2_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_mushroom_spc_2_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": true,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_orgplant_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_orgplant_1"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_orgplant_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_orgplant_2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_orgplant_3": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_orgplant_3"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_orgplant_seed": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_orgplant_seed"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_originium_ore": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_originium_ore"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_bbflower_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_bbflower_1"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_grass_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_grass_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_grass_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_grass_2_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_grass_spc_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_grass_spc_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_grass_spc_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_grass_spc_2_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_moss_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_moss_1"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_moss_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_moss_2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_moss_3": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_moss_3"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_moss_seed": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_moss_seed"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_moss_spc_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_moss_spc_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_plant_moss_spc_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_plant_moss_spc_2_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_quartz_sand": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_quartz_sand"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_ship_component_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_ship_component_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_spcstone_1_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_spcstone_1_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_spcstone_1_2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_spcstone_1_2_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_spcstone_1_3": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_spcstone_1_3_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_spcstone_2_1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_spcstone_2_1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_weapon": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_weapon"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_drop_wood": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_drop_wood"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    }
+  }
+}
