@@ -434,21 +434,22 @@ message BattleClientOpData {
   uint64 owner_id = 1;
   BattleActionOperateType op_type = 2;
   uint32 generation = 3;
-  int32 chapter_map_id = 17;
+  int32 chapter_map_id = 4;
   oneof op_data_impl {
-    BattleAddBuffOpData add_buff_op_data = 4;
-    BattleFinishBuffOpData finish_buff_op_data = 5;
-    BattleSkillAttachOpData skill_attach_op_data = 6;
-    BattleSkillDetachOpData skill_detach_op_data = 7;
-    BattleSkillStartCastOpData skill_start_cast_op_data = 8;
-    BattleSkillEndCastOpData skill_end_cast_op_data = 9;
-    BattleSwitchModeOpData skill_switch_mode_op_data = 10;
-    BattleTriggerActionOpData trigger_action_op_data = 11;
-    BattleUpdateHubOpData update_hub_op_data = 12;
-    BattleEntityDieOpData entity_die_op_data = 13;
-    BattleEntityValueModifyData entity_value_modify_data = 14;
-    BattleResetBattleDataOpData reset_battle_op_data = 15;
-    BattleUpdateDataVersionOpData update_data_version_op_data = 16;
+    BattleAddBuffOpData add_buff_op_data = 101;
+    BattleFinishBuffOpData finish_buff_op_data = 102;
+    BattleSkillAttachOpData skill_attach_op_data = 103;
+    BattleSkillDetachOpData skill_detach_op_data = 104;
+    //skill_enable_op_data = 105;
+    BattleSkillStartCastOpData skill_start_cast_op_data = 106;
+    BattleSkillEndCastOpData skill_end_cast_op_data = 107;
+    BattleSwitchModeOpData skill_switch_mode_op_data = 108;
+    BattleTriggerActionOpData trigger_action_op_data = 109;
+    //BattleUpdateHubOpData update_hub_op_data = 109;
+    BattleEntityDieOpData entity_die_op_data = 110;
+    BattleEntityValueModifyData entity_value_modify_data =111;
+    BattleResetBattleDataOpData reset_battle_op_data = 112;
+    BattleUpdateDataVersionOpData update_data_version_op_data =113;
   }
 }
 
@@ -1360,27 +1361,42 @@ message BattleSequenceRes {
 }
 
 message ServerBuff {
-  string buff_id = 1;
+  TemplateId buff_id = 1;
   uint64 inst_id = 2;
   BattleBlackboard blackboard = 3;
 }
-
+message TemplateId {
+  oneof type {
+    string strId=1;
+    int32 intId=2;
+  }
+}
 message ServerSkill {
-  string skill_id = 1;
+  TemplateId skill_id = 1;
   uint64 inst_id = 2;
   int32 potential_lv = 3;
   int32 level = 4;
   BattleBlackboard blackboard = 5;
   BattleSkillSource source = 6;
   repeated string talent_node_ids = 7;
+  bool isServerInit = 8;
+  bool isEnable = 9;
+  bool isPassive = 10;
 }
 
 message BattleMgrInfo {
   repeated ServerBuff buff_list = 1;
   repeated ServerSkill skill_list = 2;
   uint32 msg_generation = 3;
+  repeated ServerBuffStackingGroup stackingGroupList = 5;
+  BattlePartInstInfo partInstInfo = 6;
 }
+message BattlePartInstInfo {
+  map<string, uint64> partIdToInstId = 1;
+}
+message ServerBuffStackingGroup{
 
+}
 message DynamicParameter {
   int32 value_type = 1;
   int32 real_type = 2;
@@ -1559,8 +1575,9 @@ message FriendFriendUserInfo {
 }
 
 message FriendFriendInfo {
-  FriendFriendUserInfo friend_user_info = 1;
-  int64 create_time = 2;
+  FriendFriendUserInfo friendUserInfo = 1;
+  int64 createTime = 2;
+  string remarkName = 3;
 }
 
 message FriendRequestInfo {
@@ -1631,32 +1648,95 @@ message ScActivitySync {
 }
 
 message ActivityInfo {
-  uint64 version = 1;
-  bool is_enable = 2;
-  string id = 3;
-  string name = 4;
-  int64 start_time = 5;
-  int64 end_time = 6;
-  ActivityType typ = 7;
-  ActivityInfoSpecified data = 8;
+  bool isEnable = 1;
+  string id = 2;
+  int64 startTime = 3;
+  int64 endTime = 4;
+  int32 typ = 5;
+  ActivityInfoSpecified data = 6;
+  bool isCompleted = 7;
+  bool isUnlocked = 8;
+  int32 status = 9;
+  bool rewardAll = 11;
+  ScdActivityConditions conditions = 10;
 }
 
-enum ActivityType {
-  ACTIVITY_TYPE_DEFAULT = 0;
-  ACTIVITY_TYPE_CHECKIN = 1;
+
+message ActivityInfoSpecifiedCheckin {
+  int32 loginDays = 1;
+  repeated uint64 rewardDays = 2;
+}
+
+message ScdActivityConditions {
+  map<string, int32> values = 1;
 }
 
 message ActivityInfoSpecified {
   oneof data {
     ActivityInfoSpecifiedCheckin checkin = 15;
+    ActivityInfoSpecifiedBaseMultiStage baseMultiStage = 16;
+    ActivityInfoSpecifiedConditionalMultiStage conditionalMultiStage=17;
+    ActivityInfoSpecifiedGameEntrance gameEntrance=18;
+    ActivityInfoSpecifiedCharTrial charTrial = 19;
   }
 }
 
-message ActivityInfoSpecifiedCheckin {
-  int32 login_days = 1;
-  int32 reward_days = 2;
+message ActivityInfoSpecifiedGameEntrance {
+  bool completeIntroMission = 2;
+  repeated GameEntranceActivitySeriesInfo seriesInfos = 1;
 }
 
+message ActivityInfoSpecifiedCharTrial {
+  map<string, bool> dungeonStatus = 1;
+}
+message ScPaySyncCashShops {
+  ScdCashShopMgr shopMgr = 1;
+}
+message ScdCashShopMgr {
+  repeated ScdCashShop cashShops = 1;
+  repeated ScdCashShopFrequencyLimit freLimit = 2;
+}
+message ScdCashShopFrequencyLimit {
+  string frequencyLimitId = 1;
+  int32 count = 2;
+}
+message ScdCashShop {
+  string cashShopId = 1;
+  repeated ScdCashShopConds shopConds = 2;
+  map<string, ScdCashShopGoods> goods = 3;
+  int64 openTms = 4;
+  int64 closeTms = 5;
+}
+message ScdCashShopGoods {
+  string goodsId = 1;
+  repeated ScdCashShopConds goodsConds = 2;
+  int64 openTms = 3;
+  int64 closeTms = 4;
+}
+message ScdCashShopConds {
+  string condId = 1;
+  int32 value = 2;
+  bool flag = 3;
+}
+message GameEntranceActivitySeriesInfo {
+  string seriesId = 1;
+  int64 openTime = 2;
+}
+message ActivityInfoSpecifiedBaseMultiStage {
+  repeated int32 receiveStageList = 1;
+  repeated int32 completeStageList = 2;
+}
+message ActivityInfoSpecifiedConditionalMultiStage {
+  bool completeIntroMission = 1;
+  bool completeFinaleMission = 2;
+  repeated ActivityConditionalStageInfo stageList = 3;
+}
+
+message ActivityConditionalStageInfo {
+  string id = 1;
+  int32 status = 2;
+  ScdActivityConditions conditions = 3;
+}
 message ScActivityModify {
   ActivityInfo info = 1;
 }
@@ -1680,6 +1760,9 @@ message ScAdventureLevelModify {
 message ScAdventureSyncAll {
   int32 level = 1;
   int64 exp = 2;
+  int32 worldLevel = 3;
+  int32 unlockWorldLevel = 4;
+  int64 lastSetWorldLevelTs = 5;
 }
 
 message AdventureTask {
@@ -2301,6 +2384,23 @@ message ScdFactorySyncQuickbar {
 message ScFactorySync {
   ScdFactorySyncFormulaMan formula_man = 1;
   ScdFactorySyncStt stt = 2;
+  ScdFactorySyncProgressStatus progressStatus = 3;
+}
+message ScdFactorySyncProgressStatus {
+  repeated string buildingPowerDiffuserEnable = 1;
+  repeated string buildingPowerCanBeWireStart = 2;
+  map<string, ScdFactoryPanelBusFreeLimit> busFreeLimit = 3;
+  map<string, ScdFactoryBuildingDomainPlaceLimit> domainPlaceLimit = 4;
+}
+message ScdFactoryBuildingDomainPlaceLimit {
+  map<string, int32> buildingLimit = 1;
+}
+message ScdFactoryPanelBusFreeLimit {
+  map<int32, ScdFactoryBusFreeCntLimit> busFreePanelLimit = 1;
+}
+message ScdFactoryBusFreeCntLimit {
+  int32 busStartLimit = 1;
+  int32 busFreeLimit = 2;
 }
 
 message ScFactoryModifyFormulaMan {
@@ -3104,6 +3204,24 @@ message ScFactorySyncChapter {
   ScdFactorySyncPinBoard pin_board = 6;
   repeated ScdFactorySyncMap maps = 7;
   ScdFactorySyncStatistic statistic = 9;
+  ScdFactorySyncPendingPlace pendingPlace = 10;
+}
+message ScdFactorySyncPendingPlace {
+  repeated ScdBatchPendingBuildingData pendingPlaceInfo = 1;
+  repeated ScdFacNode conveyorRelatedNodes = 2;
+}
+message ScdBatchPendingBuildingData {
+  int32 slotId = 1;
+  map<string, int32> preCostItems = 2;
+  repeated ScdFacNode nodes = 3;
+  map<uint32, CsdBatchPlaceComList> comData = 4;
+}
+message CsdBatchPlaceComList {
+  repeated CsdBatchPlaceCom coms = 1;
+}
+message CsdBatchPlaceCom {
+  int32 comType = 1;
+  uint32 comPos = 2;
 }
 
 message ScdFactorySyncStatistic {
@@ -4353,19 +4471,16 @@ message ScItemBagChgSpaceshipChapter {
 }
 
 message CsLogin {
-  string uid = 1;
-  string token = 2;
-  string channel = 3;
-  int32 server_group = 4;
-  uint64 last_recv_down_seqid = 5;
-  string client_version = 6;
-  string client_res_version = 7;
-  bytes client_public_key = 8;
-  ClientPlatformType platform_id = 9;
-  AreaType area = 10;
-  EnvType env = 11;
-  int32 pay_platform = 12;
-  string login_token = 13;
+  string uid = 5; //
+  string token = 6;//
+  string channel = 1;//
+  string client_version = 3;//
+  string client_res_version = 2;//
+  string client_public_key = 7;//
+  ClientPlatformType platform_id = 8;//
+  AreaType area = 9; //
+  EnvType env = 12;//
+  int32 client_language = 16;//
 }
 
 enum ClientPlatformType {
@@ -4391,19 +4506,49 @@ enum EnvType {
 }
 
 message ScLogin {
-  string uid = 1;
-  bool is_first_login = 2;
-  bytes server_public_key = 3;
-  bytes server_encryp_nonce = 4;
-  uint64 last_recv_up_seqid = 5;
-  bool is_reconnect = 6;
-  bool is_enc = 7;
-  bool is_client_reconnect = 8;
-  int64 server_time = 9;
-  int32 server_time_zone = 10;
-  string login_token = 11;
+  string uid = 1; //
+  string login_token = 2; //
+  bool is_first_login = 6; //
+  bytes server_public_key = 3;//
+  bytes server_encryp_nonce = 4;//
+  uint64 last_recv_up_seqid = 9;//
+  bool is_reconnect = 7;//
+  //bool is_enc = 7; 
+  bool is_client_reconnect = 5; //
+  int64 server_time = 8; //
+  int32 server_time_zone = 10;//
+  int32 server_area_type = 12; //
+  
+}
+message ScAchieveSyncPersonalInfo {
+  repeated ScdAchievePersonalInfo achievePersonalInfos = 1;
+}
+message ScdAchievePersonalInfo {
+  int32 achieveNumId = 1;
+  int32 level = 2;
+  bool isPlated = 3;
+  int64 obtainTimeTs = 4;
+  ScdAchieveConditions achieveConditions = 5;
+}
+message ScAchieveSync {
+  repeated ScdAchievePublicInfo achievePublicInfos = 1;
+  repeated ScdAchievePersonalInfo achievePersonalInfos = 2;
+  ScdAchieveDisplayInfo achieveDisplayInfo = 3;
+}
+message ScdAchievePublicInfo {
+  int32 achieveNumId = 1;
+  int64 openTime = 2;
+  int64 closeTime = 3;
 }
 
+message ScdAchieveDisplayInfo {
+  map<int32, int32> display = 1;
+  repeated int32 displayDepot = 2;
+}
+
+message ScdAchieveConditions {
+  map<string, int32> conditionValues = 1;
+}
 message CsCreateRole {
   string role_name = 1;
   Gender gender = 2;
@@ -4417,14 +4562,93 @@ enum Gender {
 }
 
 message ScSyncBaseData {
-  uint64 roleid = 1;
-  string role_name = 2;
-  uint32 level = 3;
-  uint32 exp = 4;
-  string short_id = 7;
-  Gender gender = 8;
+  int64 createTs = 1;
+  bytes clientSetting = 2;
+  uint64 roleid = 3;
+  Gender gender = 4;
+  uint32 level = 5;
+  uint32 exp = 6;
+  string shortId = 7;
+  string roleName = 8;
+  int64 createTsDisplay = 9;
+}
+message ScFriendPersonalDataSync {
+  FriendPersonalData data = 1;
+}
+message CsFriendChatListSimpleSync {
+  FriendChatListSimpleSyncType type = 1;
+}
+enum FriendChatListSimpleSyncType {
+  CHAT_LIST_SIMPLE_SYNC_DEFAULT = 0;
+  CHAT_LIST_SIMPLE_SYNC_THIRD_LOGIN = 1;
 }
 
+message ScFriendChatListSimpleSync {
+  repeated ScdFriendChatListData dataList = 1;
+  int32 dailySocialBuildingShareCnt = 2;
+}
+
+message ScFriendFriendListLoginNotify {
+  repeated uint64 roleIdList = 2;
+}
+
+message ScdFriendChatListData {
+  uint64 roleId = 1;
+  uint32 readIndex = 2;
+  uint32 newestIndex = 3;
+  FriendChatListSimpleSyncType dataType = 10;
+}
+message ScFriendListSimpleSync {
+  repeated ScdFriendFriendSimpleInfo friendList = 1;
+}
+message ScFriendListQuery {
+  repeated FriendFriendInfo friendList = 1;
+}
+message ScdFriendFriendSimpleInfo {
+  uint64 roleId = 1;
+  int64 lastLogoutTime = 2;
+  bool online = 3;
+  uint32 adventureLevel = 4;
+  int64 createTime = 5;
+  bool helpFlag = 6;
+  bool clueFlag = 7;
+  string name = 8;
+  string remarkName = 9;
+  FriendSpaceshipHelpStatus helpStatus = 10;
+  bool guestRoomUnlock = 11;
+  string shortId = 12;
+  string signature = 13;
+  int32 userAvatarId = 14;
+  int32 userAvatarFrameId = 15;
+  int32 businessCardTopicId = 16;
+  HgThirdAccountType lastLoginType = 20;
+  ThirdAccountData thirdAccountData = 21;
+}
+message ThirdAccountData {
+  HgThirdAccountType thirdAccountDataType = 1;
+}
+message ThirdAccountDataPsn {
+  string accountId = 1;
+  string onlineId = 2;
+}
+enum HgThirdAccountType {
+  ACCOUNT_TYPE_DEFAULT = 0;
+  ACCOUNT_TYPE_PSN = 1;
+}
+enum FriendSpaceshipHelpStatus {
+  FRIEND_SPACESHIP_HELP_STATUS_INVALID = 0;
+  FRIEND_SPACESHIP_HELP_STATUS_CAN_HELP = 1;
+  FRIEND_SPACESHIP_HELP_STATUS_HELPED = 2;
+}
+message FriendPersonalData {
+  int32 userAvatarId = 1;
+  int32 userAvatarFrameId = 2;
+  int32 businessCardTopicId = 3;
+  string signature = 4;
+  repeated uint64 charList = 5;
+  bool businessCardExpandFlag = 20;
+  bool psnOnly = 30;
+}
 message ScNtfErrorCode {
   int32 error_code = 1;
   string details = 2;
@@ -5172,6 +5396,8 @@ message SceneObjectCommonInfo {
   uint64 belong_level_script_id = 6;
   int32 scene_num_id = 7;
   double hp = 8;
+  uint32 belong_script_slot_id = 9;
+  bool is_battle_create = 10;
 }
 
 message SceneCharacter {
@@ -5331,7 +5557,6 @@ message ScSelfSceneInfo {
   int32 self_info_reason = 9;
   repeated string unlock_area = 10;
   repeated SceneDrop drop_list = 14;
-  int32 scene_grade = 15;
   ScdSceneTeamInfo team_info = 16;
   oneof scene_impl {
     SceneImplDungeon dungeon = 11;
@@ -5832,22 +6057,49 @@ message ScdShop {
   repeated ScdShopUnlockConditions goods_unlock_conditions = 6;
   bool is_dynamic_good = 7;
   bool is_dynamic_discount = 8;
+  map<string, ScdShopTimeRange> goodsTimeRange = 10;
+  ShopRandomType randomType = 9;
   oneof refresh_data {
     ScdShopRandomRefresh random_refresh = 21;
   }
 }
-
+message ScdShopTimeRange {
+  int64 openTms = 1;
+  int64 closeTms = 2;
+}
 message ScdShopFrequencyLimit {
   string frequency_limit_id = 1;
   int32 count = 2;
 }
-
-message ScShopSync {
-  repeated ScdShopUnlockConditions shop_group_conditions = 1;
-  repeated ScdShop shops = 2;
-  repeated ScdShopFrequencyLimit frequency_limits = 3;
+enum ShopRandomType {
+  SHOP_RANDOM_DEFAULT = 0;
+  SHOP_RANDOM_DOMAIN = 1;
 }
-
+message ScShopSync {
+  repeated ScdShopUnlockConditions shopGroupConditions = 1;
+  repeated ScdShop shops = 2;
+  repeated ScdShopFrequencyLimit frequencyLimits = 3;
+  repeated ScdShopFrequencyLimit manualRefreshLimits = 4;
+  ScdShopGroupData shopGroupData = 5;
+  ScdShopFrequencyLimitMgr frequencyLimitMgr = 6;
+}
+message ScdShopFrequencyLimitMgr {
+  repeated ScdShopFrequencyLimit useCount = 1;
+  repeated ScdShopDynFrequencyUplimit dynUplimit = 2;
+  repeated ScdShopFrequencyLimit manualRefreshLimits = 11;
+}
+message ScdShopDynFrequencyUplimit {
+  string frequencyLimitId = 1;
+  int32 uplimit = 2;
+}
+message ScdShopGroupData {
+  repeated ScdShopDomainChannel domainChannels = 1;
+}
+message ScdShopDomainChannel {
+  string domainId = 1;
+  map<string, int32> channels = 2;
+  string version = 3;
+}
 message ScShopSyncShopGroupCondition {
   ScdShopUnlockConditions shop_group_conditions = 1;
 }
@@ -6169,6 +6421,8 @@ message ScdSpaceshipChar {
   bool is_presented = 7;
   int32 recv_gift_cnt = 8;
   string temp_reward_id = 9;
+  int32 dailyAddFavorability = 10;
+  map<int32, int32> presentGiftMap = 11;
 }
 
 message ScdSpaceshipCharSkillList {
@@ -6186,8 +6440,40 @@ message ScdSpaceshipCharStation {
 message ScSpaceshipSync {
   repeated ScdSpaceshipRoom rooms = 1;
   repeated ScdSpaceshipChar chars = 2;
+  map<int32, int32> blackboardKvs = 3;
+  ScdSpaceshipAssist assistData = 4;
+  map<int32, int32> showcaseInfo = 5;
+  ScdSpaceshipExpedition expeditionData = 6;
 }
-
+message ScdSpaceshipExpedition {
+  int32 infoTokens = 1;
+  //repeated ScdSpaceshipExpeditionDomain domains = 2;
+  //repeated ScdSpaceshipExpeditionRegion regions = 3;
+}
+message ScdSpaceshipAssist {
+  int32 helpOthersCount = 1;
+  repeated HelpOthersRecord helpOthersRecord = 2;
+  repeated BeHelpedRecord beHelpedRecord = 3;
+  map<string, BeHelpedCount> beHelpedCreditLeft = 4;
+  map<string, BeHelpedCount> beHelpedCountTotal = 5;
+}
+message BeHelpedRecord {
+  uint64 roleId = 1;
+  string roleName = 2;
+  string roomId = 3;
+  int32 roomType = 4;
+}
+message BeHelpedCount {
+  int32 controlCenter = 1;
+  int32 manufacturingStation = 2;
+  map<int32, int32> growCabin = 3;
+  int32 commandCenter = 4;
+}
+message HelpOthersRecord {
+  uint64 target = 1;
+  string roomId = 2;
+  int32 roomType = 3;
+}
 message ScSpaceshipModifyRoom {
   repeated ScdSpaceshipRoom rooms = 1;
 }
@@ -6676,3 +6962,25 @@ message Opts {
   optional bool unique = 1;
 }
 
+message ScDomainDevelopmentSystemSync {
+  repeated DomainDevelopment domains = 1;
+}
+
+
+
+message ScDomainDevelopmentSync {
+  DomainDevelopment domain = 1;
+}
+
+message DomainDevelopment {
+  string chapterId = 1;
+  string version = 3;
+  DomainDevelopmentDegree devDegree = 2;
+}
+
+message DomainDevelopmentDegree {
+  uint64 exp = 1;
+  uint32 level = 2;
+  uint64 rewardedLevel = 3;
+  repeated uint64 source = 4;
+}

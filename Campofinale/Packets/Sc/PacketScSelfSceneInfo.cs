@@ -20,15 +20,14 @@ namespace Campofinale.Packets.Sc
                     CurLeaderId = session.teams[session.teamIndex].leader,
                     TeamIndex = session.teamIndex,
                     TeamType = CharBagTeamType.Main
-
+                    
                 },
-                SceneGrade = session.sceneManager.GetCurScene().grade,
+                
                 
                 Detail = new()
                 {
                     TeamIndex = session.teamIndex,
                     
-                        
                 },
                 LevelScripts =
                 {
@@ -110,7 +109,7 @@ namespace Campofinale.Packets.Sc
                    }
                    
                 }
-                sceneInfo.LevelScripts.Add(script);
+               // sceneInfo.LevelScripts.Add(script);
             });
             SetData(ScMsgId.ScSelfSceneInfo, sceneInfo);
             

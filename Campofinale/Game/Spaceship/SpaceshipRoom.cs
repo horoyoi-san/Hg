@@ -41,8 +41,8 @@ namespace Campofinale.Game.Spaceship
         }
         public int GetType()
         {
-            SpaceshipRoomInsTable roomInfo = ResourceManager.spaceshipRoomInsTable[id];
-            return roomInfo.roomType;
+            //SpaceshipRoomInsTable roomInfo = ResourceManager.spaceshipRoomInsTable[id];
+            return 0;
         }
         public Player GetOwner()
         {
@@ -51,12 +51,12 @@ namespace Campofinale.Game.Spaceship
 
         public ScdSpaceshipRoom ToRoomProto()
         {
-            SpaceshipRoomInsTable roomInfo = ResourceManager.spaceshipRoomInsTable[id];
+           
             ScdSpaceshipRoom room = new()
             {
                 Id = id,
                 Level = level,
-                Type = roomInfo.roomType,
+                Type = 0,
                 HasCharWorking = HasCharWorking(),
                 StationedCharList =
                 {
@@ -121,7 +121,7 @@ namespace Campofinale.Game.Spaceship
                             }
                         },
             };
-            switch (roomInfo.roomType)
+            switch (0)
             {
                 case 0:
                     room.ControlCenter = new()

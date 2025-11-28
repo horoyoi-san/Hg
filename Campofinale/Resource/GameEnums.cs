@@ -519,7 +519,8 @@
         SlrReviveByItem = 4,
         SlrResetDungeon = 5,
         SlrSeamlesslyEnterScene = 6,
-        SlrSeamlesslyTouchScene = 7
+        SlrSeamlesslyTouchScene = 7,
+        SlrChangeTeamByNpcTeammates = 8,
     }
     public enum TalentNodeType // TypeDefIndex: 33688
     {
@@ -822,11 +823,14 @@ public enum EntityDataType // TypeDefIndex: 24999
         ReadActiveBlackbox = 49,
         ReadLevel = 50,
         FactroyPlacedBuilding = 51,
-        EnumMax = 52
+        EnumMax = 52,
+        UnlockUserAvatar = 55,
+        UnlockUserAvatarFrame = 56,
     }
-    
-    public enum UnlockSystemType // TypeDefIndex: 33602
+
+    public enum UnlockSystemType
     {
+        None = 10000000,
         Map = 0,
         Inventory = 1,
         Watch = 2,
@@ -850,9 +854,10 @@ public enum EntityDataType // TypeDefIndex: 24999
         SNS = 65,
         EquipTech = 66,
         EquipProduce = 67,
-        ItemSubmitRecycle = 68,
         DungeonFactory = 69,
         EnemySpawner = 70,
+        GeneralAbilityWaterGun = 71,
+        GeneralAbilitySnapshot = 72,
         FacBuildingPin = 101,
         FacCraftPin = 102,
         FacMode = 103,
@@ -872,13 +877,24 @@ public enum EntityDataType // TypeDefIndex: 24999
         FacPipeConnector = 117,
         FacPipeConverger = 118,
         FacHub = 119,
+        FacBusFree = 120,
+        FacTopView = 121,
+        FacBlueprint = 122,
+        FacUndergroundPipe = 123,
+        FacSocial = 124,
+        FacValve = 125,
+        FacPipeValve = 126,
+        FacPanelStore = 127,
+        FacFertilize = 128,
         ManualCraft = 201,
         ItemUse = 202,
         ItemQuickBar = 203,
         ProductManual = 204,
+        ManualCraftSoil = 205,
         Weapon = 251,
         Equip = 252,
         EquipEnhance = 253,
+        GemEnhance = 254,
         NormalAttack = 301,
         NormalSkill = 302,
         UltimateSkill = 303,
@@ -887,21 +903,34 @@ public enum EntityDataType // TypeDefIndex: 24999
         TeamSwitch = 306,
         Dash = 307,
         Jump = 308,
+        LockTarget = 309,
         SpaceshipPresentGift = 401,
         SpaceshipManufacturingStation = 402,
         SpaceshipControlCenter = 403,
         SpaceshipSystem = 404,
         SpaceshipGrowCabin = 405,
         SpaceshipShop = 406,
+        SpaceshipGuestRoom = 407,
         Settlement = 501,
+        DomainDevelopment = 502,
+        DomainDevelopmentDomainDepot = 503,
+        SettlementDefense = 504,
+        KiteStation = 511,
+        DomainShop = 512,
         RacingDungeon = 601,
         BattleTraining = 602,
+        WeekRaid = 603,
+        WeekRaidIntro = 604,
+        WaterDroneCanUseXiranite = 605,
         AdventureExpAndLv = 651,
         AdventureBook = 652,
         GuidanceManul = 661,
         AIBark = 670,
-        CheckIn = 1113,
-        None = 10000000
+        Achievement = 701,
+        MinigamePuzzle = 801,
+        BPSystem = 802,
+        Activity = 1100,
+        CheckIn = 1113
     }
     public enum AttributeType // TypeDefIndex: 33566
     {

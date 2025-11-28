@@ -12,20 +12,33 @@ namespace Campofinale.Packets.Sc
             {
                 Info =
                 {
-                    new ActivityInfo()
+                    /*new ActivityInfo()
                     {
-                        Version=8,
                         IsEnable = true,
                         Id="activity_checkin_1",
-                        StartTime=1736820000,
-                        EndTime=1739473200,
-                        Typ=ActivityType.Checkin,
+                        StartTime=DateTime.UtcNow.ToUnixTimestampMilliseconds(),
+                        EndTime=DateTime.UtcNow.AddDays(20).ToUnixTimestampMilliseconds(),
                         Data = new()
                         {
                             Checkin = new()
                             {
                                 LoginDays=1,
-                                RewardDays=16,
+                                RewardDays={1,1,2,3,4,5,6,7,8,9,10,11,12,13,14},
+                                
+                            }
+                        }
+                    },*/
+                    new ActivityInfo()
+                    {
+                        
+                        IsEnable = true,
+                        Id="CharacterGuide_wolfgd",
+                        StartTime=DateTime.UtcNow.ToUnixTimestampMilliseconds(),
+                        EndTime=DateTime.UtcNow.AddDays(20).ToUnixTimestampMilliseconds(),
+                        Data = new()
+                        {
+                            CharTrial = new()
+                            {
                                 
                             }
                         }

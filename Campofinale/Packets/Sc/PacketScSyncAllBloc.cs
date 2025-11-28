@@ -7,7 +7,7 @@ namespace Campofinale.Packets.Sc
     public class PacketScSyncAllBloc : Packet
     {
         
-        public PacketScSyncAllBloc(Player client) {
+        /*public PacketScSyncAllBloc(Player client) {
 
             ScSyncAllBloc allblocks = new()
             {
@@ -44,7 +44,7 @@ namespace Campofinale.Packets.Sc
             }
             
             SetData(ScMsgId.ScSyncAllBloc, allblocks);
-        }
+        }*/
 
     }
 }

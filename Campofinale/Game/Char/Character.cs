@@ -206,7 +206,10 @@ namespace Campofinale.Game.Char
                                         Level=GetSkillMaxLevel(),
                                         Source=BattleSkillSource.Default,
                                         PotentialLv=GetSkillMaxLevel(),
-                                        SkillId=id+"_NormalSkill",
+                                        SkillId = new()
+                                        {
+                                            StrId=id+"_NormalSkill"
+                                        },
                                     },
                                     new ServerSkill()
                                     {
@@ -218,7 +221,11 @@ namespace Campofinale.Game.Char
                                         Level=GetSkillMaxLevel(),
                                         Source=BattleSkillSource.Default,
                                         PotentialLv=GetSkillMaxLevel(),
-                                        SkillId=id+"_ComboSkill",
+                                        
+                                        SkillId = new()
+                                        {
+                                            StrId=id+"_ComboSkill",
+                                        }
                                     },
                                     new ServerSkill()
                                     {
@@ -230,7 +237,11 @@ namespace Campofinale.Game.Char
                                         Level=GetSkillMaxLevel(),
                                         Source=BattleSkillSource.Default,
                                         PotentialLv=GetSkillMaxLevel(),
-                                        SkillId=id+"_UltimateSkill",
+                                        
+                                        SkillId = new()
+                                        {
+                                            StrId=id+"_UltimateSkill",
+                                        }
                                     },
                                     new ServerSkill()
                                     {
@@ -242,7 +253,11 @@ namespace Campofinale.Game.Char
                                         Level=GetSkillMaxLevel(),
                                         Source=BattleSkillSource.Default,
                                         PotentialLv=GetSkillMaxLevel(),
-                                        SkillId=id+"_NormalAttack",
+                                        SkillId = new()
+                                        {
+                                            StrId=id+"_NormalAttack",
+                                        }
+                                        
                                     }
                                 }
                 },
@@ -258,7 +273,7 @@ namespace Campofinale.Game.Char
                     SceneNumId = GetOwner().curSceneNumId,
                     Templateid = id,
                     Type = (int)0,
-                    
+                    IsBattleCreate=true
                 },
                 Attrs =
                 {

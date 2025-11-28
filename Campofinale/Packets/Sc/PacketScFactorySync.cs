@@ -1,5 +1,6 @@
 ﻿using Campofinale.Network;
 using Campofinale.Protocol;
+using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Packets.Sc
 {
@@ -8,8 +9,8 @@ namespace Campofinale.Packets.Sc
 
         public PacketScFactorySync(Player client) {
             string json = File.ReadAllText("53_ScFactorySync.json");
-            ScFactorySync proto = Newtonsoft.Json.JsonConvert.DeserializeObject<ScFactorySync>(json);
-            /*ScFactorySync proto = new()
+            //ScFactorySync proto = Newtonsoft.Json.JsonConvert.DeserializeObject<ScFactorySync>(json);
+            ScFactorySync proto = new()
             {
                 FormulaMan = new()
                 {
@@ -41,6 +42,10 @@ namespace Campofinale.Packets.Sc
                             State=1
                         }
                     }
+                },
+                ProgressStatus = new()
+                {
+                    
                 }
             };
             foreach(var node in facSTTNodeTable)
@@ -59,7 +64,7 @@ namespace Campofinale.Packets.Sc
                     Id = layer.Value.layerId,
                     State = 1,
                 });
-            }*/
+            }
 
             SetData(ScMsgId.ScFactorySync, proto);
         }

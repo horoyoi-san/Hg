@@ -47,11 +47,7 @@ namespace Campofinale.Packets.Sc
 
 
                 };
-                if (item.Value.closeTimes.Count == 0)
-                {
-                    wPool.CloseTime = 0;
-                    wPool.OpenTime = 0;
-                }
+                
                 proto.WeaponGachaPool.GachaPoolInfos.Add(wPool);
                 proto.WeaponGachaPool.GachaPoolRoleDatas.Add(new ScdGachaPoolRoleData()
                 {

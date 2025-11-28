@@ -32,7 +32,7 @@ class Program
 
         socket.Connect(new IPEndPoint(ipAddress, serverPort));
         //CBT 3 info we got: Proto body encrypted, Packet format seem the same, Cmd Id is not encrypted and is not shuffled
-         socket.Send(Packet.EncodePacket((int)CsMsgId.CsLogin,new CsLogin() { ClientVersion="0.5.5",Uid= "", Token= "", Env=EnvType.Prod,PlatformId=ClientPlatformType.Windows,Area=AreaType.Oversea,ClientResVersion="", LoginToken= "" }.ToByteArray()));
+         socket.Send(Packet.EncodePacket((int)CsMsgId.CsLogin,new CsLogin() { ClientVersion="0.5.5",Uid= "", Token= "", Env=EnvType.Prod,PlatformId=ClientPlatformType.Windows,Area=AreaType.Oversea,ClientResVersion="" }.ToByteArray()));
         //socket.Send(Packet.EncodePacket((int)CsMsgId.CsFriendListSync, new CsFriendListSync() { }.ToByteArray()));
         
         while (true)

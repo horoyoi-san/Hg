@@ -1,11 +1,56 @@
 ﻿using Campofinale.Game;
 using HttpServerLite;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Campofinale.Http
 {
     public class Dispatch
     {
+        public static string AES_KEY = "cZm86UfDp/kgJ3agKx+HZA==";
+        public static string EncryptWithTextIV(string plainText)
+        {
+            // Decodifica la chiave Base64
+            byte[] keyBytes = Convert.FromBase64String(AES_KEY);
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = keyBytes;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+
+                // Converti il testo in byte
+                byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+
+                // Prendi i primi 16 byte come IV
+                byte[] iv = new byte[16];
+                Array.Copy(plainBytes, iv, Math.Min(16, plainBytes.Length));
+
+                // Se il testo è più corto di 16 byte, riempi il resto con zeri
+                if (plainBytes.Length < 16)
+                {
+                    Array.Resize(ref iv, 16);
+                }
+
+                aes.IV = iv;
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    // Scrive l'IV all'inizio
+                    ms.Write(iv, 0, iv.Length);
+
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(plainBytes, 0, plainBytes.Length);
+                        cs.FlushFinalBlock();
+                    }
+
+                    // Restituisce IV + ciphertext in Base64
+                    return Convert.ToBase64String(ms.ToArray());
+                }
+            }
+        }
         public Webserver server;
         public void Start()
         {
@@ -135,11 +180,22 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(resp);
         }
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/default/network_config")]
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/1003/prod-engine/default/default/engine_config")]
+        public static async Task engine_config_cn(HttpContext ctx)
+        {
+            string resp = "{\"CL\": 0, \"Configs\": \"{\\\"Windows\\\":{\\\"Platform\\\":\\\"Windows\\\",\\\"Params\\\":{\\\"disable-streamline-at-startup\\\":\\\"1\\\"}}}\", \"Version\": 0}";
+
+            ctx.Response.StatusCode = 200;
+            ctx.Response.ContentLength = resp.Length;
+            ctx.Response.ContentType = "application/json";
+
+            await ctx.Response.SendAsync(resp);
+        }
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/v2/1003/prod-cbt3/default/default/network_config")]
         public static async Task network_config(HttpContext ctx)
         {
-            string resp = "{\"asset\":\"https://beyond.hg-cdn.com/asset/\",\"hgage\":\"\",\"sdkenv\":\"2\",\"u8root\":\"https://u8.gryphline.com/u8\",\"appcode\":4,\"channel\":\"prod\",\"netlogid\":\"GFz8RRMDN45w\",\"gameclose\":false,\"netlogurl\":\"http://native-log-collect.gryphline.com:32000/\",\"accounturl\":\"https://binding-api-account-prod.gryphline.com\",\"launcherurl\":\"https://launcher.gryphline.com\"}";
-
+            string resp = "{\"hgage\": \"https://web.hycdn.cn/endfield/protocol/cadpa-age.txt\", \"hggov\": \"https://beian.miit.gov.cn/\", \"u8root\": \"https://u8.hypergryph.com/u8\", \"gameclose\": false, \"netlogurl\": \"http://native-log-collect.hypergryph.com:32000\", \"launcherurl\": \"https://launcher.hypergryph.com\"}";
+            resp = EncryptWithTextIV(resp);
             ctx.Response.StatusCode = 200;
             ctx.Response.ContentLength = resp.Length;
             ctx.Response.ContentType = "application/json";
@@ -147,26 +203,24 @@ namespace Campofinale.Http
             await ctx.Response.SendAsync(resp);
         }
         
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/Windows/game_config")]
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/v2/1003/prod-cbt3/default/Windows/game_config")]
         public static async Task game_config(HttpContext ctx)
         {
-            string resp = "{\"enableHotUpdate\": true, \"memorypackLowIOEnable\": true, \"enableIFixHotKeyReload\": true, \"enableFastSimulatePhysXFix\": true}";
-
+            string resp = "{\"enableHotUpdate\": false, \"enableSRSAEncLog\": true, \"selectSrv\": false, \"enableIFixHotKeyReload\": true}";
+            resp = EncryptWithTextIV(resp);
             ctx.Response.StatusCode = 200;
             ctx.Response.ContentLength = resp.Length;
             ctx.Response.ContentType = "application/json";
 
             await ctx.Response.SendAsync(resp);
         }
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/Windows/res_version")]
-        public static async Task os_windows_res_version(HttpContext ctx)
+        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/v2/1003/prod-cbt3/default/Android/game_config")]
+        public static async Task game_config_android(HttpContext ctx)
         {
-
-            string resp = "{\"version\": \"1909054-94\", \"kickFlag\": true}";
-
-
+            string resp = "{\"enableHotUpdate\": false, \"enableSRSAEncLog\": true, \"selectSrv\": false, \"enableIFixHotKeyReload\": true}";
+            resp = EncryptWithTextIV(resp);
             ctx.Response.StatusCode = 200;
-            //ctx.Response.ContentLength = resp.Length;
+            ctx.Response.ContentLength = resp.Length;
             ctx.Response.ContentType = "application/json";
 
             await ctx.Response.SendAsync(resp);
@@ -312,32 +366,7 @@ namespace Campofinale.Http
             await ctx.Response.SendAsync(resp);
         }
 
-        //ANDROID
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/Android/res_version")]
-        public static async Task os_android_res_version(HttpContext ctx)
-        {
-
-            string resp = "{\"version\": \"2413221-312\", \"kickFlag\": false}";
-
-
-            ctx.Response.StatusCode = 200;
-            //ctx.Response.ContentLength = resp.Length;
-            ctx.Response.ContentType = "application/json";
-
-            await ctx.Response.SendAsync(resp);
-        }
-        [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/remote_config/get_remote_config/1003/prod-cbt3/default/Android/game_config")]
-        public static async Task game_config_os_android(HttpContext ctx)
-        {
-            string resp = "{\"mockLogin\": false, \"selectSrv\": false, \"enableHotUpdate\": true, \"enableNpcOptimize\": false, \"enableEntitySpawnLog\": false, \"enableCBT2AccessForbidden\": false, \"enableMobileFullScreenWaterMark\": false}";
-
-            ctx.Response.StatusCode = 200;
-            ctx.Response.ContentLength = resp.Length;
-            ctx.Response.ContentType = "application/json";
-
-            await ctx.Response.SendAsync(resp);
-        }
-
+        
         public static async Task data(HttpContext ctx)
         {
             string fileId = ctx.Request.Url.Elements.LastOrDefault();

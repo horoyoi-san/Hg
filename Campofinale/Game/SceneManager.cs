@@ -233,10 +233,7 @@ namespace Campofinale.Game
             foreach (var level in ResourceManager.levelDatas)
             {
                 int grade = 1;
-                if (ResourceManager.levelGradeTable.ContainsKey(level.id))
-                {
-                    grade = ResourceManager.levelGradeTable[level.id].grades.Last().grade;
-                }
+                
                 if (scenes.Find(s=>s.sceneNumId==level.idNum) == null)
                 scenes.Add(new Scene()
                 {

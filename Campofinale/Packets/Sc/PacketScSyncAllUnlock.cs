@@ -1,5 +1,6 @@
 ﻿using Campofinale.Network;
 using Campofinale.Protocol;
+using Campofinale.Resource;
 
 namespace Campofinale.Packets.Sc
 {
@@ -8,6 +9,7 @@ namespace Campofinale.Packets.Sc
 
         public PacketScSyncAllUnlock(Player client) {
 
+           
             ScSyncAllUnlock unlock = new()
             {
                 UnlockSystems = {client.unlockedSystems},

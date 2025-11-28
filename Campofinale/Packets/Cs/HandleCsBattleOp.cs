@@ -58,7 +58,7 @@ namespace Campofinale.Packets.Cs
 
         private static void OnTriggerAction(Player session, BattleTriggerActionOpData data)
         {
-            
+            if (data == null) return;
             switch (data.Action.ActionType)
             {
                 case ServerBattleActionType.BattleActionDamage:

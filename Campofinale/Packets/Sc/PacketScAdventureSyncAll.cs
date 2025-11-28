@@ -12,7 +12,8 @@ namespace Campofinale.Packets.Sc
             {
                 Exp = session.xp,
                 Level = (int)session.level,
-
+                WorldLevel=3,
+                UnlockWorldLevel=3,
             };
 
             SetData(ScMsgId.ScAdventureSyncAll, adventure);
