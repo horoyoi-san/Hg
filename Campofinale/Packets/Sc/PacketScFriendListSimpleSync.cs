@@ -18,15 +18,15 @@ namespace Campofinale.Packets.Sc
                     new ScdFriendFriendSimpleInfo()
                     {
                         AdventureLevel=3,
-                        Name=client.nickname,
+                        Name="Campofinale",
                         Online=true,
-                        RoleId=(ulong)client.roleId,
-                        Signature="ayo",
-                        RemarkName=client.nickname,
+                        RoleId=GameConstants.SERVER_UID.Item1,
+                        Signature="Campofinale console friend!",
+                        RemarkName="",
                         UserAvatarFrameId=3,
                         UserAvatarId=8,
                         BusinessCardTopicId= 9,
-                        ShortId="1",
+                        ShortId="2",
                         ThirdAccountData = new()
                         {
                             ThirdAccountDataType=HgThirdAccountType.AccountTypeDefault

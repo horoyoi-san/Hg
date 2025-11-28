@@ -1858,7 +1858,8 @@ message ScRemoveServerBuff {
   repeated uint64 del_inst_ids = 2;
   uint32 generation = 3;
 }
-
+message CsFriendListSimpleSync {
+}
 message ScSyncAllBitset {
   repeated BitsetData bitset = 1;
 }
@@ -3894,7 +3895,10 @@ message ScdFactoryOpRetFillingFluidComWithDepot {
 
 message CsFriendListSync {
 }
-
+message CsFriendListQuery {
+  FriendUserInfoType infoType = 1;
+  repeated uint64 roleIdList = 2;
+}
 message CsFriendRequestListSync {
 }
 
@@ -4591,7 +4595,10 @@ message ScFriendChatListSimpleSync {
 message ScFriendFriendListLoginNotify {
   repeated uint64 roleIdList = 2;
 }
-
+enum FriendUserInfoType {
+  FRIEND_USER_INFO_TYPE_SPACESHIP_DEFAULT = 0;
+  FRIEND_USER_INFO_TYPE_NONE = 1;
+}
 message ScdFriendChatListData {
   uint64 roleId = 1;
   uint32 readIndex = 2;

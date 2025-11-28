@@ -7,7 +7,7 @@ namespace Campofinale.Packets.Sc
     public class PacketScFriendListQuery : Packet
     {
 
-        public PacketScFriendListQuery(Player client) {
+        public PacketScFriendListQuery(Player client, CsFriendListQuery req) {
 
             ScFriendListQuery proto = new ScFriendListQuery()
             {
@@ -18,22 +18,10 @@ namespace Campofinale.Packets.Sc
                         FriendUserInfo = new()
                         {
                             Name="Campofinale",
-                            RoleId=(ulong)GameConstants.SERVER_UID.Item1,
-                            Uid=""+GameConstants.SERVER_UID.Item1,
-                            ShortId="2"
-                        },
+                            RoleId=GameConstants.SERVER_UID.Item1,
+                            ShortId="2",
+                        }
                         
-                    },
-                    new FriendFriendInfo()
-                    {
-                        FriendUserInfo = new()
-                        {
-                            Name=client.nickname,
-                            RoleId=client.roleId,
-                            Uid=""+client.roleId,
-                        },
-
-
                     }
                 }
                 

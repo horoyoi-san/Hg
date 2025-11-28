@@ -16,6 +16,6 @@
         public static string GAME_VERSION_ANDROID = "0.8.24"; //CBT 3 ANDROID
         public static string GAME_VERSION_ASSET_URL = "https://beyond.hg-cdn.com/uXUuLlNbIYmMMTlN/0.5/update/6/1/Windows/0.5.28_U1mgxrslUitdn3hb/files";//CBT 2 
         public static int MAX_TEAMS_NUMBER = 5; //Not used yet
-        public static (long, string) SERVER_UID = (99, "99"); //Not used yet, to implement!!
+        public static (ulong, string) SERVER_UID = (99, "99"); //Not used yet, to implement!!
     }
 }
