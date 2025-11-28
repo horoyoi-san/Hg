@@ -1,5 +1,13 @@
 # Arknights Endfield BETA Download 
 
+# Arknights Endfield CBT2 Download OS 0.5.28
+| Version | File name | Download link|
+| :--- | :--- | :--- |
+| CN BETA 0.5.28 | launcher.exe | https://launcher.hypergryph.com/launcher/latest/TKIVNurE23LREGRw?source=official |
+| CN BETA 0.5.28 | android | https://launcher.hypergryph.com/game/latest/ek6rnk6llxyBPUdX/1/1?source=official |
+| CN BETA 0.5.28 | launcher.exe | https://launcher.gryphline.com/launcher/latest/CNKz1UJ80EQAzkPn?source=official |
+| CN BETA 0.5.28 | android | https://launcher.gryphline.com/game/latest/zePXHT2t4L2tKR4m/6/6?source=official |
+
 # Arknights Endfield CBT2 Download OS 0.5.27
 | Version | File name | Download link|
 | :--- | :--- | :--- |
