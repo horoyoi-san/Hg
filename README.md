@@ -27,7 +27,7 @@ Campofinale is a experimental server implementation for a certain factory buildi
     1. Make sure to setup Mitmproxy accordingly, and of course install the certificate system-wide.
     
 2. Download the [precompiled build](https://github.com/Campofinale/Campofinale/releases/latest) or build it by yourself
-3. Put the `Json`, `TableCfg` and `DynamicAssets` folders inside the `Campofinale.exe` folder (you can download a copy [here](https://github.com/PotRooms/EndFieldData/tree/main))
+3. Put the `Json`, `TableCfg` and `DynamicAssets` folders inside the `Campofinale.exe` folder (you can download a copy [here](https://github.com/horoyoi-san/Hg/tree/EndfieldData))
 4. Run the server (`Campofinale.exe`)
 5. Proxy post-install setup
 
@@ -35,7 +35,7 @@ Campofinale is a experimental server implementation for a certain factory buildi
     mitmproxy -s ak.py
     ```
 
-    Get ak.py from [here](https://git.teamstardust.org/Campofinale/Campofinale/src/branch/development/docs/ak.py)
+    Get ak.py from [here](c:\Pro Player\PS\AF PS\EndfieldBETA\ak.py)
     
 6. Run the Mitmproxy command (from above) if you haven't
 
