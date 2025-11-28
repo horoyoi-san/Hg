@@ -1,0 +1,271 @@
+{
+  "scriptId": 3500020041,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 8,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 3500022107
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 11
+          },
+          "_trigger": {
+            "path": "$12@_trigger"
+          },
+          "_uid": "d2094e9c"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnBeingScanned, Gameplay.Beyond",
+          "_ID": 13,
+          "_nextID": 2,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 3500021747
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 11
+          },
+          "_uid": "d0e9dc68"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 8,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 7
+          },
+          "_onTrueID": 5,
+          "_onFalseID": 9,
+          "_uid": "10610ba2"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 5,
+          "_eventName": {
+            "constValue": "#6ae3d05b"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "6ae3d05b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayRadio, Gameplay.Beyond",
+          "_ID": 9,
+          "_radioId": {
+            "constValue": "radio_gm01m6_3"
+          },
+          "_fromBegin": {
+            "constValue": true
+          },
+          "_index": {
+            "constValue": -1
+          },
+          "_uid": "13c57f61",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 2,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 1
+          },
+          "_onTrueID": 3,
+          "_onFalseID": 0,
+          "_uid": "6a4adf0d"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 3,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 7
+          },
+          "_onTrueID": 5,
+          "_onFalseID": 4,
+          "_uid": "1f404efe"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayRadio, Gameplay.Beyond",
+          "_ID": 4,
+          "_radioId": {
+            "constValue": "radio_gm01m6_2"
+          },
+          "_fromBegin": {
+            "constValue": true
+          },
+          "_index": {
+            "constValue": -1
+          },
+          "_uid": "d2b24889",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CompareMissionState, Gameplay.Beyond",
+          "_ID": 11,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": "None",
+            "idRef": 10
+          },
+          "_valueB": {
+            "constValue": "Processing"
+          },
+          "_uid": "11a1ad79"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetMissionState, Gameplay.Beyond",
+          "_ID": 10,
+          "_missionId": {
+            "constValue": "gm01m6"
+          },
+          "_uid": "4b8e15c5"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsComplete, Gameplay.Beyond",
+          "_ID": 7,
+          "_isQuest": {
+            "constValue": true
+          },
+          "_missionId": {
+            "constValue": "gm01m6_q#19"
+          },
+          "_uid": "0d870887"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IntEqual, Gameplay.Beyond",
+          "_ID": 1,
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 0
+          },
+          "_valueB": {
+            "constValue": 1
+          },
+          "_uid": "7aaf02da"
+        },
+        {
+          "$type": "Beyond.Gameplay.GetClientGlobalVar, Gameplay.Beyond",
+          "_ID": 0,
+          "_key": {
+            "constValue": "lv006_all_erosion_unlock"
+          },
+          "_uid": "d0c11919"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "ResetAllWhenNotDone",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 461.62088,
+        "y": 55.597477,
+        "z": 155.74788
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 99.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 463.9109,
+        "y": 52.467476,
+        "z": 163.80788
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 461.62088,
+        "y": 55.597477,
+        "z": 155.74788
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 24.0
+    }
+  ],
+  "properties": [],
+  "propertyIdToKeyMap": {}
+}

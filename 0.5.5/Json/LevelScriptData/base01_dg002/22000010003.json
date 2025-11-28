@@ -1,0 +1,206 @@
+{
+  "scriptId": 22000010003,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "5496cef7"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptEnd, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_reasonFilter": null,
+          "_uid": "efcc3639"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SummmonTeamWithPos, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "target": {
+            "constValue": {
+              "logicId": 22000000111
+            }
+          },
+          "positionList": {
+            "paramSource": 200,
+            "path": "pos",
+            "constValue": null
+          },
+          "allowMove": {
+            "constValue": false
+          },
+          "_uid": "87fc2f85",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetEntityEulerAnglesLookAt, Gameplay.Beyond",
+          "_ID": 2,
+          "_target": {
+            "paramSource": -1,
+            "constValue": {
+              "logicId": 0
+            },
+            "idRef": 6
+          },
+          "_lookatTarget": {
+            "paramSource": -1,
+            "constValue": {
+              "logicId": 0
+            },
+            "idRef": 7
+          },
+          "_yawOnly": {
+            "constValue": true
+          },
+          "_uid": "99668782",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ResetSummonTeamAI, Gameplay.Beyond",
+          "_ID": 4,
+          "_uid": "4bceb03b",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ListGetValueEntityPtr, Gameplay.Beyond",
+          "_ID": 6,
+          "_list": {
+            "paramSource": -1,
+            "constValue": null,
+            "idRef": 5
+          },
+          "_index": {
+            "constValue": 0
+          },
+          "_uid": "da2d08aa"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetterEntityPtr, Gameplay.Beyond",
+          "_ID": 7,
+          "_value": {
+            "paramSource": 200,
+            "path": "target",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_uid": "1afcaa86"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetSquadMembers, Gameplay.Beyond",
+          "_ID": 5,
+          "containMainCharacter": {
+            "constValue": false
+          },
+          "_uid": "b8079a44"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -98.14,
+        "y": 0.00041997433,
+        "z": 148.97
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 79.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -98.14,
+        "y": 0.00041997433,
+        "z": 148.97
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 4.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "pos",
+      "value": {
+        "type": "Vector3List",
+        "valueArray": [
+          {
+            "valueBit64": -1026947809
+          },
+          {
+            "valueBit64": 970722048
+          },
+          {
+            "valueBit64": 1125382881
+          }
+        ]
+      }
+    },
+    {
+      "key": "target",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 22000010000
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1025": "pos",
+    "1026": "target"
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "scriptId": 2800040015,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "doonce",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_targetScript": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 0
+          },
+          "_uid": "bb5c444e"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 5
+          },
+          "_uid": "82dede33",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CreateMissionNpc, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_levelId": {
+            "constValue": "map01_lv007"
+          },
+          "_npcIdList": {
+            "constValue": [
+              "npc_eny_0029_lbmob_g01_map01_lv007_c1m1_001",
+              "npc_eny_0046_lbshamman_g01_map01_lv007_c1m1_001",
+              "npc_eny_0029_lbmob_g01_map01_lv007_c1m1_002",
+              "npc_eny_0029_lbmob_g01_map01_lv007_c1m1_003",
+              "npc_eny_0046_lbshamman_g01_map01_lv007_c1m1_002",
+              "npc_eny_0046_lbshamman_g01_map01_lv007_c1m1_003",
+              "npc_eny_0046_lbshamman_g01_map01_lv007_c1m1_004",
+              "npc_eny_0046_lbshamman_g01_map01_lv007_c1m1_006"
+            ]
+          },
+          "_uid": "706b47f0",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetBool, Gameplay.Beyond",
+          "_ID": 4,
+          "_key": {
+            "paramSource": 100,
+            "path": "doonce",
+            "constValue": false
+          },
+          "_value": {
+            "constValue": true
+          },
+          "_uid": "6f4b3d4c",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsProcessing, Gameplay.Beyond",
+          "_ID": 0,
+          "_isQuest": {
+            "constValue": false
+          },
+          "_missionId": {
+            "constValue": "c1m1"
+          },
+          "_uid": "c6fee4ab"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 5,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": 100,
+            "path": "doonce",
+            "constValue": false
+          },
+          "_valueB": {
+            "constValue": false
+          },
+          "_uid": "2174a622"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -372.6878,
+        "y": 169.08994,
+        "z": 547.5171
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 100.0
+    }
+  ],
+  "properties": [],
+  "propertyIdToKeyMap": {}
+}

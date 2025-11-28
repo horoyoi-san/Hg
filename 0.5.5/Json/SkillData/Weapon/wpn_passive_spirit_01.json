@@ -1,0 +1,147 @@
+{
+  "skillId": "wpn_passive_spirit_01",
+  "level": 1,
+  "skillName": "",
+  "iconId": "",
+  "iconBgType": "Physical",
+  "attackRangeType": "Melee",
+  "castType": "Passive",
+  "passiveSkillType": "ToggleBuff",
+  "castData": {
+    "checkCastDistanceType": "NotCheck",
+    "useCustomCastDistance": false,
+    "castDistance": {
+      "useBlackboardKey": false,
+      "value": 0.0,
+      "blackboardKey": ""
+    },
+    "checkHeightDiff": false,
+    "heightDiffLimit": {
+      "useBlackboardKey": false,
+      "value": 0.0,
+      "blackboardKey": ""
+    },
+    "rotateType": "RotateToTarget",
+    "castAngle": 360.0,
+    "cooldownTime": 0.0,
+    "startCdFrame": 0,
+    "maxChargeTime": 1,
+    "costData": {
+      "costType": "UltimateSp",
+      "costValue": 0.0,
+      "atbValueThreshold": 0.0
+    }
+  },
+  "durationFrame": 0,
+  "exclusiveFrame": 0,
+  "cacheComboFrame": 0,
+  "startComboFrame": 0,
+  "latestComboFrame": 0,
+  "selectStrategy": "SelectObject",
+  "smartTargetSelectStrategy": "SelectComboSkillTarget",
+  "smartTargetBuffIds": [],
+  "smartTargetTagQuery": {
+    "queryType": "HasAny",
+    "tags": []
+  },
+  "canDummyCast": true,
+  "dummyPositionOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "canMove": false,
+  "canCastInAir": false,
+  "rootMotionCliffCheck": true,
+  "switchToCenterBeforeCast": false,
+  "skillTags": {
+    "predefinedTag": []
+  },
+  "tagDuringAttach": {
+    "predefinedTag": []
+  },
+  "actionGroupData": {
+    "timelineActions": [],
+    "passiveEventActions": [
+      {
+        "abilityEvent": "OnTakeDamage",
+        "actions": []
+      }
+    ]
+  },
+  "uiRangeHints": [],
+  "buffs": [
+    {
+      "buffId": "buff_wpn_passive_spirit_01",
+      "assignBlackboard": true,
+      "assignItems": [
+        {
+          "targetKey": "hp_ratio",
+          "inputValueKey": "hp_ratio",
+          "useDirectValue": false,
+          "numericValue": 0.0
+        },
+        {
+          "targetKey": "atk_up",
+          "inputValueKey": "atk_up",
+          "useDirectValue": false,
+          "numericValue": 0.0
+        }
+      ]
+    }
+  ],
+  "toggleBuffs": [
+    {
+      "conditions": [
+        {
+          "$type": "Beyond.Gameplay.Core.Abilities.Condition.CheckCurHpRatio, Gameplay.Beyond",
+          "compareType": "GE",
+          "value": {
+            "useBlackboardKey": true,
+            "value": 0.0,
+            "blackboardKey": "hp_ratio"
+          }
+        }
+      ],
+      "buffs": [
+        {
+          "buffId": "buff_wpn_passive_spirit_01",
+          "assignBlackboard": true,
+          "assignItems": [
+            {
+              "targetKey": "atk_up",
+              "inputValueKey": "atk_up",
+              "useDirectValue": false,
+              "numericValue": 0.0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cardAttributeModifier": {
+    "isConvertedAttribute": false,
+    "attributeModifiers": []
+  },
+  "blackboard": [
+    {
+      "key": "hp_ratio",
+      "valueFloat": 0.8,
+      "valueStr": "",
+      "isDynamic": false
+    },
+    {
+      "key": "atk_up",
+      "valueFloat": 0.25,
+      "valueStr": "",
+      "isDynamic": false
+    }
+  ],
+  "getBlackboardItemFromOtherSkill": false,
+  "skillBlackboardItemRefs": [],
+  "skillHighlightCondition": {
+    "actionData": [],
+    "onlyExecuteWhenSourceIsMainChar": false
+  },
+  "buffInputBase": null
+}

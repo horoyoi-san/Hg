@@ -1,0 +1,632 @@
+{
+  "scriptId": 3400010010,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "paramSource": 200,
+            "path": "trigger",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_trigger": {
+            "path": "$0@_trigger"
+          },
+          "_uid": "3cc6a51a"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnUIInteract, Gameplay.Beyond",
+          "_ID": 21,
+          "_nextID": 22,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "paramSource": 200,
+            "path": "lift",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_optionIndexFilter": null,
+          "_optionIndex": {
+            "path": "$21@_optionIndex"
+          },
+          "_uid": "4ff88f43"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#7c5544ef"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "7c5544ef"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": 11,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#e4a9087a"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "e4a9087a"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptMarkDone, Gameplay.Beyond",
+          "_ID": 17,
+          "_nextID": 18,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "5d981f23"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_value": {
+            "paramSource": 300,
+            "path": "enemyspawn",
+            "constValue": false
+          },
+          "_uid": "31a2a671",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_seconds": {
+            "paramSource": 200,
+            "path": "delay",
+            "constValue": 1.0
+          },
+          "_uid": "05cd8985",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 3,
+          "_callClientOutputUIDs": [
+            "7c5544ef"
+          ],
+          "_eventName": {
+            "constValue": "#957fd76a"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "957fd76a",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetFunctionAreaEnable, Gameplay.Beyond",
+          "_ID": 22,
+          "_enable": {
+            "constValue": true
+          },
+          "_functionAreaPtr": {
+            "constValue": {
+              "id": 3400010000
+            }
+          },
+          "_uid": "8c4ff60c",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_seconds": {
+            "paramSource": 200,
+            "path": "delayRun",
+            "constValue": 1.0
+          },
+          "_uid": "d58fe789",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 8,
+          "_callClientOutputUIDs": [
+            "e4a9087a"
+          ],
+          "_eventName": {
+            "constValue": "#2d716dc2"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "2d716dc2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudioOnTarget, Gameplay.Beyond",
+          "_ID": 11,
+          "_nextID": 12,
+          "_target": {
+            "constValue": {
+              "logicId": 3400010108
+            }
+          },
+          "_audioKey": {
+            "constValue": "au_event_mission_lv_005_lbmadrunning"
+          },
+          "_audioPlayingId": {
+            "path": "$11@_audioPlayingId"
+          },
+          "_uid": "a407d29e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudioOnTarget, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_target": {
+            "constValue": {
+              "logicId": 3400010114
+            }
+          },
+          "_audioKey": {
+            "constValue": "au_event_mission_lv_005_lbmadrunning"
+          },
+          "_audioPlayingId": {
+            "path": "$12@_audioPlayingId"
+          },
+          "_uid": "65f8895f",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 13,
+          "_nextID": 14,
+          "_seconds": {
+            "paramSource": 200,
+            "path": "killDelay",
+            "constValue": 1.0
+          },
+          "_uid": "303296af",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 14,
+          "_eventName": {
+            "constValue": "#0fa4dda4"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "0fa4dda4",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 18,
+          "_nextID": 19,
+          "_seconds": {
+            "paramSource": 200,
+            "path": "delay",
+            "constValue": 1.0
+          },
+          "_uid": "5cd5042b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayRadio, Gameplay.Beyond",
+          "_ID": 19,
+          "_nextID": 20,
+          "_radioId": {
+            "constValue": "radio_e2m5_4"
+          },
+          "_fromBegin": {
+            "constValue": true
+          },
+          "_index": {
+            "constValue": -1
+          },
+          "_uid": "64f6ee12",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetFunctionAreaEnable, Gameplay.Beyond",
+          "_ID": 20,
+          "_enable": {
+            "constValue": true
+          },
+          "_functionAreaPtr": {
+            "constValue": {
+              "id": 3400010000
+            }
+          },
+          "_uid": "02cd4cad",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "ResetAllWhenNotDone",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 664.05,
+        "y": 115.01125,
+        "z": -212.01
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 314.66333,
+        "z": 0.0
+      },
+      "size": {
+        "x": 175.0,
+        "y": 160.0,
+        "z": 175.0
+      },
+      "radius": 0.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 664.31964,
+        "y": 115.01138,
+        "z": -215.30022
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 667.189,
+        "y": 115.01138,
+        "z": -214.97057
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 665.4899,
+        "y": 115.01125,
+        "z": -208.63004
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 663.3697,
+        "y": 115.01138,
+        "z": -207.68327
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 664.0499,
+        "y": 115.01125,
+        "z": -209.79697
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 656.7081,
+        "y": 111.48925,
+        "z": -217.33319
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 662.19,
+        "y": 101.637,
+        "z": -216.95006
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 656.94006,
+        "y": 101.76,
+        "z": -217.31999
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 664.05,
+        "y": 115.01125,
+        "z": -212.01
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 314.66333,
+        "z": 0.0
+      },
+      "size": {
+        "x": 25.0,
+        "y": 10.0,
+        "z": 25.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "trigger",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400010164
+          }
+        ]
+      }
+    },
+    {
+      "key": "enemy",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": [
+          {
+            "valueBit64": 3400010160
+          },
+          {
+            "valueBit64": 3400010161
+          },
+          {
+            "valueBit64": 3400010163
+          }
+        ]
+      }
+    },
+    {
+      "key": "delay",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1056964608,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "enemy2",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": [
+          {
+            "valueBit64": 3400010108
+          },
+          {
+            "valueBit64": 3400010114
+          }
+        ]
+      }
+    },
+    {
+      "key": "killEnemy",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400010163
+          }
+        ]
+      }
+    },
+    {
+      "key": "killDelay",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1056964608,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "delayRun",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1056964608,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "liftButton",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400010152
+          }
+        ]
+      }
+    },
+    {
+      "key": "lift",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400010153
+          }
+        ]
+      }
+    },
+    {
+      "key": "enemyspawn",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 1,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "3": "enemyspawn",
+    "1025": "trigger",
+    "1028": "enemy",
+    "1029": "delay",
+    "1030": "enemy2",
+    "1032": "killEnemy",
+    "1033": "killDelay",
+    "1034": "delayRun",
+    "1035": "lift",
+    "1036": "liftButton"
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "skillId": "abilityentity_interact_mud_carpet_passive",
+  "level": 1,
+  "skillName": "",
+  "iconId": "",
+  "iconBgType": "Physical",
+  "attackRangeType": "Melee",
+  "castType": "Passive",
+  "passiveSkillType": "AddBuff",
+  "castData": {
+    "checkCastDistanceType": "NotCheck",
+    "useCustomCastDistance": false,
+    "castDistance": {
+      "useBlackboardKey": false,
+      "value": 0.0,
+      "blackboardKey": ""
+    },
+    "checkHeightDiff": false,
+    "heightDiffLimit": {
+      "useBlackboardKey": false,
+      "value": 0.0,
+      "blackboardKey": ""
+    },
+    "rotateType": "RotateToTarget",
+    "castAngle": 360.0,
+    "cooldownTime": 0.0,
+    "startCdFrame": 0,
+    "maxChargeTime": 1,
+    "costData": {
+      "costType": "UltimateSp",
+      "costValue": 0.0,
+      "atbValueThreshold": 0.0
+    }
+  },
+  "durationFrame": 0,
+  "exclusiveFrame": 0,
+  "cacheComboFrame": 0,
+  "startComboFrame": 0,
+  "latestComboFrame": 0,
+  "selectStrategy": "SelectObject",
+  "smartTargetSelectStrategy": "SelectComboSkillTarget",
+  "smartTargetBuffIds": [],
+  "smartTargetTagQuery": {
+    "queryType": "HasAny",
+    "tags": []
+  },
+  "canDummyCast": true,
+  "dummyPositionOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "canMove": false,
+  "canCastInAir": false,
+  "rootMotionCliffCheck": true,
+  "switchToCenterBeforeCast": false,
+  "skillTags": {
+    "predefinedTag": []
+  },
+  "tagDuringAttach": {
+    "predefinedTag": []
+  },
+  "actionGroupData": {
+    "timelineActions": [],
+    "passiveEventActions": [
+      {
+        "abilityEvent": "OnTakeDamage",
+        "actions": [
+          {
+            "actionData": [
+              {
+                "$type": "Beyond.Gameplay.Core.CreateBuffAction+Data, Gameplay.Beyond",
+                "buffs": [
+                  {
+                    "readIdFromBlackboard": false,
+                    "buffIdKey": "",
+                    "buffId": "buff_common_stunned",
+                    "assignBlackboard": true,
+                    "assignItems": [
+                      {
+                        "targetKey": "stun_duration",
+                        "inputValueKey": "stun_duration",
+                        "useDirectValue": false,
+                        "numericValue": 0.0
+                      }
+                    ]
+                  }
+                ],
+                "count": {
+                  "useBlackboardKey": false,
+                  "value": 1.0,
+                  "blackboardKey": ""
+                },
+                "targetSettings": {
+                  "targetSource": "Owner",
+                  "targetGroupKey": "",
+                  "selectorOwner": "ActionOwner",
+                  "ownerContextKey": "",
+                  "centerType": "ActionSource",
+                  "centerContextKey": "",
+                  "centerToGround": false,
+                  "selectorData": {
+                    "finderData": null,
+                    "validatorData": [],
+                    "postProcessorData": []
+                  },
+                  "enableAdvancedDirection": false,
+                  "advancedDirection": {
+                    "directionType": "SourceForward",
+                    "source": null,
+                    "target": null,
+                    "mountPoint": "None",
+                    "customSourceAndTarget": false,
+                    "clampToXZ": true,
+                    "invertDirection": false
+                  },
+                  "selectorDirection": "SourceForward",
+                  "target": "ActionSource",
+                  "targetContextKey": ""
+                },
+                "buffSource": "ActionOwner",
+                "autoFinishByAction": false,
+                "isEnable": true,
+                "priorityLevel": "Default",
+                "priorityOffset": 0,
+                "serverActionIndex": 0
+              }
+            ],
+            "onlyExecuteWhenSourceIsMainChar": false
+          }
+        ]
+      }
+    ]
+  },
+  "uiRangeHints": [],
+  "buffs": [
+    {
+      "buffId": "buff_abilityentity_interact_mud_carpet_passive",
+      "assignBlackboard": true,
+      "assignItems": [
+        {
+          "targetKey": "damage",
+          "inputValueKey": "damage",
+          "useDirectValue": false,
+          "numericValue": 0.0
+        },
+        {
+          "targetKey": "size_x",
+          "inputValueKey": "size_x",
+          "useDirectValue": false,
+          "numericValue": 0.0
+        },
+        {
+          "targetKey": "size_y",
+          "inputValueKey": "size_y",
+          "useDirectValue": false,
+          "numericValue": 0.0
+        },
+        {
+          "targetKey": "size_z",
+          "inputValueKey": "size_z",
+          "useDirectValue": false,
+          "numericValue": 0.0
+        },
+        {
+          "targetKey": "move_speed",
+          "inputValueKey": "move_speed",
+          "useDirectValue": false,
+          "numericValue": 0.0
+        }
+      ]
+    },
+    {
+      "buffId": "buff_common_full_immune",
+      "assignBlackboard": false,
+      "assignItems": []
+    }
+  ],
+  "toggleBuffs": [],
+  "cardAttributeModifier": {
+    "isConvertedAttribute": false,
+    "attributeModifiers": []
+  },
+  "blackboard": [],
+  "getBlackboardItemFromOtherSkill": false,
+  "skillBlackboardItemRefs": [],
+  "skillHighlightCondition": {
+    "actionData": [],
+    "onlyExecuteWhenSourceIsMainChar": false
+  },
+  "buffInputBase": null
+}

@@ -1,0 +1,237 @@
+{
+  "scriptId": 2100020017,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "SameWithActive",
+  "endType": "SameWithDeactive",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "tempbuffs",
+          "value": {
+            "type": "BuffList",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "68d436b6"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnMissionStateChanged, Gameplay.Beyond",
+          "_ID": 11,
+          "_nextID": 5,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_missionId": {
+            "path": "$11@_missionId"
+          },
+          "_oldState": {
+            "path": "$11@_oldState"
+          },
+          "_newState": {
+            "path": "$11@_newState"
+          },
+          "_succeedId": {
+            "path": "$11@_succeedId"
+          },
+          "_filtedMissionId": {
+            "constValue": "e1m1"
+          },
+          "_filtedNewState": {
+            "constValue": "Processing"
+          },
+          "_filtedSucceedId": {
+            "constValue": -2
+          },
+          "_uid": "6ba915e1"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnMissionStateChanged, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 7,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_missionId": {
+            "path": "$12@_missionId"
+          },
+          "_oldState": {
+            "path": "$12@_oldState"
+          },
+          "_newState": {
+            "path": "$12@_newState"
+          },
+          "_succeedId": {
+            "path": "$12@_succeedId"
+          },
+          "_filtedMissionId": {
+            "constValue": "e1m1"
+          },
+          "_filtedNewState": {
+            "constValue": "Completed"
+          },
+          "_filtedSucceedId": {
+            "constValue": -2
+          },
+          "_uid": "7601b1ae"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 4,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 10
+          },
+          "_onTrueID": 5,
+          "_onFalseID": 0,
+          "_uid": "55ea5554"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.FinishBuffs, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 1,
+          "_buffs": {
+            "paramSource": -1,
+            "constValue": null,
+            "idRef": 6
+          },
+          "_uid": "d60d29d2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffsToTargetSelves, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_targets": {
+            "paramSource": -1,
+            "constValue": null,
+            "idRef": 0
+          },
+          "_buffId": {
+            "constValue": "buff_common_undeadable"
+          },
+          "_useBlackboard": {
+            "constValue": false
+          },
+          "_blackboardKey": {
+            "constValue": {
+              "key": "blackboard"
+            }
+          },
+          "_buffs": {
+            "path": "$1@_buffs"
+          },
+          "_uid": "d950a681",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetListBuff, Gameplay.Beyond",
+          "_ID": 2,
+          "_key": {
+            "paramSource": 100,
+            "path": "tempbuffs",
+            "constValue": null
+          },
+          "_value": {
+            "paramSource": 100,
+            "path": "$1@_buffs",
+            "constValue": null
+          },
+          "_uid": "39e99f1e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.FinishBuffs, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_buffs": {
+            "paramSource": -1,
+            "constValue": null,
+            "idRef": 6
+          },
+          "_uid": "314aed2a",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 8,
+          "_eventName": {
+            "constValue": "#b3a5be40"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "b3a5be40",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsProcessing, Gameplay.Beyond",
+          "_ID": 10,
+          "_isQuest": {
+            "constValue": false
+          },
+          "_missionId": {
+            "constValue": "e1m1"
+          },
+          "_uid": "254b83bf"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetterListBuff, Gameplay.Beyond",
+          "_ID": 6,
+          "_value": {
+            "paramSource": 100,
+            "path": "tempbuffs",
+            "constValue": null
+          },
+          "_uid": "cd661e41"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetSquadMembers, Gameplay.Beyond",
+          "_ID": 0,
+          "containMainCharacter": {
+            "constValue": true
+          },
+          "_uid": "c821a97c"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [],
+  "startShapeList": [],
+  "properties": [],
+  "propertyIdToKeyMap": {}
+}

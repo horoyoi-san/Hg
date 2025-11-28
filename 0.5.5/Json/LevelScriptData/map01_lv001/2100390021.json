@@ -1,0 +1,366 @@
+{
+  "scriptId": 2100390021,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "SameWithActive",
+  "endType": "SameWithDeactive",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnSpecificEntityListDie, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_validate": {
+            "constValue": true
+          },
+          "_filterEntityList": {
+            "paramSource": -1,
+            "constValue": null,
+            "idRef": 0
+          },
+          "_entity": {
+            "path": "$1@_entity"
+          },
+          "_uid": "7e71379e"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnCustomEventNew, Gameplay.Beyond",
+          "_ID": 8,
+          "_nextID": 9,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "paramSource": -1,
+            "constValue": {
+              "logicId": 0
+            },
+            "idRef": 7
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "on_chest_unlocked"
+          },
+          "_eventArgsPtr": {
+            "path": "$8@_eventArgsPtr"
+          },
+          "_uid": "296e04b0"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomEntityEvent, Gameplay.Beyond",
+          "_ID": 2,
+          "_eventKey": {
+            "constValue": "on_condition_count_changed"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": -1,
+            "constValue": {
+              "logicId": 0
+            },
+            "idRef": 3
+          },
+          "_uid": "a00503d8",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.DebugLogAction, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_info": {
+            "constValue": "wytest: on chest unlock, start blend camera"
+          },
+          "_uid": "d618fc4f",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BlendToCameraTransformWithTime, Gameplay.Beyond",
+          "_ID": 10,
+          "pos": {
+            "paramSource": -1,
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "idRef": 11
+          },
+          "rot": {
+            "paramSource": -1,
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "idRef": 12
+          },
+          "fov": {
+            "constValue": -1.0
+          },
+          "useBlackScreen": {
+            "constValue": true
+          },
+          "tweenTime": {
+            "constValue": 0.5
+          },
+          "duration": {
+            "constValue": 1.0
+          },
+          "overrideBlend": {
+            "constValue": false
+          },
+          "blendStyle": {
+            "constValue": "EaseInOut"
+          },
+          "useYawCheck": {
+            "constValue": false
+          },
+          "_uid": "2ae4aa15",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptPropertyEntityPtrList, Gameplay.Beyond",
+          "_ID": 0,
+          "_target": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_path": {
+            "constValue": "entities"
+          },
+          "_uid": "6e28857b"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptPropertyGenericEntityPtr, Gameplay.Beyond",
+          "_ID": 3,
+          "_target": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_path": {
+            "constValue": "chest"
+          },
+          "_uid": "64cc47cc"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptPropertyGenericEntityPtr, Gameplay.Beyond",
+          "_ID": 7,
+          "_target": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_path": {
+            "constValue": "chest"
+          },
+          "_uid": "38d59af3"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptPropertyGenericVector3, Gameplay.Beyond",
+          "_ID": 11,
+          "_target": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_path": {
+            "constValue": "chestCameraPos"
+          },
+          "_uid": "440d01fa"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptPropertyGenericVector3, Gameplay.Beyond",
+          "_ID": 12,
+          "_target": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_path": {
+            "constValue": "chestCameraRot"
+          },
+          "_uid": "7e22a91c"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -399.36954,
+        "y": 108.42167,
+        "z": -247.3913
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -418.3322,
+        "y": 108.16285,
+        "z": -243.50122
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -386.26053,
+        "y": 108.16285,
+        "z": -264.2243
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -390.48453,
+        "y": 112.54076,
+        "z": -267.13528
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [],
+  "properties": [
+    {
+      "key": "entities",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": [
+          {
+            "valueBit64": 2100390251
+          },
+          {
+            "valueBit64": 2100390252
+          },
+          {
+            "valueBit64": 2100390253
+          }
+        ]
+      }
+    },
+    {
+      "key": "chest",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 2100390250
+          }
+        ]
+      }
+    },
+    {
+      "key": "chestCameraPos",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": -1010094088
+          },
+          {
+            "valueBit64": 1121817942
+          },
+          {
+            "valueBit64": -1015218199
+          }
+        ]
+      }
+    },
+    {
+      "key": "chestCameraRot",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 1077090342
+          },
+          {
+            "valueBit64": 1110717143
+          },
+          {
+            "valueBit64": -1263790161
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1025": "entities",
+    "1026": "chest",
+    "1027": "chestCameraPos",
+    "1028": "chestCameraRot"
+  }
+}

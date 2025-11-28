@@ -1,0 +1,302 @@
+{
+  "facOccDis": 0.5,
+  "hideInDialog": false,
+  "mountPoints": [],
+  "dataMap": {
+    "headerList": [
+      {
+        "$type": "Beyond.Gameplay.OnHitByLaserEntity, Gameplay.Beyond",
+        "_ID": 0,
+        "_nextID": 1,
+        "_targetEntity": null,
+        "_targetEntityList": {
+          "constValue": null
+        },
+        "_targetEntityListOutput": null,
+        "_validate": {
+          "constValue": true
+        },
+        "_entity": {
+          "path": "$0@_entity"
+        },
+        "_uid": "ce9344d3"
+      }
+    ],
+    "actionList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.Split, Gameplay.Beyond",
+        "_ID": 1,
+        "_idList": [
+          2,
+          3
+        ],
+        "_uid": "6d593c8d"
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CharHitAnimByLaser, Gameplay.Beyond",
+        "_ID": 2,
+        "_source": {
+          "paramSource": 1001,
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_target": {
+          "paramSource": 100,
+          "path": "$0@_entity",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_uid": "5ae5ae05",
+        "useCurrentScope": true
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.PlayAudioOnTarget, Gameplay.Beyond",
+        "_ID": 3,
+        "_target": {
+          "paramSource": 100,
+          "path": "$0@_entity",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_audioKey": {
+          "constValue": "au_impact_laser"
+        },
+        "_audioPlayingId": {
+          "path": "$3@_audioPlayingId"
+        },
+        "_uid": "16308d4f",
+        "useCurrentScope": true
+      }
+    ],
+    "getterList": []
+  },
+  "tempProperties": [
+    {
+      "key": "beFound",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "time_remain",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "found_entity",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "configProperties": [
+    {
+      "key": "damage",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "laser_base_angle",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "laser_head_angle",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "ratio",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "rotate_speed",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1106247680
+          }
+        ]
+      }
+    },
+    {
+      "key": "time",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    },
+    {
+      "key": "type",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 2
+          }
+        ]
+      }
+    },
+    {
+      "key": "variable_1",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1084227584
+          }
+        ]
+      }
+    }
+  ],
+  "saveProperties": [
+    {
+      "key": "state",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "9": "state",
+    "1025": "damage",
+    "1026": "time",
+    "1027": "variable_1",
+    "1028": "ratio",
+    "1029": "type",
+    "1030": "laser_base_angle",
+    "1031": "laser_head_angle",
+    "1032": "rotate_speed"
+  },
+  "propertyKeyToIdMap": {
+    "damage": 1025,
+    "laser_base_angle": 1030,
+    "laser_head_angle": 1031,
+    "ratio": 1028,
+    "rotate_speed": 1032,
+    "state": 9,
+    "time": 1026,
+    "type": 1029,
+    "variable_1": 1027
+  },
+  "templateVariant": {},
+  "bornTag": [],
+  "delayToRecycleTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.ModelComponentData, Gameplay.Beyond",
+      "modelId": "int_laser_unmove_01",
+      "randomModelId": [],
+      "modelScale": 1.0,
+      "loadDelayTime": 0.0,
+      "useLod": false,
+      "cullDistance": 100.0,
+      "cullTimeInterval": 2.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveLogicControllerComponentData, Gameplay.Beyond",
+      "logicType": 30
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveAudioData, Gameplay.Beyond",
+      "audioData": {
+        "openAudio": true,
+        "useDynamicLevel": false,
+        "useCustomStencil": true,
+        "useTiggerStencil": false,
+        "useWorkStencil": false,
+        "useAttackStencil": false,
+        "useRepairStencil": false,
+        "useDestroyStencil": false,
+        "useCollectStencil": false,
+        "useInteractStencil": false,
+        "useActiveStencil": false,
+        "audioNameDict": {},
+        "customAudioData": [
+          {
+            "audioState": "laser_work",
+            "audioEvent": "au_int_laser_emit",
+            "desc": "激光工作中"
+          },
+          {
+            "audioState": "laser_stop",
+            "audioEvent": "au_int_laser_stop",
+            "desc": "激光停止工作（用于打断工作状态）"
+          },
+          {
+            "audioState": "laser_hit",
+            "audioEvent": "au_int_laser_hit",
+            "desc": "激光击中"
+          }
+        ]
+      },
+      "propertyList": []
+    }
+  ],
+  "name": "int_laser_rotate",
+  "factionIndex": "Neutral",
+  "id": "int_laser_rotate"
+}

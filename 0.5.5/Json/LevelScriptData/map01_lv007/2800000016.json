@@ -1,0 +1,178 @@
+{
+  "scriptId": 2800000016,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "1b4987d3"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptEnd, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 2,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_reasonFilter": null,
+          "_uid": "8b52c27e"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnSpecificEntityDie, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 6,
+          "_validate": {
+            "constValue": true
+          },
+          "_filterEntity": {
+            "constValue": {
+              "logicId": 2800000983
+            }
+          },
+          "_entity": {
+            "path": "$4@_entity"
+          },
+          "_uid": "a4558d29"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.AddCameraControlState, Gameplay.Beyond",
+          "_ID": 1,
+          "_stateConfig": {
+            "constValue": "Skill/CCS_palesent"
+          },
+          "_overrideBlend": {
+            "constValue": true
+          },
+          "_blendStyle": {
+            "constValue": "EaseIn"
+          },
+          "_blendTime": {
+            "constValue": 0.2
+          },
+          "_controlState": {
+            "path": "$1@_controlState"
+          },
+          "_controlStateId": {
+            "path": "$1@_controlStateId"
+          },
+          "_uid": "42e4effd",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RemoveCameraControlState, Gameplay.Beyond",
+          "_ID": 2,
+          "_controlState": {
+            "paramSource": 100,
+            "path": "$1@_controlState",
+            "constValue": null
+          },
+          "_controlStateId": {
+            "constValue": 0
+          },
+          "_overrideBlend": {
+            "constValue": true
+          },
+          "_blendStyle": {
+            "constValue": "EaseInOut"
+          },
+          "_blendTime": {
+            "constValue": 0.2
+          },
+          "_uid": "576fa8f5",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 5,
+          "_seconds": {
+            "constValue": 2.0
+          },
+          "_uid": "3ea3e1ac",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SkipEntityDieDisplay, Gameplay.Beyond",
+          "_ID": 5,
+          "_target": {
+            "paramSource": 100,
+            "path": "$4@_entity",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_uid": "beb79fb1",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": -5.3,
+        "y": 202.66669,
+        "z": 215.4
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 330.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 230.0,
+        "y": 180.0,
+        "z": 270.0
+      },
+      "radius": 0.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": -5.3,
+        "y": 202.66669,
+        "z": 215.4
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 330.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 80.0,
+        "y": 30.0,
+        "z": 120.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [],
+  "propertyIdToKeyMap": {}
+}

@@ -1,0 +1,234 @@
+{
+  "scriptId": 2100240001,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#55d33f53"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "55d33f53"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.Split, Gameplay.Beyond",
+          "_ID": 3,
+          "_idList": [
+            4,
+            7
+          ],
+          "_uid": "da0dd597"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NarrativeBlackScreenAction, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 5,
+          "_fadeInTime": {
+            "constValue": 0.5
+          },
+          "_fadeOutTime": {
+            "constValue": 0.5
+          },
+          "_isBlack": {
+            "constValue": true
+          },
+          "_textBeforeTime": {
+            "constValue": 0.0
+          },
+          "_textAfterTime": {
+            "constValue": 0.0
+          },
+          "_texts": {
+            "constValue": [
+              {
+                "key": "dlg_sm1l1m6_1_01"
+              }
+            ]
+          },
+          "_muteType": {
+            "constValue": "ALL_BUT_MUSIC"
+          },
+          "_uid": "97c38121",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_seconds": {
+            "constValue": 0.5
+          },
+          "_uid": "d95d22ee",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 5,
+          "_eventName": {
+            "constValue": "#d1f334fb"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "d1f334fb",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.DestroyMissionNpc, Gameplay.Beyond",
+          "_ID": 8,
+          "_levelId": {
+            "constValue": "map01_lv001"
+          },
+          "_npcIdList": {
+            "constValue": [
+              "npc_gentleman_tgccsales_a_03_g01_map01_lv001_sm1l1m6_001",
+              "npc_gentleman_tgccsales_a_02_g01_map01_lv001_sm1l1m6_001"
+            ]
+          },
+          "_uid": "9712e1e1",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -326.72757,
+        "y": 149.76363,
+        "z": -173.71756
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 95.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -326.72757,
+        "y": 149.76363,
+        "z": -173.71756
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 20.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "blackscreen_end",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:b5e874e4:7254e3e8",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:b5e874e4:7254e3e8",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    }
+  ],
+  "taskMap": {
+    "b5e874e4": {
+      "conditionDict": {
+        "7254e3e8": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "sm1l1m6_q#17"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetQuestState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "7254e3e8",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "propertyIdToKeyMap": {
+    "1": "blackscreen_end",
+    "2": "lt:p:b5e874e4:7254e3e8",
+    "1027": "lt:mp:b5e874e4:7254e3e8"
+  }
+}

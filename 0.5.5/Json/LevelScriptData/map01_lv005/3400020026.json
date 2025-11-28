@@ -1,0 +1,539 @@
+{
+  "scriptId": 3400020026,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "count",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "f2e17e7c"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnSavePropertyChanged, Gameplay.Beyond",
+          "_ID": 29,
+          "_nextID": 23,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "paramSource": 200,
+            "path": "attack_switch",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 28
+          },
+          "_propertyKey": {
+            "constValue": "is_enabled"
+          },
+          "_value": {
+            "path": "$29@_value"
+          },
+          "_oldValue": {
+            "path": "$29@_oldValue"
+          },
+          "_uid": "19c6c211"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 13,
+          "_nextID": 14,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 30
+          },
+          "_uid": "ceb6bb9d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityAttachToParent, Gameplay.Beyond",
+          "_ID": 14,
+          "_child": {
+            "paramSource": 200,
+            "path": "attach_coin",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_parent": {
+            "paramSource": 200,
+            "path": "attach_parent",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_localPos": {
+            "constValue": {
+              "x": 0.0,
+              "y": 3.226,
+              "z": 2.78
+            }
+          },
+          "_localRot": {
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_uid": "a365209c",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 23,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 22
+          },
+          "_onTrueID": 0,
+          "_onFalseID": 24,
+          "_uid": "0f18186f"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowLimitedGuide, Gameplay.Beyond",
+          "_ID": 24,
+          "_nextID": 25,
+          "_textId": {
+            "constValue": "guide_text_hit_iron_title_1"
+          },
+          "_duration": {
+            "constValue": 10.0
+          },
+          "_type": {
+            "constValue": "MediaGuide"
+          },
+          "_needIgnoreWhenConflict": {
+            "constValue": false
+          },
+          "_mediaGuideGroupId": {
+            "constValue": "guide_group_hit_iron"
+          },
+          "_wikiId": null,
+          "_uid": "267a279a",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 25,
+          "_eventName": {
+            "constValue": "#708cd8ba"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "708cd8ba",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.GetEntityExist, Gameplay.Beyond",
+          "_ID": 30,
+          "_target": {
+            "paramSource": 200,
+            "path": "attach_coin",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_uid": "c043a3cd"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 28,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 27
+          },
+          "_valueB": {
+            "constValue": true
+          },
+          "_uid": "e1f6ea48"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.InteractiveGetSavePropertyBool, Gameplay.Beyond",
+          "_ID": 27,
+          "_entity": {
+            "paramSource": 200,
+            "path": "attack_switch",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_key": {
+            "constValue": "is_enabled"
+          },
+          "_uid": "cc3d32dd"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetConditionResult, Gameplay.Beyond",
+          "_ID": 22,
+          "_condition": {
+            "$type": "Beyond.Gameplay.CheckWikiEntryUnlocked, Gameplay.Beyond",
+            "_wikiEntryId": {
+              "constValue": "wiki_tut_adv_hit_iron"
+            },
+            "uniqueId": "fcf8f921",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          },
+          "_uid": "5c0b589b"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 280.6146,
+        "y": 85.659996,
+        "z": -200.64561
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 353.15128,
+        "z": 0.0
+      },
+      "size": {
+        "x": 200.0,
+        "y": 190.0,
+        "z": 200.0
+      },
+      "radius": 0.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 285.8227,
+        "y": 90.155,
+        "z": -158.884
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 281.20224,
+        "y": 91.0897,
+        "z": -164.69905
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 282.7635,
+        "y": 101.567,
+        "z": -205.91348
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 291.14,
+        "y": 87.40927,
+        "z": -206.8599
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 291.0503,
+        "y": 87.40913,
+        "z": -199.71994
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 274.39,
+        "y": 81.63043,
+        "z": -206.77002
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 274.42,
+        "y": 81.569,
+        "z": -200.036
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 290.82996,
+        "y": 81.62825,
+        "z": -206.57
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 290.7,
+        "y": 81.62756,
+        "z": -200.08899
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 280.6146,
+        "y": 85.659996,
+        "z": -200.64561
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 353.15128,
+        "z": 0.0
+      },
+      "size": {
+        "x": 50.0,
+        "y": 40.0,
+        "z": 50.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "switch",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400020754
+          }
+        ]
+      }
+    },
+    {
+      "key": "attack_switch",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400020753
+          }
+        ]
+      }
+    },
+    {
+      "key": "erosion",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400020969
+          }
+        ]
+      }
+    },
+    {
+      "key": "attach_parent",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400021125
+          }
+        ]
+      }
+    },
+    {
+      "key": "attach_key",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400021173
+          }
+        ]
+      }
+    },
+    {
+      "key": "attach_coin",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400021204
+          }
+        ]
+      }
+    },
+    {
+      "key": "finish",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "3": "finish",
+    "1025": "switch",
+    "1026": "attack_switch",
+    "1028": "erosion",
+    "1029": "attach_parent",
+    "1033": "attach_key",
+    "1034": "attach_coin"
+  }
+}

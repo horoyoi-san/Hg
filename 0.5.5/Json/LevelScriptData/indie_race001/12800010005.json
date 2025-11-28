@@ -1,0 +1,565 @@
+{
+  "scriptId": 12800010005,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnAnyEntityDie, Gameplay.Beyond",
+          "_ID": 19,
+          "_nextID": 20,
+          "_filterMode": true,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 18
+          },
+          "_entity": {
+            "path": "$19@_entity"
+          },
+          "_isMonster": {
+            "constValue": true
+          },
+          "_filterByList": {
+            "constValue": false
+          },
+          "_entityList": null,
+          "_uid": "1cf957ac"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnPhysicalInfliction, Gameplay.Beyond",
+          "_ID": 22,
+          "_nextID": 23,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 18
+          },
+          "_useEntityFilter": {
+            "constValue": false
+          },
+          "_entityFilter": null,
+          "_useInflictionTypeFilter": {
+            "constValue": false
+          },
+          "_inflictionTypeFilter": null,
+          "_sourceOutput": {
+            "path": "$22@_sourceOutput"
+          },
+          "_entityOutput": {
+            "path": "$22@_entityOutput"
+          },
+          "_inflictionTypeOutput": {
+            "path": "$22@_inflictionTypeOutput"
+          },
+          "_uid": "abdeddba"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnSpellAbnormalStart, Gameplay.Beyond",
+          "_ID": 26,
+          "_nextID": 27,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 25
+          },
+          "_useEntityFilter": {
+            "constValue": false
+          },
+          "_entityFilter": {
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_typeFilter": {
+            "constValue": "None"
+          },
+          "_entityOutput": {
+            "path": "$26@_entityOutput"
+          },
+          "_sourceOutput": {
+            "path": "$26@_sourceOutput"
+          },
+          "_typeOutput": {
+            "path": "$26@_typeOutput"
+          },
+          "_uid": "b9e04b28"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnEntityCastSkill, Gameplay.Beyond",
+          "_ID": 30,
+          "_nextID": 31,
+          "_filterMode": true,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 29
+          },
+          "_entity": {
+            "path": "$30@_entity"
+          },
+          "_entityTemplateId": {
+            "path": "$30@_entityTemplateId"
+          },
+          "_skillId": {
+            "path": "$30@_skillId"
+          },
+          "_firstTargetId": {
+            "path": "$30@_firstTargetId"
+          },
+          "_isCharacter": {
+            "constValue": true
+          },
+          "_skillTypeFilter": {
+            "constValue": "NormalSkill, ComboSkill, UltimateSkill"
+          },
+          "_uid": "84152764"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SpawnAbilityEntityAtPos, Gameplay.Beyond",
+          "_ID": 20,
+          "_key": {
+            "constValue": "abilityentity_race_enemy_dot_field"
+          },
+          "_skillId": {
+            "constValue": "race_eny_dot_field_short"
+          },
+          "_position": {
+            "paramSource": -1,
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "idRef": 21
+          },
+          "_eulerAngles": {
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_blackboardKey": {
+            "constValue": null
+          },
+          "_waitForSpawned": {
+            "constValue": true
+          },
+          "_abilityEntity": {
+            "path": "$20@_abilityEntity"
+          },
+          "_uid": "b0ce2179",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffToTarget, Gameplay.Beyond",
+          "_ID": 23,
+          "_target": {
+            "paramSource": 100,
+            "path": "$22@_entityOutput",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_source": {
+            "paramSource": 100,
+            "path": "$22@_entityOutput",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_buffId": {
+            "constValue": "buff_race_level_dmg_taken_scalar"
+          },
+          "_useBlackboard": {
+            "constValue": false
+          },
+          "_blackboardKey": {
+            "constValue": {
+              "key": "blackboard"
+            }
+          },
+          "_onlyChangeDuration": {
+            "constValue": false
+          },
+          "_durationTime": null,
+          "_buff": {
+            "path": "$23@_buff"
+          },
+          "_uid": "7eb9363b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffToTarget, Gameplay.Beyond",
+          "_ID": 27,
+          "_target": {
+            "paramSource": 100,
+            "path": "$26@_entityOutput",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_source": {
+            "paramSource": 100,
+            "path": "$26@_entityOutput",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_buffId": {
+            "constValue": "buff_race_level_dmg_taken_scalar"
+          },
+          "_useBlackboard": {
+            "constValue": false
+          },
+          "_blackboardKey": {
+            "constValue": {
+              "key": "blackboard"
+            }
+          },
+          "_onlyChangeDuration": {
+            "constValue": false
+          },
+          "_durationTime": null,
+          "_buff": {
+            "path": "$27@_buff"
+          },
+          "_uid": "7953740e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffToTarget, Gameplay.Beyond",
+          "_ID": 31,
+          "_target": {
+            "paramSource": 100,
+            "path": "$30@_entity",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_source": {
+            "paramSource": 100,
+            "path": "$30@_entity",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_buffId": {
+            "constValue": "buff_race_character_gain_dmg_up_on_skill_cast"
+          },
+          "_useBlackboard": {
+            "constValue": false
+          },
+          "_blackboardKey": {
+            "constValue": {
+              "key": "blackboard"
+            }
+          },
+          "_onlyChangeDuration": {
+            "constValue": false
+          },
+          "_durationTime": null,
+          "_buff": {
+            "path": "$31@_buff"
+          },
+          "_uid": "9f332f1b",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IntCompare, Gameplay.Beyond",
+          "_ID": 18,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 17
+          },
+          "_valueB": {
+            "constValue": 11
+          },
+          "_uid": "4cc1ec78"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptPropertyGenericInt, Gameplay.Beyond",
+          "_ID": 17,
+          "_target": {
+            "constValue": {
+              "scriptId": 12800010000
+            }
+          },
+          "_path": {
+            "constValue": "int_room_id"
+          },
+          "_uid": "d415374e"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetEntityPosition, Gameplay.Beyond",
+          "_ID": 21,
+          "_target": {
+            "paramSource": 100,
+            "path": "$19@_entity",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_uid": "8edc30f1"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IntCompare, Gameplay.Beyond",
+          "_ID": 25,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 24
+          },
+          "_valueB": {
+            "constValue": 12
+          },
+          "_uid": "74f2db1f"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptPropertyGenericInt, Gameplay.Beyond",
+          "_ID": 24,
+          "_target": {
+            "constValue": {
+              "scriptId": 12800010000
+            }
+          },
+          "_path": {
+            "constValue": "int_room_id"
+          },
+          "_uid": "53279ac4"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IntCompare, Gameplay.Beyond",
+          "_ID": 29,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 28
+          },
+          "_valueB": {
+            "constValue": 13
+          },
+          "_uid": "79a06f22"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptPropertyGenericInt, Gameplay.Beyond",
+          "_ID": 28,
+          "_target": {
+            "constValue": {
+              "scriptId": 12800010000
+            }
+          },
+          "_path": {
+            "constValue": "int_room_id"
+          },
+          "_uid": "17357d46"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 400.0,
+        "y": 0.0,
+        "z": -600.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 270.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 115.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 400.0,
+        "y": 1.5,
+        "z": -600.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 400.0,
+        "y": 0.0,
+        "z": -600.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 400.0,
+        "y": 0.0,
+        "z": -600.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 400.0,
+        "y": 0.0,
+        "z": -600.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 400.0,
+        "y": 0.0,
+        "z": -600.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 400.0,
+        "y": 0.0,
+        "z": -600.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 400.0,
+        "y": 0.0,
+        "z": -600.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 400.0,
+        "y": 0.0,
+        "z": -600.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 270.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 40.0
+    }
+  ],
+  "properties": [],
+  "propertyIdToKeyMap": {}
+}

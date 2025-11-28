@@ -1,0 +1,382 @@
+{
+  "scriptId": 3400160012,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "ac5bb226"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "TeleportToFinalPos"
+          },
+          "_eventArgsPtr": {
+            "path": "$2@_eventArgsPtr"
+          },
+          "_uid": "0cab36e4"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnMissionStateChanged, Gameplay.Beyond",
+          "_ID": 13,
+          "_nextID": 14,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_missionId": {
+            "path": "$13@_missionId"
+          },
+          "_oldState": {
+            "path": "$13@_oldState"
+          },
+          "_newState": {
+            "path": "$13@_newState"
+          },
+          "_succeedId": {
+            "path": "$13@_succeedId"
+          },
+          "_filtedMissionId": {
+            "constValue": "gm01m16"
+          },
+          "_filtedNewState": {
+            "constValue": "Processing"
+          },
+          "_filtedSucceedId": {
+            "constValue": -2
+          },
+          "_uid": "16e78701"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#a23a8b16"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "a23a8b16"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SetTriggerIsActive, Gameplay.Beyond",
+          "_ID": 1,
+          "_entity": {
+            "paramSource": 200,
+            "path": "intModule",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_isActive": {
+            "constValue": false
+          },
+          "_uid": "604f6559",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForEntityStart, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_target": {
+            "paramSource": 200,
+            "path": "rabbitNPC",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_uid": "805710e7",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetNpcTransform, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 5,
+          "_target": {
+            "paramSource": 200,
+            "path": "rabbitNPC",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_position": {
+            "paramSource": 200,
+            "path": "finalPos",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_rotation": {
+            "paramSource": 200,
+            "path": "finalRot",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_uid": "c3b1c645",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcPlayMontage, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_targetNpc": {
+            "paramSource": 200,
+            "path": "rabbitNPC",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_montageTag": {
+            "constValue": {
+              "tagName": "Montage/NPC/Generic/rabbit01/idle_01",
+              "tagId": 242595042
+            }
+          },
+          "_montageMaskType": {
+            "constValue": "Default"
+          },
+          "_overrideMontageState": {
+            "constValue": true
+          },
+          "_montageState": {
+            "constValue": "Loop"
+          },
+          "_switchDefaultMontageTag": {
+            "constValue": false
+          },
+          "_uid": "e05fe43c",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast_DevOnly, Gameplay.Beyond",
+          "_ID": 6,
+          "_info": {
+            "constValue": ""
+          },
+          "_duration": {
+            "constValue": 3.0
+          },
+          "_uid": "17fbc820",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomEntityEvent, Gameplay.Beyond",
+          "_ID": 14,
+          "_nextID": 15,
+          "_eventKey": {
+            "constValue": "START"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": 200,
+            "path": "intModule",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_uid": "7e6927b2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast_DevOnly, Gameplay.Beyond",
+          "_ID": 15,
+          "_info": {
+            "constValue": ""
+          },
+          "_duration": {
+            "constValue": 6.0
+          },
+          "_uid": "17ab0ca3",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomScriptEvent, Gameplay.Beyond",
+          "_ID": 10,
+          "_eventKey": {
+            "constValue": "TeleportToFinalPos"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "ef59b72d",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 484.47458,
+        "y": 96.88831,
+        "z": -263.9914
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 105.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 484.42,
+        "y": 96.8883,
+        "z": -263.967
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 484.47458,
+        "y": 96.88831,
+        "z": -263.9914
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 30.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "rabbitNPC",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400160008
+          }
+        ]
+      }
+    },
+    {
+      "key": "intModule",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400160045
+          }
+        ]
+      }
+    },
+    {
+      "key": "finalPos",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 1139733974
+          },
+          {
+            "valueBit64": 1119986626
+          },
+          {
+            "valueBit64": -1014828814
+          }
+        ]
+      }
+    },
+    {
+      "key": "finalRot",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": -2147483648
+          },
+          {
+            "valueBit64": 1129768186
+          },
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1025": "rabbitNPC",
+    "1026": "intModule",
+    "1027": "finalPos",
+    "1028": "finalRot"
+  }
+}

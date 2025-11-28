@@ -1,0 +1,362 @@
+{
+  "scriptId": 10100050025,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "talk",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnWaterVolumeChanged, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_validate": {
+            "constValue": true
+          },
+          "_waterVolumeFilter": null,
+          "_waterVolumeOutput": {
+            "path": "$0@_waterVolumeOutput"
+          },
+          "_oldAmount": {
+            "path": "$0@_oldAmount"
+          },
+          "_newAmount": {
+            "path": "$0@_newAmount"
+          },
+          "_uid": "ecb29af0"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 1,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 11
+          },
+          "_onTrueID": 2,
+          "_onFalseID": 0,
+          "_uid": "edadcb34"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast_DevOnly, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_info": {
+            "constValue": ""
+          },
+          "_duration": {
+            "constValue": 3.0
+          },
+          "_uid": "8c13c64a",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 13
+          },
+          "_uid": "647e3f1e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast_DevOnly, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 5,
+          "_info": {
+            "constValue": ""
+          },
+          "_duration": {
+            "constValue": 3.0
+          },
+          "_uid": "338762a4",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 15
+          },
+          "_uid": "74729fce",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 16
+          },
+          "_uid": "568ed522",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayRadio, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_radioId": {
+            "constValue": "radio_gm02m2_6"
+          },
+          "_fromBegin": {
+            "constValue": true
+          },
+          "_index": {
+            "constValue": -1
+          },
+          "_uid": "24576f21",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 8,
+          "_eventName": {
+            "constValue": "#1cd36744"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "1cd36744",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IntCompare, Gameplay.Beyond",
+          "_ID": 11,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 10
+          },
+          "_valueB": {
+            "constValue": 50028
+          },
+          "_uid": "f403c514"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaterVolumePtrToInt, Gameplay.Beyond",
+          "_ID": 10,
+          "_value": {
+            "paramSource": 100,
+            "path": "$0@_waterVolumeOutput",
+            "constValue": {
+              "id": 0
+            }
+          },
+          "_uid": "1a1963f3"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IntCompare, Gameplay.Beyond",
+          "_ID": 13,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 12
+          },
+          "_valueB": {
+            "constValue": 180
+          },
+          "_uid": "6b206b73"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaterVolumeGetAmount, Gameplay.Beyond",
+          "_ID": 12,
+          "_target": {
+            "constValue": {
+              "id": 10100050028
+            }
+          },
+          "_uid": "d4b59284"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.StringEqual, Gameplay.Beyond",
+          "_ID": 15,
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": null,
+            "idRef": 14
+          },
+          "_valueB": {
+            "constValue": "item_liquid_water"
+          },
+          "_uid": "652c5a89"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaterVolumeGetType, Gameplay.Beyond",
+          "_ID": 14,
+          "_target": {
+            "constValue": {
+              "id": 10100050028
+            }
+          },
+          "_uid": "1fa8b521"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsProcessing, Gameplay.Beyond",
+          "_ID": 16,
+          "_isQuest": {
+            "constValue": true
+          },
+          "_missionId": {
+            "constValue": "gm02m2_q#4"
+          },
+          "_uid": "abe56d3d"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": -212.1,
+        "y": 126.486435,
+        "z": -64.5
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 300.0,
+        "y": 200.0,
+        "z": 450.0
+      },
+      "radius": 0.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": -212.1,
+        "y": 126.486435,
+        "z": -64.5
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 150.0,
+        "y": 50.0,
+        "z": 300.0
+      },
+      "radius": 250.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "Pool_1",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "Pool_2",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "Pool_3",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "Pool_23",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "radio_1",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "Pool_1",
+    "2": "Pool_2",
+    "3": "Pool_3",
+    "4": "Pool_23",
+    "5": "radio_1"
+  }
+}
