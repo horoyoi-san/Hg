@@ -13,6 +13,7 @@ namespace Campofinale.Packets.Cs
         {
             CsFriendListQuery req = packet.DecodeBody<CsFriendListQuery>();
             session.Send(new PacketScFriendListQuery(session,req),packet.csHead.UpSeqid);
+            
         }
     }
 }

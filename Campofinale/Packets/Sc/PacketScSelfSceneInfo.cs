@@ -109,7 +109,7 @@ namespace Campofinale.Packets.Sc
                    }
                    
                 }
-               // sceneInfo.LevelScripts.Add(script);
+                sceneInfo.LevelScripts.Add(script);
             });
             SetData(ScMsgId.ScSelfSceneInfo, sceneInfo);
             

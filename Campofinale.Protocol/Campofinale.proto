@@ -1417,7 +1417,7 @@ message EquipData {
   uint64 equipid = 1;
   int32 templateid = 2;
   uint64 equip_char_id = 3;
-  repeated EquipAttr attrs = 4;
+  map<int32, int32> enhance = 8;
 }
 
 message GemData {
@@ -1453,6 +1453,8 @@ message ItemInst {
   uint64 inst_id = 1;
   bool is_lock = 101;
   bool is_new = 102;
+  ItemFlag item_flag = 103;
+  int64 expire_ts = 104;
   oneof inst_impl {
     EquipData equip = 2;
     GemData gem = 3;
@@ -1460,7 +1462,11 @@ message ItemInst {
     ItemInstEmpty empty = 31;
   }
 }
-
+enum ItemFlag {
+  ItemNormal = 0;
+  ItemLock = 1;
+  ItemTrash = 2;
+}
 message ItemInstEmpty {
 }
 
@@ -2325,9 +2331,7 @@ message CsEquipEnhance {
 
 message ScEquipEnhance {
   uint64 equip_inst_id = 1;
-  repeated uint32 enhance = 2;
-  repeated EquipAttr enhance_attrs = 3;
-  EquipAttr base_attr = 4;
+  map<int32,int32> enhance = 2;
 }
 
 message CsEquipProduce {
@@ -6990,4 +6994,81 @@ message DomainDevelopmentDegree {
   uint32 level = 2;
   uint64 rewardedLevel = 3;
   repeated uint64 source = 4;
+}
+
+
+message ScBpSyncAll {
+  ScdBpSeasonData seasonData = 1;
+  ScdBpLevelData levelData = 2;
+  ScdBpTrackMgr bpTrackMgr = 3;
+  ScdBpTaskMgr bpTaskMgr = 4;
+}
+
+message ScdBpSeasonData {
+  string seasonId = 1;
+  int32 abscentCnt = 2;
+  int64 openTime = 3;
+  int64 closeTime = 4;
+  ScdBpCloseStatus closeStatus = 5;
+  int64 canBuyLevelTms = 6;
+}
+
+message ScdBpCloseStatus {
+  bool isClose = 1;
+  int32 closeReason = 2;
+}
+message ScdBpLevelData {
+  int32 curLevel = 1;
+  int32 curExp = 2;
+}
+
+message ScdBpTrackMgr {
+  repeated ScdBpTrackRewardData trackData = 1;
+}
+
+message ScdBpTaskMgr {
+  repeated ScdBpTaskLabel labels = 1;
+}
+
+message ScdBpTaskLabel {
+  string taskLabelId = 1;
+  repeated ScdBpConditionData visibleConditions = 2;
+  int64 visibleTms = 3;
+  repeated ScdBpTaskGroup groups = 4;
+  ScdBpCloseStatus closeStatus = 5;
+}
+enum BpTaskState {
+  NOT_ACCEPT = 0;
+  IN_PROCESSING = 1;
+  HAS_COMPLETED = 2;
+  TAKE_REWARD = 3;
+  DISABLE = 4;
+}
+message ScdBpTrackRewardData {
+  string bpTrackId = 1;
+  repeated uint64 rewardState = 2;
+  int32 recurringTimes = 3;
+}
+
+message ScdBpConditionData {
+  string condId = 1;
+  int32 value = 2;
+  bool flag = 3;
+}
+
+message ScdBpTaskGroup {
+  string taskGroupId = 1;
+  repeated ScdBpConditionData visibleConditions = 2;
+  int64 visibleTms = 3;
+  int64 disableTms = 4;
+  repeated ScdBpTask tasks = 5;
+  ScdBpCloseStatus closeStatus = 6;
+}
+message ScdBpTask {
+  string taskId = 1;
+  repeated ScdBpConditionData visibleConditions = 2;
+  repeated ScdBpConditionData completeConditions = 3;
+  int64 visibleTms = 4;
+  BpTaskState taskState = 5;
+  ScdBpCloseStatus closeStatus = 6;
 }

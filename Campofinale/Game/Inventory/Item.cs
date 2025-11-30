@@ -66,7 +66,7 @@ namespace Campofinale.Game.Inventory
         }
         public List<AttributeModifier> GetEquipAttributeModifier()
         {
-            List<AttributeModifier> modifiers = ResourceManager.equipTable[id].attrModifiers;
+            List<AttributeModifier> modifiers = ResourceManager.equipTable[id].equipAttrModifiers;
 
             return modifiers;
         }
@@ -155,13 +155,8 @@ namespace Campofinale.Game.Inventory
                         };
                         foreach (var item in GetEquipAttributeModifier())
                         {
-                            equip.Inst.Equip.Attrs.Add(new EquipAttr()
-                            {
-                                AttrType= (int)item.attrType,
-                                ModifierType=(int)item.modifierType,
-                                ModifierValue=item.attrValue,
-                                ModifyAttributeType=item.modifyAttributeType,
-                            });
+                            equip.Inst.Equip.Enhance.Add((int)item.attrType, (int)item.attrValues[0]);
+                           
                         }
                         return equip;
                     default:

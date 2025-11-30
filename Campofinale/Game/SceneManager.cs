@@ -243,6 +243,16 @@ namespace Campofinale.Game
                     grade= grade
                 });
             }
+            List<Scene> Todelete = new();
+            foreach(Scene scene in scenes)
+            {
+                LevelScene sc = ResourceManager.GetLevelData(scene.sceneNumId);
+                if(sc==null) Todelete.Add(scene);
+            }
+            foreach(Scene scene in Todelete)
+            {
+                scenes.Remove(scene);
+            }
         }
 
         public void UnloadAllByConfigPath(string sceneConfigPath)
@@ -334,7 +344,12 @@ namespace Campofinale.Game
             }
             if (sceneGrade == null)
             {
-                sceneGrade = new();
+                sceneGrade = new()
+                {
+                    monsterBaseLevel=1,
+                    grade=1,
+                    
+                };
             }
             lv_scene.levelData.interactives.ForEach(en =>
             {
@@ -353,7 +368,7 @@ namespace Campofinale.Game
                 };
                 entities.Add(entity);
             });
-            lv_scene.levelData.factoryRegions.ForEach(en =>
+            /*lv_scene.levelData.factoryRegions.ForEach(en =>
             {
                 if (GetOwner().noSpawnAnymore.Contains(en.levelLogicId) && sceneNumId!=87)
                 {
@@ -368,7 +383,7 @@ namespace Campofinale.Game
                 };
                 
                 entities.Add(entity);
-            });
+            });*/
             lv_scene.levelData.enemies.ForEach(en =>
             {
                 if(GetOwner().noSpawnAnymore.Contains(en.levelLogicId) && sceneNumId != 87) return;
@@ -385,7 +400,10 @@ namespace Campofinale.Game
             });
             lv_scene.levelData.npcs.ForEach(en =>
             {
-                
+                if (en.npcGroupId == null)
+                {
+                    en.npcGroupId = "";
+                }
                 if (en.npcGroupId.Contains("chr") && sceneNumId == 98) return;
                 EntityNpc entity = new(en.entityDataIdKey,ownerId,en.position,en.rotation, sceneNumId, en.levelLogicId)
                 {

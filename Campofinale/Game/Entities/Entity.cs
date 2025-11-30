@@ -13,7 +13,7 @@ namespace Campofinale.Game.Entities
         public double curHp;
         public ulong levelLogicId;
         public ulong belongLevelScriptId;
-        public int dependencyGroupId;
+        public ulong dependencyGroupId;
         public ObjectType type;
         public Vector3f Position=new();
         public Vector3f Rotation = new();

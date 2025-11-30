@@ -243,6 +243,7 @@ namespace Campofinale.Packets.Cs
             session.Send(new PacketScSnsGetChatList(session));
             session.Send(ScMsgId.ScSyncFullDataEnd, new ScSyncFullDataEnd());
             session.Send(new PacketScFriendListSimpleSync(session));
+            session.Send(new PacketScBpSyncAll(session));
             //session.Send(new PacketScFriendListQuery(session));
             session.Send(new PacketScFriendPersonalDataSync(session));
             session.EnterScene();

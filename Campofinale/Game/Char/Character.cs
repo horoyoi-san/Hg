@@ -70,11 +70,11 @@ namespace Campofinale.Game.Char
                         {
                             case ModifierType.BaseAddition:
                             case ModifierType.Addition:
-                                attributes=SetValueDic(attributes, modifier.attrType, GetValueDic(attributes, modifier.attrType) + modifier.attrValue);
+                                attributes=SetValueDic(attributes, modifier.attrType, GetValueDic(attributes, modifier.attrType) + (modifier.attrValues.Count > 0 ? modifier.attrValues[0] : 0));
                                 break;
                             case ModifierType.Multiplier:
                             case ModifierType.BaseMultiplier:
-                                attributes=SetValueDic(attributes, modifier.attrType, GetValueDic(attributes, modifier.attrType) * 1 + modifier.attrValue);
+                                attributes=SetValueDic(attributes, modifier.attrType, GetValueDic(attributes, modifier.attrType) * 1 + (modifier.attrValues.Count > 0 ? modifier.attrValues[0] : 1));
                                 break;
                             default:
                                 break;
