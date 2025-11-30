@@ -1,0 +1,632 @@
+{
+  "modelId": "int_doodad_recycling_1_postmodel",
+  "clipAssetInfos": [
+    {
+      "animationClipName": "A_interactive_recycling+1_001_01_closeidle_01",
+      "animationClipHash": 847888779061831669,
+      "animationGuid": {
+        "val0": 2378596160,
+        "val1": 1269301283,
+        "val2": 1044577928,
+        "val3": 7557233
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_recycling+1_001_01_fullstart_01",
+      "animationClipHash": 812676564798275370,
+      "animationGuid": {
+        "val0": 1395225241,
+        "val1": 1152345752,
+        "val2": 1102586253,
+        "val3": 4204070803
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_recycling+1_001_01_open_01",
+      "animationClipHash": 138502146932708199,
+      "animationGuid": {
+        "val0": 322341770,
+        "val1": 1320527880,
+        "val2": 1901493181,
+        "val3": 4111908821
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_recycling+1_001_01_openidle_01",
+      "animationClipHash": 809633854100594271,
+      "animationGuid": {
+        "val0": 3955229347,
+        "val1": 1091230155,
+        "val2": 979569563,
+        "val3": 3345883766
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_recycling+1_001_01_close_02",
+      "animationClipHash": 741251004977509618,
+      "animationGuid": {
+        "val0": 499148847,
+        "val1": 1236873793,
+        "val2": 2573934483,
+        "val3": 3300362370
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_recycling+1_001_01_close_01",
+      "animationClipHash": 741252707310753485,
+      "animationGuid": {
+        "val0": 88626801,
+        "val1": 1308127956,
+        "val2": 2195738045,
+        "val3": 4180554486
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_recycling+1_001_01_fullidle_01",
+      "animationClipHash": 1103319607203922854,
+      "animationGuid": {
+        "val0": 3944802666,
+        "val1": 1209635000,
+        "val2": 188012932,
+        "val3": 1373676656
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_recycling+1_001_01_fullopen_01",
+      "animationClipHash": 1146660311743046276,
+      "animationGuid": {
+        "val0": 1524713163,
+        "val1": 1324555635,
+        "val2": 967281538,
+        "val3": 2942560014
+      },
+      "subClipNameHash": 0
+    }
+  ],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "P_anm_fac_recycling+1_001_01",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": true,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "model",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "CloseIdle",
+              "isHaveClip": true,
+              "totalTime": 6.666667,
+              "animationClipName": "A_interactive_recycling+1_001_01_closeidle_01",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 1560007365
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0333333351,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Open",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Distance",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "PickUp",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 1,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "FullStart",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "PickUp",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "FullStart",
+              "isHaveClip": true,
+              "totalTime": 0.7666667,
+              "animationClipName": "A_interactive_recycling+1_001_01_fullstart_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "Open",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Distance",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "FullIdle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Open",
+              "isHaveClip": true,
+              "totalTime": 2.9333334,
+              "animationClipName": "A_interactive_recycling+1_001_01_open_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 1678646082
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "OpenIdle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "OpenIdle",
+              "isHaveClip": true,
+              "totalTime": 6.666667,
+              "animationClipName": "A_interactive_recycling+1_001_01_openidle_01",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 1195531329
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "EmptyClose",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "PickUp",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "FullClose",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "PickUp",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "Distance",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "EmptyClose",
+              "isHaveClip": true,
+              "totalTime": 3.00000024,
+              "animationClipName": "A_interactive_recycling+1_001_01_close_02",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": -1114886378
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "CloseIdle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "FullClose",
+              "isHaveClip": true,
+              "totalTime": 3.00000024,
+              "animationClipName": "A_interactive_recycling+1_001_01_close_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": -1114886378
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "CloseIdle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "FullIdle",
+              "isHaveClip": true,
+              "totalTime": 1.4000001,
+              "animationClipName": "A_interactive_recycling+1_001_01_fullidle_01",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 493110260
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "FullOpen",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Distance",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "FullOpen",
+              "isHaveClip": true,
+              "totalTime": 2.66666722,
+              "animationClipName": "A_interactive_recycling+1_001_01_fullopen_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": -1769182111
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "OpenIdle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

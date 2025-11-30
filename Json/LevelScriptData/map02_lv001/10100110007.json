@@ -1,0 +1,194 @@
+{
+  "scriptId": 10100110007,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -883.6715,
+        "y": 225.2611,
+        "z": -1265.8285
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 70.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 5
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "63ce2974"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": 11,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "create_npc_lizhui"
+          },
+          "_eventArgsPtr": {
+            "path": "$10@_eventArgsPtr"
+          },
+          "_uid": "dd3b7efe"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomLevelEvent, Gameplay.Beyond",
+          "_ID": 7,
+          "_eventKey": {
+            "constValue": "create_npc_lizhui"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_uid": "272c6d33",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForNpcProxyReady, Gameplay.Beyond",
+          "_ID": 11,
+          "_nextID": 12,
+          "_npcProxyId": {
+            "constValue": "lizhui_map02_001"
+          },
+          "_uid": "a58b315e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayRadio, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_radioId": {
+            "constValue": "radio_sm2l1m1_21"
+          },
+          "_fromBegin": {
+            "constValue": true
+          },
+          "_index": {
+            "constValue": -1
+          },
+          "_onlyOnce": {
+            "constValue": false
+          },
+          "_uid": "7ffd9b34",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 13,
+          "_eventName": {
+            "constValue": "#7d994512"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "7d994512",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IntEqual, Gameplay.Beyond",
+          "_ID": 5,
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 4
+          },
+          "_valueB": {
+            "constValue": 0
+          },
+          "_uid": "13f18884"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptStage, Gameplay.Beyond",
+          "_ID": 4,
+          "_scriptPtr": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "c59293ee"
+        }
+      ]
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 1,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -878.50085,
+            "y": 225.32066,
+            "z": -1262.7964
+          },
+          "shapeType": "Sphere",
+          "radius": 15.0,
+          "size": {
+            "x": 3.0,
+            "y": 3.0,
+            "z": 3.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

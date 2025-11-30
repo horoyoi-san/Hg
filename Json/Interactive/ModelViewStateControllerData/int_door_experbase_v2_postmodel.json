@@ -1,0 +1,284 @@
+{
+  "modelId": "int_door_experbase_v2_postmodel",
+  "clipAssetInfos": [
+    {
+      "animationClipName": "A_interactive_organdoor+1_001_01_closeidle_01",
+      "animationClipHash": 706901349701239889,
+      "animationGuid": {
+        "val0": 2498594181,
+        "val1": 1214728735,
+        "val2": 874126764,
+        "val3": 3121766011
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_organdoor+1_001_01_open_01",
+      "animationClipHash": 1114586330313569387,
+      "animationGuid": {
+        "val0": 807837107,
+        "val1": 1293271746,
+        "val2": 904626339,
+        "val3": 3918993646
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_organdoor+1_001_01_openidle_01",
+      "animationClipHash": 739148157935053803,
+      "animationGuid": {
+        "val0": 1404516805,
+        "val1": 1074360935,
+        "val2": 1536382894,
+        "val3": 99056080
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_organdoor+1_001_01_close_01",
+      "animationClipHash": 249685743569638817,
+      "animationGuid": {
+        "val0": 4035130953,
+        "val1": 1092260590,
+        "val2": 3994522247,
+        "val3": 1527996929
+      },
+      "subClipNameHash": 0
+    }
+  ],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "P_interactive_organdoor+1_001_01",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": true,
+          "index": 0,
+          "weight": 0.0,
+          "layerName": "irondoor",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "off_idle",
+              "isHaveClip": true,
+              "totalTime": 0.0333333351,
+              "animationClipName": "A_interactive_organdoor+1_001_01_closeidle_01",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAINavMeshCtrlBehaviorData, Gameplay.Beyond",
+                  "ctrlType": 0,
+                  "localCenter": {
+                    "x": 0.0,
+                    "y": 2.86,
+                    "z": 0.0
+                  },
+                  "localRotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                  },
+                  "size": {
+                    "x": 8.41,
+                    "y": 6.199318,
+                    "z": 1.532067
+                  },
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 12,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectBehaviorData, Gameplay.Beyond",
+                  "isLoadImmediately": false,
+                  "isPersistence": false,
+                  "effectNodeName": "root",
+                  "effectId": "P_interactive_organdoor_idle",
+                  "followRot": true,
+                  "active": false,
+                  "force": false,
+                  "fireAndForget": false,
+                  "effectAnimationState": 0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 0,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "off_to_on",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "state",
+                        "comparison": 1,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 7.500016,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "off_to_on",
+              "isHaveClip": true,
+              "totalTime": 2.33333349,
+              "animationClipName": "A_interactive_organdoor+1_001_01_open_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "on_idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "on_idle",
+              "isHaveClip": true,
+              "totalTime": 0.0333333351,
+              "animationClipName": "A_interactive_organdoor+1_001_01_openidle_01",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAINavMeshCtrlBehaviorData, Gameplay.Beyond",
+                  "ctrlType": 1,
+                  "localCenter": {
+                    "x": 0.0,
+                    "y": 2.86,
+                    "z": 0.0
+                  },
+                  "localRotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                  },
+                  "size": {
+                    "x": 8.41,
+                    "y": 6.199318,
+                    "z": 1.532067
+                  },
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 12,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "on_to_off",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "state",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 7.500001,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "on_to_off",
+              "isHaveClip": true,
+              "totalTime": 2.33333349,
+              "animationClipName": "A_interactive_organdoor+1_001_01_close_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "off_idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "modelId": "int_system_spaceship_rolewall_postmodel",
+  "clipAssetInfos": [
+    {
+      "animationClipName": "A_fxmap_base01_lv001_initial_rolewall_loop",
+      "animationClipHash": 1148401401297918474,
+      "animationGuid": {
+        "val0": 291209558,
+        "val1": 1156448636,
+        "val2": 3905041314,
+        "val3": 1814732179
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_fxmap_base01_lv001_rolewall_start",
+      "animationClipHash": 543804504941351201,
+      "animationGuid": {
+        "val0": 3471306926,
+        "val1": 1315877001,
+        "val2": 2491853204,
+        "val3": 1328083255
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_fxmap_base01_lv001_rolewall_loop",
+      "animationClipHash": 597372198458000501,
+      "animationGuid": {
+        "val0": 3364682029,
+        "val1": 1176432166,
+        "val2": 1138198459,
+        "val3": 3713650176
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_fxmap_base01_lv001_rolewall_end",
+      "animationClipHash": 437039422889501942,
+      "animationGuid": {
+        "val0": 1520225887,
+        "val1": 1139125438,
+        "val2": 1057482676,
+        "val3": 2566247414
+      },
+      "subClipNameHash": 0
+    }
+  ],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "int_system_spaceship_rolewall_postmodel",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": true,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "Spaceship_show_switch",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Idle",
+              "isHaveClip": true,
+              "totalTime": 0.5,
+              "animationClipName": "A_fxmap_base01_lv001_initial_rolewall_loop",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "PlayerIn",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "InTriggerVolume",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "PlayerIn",
+              "isHaveClip": true,
+              "totalTime": 0.333333343,
+              "animationClipName": "A_fxmap_base01_lv001_rolewall_start",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": -2024952716
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0166666675,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Bling",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Bling",
+              "isHaveClip": true,
+              "totalTime": 0.5,
+              "animationClipName": "A_fxmap_base01_lv001_rolewall_loop",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "PlayerOut",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "InTriggerVolume",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "PlayerOut",
+              "isHaveClip": true,
+              "totalTime": 0.5,
+              "animationClipName": "A_fxmap_base01_lv001_rolewall_end",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 1782243136
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,420 @@
+{
+  "scriptId": 26800000068,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 277.61798,
+        "y": 512.55994,
+        "z": 233.12459
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 130.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "5thBoss1stSpawn"
+          },
+          "_eventArgsPtr": {
+            "path": "$2@_eventArgsPtr"
+          },
+          "_uid": "3fd3f26a"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80004
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "e85224e9"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnBattleSignal, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_validate": {
+            "constValue": true
+          },
+          "_signalId": {
+            "constValue": "PlayBgm"
+          },
+          "_floatValue": {
+            "path": "$9@_floatValue"
+          },
+          "_uid": "1d03188d"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#8ff365a8"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "8ff365a8"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 15,
+          "_nextID": 16,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#b9854589"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "b9854589"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 18,
+          "_nextID": 19,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#ef2ca91a"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "ef2ca91a"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 3,
+          "_eventName": {
+            "constValue": "#4297723d"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "4297723d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomLevelEvent, Gameplay.Beyond",
+          "_ID": 8,
+          "_eventKey": {
+            "constValue": "5thBoss1stSpawn"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_uid": "6bdd1ae5",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 10,
+          "_key": {
+            "constValue": "au_music_combat_boss_pre_end"
+          },
+          "_audioPlayingId": {
+            "path": "$10@_audioPlayingId"
+          },
+          "_uid": "54d4ebf2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 13,
+          "_key": {
+            "constValue": "au_music_combat_boss_win"
+          },
+          "_audioPlayingId": {
+            "path": "$13@_audioPlayingId"
+          },
+          "_uid": "484b08bb",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 16,
+          "_key": {
+            "constValue": "au_music_combat_boss_state1"
+          },
+          "_audioPlayingId": {
+            "path": "$16@_audioPlayingId"
+          },
+          "_uid": "80ff06fa",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 19,
+          "_key": {
+            "constValue": "au_music_combat_boss_lost"
+          },
+          "_audioPlayingId": {
+            "path": "$19@_audioPlayingId"
+          },
+          "_uid": "46c25cdf",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "modules": {
+    "26800000006": {
+      "$type": "Beyond.Gameplay.EncounterData, Gameplay.Beyond",
+      "spawnerId": 26800000006,
+      "airWallPtrList": [
+        {
+          "useSlotId": true,
+          "logicId": 26800000068,
+          "slotId": 80002
+        },
+        {
+          "useSlotId": true,
+          "logicId": 26800000068,
+          "slotId": 80003
+        }
+      ],
+      "introPartMode": "FirstSpecial",
+      "activateMode": "Custom",
+      "introPart": {
+        "hasFadeIn": true,
+        "fadeInDuration": 0.5,
+        "operaSegments": null,
+        "hasFadeOut": true,
+        "fadeOutDuration": 1.0,
+        "teleportMode": "WholeSquad",
+        "teleportTiming": "AfterLastOpera",
+        "teleportSlot0": {
+          "position": {
+            "x": 259.598,
+            "y": 512.55994,
+            "z": 233.02458
+          },
+          "eulerAngles": {
+            "x": 0.0,
+            "y": 90.0,
+            "z": 0.0
+          }
+        },
+        "teleportSlot1": {
+          "position": {
+            "x": 259.628,
+            "y": 512.55994,
+            "z": 237.28459
+          },
+          "eulerAngles": {
+            "x": 0.0,
+            "y": 90.0,
+            "z": 0.0
+          }
+        },
+        "teleportSlot2": {
+          "position": {
+            "x": 259.57797,
+            "y": 512.55994,
+            "z": 228.78459
+          },
+          "eulerAngles": {
+            "x": 0.0,
+            "y": 90.0,
+            "z": 0.0
+          }
+        },
+        "teleportSlot3": {
+          "position": {
+            "x": 255.46799,
+            "y": 512.55994,
+            "z": 233.10458
+          },
+          "eulerAngles": {
+            "x": 0.0,
+            "y": 90.0,
+            "z": 0.0
+          }
+        },
+        "airWallShowTiming": "AfterActivate",
+        "enemySpawnTiming": "AfterFadeIn"
+      },
+      "activateModeAlter": "Trigger",
+      "activateTriggerSlotIdAlter": 80001,
+      "introPartAlter": {
+        "hasFadeIn": true,
+        "fadeInDuration": 0.5,
+        "operaSegments": null,
+        "hasFadeOut": true,
+        "fadeOutDuration": 1.0,
+        "teleportMode": "WholeSquad",
+        "teleportTiming": "AfterLastOpera",
+        "teleportSlot0": {
+          "position": {
+            "x": 259.598,
+            "y": 512.55994,
+            "z": 233.02458
+          },
+          "eulerAngles": {
+            "x": 0.0,
+            "y": 90.0,
+            "z": 0.0
+          }
+        },
+        "teleportSlot1": {
+          "position": {
+            "x": 259.628,
+            "y": 512.55994,
+            "z": 237.28459
+          },
+          "eulerAngles": {
+            "x": 0.0,
+            "y": 90.0,
+            "z": 0.0
+          }
+        },
+        "teleportSlot2": {
+          "position": {
+            "x": 259.57797,
+            "y": 512.55994,
+            "z": 228.78459
+          },
+          "eulerAngles": {
+            "x": 0.0,
+            "y": 90.0,
+            "z": 0.0
+          }
+        },
+        "teleportSlot3": {
+          "position": {
+            "x": 255.46799,
+            "y": 512.55994,
+            "z": 233.10458
+          },
+          "eulerAngles": {
+            "x": 0.0,
+            "y": 90.0,
+            "z": 0.0
+          }
+        },
+        "airWallShowTiming": "AfterActivate",
+        "enemySpawnTiming": "AfterFadeIn"
+      },
+      "battlePart": {
+        "completeMode": "Default",
+        "hasCompleteDelay": false,
+        "completeDelay": 0.0,
+        "keepHatred": true
+      },
+      "id": 26800000006,
+      "disableWhenCompleted": true
+    }
+  },
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 0,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": 278.29016,
+            "y": 513.7653,
+            "z": 229.45897
+          },
+          "shapeType": "Box",
+          "radius": 3.0,
+          "size": {
+            "x": 52.17827,
+            "y": 8.410805,
+            "z": 54.75983
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    },
+    "80004": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80004,
+      "triggerCountLimit": 1,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": 265.34714,
+            "y": 515.2435,
+            "z": 231.35144
+          },
+          "shapeType": "Box",
+          "radius": 3.0,
+          "size": {
+            "x": 11.5216675,
+            "y": 8.36717,
+            "z": 49.28121
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

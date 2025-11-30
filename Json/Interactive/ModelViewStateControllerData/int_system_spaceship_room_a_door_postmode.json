@@ -1,0 +1,546 @@
+{
+  "modelId": "int_system_spaceship_room_a_door_postmode",
+  "clipAssetInfos": [
+    {
+      "animationClipName": "A_interactive_zmddoor+1_001_01_closeidle_01",
+      "animationClipHash": 155737207670581521,
+      "animationGuid": {
+        "val0": 4090914040,
+        "val1": 1226370249,
+        "val2": 909664909,
+        "val3": 3665957663
+      },
+      "subClipNameHash": 960555180
+    },
+    {
+      "animationClipName": "A_interactive_zmddoor+1_001_01_open_01",
+      "animationClipHash": 107836971555702987,
+      "animationGuid": {
+        "val0": 4090914040,
+        "val1": 1226370249,
+        "val2": 909664909,
+        "val3": 3665957663
+      },
+      "subClipNameHash": -2123647060
+    },
+    {
+      "animationClipName": "A_interactive_zmddoor+1_001_01_openidle_01",
+      "animationClipHash": 988340915745767683,
+      "animationGuid": {
+        "val0": 4090914040,
+        "val1": 1226370249,
+        "val2": 909664909,
+        "val3": 3665957663
+      },
+      "subClipNameHash": -2081351320
+    },
+    {
+      "animationClipName": "A_interactive_zmddoor+1_001_01_close_01",
+      "animationClipHash": 1058840528264438969,
+      "animationGuid": {
+        "val0": 4090914040,
+        "val1": 1226370249,
+        "val2": 909664909,
+        "val3": 3665957663
+      },
+      "subClipNameHash": 1459707386
+    }
+  ],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "int_system_spaceship_room_a_door_postmode",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": true,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "MVSCAnimFsmGraph",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "start",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": true,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "locked",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Unlock",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "unlocked",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Unlock",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "Active",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "built",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Active",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "locked",
+              "isHaveClip": true,
+              "totalTime": 0.0333333351,
+              "animationClipName": "A_interactive_zmddoor+1_001_01_closeidle_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAINavMeshCtrlBehaviorData, Gameplay.Beyond",
+                  "ctrlType": 0,
+                  "localCenter": {
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  "localRotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                  },
+                  "size": {
+                    "x": 3.1485045,
+                    "y": 3.89153671,
+                    "z": 0.403861076
+                  },
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 12,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCSetActiveBehaviorData, Gameplay.Beyond",
+                  "gameObjName": "NavmeshObstacle",
+                  "active": true,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 3,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectBehaviorData, Gameplay.Beyond",
+                  "isLoadImmediately": false,
+                  "isPersistence": false,
+                  "effectNodeName": "Effect",
+                  "effectId": "P_fxmap_base01_lv001_ship_door_07_01",
+                  "followRot": true,
+                  "active": false,
+                  "force": false,
+                  "fireAndForget": false,
+                  "effectAnimationState": 0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 0,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "unlocked",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Unlock",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "unlocked",
+              "isHaveClip": true,
+              "totalTime": 0.0333333351,
+              "animationClipName": "A_interactive_zmddoor+1_001_01_closeidle_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAINavMeshCtrlBehaviorData, Gameplay.Beyond",
+                  "ctrlType": 0,
+                  "localCenter": {
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  "localRotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                  },
+                  "size": {
+                    "x": 3.1485045,
+                    "y": 3.89153671,
+                    "z": 0.403861076
+                  },
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 12,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCSetActiveBehaviorData, Gameplay.Beyond",
+                  "gameObjName": "NavmeshObstacle",
+                  "active": true,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 3,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectBehaviorData, Gameplay.Beyond",
+                  "isLoadImmediately": false,
+                  "isPersistence": false,
+                  "effectNodeName": "Effect",
+                  "effectId": "P_fxmap_base01_lv001_ship_door_05_01",
+                  "followRot": true,
+                  "active": false,
+                  "force": false,
+                  "fireAndForget": false,
+                  "effectAnimationState": 0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 0,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "unlocked_to_built",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Active",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "unlocked_to_built",
+              "isHaveClip": true,
+              "totalTime": 2.0,
+              "animationClipName": "A_interactive_zmddoor+1_001_01_open_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 1839667111
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "built",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "built",
+              "isHaveClip": true,
+              "totalTime": 0.0333333,
+              "animationClipName": "A_interactive_zmddoor+1_001_01_openidle_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAINavMeshCtrlBehaviorData, Gameplay.Beyond",
+                  "ctrlType": 1,
+                  "localCenter": {
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  "localRotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                  },
+                  "size": {
+                    "x": 3.1485045,
+                    "y": 3.89153671,
+                    "z": 0.403861076
+                  },
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 12,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCSetActiveBehaviorData, Gameplay.Beyond",
+                  "gameObjName": "NavmeshObstacle",
+                  "active": false,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 3,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "built_to_unlocked",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Active",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "built_to_unlocked",
+              "isHaveClip": true,
+              "totalTime": 2.00000048,
+              "animationClipName": "A_interactive_zmddoor+1_001_01_close_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": -901119379
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "unlocked",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

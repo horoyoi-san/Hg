@@ -1,0 +1,1042 @@
+{
+  "modelId": "dyn_waterPipe_postmodel",
+  "clipAssetInfos": [],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "Effect",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": false,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "DefaultLayerGraph",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "NoWater",
+              "isHaveClip": false,
+              "totalTime": 0.0166666675,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCSetActiveBehaviorData, Gameplay.Beyond",
+                  "gameObjName": "Effect",
+                  "active": false,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 3,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectLengthBehaviorData, Gameplay.Beyond",
+                  "nodeName": "WaterFall",
+                  "dependBlackBoard": true,
+                  "dependFloatKey": "effectLength",
+                  "val": 0.0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0166666675,
+                  "type": 7,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectLengthBehaviorData, Gameplay.Beyond",
+                  "nodeName": "Splash",
+                  "dependBlackBoard": true,
+                  "dependFloatKey": "effectLength",
+                  "val": 0.0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0166666675,
+                  "type": 7,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "DownStream",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "Ground",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 2
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "DownStream",
+              "isHaveClip": false,
+              "totalTime": 0.0166666675,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCSetActiveBehaviorData, Gameplay.Beyond",
+                  "gameObjName": "Effect",
+                  "active": true,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 3,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectLengthBehaviorData, Gameplay.Beyond",
+                  "nodeName": "Splash",
+                  "dependBlackBoard": true,
+                  "dependFloatKey": "effectLength",
+                  "val": 0.0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0166666675,
+                  "type": 7,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectLengthBehaviorData, Gameplay.Beyond",
+                  "nodeName": "WaterFall",
+                  "dependBlackBoard": true,
+                  "dependFloatKey": "effectLength",
+                  "val": 0.0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0166666675,
+                  "type": 7,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "NoWater",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "Ground",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 2
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Ground",
+              "isHaveClip": false,
+              "totalTime": 0.0166666675,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCSetActiveBehaviorData, Gameplay.Beyond",
+                  "gameObjName": "",
+                  "active": true,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 3,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectLengthBehaviorData, Gameplay.Beyond",
+                  "nodeName": "WaterFall",
+                  "dependBlackBoard": true,
+                  "dependFloatKey": "effectLength",
+                  "val": 0.0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0166666675,
+                  "type": 7,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectLengthBehaviorData, Gameplay.Beyond",
+                  "nodeName": "Splash",
+                  "dependBlackBoard": true,
+                  "dependFloatKey": "effectLength",
+                  "val": 0.0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0166666675,
+                  "type": 7,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "NoWater",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "DownStream",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "hasAnimClip": false,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "audiolayer",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "NoWater",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": true,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "DownStream",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "toWaterWheel",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "Ground",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 2
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "WaterWheel",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "toWaterWheel",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "DownStream",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 403895175
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Ground",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 2
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "NoWater",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Ground",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": -262680538
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "DownStream",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "toWaterWheel",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "NoWater",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "WaterWheel",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "toWaterWheel",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "WaterWheel",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 1024815098
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "NoWater",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "Ground",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "waterState",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 2
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelName": "int_waterPipe_postmodel",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": false,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "audioLayer",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Default",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": true,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "ContinuousRotating",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "isRotating",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "isContinuous",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "FixedRotating",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "isRotating",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "isContinuous",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "ContinuousRotating",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": -1199501312
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Stop",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "isRotating",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Stop",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 1474559111
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Default",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "FixedRotating",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": -84110497
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Default",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "isRotating",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "scriptId": 2100130038,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBufferOverride": true,
+  "exitBuffer": 3.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -379.64502,
+        "y": 118.47392,
+        "z": -198.22418
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 125.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 5,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 3
+          },
+          "_eventKey": {
+            "constValue": "E1M3ShowSharedBuilding"
+          },
+          "_eventArgsPtr": {
+            "path": "$4@_eventArgsPtr"
+          },
+          "_uid": "2afd22c6"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 5,
+          "_eventName": {
+            "constValue": "#99b5a692"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "99b5a692",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CompareQuestState, Gameplay.Beyond",
+          "_ID": 3,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": "None",
+            "idRef": 2
+          },
+          "_valueB": {
+            "constValue": "Processing"
+          },
+          "_uid": "08be5a3b"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetQuestState, Gameplay.Beyond",
+          "_ID": 2,
+          "_questId": {
+            "constValue": "e1m3_q#16"
+          },
+          "_uid": "620a6168"
+        }
+      ]
+    }
+  },
+  "taskMap": {
+    "19b4d606": {
+      "conditionDict": {
+        "7df7357f": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckTalkOptionFinish, Gameplay.Beyond",
+            "_dialogId": {
+              "constValue": "dlg_e1m3_4"
+            },
+            "_finishId": {
+              "constValue": -1
+            },
+            "uniqueId": "7df7357f",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {}
+}

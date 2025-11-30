@@ -1,0 +1,284 @@
+{
+  "scriptId": 25600010001,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -1601.8615,
+        "y": 410.2018,
+        "z": -342.39877
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 150.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 11
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "97be0d80"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EnterFocusModeFadeOut, Gameplay.Beyond",
+          "_ID": 13,
+          "_nextID": 14,
+          "_uid": "9f0669cd",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayFmvAction, Gameplay.Beyond",
+          "_ID": 14,
+          "_nextID": 5,
+          "_shouldWaitForFinish": {
+            "constValue": true
+          },
+          "_moviePath": {
+            "constValue": "cs_video_e6m1_3"
+          },
+          "beforeMask": {
+            "constValue": true
+          },
+          "_param": {
+            "constValue": {
+              "fadeInDuration": 0.0,
+              "fadeOutDuration": 0.5,
+              "maskType": "BlackScreen",
+              "useCurve": false,
+              "curve": null,
+              "audioBlackScreenBehaviour": {
+                "presetBehaviour": "ONLY_MUSIC_AMB_VO",
+                "customRetainFlags": "RETAIN_MUSIC"
+              }
+            }
+          },
+          "overrideAfterMaskConfig": {
+            "constValue": true
+          },
+          "afterMask": {
+            "constValue": {
+              "fadeInDuration": 0.5,
+              "fadeOutDuration": 0.0,
+              "maskType": "BlackScreen",
+              "useCurve": false,
+              "curve": null,
+              "audioBlackScreenBehaviour": {
+                "presetBehaviour": "ONLY_MUSIC_AMB_VO",
+                "customRetainFlags": "RETAIN_MUSIC"
+              }
+            }
+          },
+          "_uid": "5ad5c4d1",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.StartDialogAndTeleportAction, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_dialogId": {
+            "constValue": "dlg_e6m1_7"
+          },
+          "levelIdStr": {
+            "paramSource": 1000,
+            "constValue": null
+          },
+          "position": {
+            "paramSource": -1,
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "idRef": 4
+          },
+          "rotationEuler": {
+            "paramSource": -1,
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "idRef": 9
+          },
+          "teleportUIType": {
+            "constValue": "Default"
+          },
+          "beforeMask": {
+            "constValue": {
+              "fadeInDuration": 0.0,
+              "fadeOutDuration": 0.0,
+              "maskType": "BlackScreen",
+              "useCurve": false,
+              "curve": null,
+              "audioBlackScreenBehaviour": {
+                "presetBehaviour": "ONLY_MUSIC_AMB_VO",
+                "customRetainFlags": "RETAIN_MUSIC"
+              }
+            }
+          },
+          "afterMask": {
+            "constValue": {
+              "fadeInDuration": 0.0,
+              "fadeOutDuration": 0.5,
+              "maskType": "BlackScreen",
+              "useCurve": false,
+              "curve": null,
+              "audioBlackScreenBehaviour": {
+                "presetBehaviour": "ONLY_MUSIC_AMB_VO",
+                "customRetainFlags": "RETAIN_MUSIC"
+              }
+            }
+          },
+          "_uid": "be651549",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EnterFocusModeShowToast, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_uid": "0c15f4ee",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 7,
+          "_eventName": {
+            "constValue": "#9c85a574"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "9c85a574",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IntEqual, Gameplay.Beyond",
+          "_ID": 11,
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 10
+          },
+          "_valueB": {
+            "constValue": 0
+          },
+          "_uid": "13c1e6e9"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptStage, Gameplay.Beyond",
+          "_ID": 10,
+          "_scriptPtr": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "8385bb21"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetterVector3, Gameplay.Beyond",
+          "_ID": 4,
+          "_value": {
+            "paramSource": 200,
+            "path": "ref_pos",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_uid": "4d2e7cf9"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetterVector3, Gameplay.Beyond",
+          "_ID": 9,
+          "_value": {
+            "paramSource": 200,
+            "path": "ref_rot",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_uid": "2d3e230e"
+        }
+      ]
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 1,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -1601.8558,
+            "y": 410.27948,
+            "z": -340.5571
+          },
+          "shapeType": "Sphere",
+          "radius": 60.0,
+          "size": {
+            "x": 3.0,
+            "y": 3.0,
+            "z": 3.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

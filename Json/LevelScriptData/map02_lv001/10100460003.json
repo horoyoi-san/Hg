@@ -1,0 +1,173 @@
+{
+  "scriptId": 10100460003,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -1010.4762,
+        "y": 227.82597,
+        "z": -1621.7783
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 100.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": {
+            "path": "$5@_triggerSlotIdOutput"
+          },
+          "_uid": "e3ef870f"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.AddDelayTimer, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_seconds": {
+            "constValue": 1.0
+          },
+          "_timerId": {
+            "path": "$6@_timerId"
+          },
+          "_onBreakID": -1,
+          "_uid": "a69b2185"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.Split, Gameplay.Beyond",
+          "_ID": 7,
+          "_idList": [
+            9,
+            8
+          ],
+          "_uid": "c5b99e16"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddDelayTimer, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_seconds": {
+            "constValue": 1.0
+          },
+          "_timerId": {
+            "path": "$9@_timerId"
+          },
+          "_onBreakID": -1,
+          "_uid": "2a80d984"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BlackScreenFadeInAndOut, Gameplay.Beyond",
+          "_ID": 8,
+          "_fadeInTime": {
+            "constValue": 0.5
+          },
+          "_fadeOutTime": {
+            "constValue": 0.5
+          },
+          "_isBlack": {
+            "constValue": true
+          },
+          "_isBlock": {
+            "constValue": true
+          },
+          "_fadeWaitTime": {
+            "constValue": 2.0
+          },
+          "_presetAudioBehaviour": {
+            "constValue": "ONLY_MUSIC"
+          },
+          "_customAudioFlags": {
+            "constValue": "RETAIN_MUSIC"
+          },
+          "_uid": "7fafd287",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 10,
+          "_eventName": {
+            "constValue": "#3fedf384"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "3fedf384",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 1,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -1010.4762,
+            "y": 227.82597,
+            "z": -1621.7783
+          },
+          "shapeType": "Box",
+          "radius": 3.0,
+          "size": {
+            "x": 120.0,
+            "y": 50.0,
+            "z": 1020.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

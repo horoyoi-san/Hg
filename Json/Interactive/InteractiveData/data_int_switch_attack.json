@@ -1,0 +1,977 @@
+{
+  "facOccDis": 0.5,
+  "useGlobalVar": false,
+  "hideInDialog": false,
+  "mountPoints": [],
+  "aoiRadiusType": "Default",
+  "dataMap": {
+    "headerList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnIntReceiveAttack, Gameplay.Beyond",
+        "_ID": 4,
+        "_nextID": 5,
+        "_targetEntity": null,
+        "_targetEntityList": {
+          "constValue": null
+        },
+        "_targetEntityListOutput": null,
+        "_validate": {
+          "constValue": true
+        },
+        "_instigator": {
+          "path": "$4@_instigator"
+        },
+        "_instigatorType": {
+          "path": "$4@_instigatorType"
+        },
+        "_instigatorTid": {
+          "path": "$4@_instigatorTid"
+        },
+        "_skillId": {
+          "path": "$4@_skillId"
+        },
+        "_isNormalAttack": {
+          "path": "$4@_isNormalAttack"
+        },
+        "_eventArgsPtr": {
+          "path": "$4@_eventArgsPtr"
+        },
+        "_uid": "f9340fdb"
+      }
+    ],
+    "actionList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.PlayBehitPerform, Gameplay.Beyond",
+        "_ID": 5,
+        "_nextID": 6,
+        "_entity": {
+          "paramSource": 1001,
+          "constValue": {
+            "useSlotId": false,
+            "logicId": 0,
+            "slotId": 0
+          }
+        },
+        "_blackboardKey": {
+          "paramSource": 100,
+          "path": "$4@_eventArgsPtr",
+          "constValue": {
+            "key": "blackboard"
+          }
+        },
+        "_uid": "9eefd380",
+        "useCurrentScope": true
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.DebugLogAction, Gameplay.Beyond",
+        "_ID": 6,
+        "_nextID": 7,
+        "_info": {
+          "constValue": "wytest: switch on hit"
+        },
+        "_uid": "e57a72e2",
+        "useCurrentScope": true
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CreateEffectAtPosition, Gameplay.Beyond",
+        "_ID": 7,
+        "_effectKey": {
+          "constValue": "P_interactive_lazerlinestrikespot_01_Variant"
+        },
+        "_position": {
+          "paramSource": -1,
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "idRef": 9
+        },
+        "_eulerAngles": {
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        },
+        "_scale": {
+          "constValue": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          }
+        },
+        "_isUnique": {
+          "constValue": false
+        },
+        "_effectSaveId": {
+          "path": "$7@_effectSaveId"
+        },
+        "_uid": "51e1481b",
+        "useCurrentScope": true
+      }
+    ],
+    "getterList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.Vector3GetterPlus, Gameplay.Beyond",
+        "_ID": 9,
+        "_valueA": {
+          "paramSource": -1,
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "idRef": 8
+        },
+        "_valueB": {
+          "paramSource": 100,
+          "path": "effectOffset",
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        },
+        "_uid": "664eeb5c"
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.GetEntityPosition, Gameplay.Beyond",
+        "_ID": 8,
+        "_target": {
+          "paramSource": 1001,
+          "constValue": {
+            "useSlotId": false,
+            "logicId": 0,
+            "slotId": 0
+          }
+        },
+        "_uid": "e916f15e"
+      }
+    ]
+  },
+  "tempProperties": [
+    {
+      "key": "effectOffset",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          },
+          {
+            "valueBit64": 1068708659,
+            "valueString": ""
+          },
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "configProperties": [
+    {
+      "key": "countdown_duration",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1084227584
+          }
+        ]
+      }
+    },
+    {
+      "key": "target_list",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": []
+      }
+    },
+    {
+      "key": "use_countdown",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "saveProperties": [
+    {
+      "key": "is_locked",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "state",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "state",
+    "2": "is_locked",
+    "1027": "use_countdown",
+    "1028": "countdown_duration",
+    "1029": "target_list"
+  },
+  "propertyKeyToIdMap": {
+    "countdown_duration": 1028,
+    "is_locked": 2,
+    "state": 1,
+    "target_list": 1029,
+    "use_countdown": 1027
+  },
+  "templateVariant": {
+    "int_switch_attack_water_pipe": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_control_two_state_aquapipe_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "delayRecyclePerformTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": true,
+        "value": []
+      },
+      "aoiRadiusType": {
+        "enabled": false,
+        "value": "Default"
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {},
+      "globalVarDiff": []
+    }
+  },
+  "allGlobalSaveProperties": [],
+  "bornTag": [
+    {
+      "tagName": "SelectCategory/Unmarkable",
+      "tagId": 1717826765
+    },
+    {
+      "tagName": "SelectCategory/UnSkillAutoSelectable",
+      "tagId": 152398297
+    },
+    {
+      "tagName": "Immune/Damage",
+      "tagId": -1706530655
+    },
+    {
+      "tagName": "Category/Interactive/Switch",
+      "tagId": 1538154000
+    },
+    {
+      "tagName": "Category/Interactive/Switch/Attack",
+      "tagId": -680115272
+    }
+  ],
+  "delayToRecycleTime": 0.0,
+  "delayRecyclePerformTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.InteractiveModelComponentData, Gameplay.Beyond",
+      "modelId": "int_switch_attack_v2",
+      "modelScale": 1.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.ElectricNodeComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_online",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_terminal",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "power_generated",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "power_signal_threshold_list",
+          "value": {
+            "type": "IntList",
+            "valueArray": []
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.HittableComponentForIntData, Gameplay.Beyond",
+      "enableExtraCheck": false,
+      "battleShapeData": {
+        "_shape": "Box",
+        "_rotationOffset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "_useExtentKey": false,
+        "_extent": {
+          "x": 1.0,
+          "y": 2.0,
+          "z": 1.0
+        },
+        "_extentXKey": null,
+        "_extentYKey": null,
+        "_extentZKey": null,
+        "_useCenterKey": false,
+        "_center": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        "_centerXKey": null,
+        "_centerYKey": null,
+        "_centerZKey": null,
+        "_heightKey": null,
+        "_height": 2.0,
+        "_radiusKey": null,
+        "_radius": 0.5
+      },
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "extent",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1073741824
+              },
+              {
+                "valueBit64": 1065353216
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1056964608
+              }
+            ]
+          }
+        },
+        {
+          "key": "height",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1073741824
+              }
+            ]
+          }
+        },
+        {
+          "key": "load_from_table",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "active_skill",
+          "value": {
+            "type": "StringList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "passive_skill",
+          "value": {
+            "type": "StringList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "skill_blackboard",
+          "value": {
+            "type": "StringList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "battle_enable_extra_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "use_self_blackboard",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "play_battle_hit_effect",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "trigger_hit_cd",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              }
+            ]
+          }
+        },
+        {
+          "key": "skill_blackboard_self",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.SimpleAnimatorComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveLogicControllerComponentData, Gameplay.Beyond",
+      "logicType": 3
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveBehitPerformComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "use_interactive_behit",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "interactive_behit_config_key",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "AttackSwitch"
+              }
+            ]
+          }
+        },
+        {
+          "key": "mount_point",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.ShowGuideComponentData, Gameplay.Beyond",
+      "shapeType": "OBB",
+      "center": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 7.0,
+        "y": 2.0,
+        "z": 7.0
+      },
+      "radius": 0.0,
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "size",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1088421888
+              },
+              {
+                "valueBit64": 1073741824
+              },
+              {
+                "valueBit64": 1088421888
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "guide_id",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "guide_group_ewitch_attacked"
+              }
+            ]
+          }
+        },
+        {
+          "key": "id",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "guide_text_attacked_switch_title_1"
+              }
+            ]
+          }
+        },
+        {
+          "key": "wiki_id",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "wiki_tut_adv_ewitch"
+              }
+            ]
+          }
+        },
+        {
+          "key": "duration",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1092616192
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveAudioData, Gameplay.Beyond",
+      "audioData": {
+        "openAudio": true,
+        "useDynamicLevel": false,
+        "useCustomStencil": false,
+        "useTiggerStencil": false,
+        "useWorkStencil": true,
+        "useAttackStencil": false,
+        "useRepairStencil": false,
+        "useDestroyStencil": false,
+        "useCollectStencil": false,
+        "useInteractStencil": false,
+        "useActiveStencil": false,
+        "audioNameDict": {
+          "StartUp": [
+            "au_int_eswitch_attacked_auto_open"
+          ],
+          "Stop": [
+            "au_int_eswitch_attacked_auto_close"
+          ]
+        },
+        "customAudioData": []
+      },
+      "propertyList": []
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveCommonPerformComponentData, Gameplay.Beyond",
+      "propertyDataList": [
+        {
+          "propertyName": "LockedByGameplayLock",
+          "propertyType": "Bool",
+          "isProperty": false
+        },
+        {
+          "propertyName": "state",
+          "propertyType": "Int",
+          "isProperty": false
+        }
+      ],
+      "syncGameplayLock": true,
+      "propertyList": [
+        {
+          "key": "use_dynamic_res",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "dynamic_entity_id",
+          "value": {
+            "type": "UInt64",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveHintPerformComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "is_enable_outline",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_override_outline_distance",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "min_outline_distance",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "max_outline_distance",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_override_outline_fx_name",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "outline_fx_name",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_enable_interact_outline",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_override_interact_outline_fx_name",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "interact_outline_fx_name",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_enable_brushing",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_override_brushing_distance",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "min_brushing_distance",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "max_brushing_distance",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "disable_when_has_perform_tag",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "special_mode_config",
+          "value": {
+            "type": "IntList",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "name": "int_switch_attack",
+  "factionIndex": "Neutral",
+  "id": "int_switch_attack"
+}

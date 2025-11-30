@@ -1,0 +1,134 @@
+{
+  "modelId": "int_collection_coin",
+  "clipAssetInfos": [],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "int_collection_coin_postmodel",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": false,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "BaseLayer",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Stationary",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectBehaviorData, Gameplay.Beyond",
+                  "isLoadImmediately": false,
+                  "isPersistence": true,
+                  "effectNodeName": "root",
+                  "effectId": "P_interactive_coin_loop_02",
+                  "followRot": true,
+                  "active": true,
+                  "force": false,
+                  "fireAndForget": false,
+                  "effectAnimationState": 2,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 0,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Collected",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "coin_state",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 7
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Collected",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectBehaviorData, Gameplay.Beyond",
+                  "isLoadImmediately": false,
+                  "isPersistence": false,
+                  "effectNodeName": "root",
+                  "effectId": "P_map_coin_end_01",
+                  "followRot": true,
+                  "active": false,
+                  "force": false,
+                  "fireAndForget": false,
+                  "effectAnimationState": 0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 0,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectBehaviorData, Gameplay.Beyond",
+                  "isLoadImmediately": false,
+                  "isPersistence": true,
+                  "effectNodeName": "",
+                  "effectId": "P_interactive_coin_loop_02",
+                  "followRot": true,
+                  "active": false,
+                  "force": false,
+                  "fireAndForget": false,
+                  "effectAnimationState": 3,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 0,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

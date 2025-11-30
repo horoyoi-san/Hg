@@ -1,0 +1,150 @@
+{
+  "scriptId": 3400000002,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 556.07263,
+        "y": 102.86946,
+        "z": -236.79439
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 730.0,
+        "y": 180.0,
+        "z": 500.0
+      },
+      "radius": 0.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "f239d66f"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnMissionStateChanged, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_missionId": {
+            "path": "$5@_missionId"
+          },
+          "_oldState": {
+            "path": "$5@_oldState"
+          },
+          "_newState": {
+            "path": "$5@_newState"
+          },
+          "_succeedId": {
+            "path": "$5@_succeedId"
+          },
+          "_filtedMissionId": {
+            "constValue": "e2m5"
+          },
+          "_filtedNewState": {
+            "constValue": "Completed"
+          },
+          "_filtedSucceedId": {
+            "constValue": -2
+          },
+          "_uid": "25b95997"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 1,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 0
+          },
+          "_onTrueID": 2,
+          "_onFalseID": 3,
+          "_uid": "d1615041"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 2,
+          "_key": {
+            "constValue": "au_music_task_finished"
+          },
+          "_audioPlayingId": {
+            "path": "$2@_audioPlayingId"
+          },
+          "_uid": "8c5bbd90",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 3,
+          "_key": {
+            "constValue": "au_music_task_unfinished"
+          },
+          "_audioPlayingId": {
+            "path": "$3@_audioPlayingId"
+          },
+          "_uid": "5776581c",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 6,
+          "_key": {
+            "constValue": "au_music_task_finished"
+          },
+          "_audioPlayingId": {
+            "path": "$6@_audioPlayingId"
+          },
+          "_uid": "51f01630",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsComplete, Gameplay.Beyond",
+          "_ID": 0,
+          "_isQuest": {
+            "constValue": false
+          },
+          "_missionId": {
+            "constValue": "e2m5"
+          },
+          "_uid": "a9aea67c"
+        }
+      ]
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {}
+}

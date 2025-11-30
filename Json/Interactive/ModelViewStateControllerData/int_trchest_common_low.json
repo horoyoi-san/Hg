@@ -1,0 +1,274 @@
+{
+  "modelId": "int_trchest_common_low",
+  "clipAssetInfos": [
+    {
+      "animationClipName": "A_interactive_treasurechest+1_001_05_closeidle_01_vfx",
+      "animationClipHash": 777900964152316722,
+      "animationGuid": {
+        "val0": 1209769081,
+        "val1": 1307399634,
+        "val2": 1432059568,
+        "val3": 3191929240
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_treasurechest+1_001_05_open_01_vfx",
+      "animationClipHash": 281018611291488964,
+      "animationGuid": {
+        "val0": 2623864695,
+        "val1": 1199676535,
+        "val2": 2011243930,
+        "val3": 3919126973
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_treasurechest+1_001_05_openidle_01_vfx",
+      "animationClipHash": 366755702777411334,
+      "animationGuid": {
+        "val0": 2963562521,
+        "val1": 1186052446,
+        "val2": 1135854243,
+        "val3": 1358946885
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_treasurechest+1_001_tween_fade",
+      "animationClipHash": 430059390278968971,
+      "animationGuid": {
+        "val0": 1648975367,
+        "val1": 1244018413,
+        "val2": 1559333012,
+        "val3": 4289216125
+      },
+      "subClipNameHash": 0
+    }
+  ],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "P_interactive_treasurechest+1_001_05",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": true,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "int_trchest_base_layer",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Initial",
+              "isHaveClip": true,
+              "totalTime": 0.0333333351,
+              "animationClipName": "A_interactive_treasurechest+1_001_05_closeidle_01_vfx",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "Activated",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "state",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Activated",
+              "isHaveClip": true,
+              "totalTime": 0.8666667,
+              "animationClipName": "A_interactive_treasurechest+1_001_05_open_01_vfx",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectBehaviorData, Gameplay.Beyond",
+                  "isLoadImmediately": false,
+                  "isPersistence": false,
+                  "effectNodeName": "Root",
+                  "effectId": "P_interactive_treasurechest05_open",
+                  "followRot": true,
+                  "active": false,
+                  "force": false,
+                  "fireAndForget": true,
+                  "effectAnimationState": 0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 0,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 277681810
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "OpenIdle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "OpenIdle",
+              "isHaveClip": true,
+              "totalTime": 0.333333343,
+              "animationClipName": "A_interactive_treasurechest+1_001_05_openidle_01_vfx",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 2021312240
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                },
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": true,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 0,
+                  "normalAudioId": {
+                    "_id": 2021312240
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Die",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "isDead",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "BoolTrigger",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Die",
+              "isHaveClip": true,
+              "totalTime": 2.0,
+              "animationClipName": "A_interactive_treasurechest+1_001_tween_fade",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

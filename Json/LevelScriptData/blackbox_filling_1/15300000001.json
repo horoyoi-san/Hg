@@ -1,0 +1,902 @@
+{
+  "scriptId": 15300000001,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "SameWithActive",
+  "endType": "SameWithDeactive",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -150.0,
+        "y": 0.0,
+        "z": -150.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 305.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 38,
+          "_nextID": 39,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "2113f2a3"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.Branch, Gameplay.Beyond",
+          "_ID": 39,
+          "_idList": [
+            44,
+            40
+          ],
+          "_uid": "ed186d7e"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BlackScreenFadeIn, Gameplay.Beyond",
+          "_ID": 44,
+          "_nextID": 45,
+          "_duration": {
+            "constValue": 0.0
+          },
+          "_blockInput": {
+            "constValue": true
+          },
+          "_black": {
+            "constValue": true
+          },
+          "_presetAudioBehaviour": {
+            "constValue": "ONLY_MUSIC"
+          },
+          "_customAudioFlags": {
+            "constValue": "RETAIN_MUSIC"
+          },
+          "_uid": "de4da710",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ManuallyAcceptClientGuideGroup, Gameplay.Beyond",
+          "_ID": 40,
+          "_nextID": 41,
+          "_groupId": {
+            "constValue": "guide_blackbox_filling1_start"
+          },
+          "_uid": "8fd89b17",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowSceneDecorationNew, Gameplay.Beyond",
+          "_ID": 45,
+          "_nextID": 46,
+          "_visible": {
+            "constValue": true
+          },
+          "_targetDynamicEntity": {
+            "constValue": 15300000001
+          },
+          "_uid": "3d962e37",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ManuallyAcceptClientGuideGroup, Gameplay.Beyond",
+          "_ID": 41,
+          "_nextID": 42,
+          "_groupId": {
+            "constValue": "guide_blackbox_filling1_step1"
+          },
+          "_uid": "ea049019",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BlackScreenFadeOut, Gameplay.Beyond",
+          "_ID": 46,
+          "_nextID": 47,
+          "_duration": {
+            "constValue": 0.0
+          },
+          "_blockInput": {
+            "constValue": true
+          },
+          "_black": {
+            "constValue": true
+          },
+          "_uid": "d28e5364",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ManuallyAcceptClientGuideGroup, Gameplay.Beyond",
+          "_ID": 42,
+          "_nextID": 43,
+          "_groupId": {
+            "constValue": "guide_blackbox_filling1_filling"
+          },
+          "_uid": "d412e25f",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.StartDialogAction, Gameplay.Beyond",
+          "_ID": 47,
+          "_nextID": 48,
+          "_shouldWaitForFinish": {
+            "constValue": true
+          },
+          "_dialogId": {
+            "constValue": "dlg_blackbox_filling_1_1"
+          },
+          "overrideBeforeMaskConfig": {
+            "constValue": false
+          },
+          "beforeMask": null,
+          "overrideAfterMaskConfig": {
+            "constValue": false
+          },
+          "afterMask": null,
+          "_uid": "29515a94",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ManuallyAcceptClientGuideGroup, Gameplay.Beyond",
+          "_ID": 43,
+          "_groupId": {
+            "constValue": "guide_blackbox_filling1_step2"
+          },
+          "_uid": "88f3446b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast, Gameplay.Beyond",
+          "_ID": 48,
+          "_langKey": {
+            "constValue": {
+              "key": "LUA_BLACK_BOX_SWITCH_MODE_DISABLED"
+            }
+          },
+          "_toastType": {
+            "constValue": "NormalToast"
+          },
+          "_uid": "c963e65d",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "taskMap": {
+    "00945539": {
+      "conditionDict": {
+        "eb071c22": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective2",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacBuildingCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facBuildingId": {
+              "constValue": "power_diffuser_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 2
+            },
+            "uniqueId": "eb071c22",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "ef2a6f2c": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacBuildingCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facBuildingId": {
+              "constValue": "grinder_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 2
+            },
+            "uniqueId": "ef2a6f2c",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "0ab1c2e2": {
+      "conditionDict": {
+        "773b3af9": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacBuildingCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facBuildingId": {
+              "constValue": "filling_powder_mc_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 2
+            },
+            "uniqueId": "773b3af9",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "47cd6fb1": {
+      "conditionDict": {
+        "047f67ad": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective5",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "blackbox_hub"
+            },
+            "_instKeyB": {
+              "constValue": "furnace_1"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "047f67ad",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "1b263725": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective3",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "shaper_1"
+            },
+            "_instKeyB": {
+              "constValue": "filling_1"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "1b263725",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "23bbfa12": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective2",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "furnace_1"
+            },
+            "_instKeyB": {
+              "constValue": "shaper_1"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "23bbfa12",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "862f5778": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "grinder_1"
+            },
+            "_instKeyB": {
+              "constValue": "filling_1"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "862f5778",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "896c0a3c": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective4",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "blackbox_hub"
+            },
+            "_instKeyB": {
+              "constValue": "grinder_1"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "896c0a3c",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "c89394ef": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective6",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "filling_1"
+            },
+            "_instKeyB": {
+              "constValue": "blackbox_hub"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "c89394ef",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "57167a70": {
+      "conditionDict": {
+        "db1236b8": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.DepotHasItem, Gameplay.Beyond",
+            "_itemId": {
+              "constValue": "item_bottled_food_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_targetItemCount": {
+              "constValue": 1
+            },
+            "uniqueId": "db1236b8",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "6e5c41d8": {
+      "conditionDict": {
+        "7f1b4b9a": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacBuildingCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facBuildingId": {
+              "constValue": "furnance_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 2
+            },
+            "uniqueId": "7f1b4b9a",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "96cb4e52": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective2",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacBuildingCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facBuildingId": {
+              "constValue": "shaper_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 2
+            },
+            "uniqueId": "96cb4e52",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "722b0cc8": {
+      "conditionDict": {
+        "ecfc137d": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacProducingFormulaCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facFormulaId": {
+              "constValue": "filling_bottled_food_1_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 2
+            },
+            "uniqueId": "ecfc137d",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": true
+    },
+    "7610c9f5": {
+      "conditionDict": {
+        "e08337e7": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective2",
+          "condition": {
+            "$type": "Beyond.Gameplay.DepotHasItem, Gameplay.Beyond",
+            "_itemId": {
+              "constValue": "item_bottled_food_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_targetItemCount": {
+              "constValue": 2
+            },
+            "uniqueId": "e08337e7",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "e0da6dbf": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.DepotHasItem, Gameplay.Beyond",
+            "_itemId": {
+              "constValue": "item_bottled_rec_hp_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_targetItemCount": {
+              "constValue": 2
+            },
+            "uniqueId": "e0da6dbf",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": true,
+      "canBeTracked": true
+    },
+    "b9b10f3d": {
+      "conditionDict": {
+        "0b0127ae": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective3",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacBuildingCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facBuildingId": {
+              "constValue": "filling_powder_mc_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 3
+            },
+            "uniqueId": "0b0127ae",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "15dc7dc3": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective2",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacBuildingCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facBuildingId": {
+              "constValue": "shaper_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 3
+            },
+            "uniqueId": "15dc7dc3",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "31cd0f8e": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacBuildingCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facBuildingId": {
+              "constValue": "furnance_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 3
+            },
+            "uniqueId": "31cd0f8e",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "c92c751d": {
+      "conditionDict": {
+        "5f9c0f92": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacStatisticItemGen, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_itemId": {
+              "constValue": "item_bottled_food_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 1
+            },
+            "uniqueId": "5f9c0f92",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "ddca56d7": {
+      "conditionDict": {
+        "f6484ab9": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacStatisticItemGenRate, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_itemId": {
+              "constValue": "item_bottled_food_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 10
+            },
+            "uniqueId": "f6484ab9",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "e28cbbd2": {
+      "conditionDict": {
+        "970e7a11": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacStatisticItemGen, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_itemId": {
+              "constValue": "item_plant_moss_powder_2"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 1
+            },
+            "uniqueId": "970e7a11",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 1,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -150.0,
+            "y": 0.0,
+            "z": -150.0
+          },
+          "shapeType": "Sphere",
+          "radius": 255.0,
+          "size": {
+            "x": 3.0,
+            "y": 3.0,
+            "z": 3.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

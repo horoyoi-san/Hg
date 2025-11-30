@@ -1,0 +1,615 @@
+{
+  "modelId": "int_eswitch_e_v2_postmodel",
+  "clipAssetInfos": [
+    {
+      "animationClipName": "A_interactive_electricswitch+1_001_closeidle_01",
+      "animationClipHash": 890589767888459047,
+      "animationGuid": {
+        "val0": 3722212956,
+        "val1": 1217627755,
+        "val2": 2928584876,
+        "val3": 1822734487
+      },
+      "subClipNameHash": 125170606
+    },
+    {
+      "animationClipName": "A_interactive_electricswitch+1_001_open_01",
+      "animationClipHash": 1141059695561917723,
+      "animationGuid": {
+        "val0": 2571634880,
+        "val1": 1193553553,
+        "val2": 670386612,
+        "val3": 1877167939
+      },
+      "subClipNameHash": -796130935
+    },
+    {
+      "animationClipName": "A_interactive_electricswitch+1_001_openidle_01",
+      "animationClipHash": 859935255986158747,
+      "animationGuid": {
+        "val0": 474920490,
+        "val1": 1229218689,
+        "val2": 3776849320,
+        "val3": 3662243520
+      },
+      "subClipNameHash": -660750193
+    },
+    {
+      "animationClipName": "A_interactive_electricswitch+1_001_close_01",
+      "animationClipHash": 767245679283808151,
+      "animationGuid": {
+        "val0": 1077084760,
+        "val1": 1295726894,
+        "val2": 3575852978,
+        "val3": 956810230
+      },
+      "subClipNameHash": 475295243
+    },
+    {
+      "animationClipName": "A_interactive_electricswitch+1_001_stuck_01",
+      "animationClipHash": 924439317144989607,
+      "animationGuid": {
+        "val0": 129059991,
+        "val1": 1083024518,
+        "val2": 3116833424,
+        "val3": 2658177099
+      },
+      "subClipNameHash": 380390597
+    }
+  ],
+  "emissiveConfigHashes": [
+    240593204017854229,
+    33431984047889756,
+    1043473419393144112
+  ],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "P_interactive_electricswitch+1_001_01",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": true,
+          "index": 0,
+          "weight": 0.0,
+          "layerName": "BaseLayer",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "off_idle",
+              "isHaveClip": true,
+              "totalTime": 0.0333333351,
+              "animationClipName": "A_interactive_electricswitch+1_001_closeidle_01",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "trigger_stuck",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "trigger_stuck",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "BoolTrigger",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.25,
+                    "hasExitTime": false,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "off_to_on",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "state",
+                        "comparison": 1,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "off_to_on",
+              "isHaveClip": true,
+              "totalTime": 0.400000036,
+              "animationClipName": "A_interactive_electricswitch+1_001_open_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "trigger_stuck",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "trigger_stuck",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "BoolTrigger",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.25,
+                    "hasExitTime": false,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "on_idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "on_idle",
+              "isHaveClip": true,
+              "totalTime": 0.0333333351,
+              "animationClipName": "A_interactive_electricswitch+1_001_openidle_01",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "trigger_stuck",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "trigger_stuck",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "BoolTrigger",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.25,
+                    "hasExitTime": false,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "on_to_off",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "state",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "on_to_off",
+              "isHaveClip": true,
+              "totalTime": 0.400000036,
+              "animationClipName": "A_interactive_electricswitch+1_001_close_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "trigger_stuck",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "trigger_stuck",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "BoolTrigger",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.25,
+                    "hasExitTime": false,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "off_idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "trigger_stuck",
+              "isHaveClip": true,
+              "totalTime": 2.0,
+              "animationClipName": "A_interactive_electricswitch+1_001_stuck_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEffectBehaviorData, Gameplay.Beyond",
+                  "isLoadImmediately": false,
+                  "isPersistence": false,
+                  "effectNodeName": "joint02",
+                  "effectId": "P_lv001_common_spark",
+                  "followRot": true,
+                  "active": false,
+                  "force": false,
+                  "fireAndForget": false,
+                  "effectAnimationState": 0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 0,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "trigger_stuck",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "trigger_stuck",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "BoolTrigger",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.25,
+                    "hasExitTime": false,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "off_idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.25,
+                    "hasExitTime": true,
+                    "exitTime": 0.7857143,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "hasAnimClip": false,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "Effect",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "disable",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEmissiveBehaviorData, Gameplay.Beyond",
+                  "emissiveNodeName": "",
+                  "emissiveConfigHash": 240593204017854229,
+                  "isBlend": true,
+                  "isColorBlend": false,
+                  "blendTime": 0.5,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 2,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Off",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "available",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": false,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.875,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Off",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEmissiveBehaviorData, Gameplay.Beyond",
+                  "emissiveNodeName": "",
+                  "emissiveConfigHash": 33431984047889756,
+                  "isBlend": true,
+                  "isColorBlend": false,
+                  "blendTime": 0.5,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 2,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "disable",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "available",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Bool",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 1,
+                  "transitionSetting": {
+                    "isFixedDuration": false,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.875,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "On",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "state",
+                        "comparison": 1,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": false,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "On",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCEmissiveBehaviorData, Gameplay.Beyond",
+                  "emissiveNodeName": "",
+                  "emissiveConfigHash": 1043473419393144112,
+                  "isBlend": true,
+                  "isColorBlend": false,
+                  "blendTime": 0.5,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 2,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "Off",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "state",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": false,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.75,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

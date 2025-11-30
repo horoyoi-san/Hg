@@ -1,0 +1,449 @@
+{
+  "modelId": "int_water_volume_transferer_short_postmodel",
+  "clipAssetInfos": [
+    {
+      "animationClipName": "A_anm_hs_machine+1_002_02_closeidle_01",
+      "animationClipHash": 474035953077321130,
+      "animationGuid": {
+        "val0": 4104768127,
+        "val1": 1103830068,
+        "val2": 947591585,
+        "val3": 1115791648
+      },
+      "subClipNameHash": -371716098
+    },
+    {
+      "animationClipName": "A_anm_hs_machine+1_002_02_open_01",
+      "animationClipHash": 1006162978360115024,
+      "animationGuid": {
+        "val0": 4104768127,
+        "val1": 1103830068,
+        "val2": 947591585,
+        "val3": 1115791648
+      },
+      "subClipNameHash": 1394482238
+    },
+    {
+      "animationClipName": "A_anm_hs_machine+1_002_02_openidle_01",
+      "animationClipHash": 432849569588382242,
+      "animationGuid": {
+        "val0": 4104768127,
+        "val1": 1103830068,
+        "val2": 947591585,
+        "val3": 1115791648
+      },
+      "subClipNameHash": 2063645837
+    },
+    {
+      "animationClipName": "A_anm_hs_machine+1_002_02_close_01",
+      "animationClipHash": 290518515128843028,
+      "animationGuid": {
+        "val0": 4104768127,
+        "val1": 1103830068,
+        "val2": 947591585,
+        "val3": 1115791648
+      },
+      "subClipNameHash": 1238555193
+    },
+    {
+      "animationClipName": "A_anm_hs_machine+1_002_02_open_02",
+      "animationClipHash": 1006162976794031083,
+      "animationGuid": {
+        "val0": 4104768127,
+        "val1": 1103830068,
+        "val2": 947591585,
+        "val3": 1115791648
+      },
+      "subClipNameHash": -904442492
+    },
+    {
+      "animationClipName": "A_anm_hs_machine+1_002_02_openidle_02",
+      "animationClipHash": 432849564890130419,
+      "animationGuid": {
+        "val0": 4104768127,
+        "val1": 1103830068,
+        "val2": 947591585,
+        "val3": 1115791648
+      },
+      "subClipNameHash": -502665929
+    },
+    {
+      "animationClipName": "A_anm_hs_machine+1_002_02_close_02",
+      "animationClipHash": 290518515128843029,
+      "animationGuid": {
+        "val0": 4104768127,
+        "val1": 1103830068,
+        "val2": 947591585,
+        "val3": 1115791648
+      },
+      "subClipNameHash": -790918269
+    }
+  ],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "P_interactive_hswaterplug+1_001_02",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": true,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "FSM_model",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "off_idle",
+              "isHaveClip": true,
+              "totalTime": 0.0333333351,
+              "animationClipName": "A_anm_hs_machine+1_002_02_closeidle_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "off_to_on",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Status",
+                        "comparison": 3,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "off_to_on",
+              "isHaveClip": true,
+              "totalTime": 0.6666667,
+              "animationClipName": "A_anm_hs_machine+1_002_02_open_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": false,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 4,
+                  "normalAudioId": {
+                    "_id": 0
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "off_to_on_idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "off_to_on_idle",
+              "isHaveClip": true,
+              "totalTime": 0.03333336,
+              "animationClipName": "A_anm_hs_machine+1_002_02_openidle_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "on_to_off",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Status",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                },
+                {
+                  "targetStateName": "on_start",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Status",
+                        "comparison": 3,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 2
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "on_to_off",
+              "isHaveClip": true,
+              "totalTime": 1.0,
+              "animationClipName": "A_anm_hs_machine+1_002_02_close_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": false,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 6,
+                  "normalAudioId": {
+                    "_id": 0
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "off_idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Status",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "on_start",
+              "isHaveClip": true,
+              "totalTime": 1.23333335,
+              "animationClipName": "A_anm_hs_machine+1_002_02_open_02",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": false,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 5,
+                  "normalAudioId": {
+                    "_id": 0
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "on_idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "on_idle",
+              "isHaveClip": true,
+              "totalTime": 0.200000048,
+              "animationClipName": "A_anm_hs_machine+1_002_02_openidle_02",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "on_end",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "Status",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "on_end",
+              "isHaveClip": true,
+              "totalTime": 1.33333325,
+              "animationClipName": "A_anm_hs_machine+1_002_02_close_02",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "on_to_off",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,735 @@
+{
+  "scriptId": 16400000001,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "SameWithActive",
+  "endType": "SameWithDeactive",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -150.0,
+        "y": 0.0,
+        "z": -150.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 305.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 32,
+          "_nextID": 33,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "873ba856"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.BlackScreenFadeIn, Gameplay.Beyond",
+          "_ID": 33,
+          "_nextID": 34,
+          "_duration": {
+            "constValue": 0.0
+          },
+          "_blockInput": {
+            "constValue": true
+          },
+          "_black": {
+            "constValue": true
+          },
+          "_presetAudioBehaviour": {
+            "constValue": "ONLY_MUSIC"
+          },
+          "_customAudioFlags": {
+            "constValue": "RETAIN_MUSIC"
+          },
+          "_uid": "1edc3ff4",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowSceneDecorationNew, Gameplay.Beyond",
+          "_ID": 34,
+          "_nextID": 35,
+          "_visible": {
+            "constValue": true
+          },
+          "_targetDynamicEntity": {
+            "constValue": 16400000001
+          },
+          "_uid": "7201cb45",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BlackScreenFadeOut, Gameplay.Beyond",
+          "_ID": 35,
+          "_nextID": 36,
+          "_duration": {
+            "constValue": 0.0
+          },
+          "_blockInput": {
+            "constValue": true
+          },
+          "_black": {
+            "constValue": true
+          },
+          "_uid": "ebdd4484",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.StartDialogAction, Gameplay.Beyond",
+          "_ID": 36,
+          "_nextID": 37,
+          "_shouldWaitForFinish": {
+            "constValue": true
+          },
+          "_dialogId": {
+            "constValue": "dlg_blackbox_planter_1_1"
+          },
+          "overrideBeforeMaskConfig": {
+            "constValue": false
+          },
+          "beforeMask": null,
+          "overrideAfterMaskConfig": {
+            "constValue": false
+          },
+          "afterMask": null,
+          "_uid": "02cafd94",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ManuallyAcceptClientGuideGroup, Gameplay.Beyond",
+          "_ID": 37,
+          "_nextID": 38,
+          "_groupId": {
+            "constValue": "guide_blackbox_planter1_start"
+          },
+          "_uid": "d89ac16b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ManuallyAcceptClientGuideGroup, Gameplay.Beyond",
+          "_ID": 38,
+          "_nextID": 39,
+          "_groupId": {
+            "constValue": "guide_blackbox_planter1_step1"
+          },
+          "_uid": "706d01d2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ManuallyAcceptClientGuideGroup, Gameplay.Beyond",
+          "_ID": 39,
+          "_groupId": {
+            "constValue": "guide_blackbox_planter1_extra"
+          },
+          "_uid": "f5756b3c",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "taskMap": {
+    "20ba0e50": {
+      "conditionDict": {
+        "7d0bd351": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacProducingFormulaCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facFormulaId": {
+              "constValue": "planter_plant_moss_1_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 2
+            },
+            "uniqueId": "7d0bd351",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "3b90b296": {
+      "conditionDict": {
+        "f624699b": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "planter_1"
+            },
+            "_instKeyB": {
+              "constValue": "grinder_1"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "f624699b",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "51017f5e": {
+      "conditionDict": {
+        "04126baa": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective6",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacStatisticItemGen, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_itemId": {
+              "constValue": "item_plant_moss_seed_1"
+            },
+            "_compareOperator": {
+              "constValue": "LessThan"
+            },
+            "_progressToCompare": {
+              "constValue": 3
+            },
+            "uniqueId": "04126baa",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "3d9c52b0": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective2",
+          "condition": {
+            "$type": "Beyond.Gameplay.DepotHasItem, Gameplay.Beyond",
+            "_itemId": {
+              "constValue": "item_plant_moss_1"
+            },
+            "_compareOperator": {
+              "constValue": "LessThan"
+            },
+            "_targetItemCount": {
+              "constValue": 1
+            },
+            "uniqueId": "3d9c52b0",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "41eb52fd": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.PlayerHasItemInItemBag, Gameplay.Beyond",
+            "_": null,
+            "_itemId": {
+              "constValue": "item_plant_moss_1"
+            },
+            "_compareOperator": {
+              "constValue": "LessThan"
+            },
+            "_targetItemCount": {
+              "constValue": 1
+            },
+            "uniqueId": "41eb52fd",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "44bed8c1": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective5",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacStatisticItemGen, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_itemId": {
+              "constValue": "item_plant_moss_1"
+            },
+            "_compareOperator": {
+              "constValue": "LessThan"
+            },
+            "_progressToCompare": {
+              "constValue": 1
+            },
+            "uniqueId": "44bed8c1",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "aba0dac0": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective3",
+          "condition": {
+            "$type": "Beyond.Gameplay.PlayerHasItemInItemBag, Gameplay.Beyond",
+            "_": null,
+            "_itemId": {
+              "constValue": "item_plant_moss_seed_1"
+            },
+            "_compareOperator": {
+              "constValue": "LessThan"
+            },
+            "_targetItemCount": {
+              "constValue": 1
+            },
+            "uniqueId": "aba0dac0",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "c229bc11": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective4",
+          "condition": {
+            "$type": "Beyond.Gameplay.DepotHasItem, Gameplay.Beyond",
+            "_itemId": {
+              "constValue": "item_plant_moss_seed_1"
+            },
+            "_compareOperator": {
+              "constValue": "LessThan"
+            },
+            "_targetItemCount": {
+              "constValue": 1
+            },
+            "uniqueId": "c229bc11",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": true,
+      "canBeTracked": false
+    },
+    "56298792": {
+      "conditionDict": {
+        "5a682efd": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "planter_1"
+            },
+            "_instKeyB": {
+              "constValue": "blackbox_hub"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "5a682efd",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "66801b39": {
+      "conditionDict": {
+        "2bae94ea": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "blackbox_hub"
+            },
+            "_instKeyB": {
+              "constValue": "seedcollector_1"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "2bae94ea",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "6c4f69bd": {
+      "conditionDict": {
+        "1b03e04f": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective3",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacStatisticItemGen, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_itemId": {
+              "constValue": "item_bottled_rec_hp_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 5
+            },
+            "uniqueId": "1b03e04f",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "56098af1": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacStatisticItemGen, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_itemId": {
+              "constValue": "item_plant_moss_seed_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 10
+            },
+            "uniqueId": "56098af1",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "faa939ce": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective2",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacStatisticItemGen, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_itemId": {
+              "constValue": "item_plant_moss_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 10
+            },
+            "uniqueId": "faa939ce",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": true,
+      "canBeTracked": true
+    },
+    "7f781ef7": {
+      "conditionDict": {
+        "3ebbce8b": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacStatisticItemGen, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_itemId": {
+              "constValue": "item_bottled_rec_hp_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 1
+            },
+            "uniqueId": "3ebbce8b",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "98772534": {
+      "conditionDict": {
+        "e3fab461": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckBuildingConnectedSpecify, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_instKeyA": {
+              "constValue": "seedcollector_1"
+            },
+            "_instKeyB": {
+              "constValue": "planter_1"
+            },
+            "_connected": {
+              "constValue": true
+            },
+            "_conveyorType": {
+              "constValue": "Any"
+            },
+            "uniqueId": "e3fab461",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "eed792d2": {
+      "conditionDict": {
+        "8d46d09c": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective2",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacProducingFormulaCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facFormulaId": {
+              "constValue": "planter_plant_moss_1_1"
+            },
+            "_compareOperator": {
+              "constValue": "GreaterEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 2
+            },
+            "uniqueId": "8d46d09c",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "dfec37c7": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.FacBuildingCountInScene, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_facBuildingId": {
+              "constValue": "seedcollector_1"
+            },
+            "_compareOperator": {
+              "constValue": "LessEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 1
+            },
+            "uniqueId": "dfec37c7",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": true,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": true,
+      "canBeTracked": true
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 1,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -150.0,
+            "y": 0.0,
+            "z": -150.0
+          },
+          "shapeType": "Sphere",
+          "radius": 255.0,
+          "size": {
+            "x": 3.0,
+            "y": 3.0,
+            "z": 3.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "scriptId": 2100050001,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -62.675564,
+        "y": 98.140594,
+        "z": -367.586
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 125.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "0eccc615"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnProxyPatrolCheckpointReach, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_filterMode": true,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 6
+          },
+          "_npcEntity": null,
+          "_patrolId": null,
+          "_pointIndex": null,
+          "_npcPosition": {
+            "path": "$7@_npcPosition"
+          },
+          "_targetProxy": {
+            "constValue": "qinjc_map01_e1m1Frontline1"
+          },
+          "_filteredPatrolId": {
+            "constValue": 50000
+          },
+          "_filteredPointIndex": {
+            "constValue": 3
+          },
+          "_uid": "e678f900"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnProxyPatrolCheckpointReach, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": 11,
+          "_filterMode": true,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 6
+          },
+          "_npcEntity": null,
+          "_patrolId": null,
+          "_pointIndex": null,
+          "_npcPosition": {
+            "path": "$10@_npcPosition"
+          },
+          "_targetProxy": {
+            "constValue": "meimei_map01_e1m1Frontline"
+          },
+          "_filteredPatrolId": {
+            "constValue": 50003
+          },
+          "_filteredPointIndex": {
+            "constValue": 0
+          },
+          "_uid": "51c87ff4"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SwitchInt, Gameplay.Beyond",
+          "_ID": 3,
+          "_value": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 4
+          },
+          "_caseValueList": [
+            0,
+            1
+          ],
+          "_caseIDList": [
+            -1,
+            -1
+          ],
+          "_defaultID": 0,
+          "_uid": "5ee7513a"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForNpcProxyReady, Gameplay.Beyond",
+          "_ID": 8,
+          "_nextID": 9,
+          "_npcProxyId": {
+            "constValue": "meimei_map01_e1m1Frontline"
+          },
+          "_uid": "5c69e3da",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcProxyPatrolStart, Gameplay.Beyond",
+          "_ID": 9,
+          "_targetProxy": {
+            "constValue": "meimei_map01_e1m1Frontline"
+          },
+          "_levelId": {
+            "paramSource": 1000,
+            "constValue": null
+          },
+          "_patrolId": {
+            "constValue": 50003
+          },
+          "_startFromBeginning": {
+            "constValue": true
+          },
+          "_forceIdle": {
+            "constValue": false
+          },
+          "_uid": "a1b76752",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 11,
+          "_eventName": {
+            "constValue": "#c6a43fa7"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "c6a43fa7",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptStage, Gameplay.Beyond",
+          "_ID": 4,
+          "_scriptPtr": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "9a13c238"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetEntityExist, Gameplay.Beyond",
+          "_ID": 6,
+          "_target": {
+            "paramSource": -1,
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 0,
+              "slotId": 0
+            },
+            "idRef": 5
+          },
+          "_uid": "1bdac682"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcProxyGetter, Gameplay.Beyond",
+          "_ID": 5,
+          "_targetProxy": {
+            "constValue": "qinjc_map01_e1m1Frontline1"
+          },
+          "_uid": "a20958a0"
+        }
+      ]
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {}
+}

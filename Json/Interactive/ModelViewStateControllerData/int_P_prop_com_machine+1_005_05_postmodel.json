@@ -1,0 +1,151 @@
+{
+  "modelId": "int_P_prop_com_machine+1_005_05_postmodel",
+  "clipAssetInfos": [],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "P_prop_com_machine+1_005_05_postmodel",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": false,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "uvControl",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "stop",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCUVAnimationBehaviorData, Gameplay.Beyond",
+                  "uvAnimationNodeName": "",
+                  "dependBlackBoard": false,
+                  "dependFloatKey": "",
+                  "val": 0.0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 6,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "running",
+                  "conditionGroup": {
+                    "logic": 1,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "speed",
+                        "comparison": 1,
+                        "conditionValue": {
+                          "type": "Float",
+                          "value": 0.01
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "speed",
+                        "comparison": 2,
+                        "conditionValue": {
+                          "type": "Float",
+                          "value": -0.01
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "running",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCUVAnimationBehaviorData, Gameplay.Beyond",
+                  "uvAnimationNodeName": "",
+                  "dependBlackBoard": true,
+                  "dependFloatKey": "speed",
+                  "val": 0.0,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 6,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "stop",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "speed",
+                        "comparison": 4,
+                        "conditionValue": {
+                          "type": "Float",
+                          "value": 0.01
+                        }
+                      },
+                      {
+                        "isInvert": false,
+                        "key": "speed",
+                        "comparison": 3,
+                        "conditionValue": {
+                          "type": "Float",
+                          "value": -0.01
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

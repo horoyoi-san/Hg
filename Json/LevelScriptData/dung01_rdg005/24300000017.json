@@ -1,0 +1,164 @@
+{
+  "scriptId": 24300000017,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 85.22739,
+        "y": 1.5340139,
+        "z": -85.83249
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 70.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "4c4bb79e"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnQuestStateChanged, Gameplay.Beyond",
+          "_ID": 8,
+          "_nextID": 2,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_questId": null,
+          "_oldState": null,
+          "_newState": null,
+          "_filtedQuestId": {
+            "constValue": "c17m3d5_q#4d25"
+          },
+          "_filtedNewState": {
+            "constValue": "Completed"
+          },
+          "_uid": "cca9bbc0"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 2,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 7
+          },
+          "_onTrueID": 3,
+          "_onFalseID": 5,
+          "_uid": "e0418ccc"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetConveyorBeltGroupSpeed, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_targetDynamicEntity": {
+            "constValue": 24300000002
+          },
+          "_speed": {
+            "constValue": 2.0
+          },
+          "_uid": "e8f1bea5",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetConveyorBeltGroupSpeed, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_targetDynamicEntity": {
+            "constValue": 24300000002
+          },
+          "_speed": {
+            "constValue": 0.0
+          },
+          "_uid": "4cc76883",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetConveyorBeltGroupSpeed, Gameplay.Beyond",
+          "_ID": 4,
+          "_targetDynamicEntity": {
+            "constValue": 24300000003
+          },
+          "_speed": {
+            "constValue": 2.0
+          },
+          "_uid": "2760ec05",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetConveyorBeltGroupSpeed, Gameplay.Beyond",
+          "_ID": 6,
+          "_targetDynamicEntity": {
+            "constValue": 24300000003
+          },
+          "_speed": {
+            "constValue": 0.0
+          },
+          "_uid": "8e87a6ca",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 2,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 7
+          },
+          "_onTrueID": 3,
+          "_onFalseID": 5,
+          "_uid": "e0418ccc"
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsComplete, Gameplay.Beyond",
+          "_ID": 7,
+          "_isQuest": {
+            "constValue": true
+          },
+          "_missionId": {
+            "constValue": "c17m3d5_q#4d25"
+          },
+          "_uid": "f61fc602"
+        }
+      ]
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {}
+}

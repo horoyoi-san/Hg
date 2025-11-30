@@ -1,0 +1,240 @@
+{
+  "scriptId": 8700020007,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 1.2746496,
+        "y": 58.719505,
+        "z": 136.16048
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 130.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": -6.0,
+        "y": 48.16,
+        "z": 132.75
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 5.4206486,
+        "z": 0.0
+      },
+      "size": {
+        "x": 65.0,
+        "y": 29.0,
+        "z": 50.0
+      },
+      "radius": 0.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "enemyCount",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnAnyEntityDie, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_entity": {
+            "path": "$0@_entity"
+          },
+          "_isMonster": {
+            "constValue": true
+          },
+          "_filterByList": {
+            "constValue": true
+          },
+          "_entityList": {
+            "paramSource": 200,
+            "path": "waveAttack2",
+            "constValue": null
+          },
+          "_uid": "183aaabe"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "88c4116c"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SetIntIncrease, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_key": {
+            "paramSource": 100,
+            "path": "enemyCount",
+            "constValue": 0
+          },
+          "_value": {
+            "constValue": 1
+          },
+          "_uid": "b6740c44",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 7
+          },
+          "_uid": "cff78673",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 3,
+          "_eventName": {
+            "constValue": "#e87e38be"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "e87e38be",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 13,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 16
+          },
+          "_onTrueID": 14,
+          "_onFalseID": 0,
+          "_uid": "85e137b2"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetIntIncrease, Gameplay.Beyond",
+          "_ID": 14,
+          "_key": {
+            "paramSource": 100,
+            "path": "enemyCount",
+            "constValue": 0
+          },
+          "_value": {
+            "constValue": 1
+          },
+          "_uid": "e11d7e8b",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IntCompare, Gameplay.Beyond",
+          "_ID": 7,
+          "_comparer": {
+            "constValue": "GreaterEqual"
+          },
+          "_valueA": {
+            "paramSource": 100,
+            "path": "enemyCount",
+            "constValue": 0
+          },
+          "_valueB": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 6
+          },
+          "_uid": "63423347"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ListGetLengthEntityPtr, Gameplay.Beyond",
+          "_ID": 6,
+          "_list": {
+            "paramSource": 200,
+            "path": "waveAttack2",
+            "constValue": null
+          },
+          "_uid": "45993624"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IntCompare, Gameplay.Beyond",
+          "_ID": 16,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 15
+          },
+          "_valueB": {
+            "constValue": 1
+          },
+          "_uid": "fcfb41d0"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptStage, Gameplay.Beyond",
+          "_ID": 15,
+          "_scriptPtr": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "c75f207b"
+        }
+      ]
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {}
+}

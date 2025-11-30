@@ -1,0 +1,167 @@
+{
+  "scriptId": 2800000046,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -71.94585,
+        "y": 171.24985,
+        "z": 436.0806
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 90.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnBattleSignal, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_validate": {
+            "constValue": true
+          },
+          "_signalId": {
+            "constValue": "on_fognest_special_vision_triggered"
+          },
+          "_floatValue": {
+            "path": "$2@_floatValue"
+          },
+          "_uid": "010e0507"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast_DevOnly, Gameplay.Beyond",
+          "_ID": 3,
+          "_info": {
+            "constValue": ""
+          },
+          "_duration": {
+            "constValue": 2.0
+          },
+          "_uid": "2baa111d",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "modules": {
+    "2800000005": {
+      "$type": "Beyond.Gameplay.SpecialSightControllerData, Gameplay.Beyond",
+      "specialSight": {
+        "useSlotId": true,
+        "logicId": 0,
+        "slotId": 40001
+      },
+      "viewTriggerSlotId": 80002,
+      "id": 2800000005,
+      "disableWhenCompleted": true
+    }
+  },
+  "enemies": {},
+  "interactives": {
+    "40001": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 2800000046,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_special_sight",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": -73.892,
+        "y": 168.0,
+        "z": 436.11002
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 169.1586,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 0.9999999,
+        "y": 1.0,
+        "z": 0.9999999
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    }
+  },
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80002": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80002,
+      "triggerCountLimit": 0,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -73.892,
+            "y": 168.0,
+            "z": 436.11002
+          },
+          "shapeType": "Sphere",
+          "radius": 24.0,
+          "size": {
+            "x": 3.0,
+            "y": 3.0,
+            "z": 3.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 169.1586,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

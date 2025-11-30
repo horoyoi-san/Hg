@@ -1,0 +1,513 @@
+{
+  "scriptId": 2100020062,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -119.338264,
+        "y": 81.93093,
+        "z": -571.69196
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 70.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "4c4bb79e"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "enemy_weak"
+          },
+          "_eventArgsPtr": {
+            "path": "$9@_eventArgsPtr"
+          },
+          "_uid": "15bcc3e6"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "enemy_powerful"
+          },
+          "_eventArgsPtr": {
+            "path": "$12@_eventArgsPtr"
+          },
+          "_uid": "b379eee9"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 15,
+          "_nextID": 16,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "enemy_stone"
+          },
+          "_eventArgsPtr": {
+            "path": "$15@_eventArgsPtr"
+          },
+          "_uid": "f50f7651"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnEntityHpChanged, Gameplay.Beyond",
+          "_ID": 18,
+          "_nextID": 19,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_hpRatio": {
+            "constValue": 0.7
+          },
+          "_entityFilter": {
+            "constValue": [
+              {
+                "useSlotId": false,
+                "logicId": 2100021213,
+                "slotId": 0
+              }
+            ]
+          },
+          "_entityOutput": null,
+          "_uid": "90128ac7"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnEntityHpChanged, Gameplay.Beyond",
+          "_ID": 21,
+          "_nextID": 22,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_hpRatio": {
+            "constValue": 0.35
+          },
+          "_entityFilter": {
+            "constValue": [
+              {
+                "useSlotId": false,
+                "logicId": 2100021213,
+                "slotId": 0
+              }
+            ]
+          },
+          "_entityOutput": null,
+          "_uid": "311d1ab5"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnEntityHpChanged, Gameplay.Beyond",
+          "_ID": 24,
+          "_nextID": 25,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_hpRatio": {
+            "constValue": 0.05
+          },
+          "_entityFilter": {
+            "constValue": [
+              {
+                "useSlotId": false,
+                "logicId": 2100021213,
+                "slotId": 0
+              }
+            ]
+          },
+          "_entityOutput": null,
+          "_uid": "cd7038db"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.Split, Gameplay.Beyond",
+          "_ID": 2,
+          "_idList": [
+            3,
+            5,
+            7
+          ],
+          "_uid": "83e25f11"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_value": {
+            "paramSource": 300,
+            "path": "enemyA",
+            "constValue": false
+          },
+          "_uid": "150de0f3",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_value": {
+            "paramSource": 300,
+            "path": "enemyB",
+            "constValue": false
+          },
+          "_uid": "23ae6a55",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_value": {
+            "paramSource": 300,
+            "path": "enemyC",
+            "constValue": false
+          },
+          "_uid": "0ed88619",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomScriptEvent, Gameplay.Beyond",
+          "_ID": 4,
+          "_eventKey": {
+            "constValue": "enemy_weak"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "02357060",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomScriptEvent, Gameplay.Beyond",
+          "_ID": 6,
+          "_eventKey": {
+            "constValue": "enemy_powerful"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "bbe4ae46",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomScriptEvent, Gameplay.Beyond",
+          "_ID": 8,
+          "_eventKey": {
+            "constValue": "enemy_stone"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "a8c2946b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffToTargetFromGodEntity, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": 11,
+          "_target": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 2100021213,
+              "slotId": 0
+            }
+          },
+          "_buffId": {
+            "constValue": "buff_common_maxhpup"
+          },
+          "_useBlackboard": {
+            "constValue": true
+          },
+          "_blackboardKVPairList": {
+            "constValue": [
+              {
+                "key": "ratio",
+                "valueFloat": -0.45,
+                "useString": false
+              }
+            ]
+          },
+          "_buff": {
+            "path": "$10@_buff"
+          },
+          "_uid": "16a3b704",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffToTargetFromGodEntity, Gameplay.Beyond",
+          "_ID": 11,
+          "_target": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 2100021213,
+              "slotId": 0
+            }
+          },
+          "_buffId": {
+            "constValue": "buff_common_atkup"
+          },
+          "_useBlackboard": {
+            "constValue": true
+          },
+          "_blackboardKVPairList": {
+            "constValue": [
+              {
+                "key": "ratio",
+                "valueFloat": -0.75,
+                "useString": false
+              }
+            ]
+          },
+          "_buff": {
+            "path": "$11@_buff"
+          },
+          "_uid": "70753a9b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffToTargetFromGodEntity, Gameplay.Beyond",
+          "_ID": 13,
+          "_nextID": 14,
+          "_target": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 2100021211,
+              "slotId": 0
+            }
+          },
+          "_buffId": {
+            "constValue": "buff_common_maxhpup"
+          },
+          "_useBlackboard": {
+            "constValue": true
+          },
+          "_blackboardKVPairList": {
+            "constValue": [
+              {
+                "key": "ratio",
+                "valueFloat": 2.0,
+                "useString": false
+              }
+            ]
+          },
+          "_buff": {
+            "path": "$13@_buff"
+          },
+          "_uid": "4dccb381",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffToTargetFromGodEntity, Gameplay.Beyond",
+          "_ID": 14,
+          "_target": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 2100021211,
+              "slotId": 0
+            }
+          },
+          "_buffId": {
+            "constValue": "buff_common_maxpoiseadd"
+          },
+          "_useBlackboard": {
+            "constValue": true
+          },
+          "_blackboardKVPairList": {
+            "constValue": [
+              {
+                "key": "value_int",
+                "valueFloat": -110.0,
+                "useString": false
+              }
+            ]
+          },
+          "_buff": {
+            "path": "$14@_buff"
+          },
+          "_uid": "db0d494b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffToTargetFromGodEntity, Gameplay.Beyond",
+          "_ID": 16,
+          "_nextID": 17,
+          "_target": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 2100021212,
+              "slotId": 0
+            }
+          },
+          "_buffId": {
+            "constValue": "buff_common_maxhpup"
+          },
+          "_useBlackboard": {
+            "constValue": true
+          },
+          "_blackboardKVPairList": {
+            "constValue": [
+              {
+                "key": "ratio",
+                "valueFloat": -0.7,
+                "useString": false
+              }
+            ]
+          },
+          "_buff": {
+            "path": "$16@_buff"
+          },
+          "_uid": "3a91ed24",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffToTargetFromGodEntity, Gameplay.Beyond",
+          "_ID": 17,
+          "_target": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 2100021212,
+              "slotId": 0
+            }
+          },
+          "_buffId": {
+            "constValue": "buff_common_atkup"
+          },
+          "_useBlackboard": {
+            "constValue": true
+          },
+          "_blackboardKVPairList": {
+            "constValue": [
+              {
+                "key": "ratio",
+                "valueFloat": 1.6,
+                "useString": false
+              }
+            ]
+          },
+          "_buff": {
+            "path": "$17@_buff"
+          },
+          "_uid": "bf56c1c1",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 19,
+          "_eventName": {
+            "constValue": "#28066942"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "28066942",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 22,
+          "_eventName": {
+            "constValue": "#1773fae6"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "1773fae6",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 25,
+          "_eventName": {
+            "constValue": "#1538c5f5"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "1538c5f5",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {}
+}

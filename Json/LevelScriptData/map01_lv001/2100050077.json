@@ -1,0 +1,186 @@
+{
+  "scriptId": 2100050077,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -70.36,
+        "y": 81.8,
+        "z": -251.69
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 90.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "6dd1907e"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnQuestStateChanged, Gameplay.Beyond",
+          "_ID": 8,
+          "_nextID": 9,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_questId": null,
+          "_oldState": null,
+          "_newState": null,
+          "_filtedQuestId": {
+            "constValue": "e1m1_q#18"
+          },
+          "_filtedNewState": {
+            "constValue": "Completed"
+          },
+          "_uid": "366f41f3"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForNpcProxyReady, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_npcProxyId": {
+            "constValue": "andrew_map01_e1m1Basement1"
+          },
+          "_uid": "df6942ef",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcProxyOverrideEnvTalk, Gameplay.Beyond",
+          "_ID": 2,
+          "_npcProxyId": {
+            "constValue": "andrew_map01_e1m1Basement1"
+          },
+          "_envTalks": {
+            "constValue": [
+              {
+                "envTalkId": "envTalk_map01_lv001_env_2",
+                "odds": 1
+              }
+            ]
+          },
+          "_overrideNpc": {
+            "constValue": true
+          },
+          "_uid": "3d6cb864",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcProxyResetEnvTalk, Gameplay.Beyond",
+          "_ID": 9,
+          "_npcProxyId": {
+            "constValue": "andrew_map01_e1m1Basement1"
+          },
+          "_uid": "7ea27ab1",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "taskMap": {
+    "2ca3f458": {
+      "conditionDict": {
+        "83fb215c": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "e1m1_q#18"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetQuestState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "83fb215c",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 1,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -74.86,
+            "y": 81.8,
+            "z": -263.85
+          },
+          "shapeType": "Sphere",
+          "radius": 10.0,
+          "size": {
+            "x": 3.0,
+            "y": 3.0,
+            "z": 3.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,256 @@
+{
+  "scriptId": 3500150027,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 423.5302,
+        "y": 39.2853,
+        "z": 264.1989
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 80.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "sm1l6m1_EnterCombat"
+          },
+          "_eventArgsPtr": {
+            "path": "$12@_eventArgsPtr"
+          },
+          "_uid": "a75bcc60"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SetTargetForceInFight, Gameplay.Beyond",
+          "_ID": 13,
+          "_nextID": 14,
+          "_target": {
+            "constValue": {
+              "useSlotId": true,
+              "logicId": 0,
+              "slotId": 30001
+            }
+          },
+          "_forceInFight": {
+            "constValue": true
+          },
+          "_uid": "8e8c52dd",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetTargetForceInFight, Gameplay.Beyond",
+          "_ID": 14,
+          "_target": {
+            "constValue": {
+              "useSlotId": true,
+              "logicId": 0,
+              "slotId": 30002
+            }
+          },
+          "_forceInFight": {
+            "constValue": true
+          },
+          "_uid": "e20f2ac6",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "taskMap": {
+    "cfafb940": {
+      "conditionDict": {
+        "eaa9d53d": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckMonsterKilled, Gameplay.Beyond",
+            "_sceneId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_enemyIds": {
+              "constValue": [
+                {
+                  "useSlotId": true,
+                  "logicId": 0,
+                  "slotId": 30001
+                },
+                {
+                  "useSlotId": true,
+                  "logicId": 0,
+                  "slotId": 30002
+                }
+              ]
+            },
+            "needKillAll": true,
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetValue": {
+              "constValue": 0
+            },
+            "uniqueId": "eaa9d53d",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "modules": {},
+  "enemies": {
+    "30001": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 3500150027,
+      "entityType": "Enemy",
+      "entityDataIdKey": "eny_0029_lbmob",
+      "createState": "Disable",
+      "position": {
+        "x": 419.38022,
+        "y": 39.11831,
+        "z": 261.2589
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 73.46736,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "respawnable": false,
+      "level": 34,
+      "isDangerousEnemy": false,
+      "overrideAIConfig": "",
+      "bornTemplateId": null,
+      "bornBehaviorData": null,
+      "aiBlackboard": null,
+      "enemyGroupId": 0,
+      "patrolCfgType": "Patrol",
+      "overrideAIAttrData": null,
+      "extraDelayToRecycleTime": null,
+      "enemyDefaultActionType": "Patrol",
+      "enemyPatrolId": 0,
+      "overrideIdleBreak": false,
+      "idleBreakAnimations": null,
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "30002": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 3500150027,
+      "entityType": "Enemy",
+      "entityDataIdKey": "eny_0029_lbmob",
+      "createState": "Disable",
+      "position": {
+        "x": 420.3602,
+        "y": 39.522003,
+        "z": 265.10892
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 106.5892,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "respawnable": false,
+      "level": 34,
+      "isDangerousEnemy": false,
+      "overrideAIConfig": "",
+      "bornTemplateId": null,
+      "bornBehaviorData": null,
+      "aiBlackboard": null,
+      "enemyGroupId": 0,
+      "patrolCfgType": "Patrol",
+      "overrideAIAttrData": null,
+      "extraDelayToRecycleTime": null,
+      "enemyDefaultActionType": "Patrol",
+      "enemyPatrolId": 0,
+      "overrideIdleBreak": false,
+      "idleBreakAnimations": null,
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    }
+  },
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 1,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": 423.5302,
+            "y": 39.2853,
+            "z": 264.1989
+          },
+          "shapeType": "Sphere",
+          "radius": 30.0,
+          "size": {
+            "x": 3.0,
+            "y": 3.0,
+            "z": 3.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

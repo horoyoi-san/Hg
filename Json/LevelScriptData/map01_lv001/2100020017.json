@@ -1,0 +1,246 @@
+{
+  "scriptId": 2100020017,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "SameWithActive",
+  "endType": "SameWithDeactive",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 41.5,
+        "y": 83.57378,
+        "z": -352.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 550.0,
+        "y": 200.0,
+        "z": 500.0
+      },
+      "radius": 0.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "tempbuffs",
+          "value": {
+            "type": "BuffList",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnMissionStateChanged, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 4,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_missionId": {
+            "path": "$7@_missionId"
+          },
+          "_oldState": {
+            "path": "$7@_oldState"
+          },
+          "_newState": {
+            "path": "$7@_newState"
+          },
+          "_succeedId": {
+            "path": "$7@_succeedId"
+          },
+          "_filtedMissionId": {
+            "constValue": "e1m1"
+          },
+          "_filtedNewState": {
+            "constValue": "Completed"
+          },
+          "_filtedSucceedId": {
+            "constValue": -2
+          },
+          "_uid": "7601b1ae"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 8,
+          "_nextID": 9,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "692687d3"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "Buff"
+          },
+          "_eventArgsPtr": {
+            "path": "$12@_eventArgsPtr"
+          },
+          "_uid": "1f38d289"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.FinishBuffs, Gameplay.Beyond",
+          "_ID": 4,
+          "_buffs": {
+            "paramSource": -1,
+            "constValue": null,
+            "idRef": 3
+          },
+          "_uid": "314aed2a",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 9,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 10
+          },
+          "_onTrueID": 4,
+          "_onFalseID": 5,
+          "_uid": "47eeed76"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.FinishBuffs, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_buffs": {
+            "paramSource": -1,
+            "constValue": null,
+            "idRef": 3
+          },
+          "_uid": "d60d29d2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomScriptEvent, Gameplay.Beyond",
+          "_ID": 6,
+          "_eventKey": {
+            "constValue": "Buff"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "7f6cbfd0",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddBuffsToTargetSelves, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_targets": {
+            "paramSource": -1,
+            "constValue": null,
+            "idRef": 0
+          },
+          "_buffId": {
+            "constValue": "buff_common_undeadable"
+          },
+          "_useBlackboard": {
+            "constValue": false
+          },
+          "_blackboardKey": {
+            "constValue": {
+              "key": "blackboard"
+            }
+          },
+          "_buffs": {
+            "path": "$1@_buffs"
+          },
+          "_uid": "d950a681",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetListBuff, Gameplay.Beyond",
+          "_ID": 2,
+          "_key": {
+            "paramSource": 100,
+            "path": "tempbuffs",
+            "constValue": null
+          },
+          "_value": {
+            "paramSource": 100,
+            "path": "$1@_buffs",
+            "constValue": null
+          },
+          "_uid": "39e99f1e",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.GetterListBuff, Gameplay.Beyond",
+          "_ID": 3,
+          "_value": {
+            "paramSource": 100,
+            "path": "tempbuffs",
+            "constValue": null
+          },
+          "_uid": "cd661e41"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsComplete, Gameplay.Beyond",
+          "_ID": 10,
+          "_isQuest": {
+            "constValue": false
+          },
+          "_missionId": {
+            "constValue": "e1m1"
+          },
+          "_uid": "b9d26663"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetSquadMembers, Gameplay.Beyond",
+          "_ID": 0,
+          "containMainCharacter": {
+            "constValue": true
+          },
+          "_uid": "c821a97c"
+        }
+      ]
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {}
+}

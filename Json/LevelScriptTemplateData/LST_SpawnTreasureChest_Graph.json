@@ -1,0 +1,292 @@
+{
+  "templateId": "LST_SpawnTreasureChest_Graph",
+  "maxStage": 2,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "d0eb021c"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStageChanged, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 5,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_newStageFilter": {
+            "constValue": 1
+          },
+          "_newStageOutput": null,
+          "_uid": "7d4f1572"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SwitchInt, Gameplay.Beyond",
+          "_ID": 2,
+          "_value": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 17
+          },
+          "_caseValueList": [
+            0,
+            1
+          ],
+          "_caseIDList": [
+            -1,
+            3
+          ],
+          "_defaultID": 0,
+          "_uid": "4a63bb7e"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityShow, Gameplay.Beyond",
+          "_ID": 3,
+          "_entityPtr": {
+            "paramSource": 200,
+            "path": "Chest",
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 0,
+              "slotId": 0
+            }
+          },
+          "_uid": "c5532060",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CreateEffectAtPosition, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_effectKey": {
+            "paramSource": 200,
+            "path": "ShowChestFX",
+            "constValue": null
+          },
+          "_position": {
+            "paramSource": 200,
+            "path": "ChestPosition",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_eulerAngles": {
+            "paramSource": 200,
+            "path": "ChestRotation",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_scale": {
+            "constValue": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          "_isUnique": {
+            "constValue": false
+          },
+          "_effectSaveId": {
+            "path": "$5@_effectSaveId"
+          },
+          "_uid": "001c8663",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_seconds": {
+            "constValue": 0.8
+          },
+          "_uid": "05f4173d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityShow, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_entityPtr": {
+            "paramSource": 200,
+            "path": "Chest",
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 0,
+              "slotId": 0
+            }
+          },
+          "_uid": "2227d8d6",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudiAtPosition, Gameplay.Beyond",
+          "_ID": 8,
+          "_nextID": 9,
+          "_key": {
+            "paramSource": 200,
+            "path": "AudioKey",
+            "constValue": null
+          },
+          "_position": {
+            "paramSource": 200,
+            "path": "ChestPosition",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_audioPlayingId": {
+            "path": "$8@_audioPlayingId"
+          },
+          "_uid": "0c7e9f85",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_seconds": {
+            "constValue": 1.0
+          },
+          "_uid": "5e1bbf57",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.FinishEffect, Gameplay.Beyond",
+          "_ID": 10,
+          "_effectSaveId": {
+            "paramSource": 100,
+            "path": "$5@_effectSaveId",
+            "constValue": 0
+          },
+          "_uid": "bf8bde9e",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptStage, Gameplay.Beyond",
+          "_ID": 17,
+          "_scriptPtr": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "8c3e370d"
+        }
+      ]
+    }
+  },
+  "properties": [
+    {
+      "key": "Spawn",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "Chest",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "ChestPosition",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          },
+          {
+            "valueBit64": 0
+          },
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "ChestRotation",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          },
+          {
+            "valueBit64": 0
+          },
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "ShowChestFX",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "P_interactive_lootshow_01_Variant"
+          }
+        ]
+      }
+    },
+    {
+      "key": "AudioKey",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "au_int_trchest_common_energypoint_reward_appear"
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "Spawn",
+    "1026": "Chest",
+    "1027": "ChestPosition",
+    "1028": "ChestRotation",
+    "1029": "ShowChestFX",
+    "1030": "AudioKey"
+  }
+}

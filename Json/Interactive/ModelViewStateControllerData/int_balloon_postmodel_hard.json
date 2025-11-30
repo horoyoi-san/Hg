@@ -1,0 +1,454 @@
+{
+  "modelId": "int_balloon_postmodel_hard",
+  "clipAssetInfos": [
+    {
+      "animationClipName": "A_interactive_balloon+1_001_01_idle_01",
+      "animationClipHash": 368794769668140299,
+      "animationGuid": {
+        "val0": 3379979476,
+        "val1": 1208456460,
+        "val2": 1224023994,
+        "val3": 2128480476
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "A_interactive_balloon+1_001_explosion_01",
+      "animationClipHash": 1066471323747686215,
+      "animationGuid": {
+        "val0": 1909644199,
+        "val1": 1334638349,
+        "val2": 4260202139,
+        "val3": 2439169399
+      },
+      "subClipNameHash": -1420573615
+    },
+    {
+      "animationClipName": "A_interactive_balloon+1_001_disappear_01",
+      "animationClipHash": 180815917612095782,
+      "animationGuid": {
+        "val0": 2070175055,
+        "val1": 1247723336,
+        "val2": 1831331721,
+        "val3": 1005790888
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "int_balloon_fade_out",
+      "animationClipHash": 897747581459439748,
+      "animationGuid": {
+        "val0": 1329766526,
+        "val1": 1257470203,
+        "val2": 2194697346,
+        "val3": 3540319140
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "int_balloon_effect_inactive",
+      "animationClipHash": 714115622635701874,
+      "animationGuid": {
+        "val0": 3405989324,
+        "val1": 1253517084,
+        "val2": 3564055171,
+        "val3": 3611332108
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "int_balloon_effect_explosion",
+      "animationClipHash": 1036354558286492256,
+      "animationGuid": {
+        "val0": 1426209319,
+        "val1": 1233118484,
+        "val2": 4144046267,
+        "val3": 3067408678
+      },
+      "subClipNameHash": 0
+    },
+    {
+      "animationClipName": "int_balloon_effect_active",
+      "animationClipHash": 865362519918085167,
+      "animationGuid": {
+        "val0": 2095778254,
+        "val1": 1099654131,
+        "val2": 34350727,
+        "val3": 3926086812
+      },
+      "subClipNameHash": 0
+    }
+  ],
+  "emissiveConfigHashes": [],
+  "cameraSignalSourceAssetHashes": [],
+  "modelAnimatorDatas": [
+    {
+      "modelName": "P_interactive_balloon+1_001_01a",
+      "layerFsmDatas": [
+        {
+          "hasAnimClip": true,
+          "index": 0,
+          "weight": 0.0,
+          "layerName": "BaseLayer",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "inactive_idle",
+              "isHaveClip": true,
+              "totalTime": 14.000001,
+              "animationClipName": "A_interactive_balloon+1_001_01_idle_01",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": false,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 7,
+                  "normalAudioId": {
+                    "_id": 0
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "explosion",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "isDead",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "BoolTrigger",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.2,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "explosion",
+              "isHaveClip": true,
+              "totalTime": 0.700000048,
+              "animationClipName": "A_interactive_balloon+1_001_explosion_01",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": false,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 6,
+                  "normalAudioId": {
+                    "_id": 0
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": [
+                {
+                  "targetStateName": "complete_idle",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 1.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "complete_idle",
+              "isHaveClip": true,
+              "totalTime": 1.0,
+              "animationClipName": "A_interactive_balloon+1_001_disappear_01",
+              "isEmpty": false,
+              "isLoop": true,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "int_balloon_fade_out",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": true,
+                    "exitTime": 2.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "int_balloon_fade_out",
+              "isHaveClip": true,
+              "totalTime": 1.33333337,
+              "animationClipName": "int_balloon_fade_out",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCSetActiveBehaviorData, Gameplay.Beyond",
+                  "gameObjName": "P_interactive_balloon+1_001_02_COL1",
+                  "active": false,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.716666639,
+                  "type": 3,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": []
+            }
+          ]
+        },
+        {
+          "hasAnimClip": true,
+          "index": 1,
+          "weight": 1.0,
+          "layerName": "Effect",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "int_balloon_effect_inactive",
+              "isHaveClip": true,
+              "totalTime": 0.0166666675,
+              "animationClipName": "int_balloon_effect_inactive",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "int_balloon_effect_explosion",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "isDead",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "BoolTrigger",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.25,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "int_balloon_effect_explosion",
+              "isHaveClip": true,
+              "totalTime": 6.5,
+              "animationClipName": "int_balloon_effect_explosion",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "int_balloon_effect_active",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": []
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.25,
+                    "hasExitTime": true,
+                    "exitTime": 0.7857143,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "int_balloon_effect_active",
+              "isHaveClip": true,
+              "totalTime": 0.0166666675,
+              "animationClipName": "int_balloon_effect_active",
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [],
+              "transitions": []
+            }
+          ]
+        },
+        {
+          "hasAnimClip": false,
+          "index": 0,
+          "weight": 1.0,
+          "layerName": "AUDIO",
+          "stateDatas": [
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Idle",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": true,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": true,
+              "behaviors": [],
+              "transitions": [
+                {
+                  "targetStateName": "Active",
+                  "conditionGroup": {
+                    "logic": 0,
+                    "conditions": [
+                      {
+                        "isInvert": false,
+                        "key": "state",
+                        "comparison": 0,
+                        "conditionValue": {
+                          "type": "Int",
+                          "value": 1
+                        }
+                      }
+                    ]
+                  },
+                  "priority": 0,
+                  "transitionSetting": {
+                    "isFixedDuration": true,
+                    "blendDuration": 0.0,
+                    "hasExitTime": false,
+                    "exitTime": 0.0,
+                    "offset": 0.0,
+                    "easeType": 1
+                  }
+                }
+              ]
+            },
+            {
+              "stateType": 0,
+              "basedParamKey": null,
+              "smoothTime": 0.2,
+              "stateName": "Active",
+              "isHaveClip": false,
+              "totalTime": 0.0,
+              "animationClipName": null,
+              "isEmpty": false,
+              "isLoop": false,
+              "timeScale": 0.0,
+              "isStartingNode": false,
+              "behaviors": [
+                {
+                  "$type": "Beyond.Gameplay.Core.ModelViewStateController.MVSCAudioBehaviorData, Gameplay.Beyond",
+                  "isDirectlyPlay": false,
+                  "isCustom": false,
+                  "customAudioId": "",
+                  "eAudioTriggerState": 18,
+                  "normalAudioId": {
+                    "_id": 0
+                  },
+                  "audioNodeName": "",
+                  "stopOnEnd": false,
+                  "transitionTime": 200,
+                  "normalizedTimeFlowBasedActive": false,
+                  "timeFlowSwitch": 0,
+                  "time": 0.0,
+                  "type": 1,
+                  "canLoopActive": false,
+                  "needForceExecute": false
+                }
+              ],
+              "transitions": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

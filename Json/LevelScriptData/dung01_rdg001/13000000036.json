@@ -1,0 +1,1307 @@
+{
+  "scriptId": 13000000036,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 328.8075,
+        "y": 11.935101,
+        "z": 343.50848
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 89.49627
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "4c4bb79e"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnPropertyChanged, Gameplay.Beyond",
+          "_ID": 14,
+          "_nextID": 6,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_propertyKey": {
+            "constValue": "closeFire"
+          },
+          "_value": {
+            "path": "$14@_value"
+          },
+          "_oldValue": {
+            "path": "$14@_oldValue"
+          },
+          "_uid": "4f6646f2"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 6,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 11
+          },
+          "_onTrueID": 7,
+          "_onFalseID": 9,
+          "_uid": "4d20ef09"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AirWallEnable, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_enable": {
+            "constValue": false
+          },
+          "_airWallPtr": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 13000000003,
+              "slotId": 0
+            }
+          },
+          "_uid": "aafedab4",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AirWallEnable, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_enable": {
+            "constValue": true
+          },
+          "_airWallPtr": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 13000000003,
+              "slotId": 0
+            }
+          },
+          "_uid": "6ad2a473",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AirWallEnable, Gameplay.Beyond",
+          "_ID": 8,
+          "_enable": {
+            "constValue": false
+          },
+          "_airWallPtr": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 13000000001,
+              "slotId": 0
+            }
+          },
+          "_uid": "470e10c7",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AirWallEnable, Gameplay.Beyond",
+          "_ID": 10,
+          "_enable": {
+            "constValue": true
+          },
+          "_airWallPtr": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 13000000001,
+              "slotId": 0
+            }
+          },
+          "_uid": "17fde716",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 6,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 11
+          },
+          "_onTrueID": 7,
+          "_onFalseID": 9,
+          "_uid": "4d20ef09"
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptPropertyGenericBool, Gameplay.Beyond",
+          "_ID": 11,
+          "_target": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_path": {
+            "constValue": "closeFire"
+          },
+          "_uid": "201e487c"
+        }
+      ]
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {
+    "40001": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 323.46,
+        "y": 13.872,
+        "z": 312.53
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 329.12228,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40002": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 343.201,
+        "y": 10.033,
+        "z": 326.734
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 83.06741,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0000001,
+        "y": 1.0,
+        "z": 1.0000001
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "duration",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1077936128
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "wait_time",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1077936128
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40003": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 335.35,
+        "y": 9.998169,
+        "z": 349.78
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 191.26697,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0000002,
+        "y": 1.0,
+        "z": 1.0000002
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "fire_wall_move_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 3
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "rotate_speed",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1110704128
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40004": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 346.84,
+        "y": 9.998169,
+        "z": 349.8
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 83.06741,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0000001,
+        "y": 1.0,
+        "z": 1.0000001
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "fire_wall_move_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 3
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "rotate_speed",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1110704128
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40005": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall_10m",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 342.252,
+        "y": 10.043836,
+        "z": 339.683
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 89.22071,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 0.9999998,
+        "y": 1.0,
+        "z": 0.9999998
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40006": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall_10m",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 334.155,
+        "y": 9.9982,
+        "z": 374.487
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 182.03947,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "end_pos",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1134449787
+              },
+              {
+                "valueBit64": 1092749361
+              },
+              {
+                "valueBit64": 1136340042
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_move_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "move_speed",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1084227584
+              }
+            ]
+          }
+        },
+        {
+          "key": "start_pos",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1135023063
+              },
+              {
+                "valueBit64": 1092614272
+              },
+              {
+                "valueBit64": 1136344662
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40007": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 346.28,
+        "y": 9.998169,
+        "z": 360.38
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 277.01465,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0000001,
+        "y": 1.0,
+        "z": 1.0000001
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "duration",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1082130432
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "wait_time",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1082130432
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40008": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 309.052,
+        "y": 10.94,
+        "z": 348.501
+      },
+      "rotation": {
+        "x": 4.2688683E-07,
+        "y": 270.11377,
+        "z": 350.49716
+      },
+      "scale": {
+        "x": 0.9999999,
+        "y": 0.99999994,
+        "z": 0.9999999
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "duration",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1082130432
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "wait_time",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1082130432
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40009": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 308.99,
+        "y": 11.54,
+        "z": 344.88
+      },
+      "rotation": {
+        "x": 4.2688683E-07,
+        "y": 270.11377,
+        "z": 350.49716
+      },
+      "scale": {
+        "x": 0.9999999,
+        "y": 0.99999994,
+        "z": 0.9999999
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "duration",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1073741824
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "wait_time",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1082130432
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40010": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 308.886,
+        "y": 13.0,
+        "z": 336.191
+      },
+      "rotation": {
+        "x": 4.2688683E-07,
+        "y": 270.11377,
+        "z": 350.49716
+      },
+      "scale": {
+        "x": 0.9999999,
+        "y": 0.99999994,
+        "z": 0.9999999
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "duration",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "wait_time",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1082130432
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    },
+    "40011": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 13000000036,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_fire_wall",
+      "createState": "EnableAndShow",
+      "position": {
+        "x": 308.92,
+        "y": 12.25,
+        "z": 340.64
+      },
+      "rotation": {
+        "x": 4.2688683E-07,
+        "y": 270.11377,
+        "z": 350.49716
+      },
+      "scale": {
+        "x": 0.9999999,
+        "y": 0.99999994,
+        "z": 0.9999999
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": false,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [
+        {
+          "key": "duration",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1073741824
+              }
+            ]
+          }
+        },
+        {
+          "key": "fire_wall_spray_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "wait_time",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1082130432
+              }
+            ]
+          }
+        },
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "AbilitySystemForInt": [
+          {
+            "key": "play_battle_hit_effect",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "trigger_hit_cd",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    }
+  },
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {}
+}

@@ -1,0 +1,220 @@
+{
+  "sceneId": "map01_lv001",
+  "levelIdNum": 21,
+  "specificData": null,
+  "blackbox": null,
+  "guideHints": [],
+  "enemies": [],
+  "interactives": [],
+  "interactiveLockData": [],
+  "factoryRegions": [],
+  "factoryMines": [],
+  "npcs": [],
+  "npcClusters": [],
+  "levelScripts": null,
+  "levelScriptDataPathDict": {},
+  "levelScriptBriefDataDict": {
+    "2100470000": {
+      "scriptId": 2100470000,
+      "dataPath": {
+        "hash": -9210653923427260877
+      },
+      "levelScriptType": "Mission",
+      "parentLevelScriptId": 0,
+      "maxStage": 1,
+      "properties": [],
+      "propertyIdToKeyMap": {}
+    },
+    "2100470001": {
+      "scriptId": 2100470001,
+      "dataPath": {
+        "hash": 9149632239421910819
+      },
+      "levelScriptType": "Mission",
+      "parentLevelScriptId": 0,
+      "maxStage": 1,
+      "properties": [
+        {
+          "key": "lt:p:8d71c544:52f1a431",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "lt:mp:8d71c544:52f1a431",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "propertyIdToKeyMap": {
+        "1": "lt:p:8d71c544:52f1a431",
+        "1026": "lt:mp:8d71c544:52f1a431"
+      }
+    }
+  },
+  "patrols": [],
+  "enemyPatrol": [],
+  "charPatrol": [],
+  "npcPatrol": [],
+  "npcAttractPointData": [],
+  "missionAreas": [],
+  "taskAreas": [],
+  "enemyGroup": [],
+  "npcGroup": [],
+  "cameraPoses": [],
+  "splines": [],
+  "airWalls": [],
+  "environmentVolumes": [],
+  "spawners": [],
+  "worldWayPointData": [],
+  "waterVolumes": [],
+  "levelUIs": [],
+  "aiTransData": [],
+  "erosionSludgeDatas": [],
+  "sludgeDatas": [],
+  "safeZone": {
+    "boxes": []
+  },
+  "factoryPredefineData": {
+    "powerGates": []
+  },
+  "predefinedParams": [],
+  "functionArea": {
+    "ranges": [
+      {
+        "m_center": {
+          "x": -532.0945,
+          "y": 126.2644,
+          "z": -229.9938
+        },
+        "m_size": {
+          "x": 22.0,
+          "y": 22.0,
+          "z": 22.0
+        }
+      }
+    ],
+    "baseData": [
+      {
+        "functionType": "StorySafeZone",
+        "shapeType": "Sphere",
+        "index": 0,
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 11.0,
+        "postion": {
+          "x": -532.0945,
+          "y": 126.2644,
+          "z": -229.9938
+        },
+        "euler": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "posList": null,
+        "uniqueId": 2100470001,
+        "defaultOff": false,
+        "hasCondition": false,
+        "bufferDistance": 2.0
+      }
+    ],
+    "repatriateZoneData": [],
+    "cameraVolumeData": [],
+    "radioTriggerZoneData": [],
+    "cameraLookAtData": [],
+    "cameraAddControlStateData": [],
+    "ambienceCameraData": [],
+    "storySafeZones": [
+      {
+        "defaultOn": false,
+        "showLeaveToast": false,
+        "npcProxyIds": []
+      }
+    ],
+    "sceneToast": [],
+    "blockAIBarkData": [],
+    "isolateEntityZoneData": [],
+    "blockWorldEnemyZoneData": [],
+    "functionAreaConditions": [
+      {
+        "uniqueId": 2100470001,
+        "conditionRuntimeBase": {
+          "$type": "Beyond.Gameplay.CombinedConditionRuntime, Gameplay.Beyond",
+          "conditionOperator": "And",
+          "reverse": false,
+          "subConditions": [
+            {
+              "$type": "Beyond.Gameplay.CombinedConditionRuntime, Gameplay.Beyond",
+              "conditionOperator": "And",
+              "reverse": false,
+              "subConditions": [
+                {
+                  "$type": "Beyond.Gameplay.SimpleConditionCheckQuestState, Gameplay.Beyond",
+                  "questId": "c6m1_q#lastWolf",
+                  "compareOperator": "Equal",
+                  "compareTarget": "Processing"
+                },
+                {
+                  "$type": "Beyond.Gameplay.CombinedConditionRuntime, Gameplay.Beyond",
+                  "conditionOperator": "And",
+                  "reverse": false,
+                  "subConditions": [
+                    {
+                      "$type": "Beyond.Gameplay.SimpleConditionCheckMissionNotPaused, Gameplay.Beyond",
+                      "missionId": "c6m1"
+                    },
+                    {
+                      "$type": "Beyond.Gameplay.SimpleConditionCheckMissionState, Gameplay.Beyond",
+                      "missionId": "c6m1",
+                      "compareOperator": "Equal",
+                      "compareTarget": "Processing"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "$type": "Beyond.Gameplay.CombinedConditionRuntime, Gameplay.Beyond",
+              "conditionOperator": "And",
+              "reverse": true,
+              "subConditions": [
+                {
+                  "$type": "Beyond.Gameplay.SimpleConditionCheckQuestState, Gameplay.Beyond",
+                  "questId": "c6m1_q#lastWolf",
+                  "compareOperator": "Equal",
+                  "compareTarget": "Completed"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "carryTagZones": []
+  },
+  "doodadGroup": [],
+  "mapVolumeDatas": [],
+  "dynamicOccludeAreas": [],
+  "autoSpawnedInteractives": [],
+  "levelWideConfigs": {}
+}

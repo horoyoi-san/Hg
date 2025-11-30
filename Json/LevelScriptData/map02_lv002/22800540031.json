@@ -1,0 +1,331 @@
+{
+  "scriptId": 22800540031,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -1142.1903,
+        "y": 281.99197,
+        "z": -840.30615
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 90.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "AirWallState",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnSquadInFightChanged, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_validate": {
+            "constValue": true
+          },
+          "_inFight": {
+            "path": "$5@_inFight"
+          },
+          "_uid": "dc088a60"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnSquadInFightChanged, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_validate": {
+            "constValue": true
+          },
+          "_inFight": {
+            "path": "$9@_inFight"
+          },
+          "_uid": "bf481472"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnBBVariableChanged, Gameplay.Beyond",
+          "_ID": 16,
+          "_nextID": 17,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_key": {
+            "constValue": "AirWallState"
+          },
+          "_value": {
+            "path": "$16@_value"
+          },
+          "_oldValue": {
+            "path": "$16@_oldValue"
+          },
+          "_uid": "a5a33996"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 20,
+          "_nextID": 14,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "1a11d8e2"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderLeaveTriggerVolume, Gameplay.Beyond",
+          "_ID": 21,
+          "_nextID": 22,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "e756bbd4"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_value": {
+            "paramSource": 100,
+            "path": "$5@_inFight",
+            "constValue": false
+          },
+          "_uid": "4b376f01",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetIntIncrease, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_key": {
+            "paramSource": 100,
+            "path": "AirWallState",
+            "constValue": 0
+          },
+          "_value": {
+            "constValue": -1
+          },
+          "_uid": "2e326162",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AirWallEnable, Gameplay.Beyond",
+          "_ID": 8,
+          "_enable": {
+            "constValue": false
+          },
+          "_airWallPtr": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 22800540001,
+              "slotId": 0
+            }
+          },
+          "_uid": "9ed71c22",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": 11,
+          "_value": {
+            "paramSource": 100,
+            "path": "$9@_inFight",
+            "constValue": false
+          },
+          "_uid": "2586517d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetIntIncrease, Gameplay.Beyond",
+          "_ID": 11,
+          "_key": {
+            "paramSource": 100,
+            "path": "AirWallState",
+            "constValue": 0
+          },
+          "_value": {
+            "constValue": 1
+          },
+          "_uid": "e5073032",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 17,
+          "_nextID": 18,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 19
+          },
+          "_uid": "b4b4390e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AirWallEnable, Gameplay.Beyond",
+          "_ID": 18,
+          "_enable": {
+            "constValue": true
+          },
+          "_airWallPtr": {
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 22800540001,
+              "slotId": 0
+            }
+          },
+          "_uid": "dde45fb8",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 14,
+          "_nextID": 15,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 13
+          },
+          "_uid": "7869a39d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetIntIncrease, Gameplay.Beyond",
+          "_ID": 15,
+          "_key": {
+            "paramSource": 100,
+            "path": "AirWallState",
+            "constValue": 0
+          },
+          "_value": {
+            "constValue": 1
+          },
+          "_uid": "6b69ad56",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetIntIncrease, Gameplay.Beyond",
+          "_ID": 22,
+          "_key": {
+            "paramSource": 100,
+            "path": "AirWallState",
+            "constValue": 0
+          },
+          "_value": {
+            "constValue": -1
+          },
+          "_uid": "1ed76ed7",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IntEqual, Gameplay.Beyond",
+          "_ID": 19,
+          "_valueA": {
+            "paramSource": 100,
+            "path": "$16@_value",
+            "constValue": 0
+          },
+          "_valueB": {
+            "constValue": 2
+          },
+          "_uid": "56ba2803"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetIsLeaderInTriggerVolume, Gameplay.Beyond",
+          "_ID": 13,
+          "_scriptPtr": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_triggerSlotId": {
+            "constValue": 80001
+          },
+          "_uid": "c04b79c2"
+        }
+      ]
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 0,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -1129.6746,
+            "y": 284.25198,
+            "z": -857.6247
+          },
+          "shapeType": "Box",
+          "radius": 3.0,
+          "size": {
+            "x": 54.34522,
+            "y": 8.21,
+            "z": 40.203938
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 6.4270034,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

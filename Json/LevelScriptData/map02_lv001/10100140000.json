@@ -1,0 +1,429 @@
+{
+  "scriptId": 10100140000,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -963.33887,
+        "y": 230.67876,
+        "z": -1601.7944
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 70.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 6
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "5819daaa"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnDialogExit, Gameplay.Beyond",
+          "_ID": 15,
+          "_nextID": 16,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_filteredDialogId": {
+            "constValue": "dlg_sm2l1m4_0d5"
+          },
+          "_filteredFinishId": {
+            "constValue": -1
+          },
+          "_dialogId": null,
+          "_finishId": null,
+          "_uid": "bdcacdfb"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.StartDialogAction, Gameplay.Beyond",
+          "_ID": 8,
+          "_nextID": 9,
+          "_shouldWaitForFinish": {
+            "constValue": true
+          },
+          "_dialogId": {
+            "constValue": "dlg_sm2l1m4_0d5"
+          },
+          "overrideBeforeMaskConfig": {
+            "constValue": false
+          },
+          "beforeMask": null,
+          "overrideAfterMaskConfig": {
+            "constValue": false
+          },
+          "afterMask": null,
+          "_uid": "fc15b10b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 9,
+          "_eventName": {
+            "constValue": "#edb2347b"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "edb2347b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PostAudioCue, Gameplay.Beyond",
+          "_ID": 16,
+          "_nextID": 17,
+          "_name": {
+            "constValue": "Low_Atmospheric_Atmospheric_Nature_0001"
+          },
+          "_behaviourType": {
+            "constValue": "SWITCH_CUSTOM_MUSIC"
+          },
+          "_intParam": {
+            "constValue": 68
+          },
+          "_stringParam": null,
+          "_volume0To10": {
+            "constValue": 20.0
+          },
+          "_floatParam": {
+            "constValue": 0.0
+          },
+          "_placeholderMusicFadeInType": {
+            "constValue": "NO_FADE_IN"
+          },
+          "_boolParam": {
+            "constValue": true
+          },
+          "_boolParam1": {
+            "constValue": true
+          },
+          "_boolParam2": {
+            "constValue": false
+          },
+          "_cueHandlerId": {
+            "path": "$16@_cueHandlerId"
+          },
+          "_uid": "84e1c1f8",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForCondition, Gameplay.Beyond",
+          "_ID": 17,
+          "_nextID": 18,
+          "_condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "sm2l1m4_q#3"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetQuestState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "eeadacbd",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          },
+          "_uid": "70a35caa"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PostAudioCue, Gameplay.Beyond",
+          "_ID": 18,
+          "_name": {
+            "constValue": "Low_Atmospheric_Atmospheric_Nature_0001"
+          },
+          "_behaviourType": {
+            "constValue": "STOP_CUSTOM_MUSIC"
+          },
+          "_intParam": {
+            "constValue": 68
+          },
+          "_stringParam": null,
+          "_volume0To10": {
+            "constValue": 10.0
+          },
+          "_floatParam": {
+            "constValue": 3.0
+          },
+          "_placeholderMusicFadeInType": {
+            "constValue": "NO_FADE_IN"
+          },
+          "_boolParam": {
+            "constValue": true
+          },
+          "_boolParam1": {
+            "constValue": true
+          },
+          "_boolParam2": {
+            "constValue": false
+          },
+          "_cueHandlerId": {
+            "path": "$18@_cueHandlerId"
+          },
+          "_uid": "a5919d8b",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IntEqual, Gameplay.Beyond",
+          "_ID": 6,
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": 0,
+            "idRef": 5
+          },
+          "_valueB": {
+            "constValue": 1
+          },
+          "_uid": "8ef1a02f"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetLevelScriptStage, Gameplay.Beyond",
+          "_ID": 5,
+          "_scriptPtr": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "d5b11d9a"
+        }
+      ]
+    }
+  },
+  "taskMap": {
+    "2a33dbb3": {
+      "conditionDict": {
+        "241e7599": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.InteractiveCheckInt, Gameplay.Beyond",
+            "_entityId": {
+              "constValue": {
+                "useSlotId": true,
+                "logicId": 0,
+                "slotId": 40001
+              }
+            },
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_key": {
+              "constValue": "state"
+            },
+            "_compareValue": {
+              "constValue": 1
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "uniqueId": "241e7599",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {
+    "40001": {
+      "levelLogicId": 0,
+      "belongLevelScriptId": 10100140000,
+      "entityType": "Interactive",
+      "entityDataIdKey": "int_narrative_empty",
+      "createState": "Disable",
+      "position": {
+        "x": -963.811,
+        "y": 232.706,
+        "z": -1601.395
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "isLocked": false,
+      "isClientOnly": false,
+      "hideInDialog": true,
+      "modelScale": 0.0,
+      "progressLockCondition": null,
+      "properties": [],
+      "globalProperties": null,
+      "globalIntKeyList": null,
+      "componentProperties": {
+        "TriggerObserver": [
+          {
+            "key": "radius",
+            "value": {
+              "type": "Float",
+              "valueArray": [
+                {
+                  "valueBit64": 1077936128
+                }
+              ]
+            }
+          }
+        ],
+        "ClickTrigger": [
+          {
+            "key": "use_level_event_click",
+            "value": {
+              "type": "BoolList",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          },
+          {
+            "key": "level_event_id_click",
+            "value": {
+              "type": "StringList",
+              "valueArray": [
+                {
+                  "valueBit64": 0,
+                  "valueString": ""
+                }
+              ]
+            }
+          },
+          {
+            "key": "click_option_name_list",
+            "value": {
+              "type": "StringList",
+              "valueArray": [
+                {
+                  "valueBit64": 0,
+                  "valueString": "lang_int_interact_spot_option"
+                }
+              ]
+            }
+          }
+        ],
+        "NarrativeComponent": [
+          {
+            "key": "type",
+            "value": {
+              "type": "Int",
+              "valueArray": [
+                {
+                  "valueBit64": -1
+                }
+              ]
+            }
+          },
+          {
+            "key": "has_narrative_fx",
+            "value": {
+              "type": "Bool",
+              "valueArray": [
+                {
+                  "valueBit64": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "forceLoad": false,
+      "aoiRadiusType": "Default"
+    }
+  },
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 1,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -963.33887,
+            "y": 230.67876,
+            "z": -1601.7944
+          },
+          "shapeType": "Box",
+          "radius": 3.0,
+          "size": {
+            "x": 30.0,
+            "y": 10.0,
+            "z": 30.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

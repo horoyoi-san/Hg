@@ -1,0 +1,469 @@
+{
+  "scriptId": 7700000014,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "SameWithActive",
+  "endType": "SameWithDeactive",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 2.0067062,
+        "y": 1.0294718,
+        "z": 55.00289
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 700.0,
+        "y": 300.0,
+        "z": 400.0
+      },
+      "radius": 0.0
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "once",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnLeaderEnterTriggerVolume, Gameplay.Beyond",
+          "_ID": 14,
+          "_nextID": 15,
+          "_filterMode": true,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_triggerSlotIdFilter": {
+            "constValue": 80001
+          },
+          "_triggerSlotIdOutput": null,
+          "_uid": "af899b11"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 25,
+          "_nextID": 26,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "65f09dcb"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#7918a2e6"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "7918a2e6"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#16a36ea6"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "16a36ea6"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 18,
+          "_nextID": 19,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#e455b1bd"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "e455b1bd"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 15,
+          "_nextID": 16,
+          "_value": {
+            "paramSource": 100,
+            "path": "once",
+            "constValue": false
+          },
+          "_uid": "f59cde1e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 16,
+          "_callClientOutputUIDs": [
+            "e455b1bd"
+          ],
+          "_eventName": {
+            "constValue": "#db0e3b71"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "db0e3b71",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AddTrackingPoint, Gameplay.Beyond",
+          "_ID": 26,
+          "_nextID": 27,
+          "_trackingPointId": {
+            "constValue": "1"
+          },
+          "_levelId": {
+            "paramSource": 1000,
+            "constValue": null
+          },
+          "_guidingArea": {
+            "constValue": 0.0
+          },
+          "_styleType": {
+            "constValue": "Common"
+          },
+          "_trackingType": {
+            "constValue": "Pos"
+          },
+          "_buildingInstKey": {
+            "constValue": null
+          },
+          "_entityLogicId": null,
+          "_pos": {
+            "constValue": {
+              "x": -206.86,
+              "y": -30.05,
+              "z": 88.03
+            }
+          },
+          "_uid": "eac9c272",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast, Gameplay.Beyond",
+          "_ID": 27,
+          "_langKey": {
+            "constValue": {
+              "key": "dungeon_challenge_timelimit_toast"
+            }
+          },
+          "_toastType": {
+            "constValue": "BottomToast"
+          },
+          "_uid": "310e19fb",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast_DevOnly, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_info": {
+            "constValue": ""
+          },
+          "_duration": {
+            "constValue": -1.0
+          },
+          "_uid": "1bc4a1a9",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 4,
+          "_key": {
+            "constValue": "au_music_dung_01_005_ending"
+          },
+          "_audioPlayingId": {
+            "path": "$4@_audioPlayingId"
+          },
+          "_uid": "3e86e7c4",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.MarkTaskConditionFailed, Gameplay.Beyond",
+          "_ID": 13,
+          "_taskPtr": {
+            "constValue": {
+              "key": "96feed9d"
+            }
+          },
+          "_taskObjective": {
+            "constValue": "Objective1"
+          },
+          "_uid": "0b28ab8d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast_DevOnly, Gameplay.Beyond",
+          "_ID": 19,
+          "_nextID": 20,
+          "_info": {
+            "constValue": ""
+          },
+          "_duration": {
+            "constValue": 10.0
+          },
+          "_uid": "3dddf2d8",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 20,
+          "_nextID": 21,
+          "_key": {
+            "constValue": "au_music_dung_01_005"
+          },
+          "_audioPlayingId": {
+            "path": "$20@_audioPlayingId"
+          },
+          "_uid": "ccaa0fc2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetBool, Gameplay.Beyond",
+          "_ID": 21,
+          "_nextID": 22,
+          "_key": {
+            "paramSource": 100,
+            "path": "once",
+            "constValue": false
+          },
+          "_value": {
+            "constValue": true
+          },
+          "_uid": "63772d84",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RemoveTrackingPoint, Gameplay.Beyond",
+          "_ID": 22,
+          "_nextID": 23,
+          "_trackingPointId": {
+            "constValue": "1"
+          },
+          "_uid": "39273a68",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CloseUIToast, Gameplay.Beyond",
+          "_ID": 23,
+          "_toastType": {
+            "constValue": "BottomToast"
+          },
+          "_uid": "7c879358",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "taskMap": {
+    "6b0c55ce": {
+      "conditionDict": {
+        "3595a0e4": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.TaskReachDestination, Gameplay.Beyond",
+            "_areaId": {
+              "constValue": "data_001"
+            },
+            "_mapId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "needSceneTrack": {
+              "constValue": false
+            },
+            "needUITrack": {
+              "constValue": false
+            },
+            "uniqueId": "3595a0e4",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": true
+    },
+    "96feed9d": {
+      "conditionDict": {
+        "beaaa6df": {
+          "isMainObjective": false,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckGameInstStartDuration, Gameplay.Beyond",
+            "levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "scriptId": {
+              "paramSource": 1002,
+              "constValue": {
+                "scriptId": 0
+              }
+            },
+            "subGameId": {
+              "paramSource": 1005,
+              "constValue": null
+            },
+            "_compareOperator": {
+              "constValue": "LessEqual"
+            },
+            "_progressToCompare": {
+              "constValue": 300
+            },
+            "uniqueId": "beaaa6df",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "c50a4838": {
+          "isMainObjective": false,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckScriptTaskStateEqual, Gameplay.Beyond",
+            "_levelId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_scriptId": {
+              "paramSource": 1002,
+              "constValue": {
+                "scriptId": 0
+              }
+            },
+            "_taskKey": {
+              "constValue": {
+                "key": "6b0c55ce"
+              }
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetValue": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "c50a4838",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "d4be737a": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CombineCondition, Gameplay.Beyond",
+            "conditionEvalString": "{0} and {1}",
+            "ast": null,
+            "subConditions": [],
+            "uniqueId": "d4be737a",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": true,
+      "canBeTracked": true
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 0,
+      "exitShapeStartIndex": -1,
+      "shapeList": [
+        {
+          "position": {
+            "x": -201.90999,
+            "y": -31.09,
+            "z": 85.83001
+          },
+          "shapeType": "Box",
+          "radius": 3.0,
+          "size": {
+            "x": 18.0,
+            "y": 5.0,
+            "z": 8.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 334.57394,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}

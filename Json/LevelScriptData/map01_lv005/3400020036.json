@@ -1,0 +1,244 @@
+{
+  "scriptId": 3400020036,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "Manual",
+  "endType": "Manual",
+  "exitBuffer": 0.0,
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 478.48438,
+        "y": 97.31445,
+        "z": -170.56245
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 93.639984
+    }
+  ],
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnIntTryUnlock, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "paramSource": 200,
+            "path": "switch",
+            "constValue": {
+              "useSlotId": false,
+              "logicId": 0,
+              "slotId": 0
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "e6ae137d"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 8,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 13
+          },
+          "_onTrueID": 10,
+          "_onFalseID": 9,
+          "_uid": "0905d815"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast, Gameplay.Beyond",
+          "_ID": 10,
+          "_langKey": {
+            "constValue": {
+              "key": "lang_int_eswitch_toast_disconnected"
+            }
+          },
+          "_toastType": {
+            "constValue": "NormalToast"
+          },
+          "_uid": "b97d3a1c",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast, Gameplay.Beyond",
+          "_ID": 9,
+          "_langKey": {
+            "constValue": {
+              "key": "lang_int_lifter_prohibit"
+            }
+          },
+          "_toastType": {
+            "constValue": "NormalToast"
+          },
+          "_uid": "39d7eb57",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.BoolGetterAnd, Gameplay.Beyond",
+          "_ID": 13,
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 12
+          },
+          "_valueB": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 15
+          },
+          "_uid": "4cb5c3c2"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsComplete, Gameplay.Beyond",
+          "_ID": 12,
+          "_isQuest": {
+            "constValue": true
+          },
+          "_missionId": {
+            "constValue": "e2m2_q#15"
+          },
+          "_uid": "76fa6ce2"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BoolGetterInvert, Gameplay.Beyond",
+          "_ID": 15,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 14
+          },
+          "_uid": "06052ddd"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsComplete, Gameplay.Beyond",
+          "_ID": 14,
+          "_isQuest": {
+            "constValue": true
+          },
+          "_missionId": {
+            "constValue": "e2m3_q#14"
+          },
+          "_uid": "d258127e"
+        }
+      ]
+    }
+  },
+  "taskMap": {
+    "412868d4": {
+      "conditionDict": {
+        "23a4fc40": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "e2m3_q#3"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetQuestState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "23a4fc40",
+            "detail": null,
+            "parent": null,
+            "parentQuestId": null,
+            "objectiveIndex": 0,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "modules": {},
+  "enemies": {},
+  "interactives": {},
+  "npcs": {},
+  "interactiveLocks": {},
+  "triggerVolumes": {
+    "80001": {
+      "isImportant": false,
+      "enterCheckOnGround": false,
+      "triggerOnPole": false,
+      "slotId": 80001,
+      "triggerCountLimit": 0,
+      "exitShapeStartIndex": 1,
+      "shapeList": [
+        {
+          "position": {
+            "x": 404.53998,
+            "y": 96.6205,
+            "z": -189.5
+          },
+          "shapeType": "Box",
+          "radius": 10.0,
+          "size": {
+            "x": 200.0,
+            "y": 20.0,
+            "z": 240.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        },
+        {
+          "position": {
+            "x": 404.53998,
+            "y": 96.6205,
+            "z": -189.5
+          },
+          "shapeType": "Box",
+          "radius": 3.0,
+          "size": {
+            "x": 206.0,
+            "y": 26.0,
+            "z": 246.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "polyLinePoints": []
+        }
+      ]
+    }
+  }
+}
