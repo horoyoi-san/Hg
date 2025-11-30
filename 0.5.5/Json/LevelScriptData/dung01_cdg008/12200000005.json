@@ -1,0 +1,124 @@
+{
+  "scriptId": 12200000005,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "SameWithActive",
+  "endType": "SameWithDeactive",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "once",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 12200000150
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_trigger": {
+            "path": "$0@_trigger"
+          },
+          "_uid": "9d36190f"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_value": {
+            "paramSource": 100,
+            "path": "once",
+            "constValue": false
+          },
+          "_uid": "36084c0e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetAnimatorTrigger, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_entity": {
+            "constValue": {
+              "logicId": 12200000149
+            }
+          },
+          "_key": {
+            "constValue": "Trigger"
+          },
+          "_uid": "77d18d7c",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SwitchAudioState, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_target": {
+            "constValue": {
+              "logicId": 12200000149
+            }
+          },
+          "_value": {
+            "constValue": "EnterArea"
+          },
+          "_modelLevel": {
+            "constValue": 0
+          },
+          "_uid": "61477458",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetBool, Gameplay.Beyond",
+          "_ID": 4,
+          "_key": {
+            "paramSource": 100,
+            "path": "once",
+            "constValue": false
+          },
+          "_value": {
+            "constValue": true
+          },
+          "_uid": "5f1c29b0",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [],
+  "startShapeList": [],
+  "properties": [],
+  "propertyIdToKeyMap": {}
+}

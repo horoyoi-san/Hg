@@ -1,0 +1,155 @@
+{
+  "scriptId": 8700010005,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_targetScript": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 0
+          },
+          "_uid": "7154ff86"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.Split, Gameplay.Beyond",
+          "_ID": 2,
+          "_idList": [
+            3,
+            5
+          ],
+          "_uid": "e9e5b7a2"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 3,
+          "_eventName": {
+            "constValue": "#1dac8d9e"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "1dac8d9e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayLevelSequenceAction, Gameplay.Beyond",
+          "_ID": 5,
+          "_shouldWaitForFinish": {
+            "constValue": false
+          },
+          "_levelSeqId": {
+            "constValue": "levelseq_e0m0_meteorfalling2"
+          },
+          "_existingInteractives": {
+            "constValue": []
+          },
+          "_existingEnemy": {
+            "constValue": []
+          },
+          "_uid": "a73e13f7",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 0,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": 300,
+            "path": "played",
+            "constValue": false
+          },
+          "_valueB": {
+            "constValue": false
+          },
+          "_uid": "8747f95c"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": -344.5,
+        "y": 101.04376,
+        "z": -79.4
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 63.951008,
+        "z": 0.0
+      },
+      "size": {
+        "x": 180.0,
+        "y": 160.0,
+        "z": 160.0
+      },
+      "radius": 0.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": -344.5,
+        "y": 101.04376,
+        "z": -79.4
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 63.951008,
+        "z": 0.0
+      },
+      "size": {
+        "x": 30.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 15.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "played",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "2": "played"
+  }
+}

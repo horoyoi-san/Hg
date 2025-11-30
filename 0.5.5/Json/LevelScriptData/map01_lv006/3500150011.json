@@ -1,0 +1,275 @@
+{
+  "scriptId": 3500150011,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 3500150087
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 0
+          },
+          "_trigger": {
+            "path": "$1@_trigger"
+          },
+          "_uid": "7ba4ab0c"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 2,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 13
+          },
+          "_onTrueID": 0,
+          "_onFalseID": 3,
+          "_uid": "23221315"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.StartDialogAction, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_shouldWaitForFinish": {
+            "constValue": true
+          },
+          "_dialogId": {
+            "constValue": "dlg_sm1l6m1_1"
+          },
+          "_uid": "29a1adf2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.StartDialogAction, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 5,
+          "_shouldWaitForFinish": {
+            "constValue": true
+          },
+          "_dialogId": {
+            "constValue": "dlg_sm1l6m1_2"
+          },
+          "_uid": "e9b8ba73",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIReadingPopPanel, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_readingPopId": {
+            "constValue": "text_sm1l6m1_1"
+          },
+          "_uid": "a14994ec",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 6,
+          "_eventName": {
+            "constValue": "#52720d3b"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "52720d3b",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 0,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": 300,
+            "path": "dlg_sm1l6m1_2_Done",
+            "constValue": false
+          },
+          "_valueB": {
+            "constValue": false
+          },
+          "_uid": "4a513d62"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetConditionResult, Gameplay.Beyond",
+          "_ID": 13,
+          "_condition": {
+            "$type": "Beyond.Gameplay.CheckLevelScriptPropertyBool, Gameplay.Beyond",
+            "_mapId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_scriptId": {
+              "constValue": {
+                "scriptId": 3500190001
+              }
+            },
+            "_key": {
+              "constValue": "ifHideButton"
+            },
+            "_value": {
+              "constValue": true
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "uniqueId": "3769aacb",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          },
+          "_uid": "3c94e6f3"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "ResetAllWhenNotDone",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 588.66,
+        "y": 36.88781,
+        "z": 263.39
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 125.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 568.91,
+        "y": 36.8252,
+        "z": 290.87003
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 588.66,
+        "y": 36.88781,
+        "z": 263.39
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 50.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "RP_150011_1",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 1142383890
+          },
+          {
+            "valueBit64": 1110834095
+          },
+          {
+            "valueBit64": 1130544439
+          }
+        ]
+      }
+    },
+    {
+      "key": "RR_150011_1",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": -2147483648
+          },
+          {
+            "valueBit64": 1128625423
+          },
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "dlg_sm1l6m1_2_Done",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "5": "dlg_sm1l6m1_2_Done",
+    "1027": "RP_150011_1",
+    "1028": "RR_150011_1"
+  }
+}

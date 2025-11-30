@@ -1,0 +1,254 @@
+{
+  "facOccDis": 0.5,
+  "hideInDialog": false,
+  "mountPoints": [],
+  "dataMap": {
+    "headerList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnCustomEventNew, Gameplay.Beyond",
+        "_ID": 7,
+        "_nextID": 4,
+        "_targetEntity": null,
+        "_targetEntityList": {
+          "constValue": null
+        },
+        "_targetEntityListOutput": null,
+        "_validate": {
+          "constValue": true
+        },
+        "_eventKey": {
+          "constValue": "ON_NPC_CAGE_COMPLETE"
+        },
+        "_eventArgsPtr": {
+          "path": "$7@_eventArgsPtr"
+        },
+        "_uid": "61be21e7"
+      }
+    ],
+    "actionList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+        "_ID": 4,
+        "_nextID": 5,
+        "_value": {
+          "paramSource": -1,
+          "constValue": false,
+          "idRef": 3
+        },
+        "_uid": "856e8b1a",
+        "useCurrentScope": true
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SwitchAudioState, Gameplay.Beyond",
+        "_ID": 5,
+        "_nextID": 6,
+        "_target": {
+          "paramSource": 1001,
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_value": {
+          "constValue": "Stop"
+        },
+        "_modelLevel": {
+          "constValue": 0
+        },
+        "_uid": "0bafeb05",
+        "useCurrentScope": true
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.DebugLogAction, Gameplay.Beyond",
+        "_ID": 6,
+        "_info": {
+          "constValue": "ywtest: play stop audio"
+        },
+        "_uid": "28964c52",
+        "useCurrentScope": true
+      }
+    ],
+    "getterList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.IntEqual, Gameplay.Beyond",
+        "_ID": 3,
+        "_valueA": {
+          "paramSource": -1,
+          "constValue": 0,
+          "idRef": 2
+        },
+        "_valueB": {
+          "constValue": 1
+        },
+        "_uid": "0498f394"
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.InteractiveGetSavePropertyInt, Gameplay.Beyond",
+        "_ID": 2,
+        "_entity": {
+          "paramSource": 1001,
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_key": {
+          "constValue": "state"
+        },
+        "_uid": "9a400ae2"
+      }
+    ]
+  },
+  "tempProperties": [],
+  "configProperties": [
+    {
+      "key": "entity_id",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "target_floor",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "Floor"
+          }
+        ]
+      }
+    }
+  ],
+  "saveProperties": [
+    {
+      "key": "state",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "2": "state",
+    "1029": "entity_id",
+    "1031": "target_floor"
+  },
+  "propertyKeyToIdMap": {
+    "entity_id": 1029,
+    "state": 2,
+    "target_floor": 1031
+  },
+  "templateVariant": {},
+  "bornTag": [],
+  "delayToRecycleTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.ModelComponentData, Gameplay.Beyond",
+      "modelId": "int_npc_cage_postmodel",
+      "randomModelId": [],
+      "modelScale": 1.0,
+      "loadDelayTime": 0.0,
+      "useLod": false,
+      "cullDistance": 100.0,
+      "cullTimeInterval": 2.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.SimpleAnimatorComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveLogicControllerComponentData, Gameplay.Beyond",
+      "logicType": 47
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.KeepRelativeOffsetComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "value_bool",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "target_list",
+          "value": {
+            "type": "EntityPtrList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "follow_type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "position_list",
+          "value": {
+            "type": "Vector3List",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "rotation_list",
+          "value": {
+            "type": "Vector3List",
+            "valueArray": []
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveAudioData, Gameplay.Beyond",
+      "audioData": {
+        "openAudio": true,
+        "useDynamicLevel": false,
+        "useCustomStencil": false,
+        "useTiggerStencil": false,
+        "useWorkStencil": true,
+        "useAttackStencil": false,
+        "useRepairStencil": false,
+        "useDestroyStencil": false,
+        "useCollectStencil": false,
+        "useInteractStencil": false,
+        "useActiveStencil": false,
+        "audioNameDict": {
+          "StartUp": [
+            "au_int_npc_cage_start"
+          ],
+          "Stop": [
+            "au_int_npc_cage_end"
+          ]
+        },
+        "customAudioData": []
+      },
+      "propertyList": []
+    }
+  ],
+  "name": "int_npc_cage",
+  "factionIndex": "Neutral",
+  "id": "int_npc_cage"
+}

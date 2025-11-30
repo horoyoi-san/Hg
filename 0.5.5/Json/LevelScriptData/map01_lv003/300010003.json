@@ -1,0 +1,345 @@
+{
+  "scriptId": 300010003,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "SameWithActive",
+  "endType": "SameWithDeactive",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": -1,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 300010275
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_trigger": {
+            "path": "$10@_trigger"
+          },
+          "_uid": "290410c9"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 15,
+          "_nextID": -1,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 300010276
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_trigger": {
+            "path": "$15@_trigger"
+          },
+          "_uid": "ce5b90c3"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 21,
+          "_nextID": 22,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 300010200
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 20
+          },
+          "_trigger": {
+            "path": "$21@_trigger"
+          },
+          "_uid": "66e9a6bd"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnQuestStateChanged, Gameplay.Beyond",
+          "_ID": 26,
+          "_nextID": 27,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_questId": {
+            "path": "$26@_questId"
+          },
+          "_oldState": {
+            "path": "$26@_oldState"
+          },
+          "_newState": {
+            "path": "$26@_newState"
+          },
+          "_filtedQuestId": {
+            "constValue": "sm1l3m2_q#7d05"
+          },
+          "_filtedNewState": {
+            "constValue": "Completed"
+          },
+          "_uid": "8e405deb"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 37,
+          "_nextID": 38,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "ON_003_CRANE_BUSY_CHANGE"
+          },
+          "_eventArgsPtr": {
+            "path": "$37@_eventArgsPtr"
+          },
+          "_uid": "1ab57b6f"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 22,
+          "_nextID": 23,
+          "_value": {
+            "paramSource": 300,
+            "path": "movea",
+            "constValue": false
+          },
+          "_uid": "bd5b3379",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 23,
+          "_eventName": {
+            "constValue": "#76561804"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "76561804",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 27,
+          "_nextID": 28,
+          "_value": {
+            "paramSource": 300,
+            "path": "moveb",
+            "constValue": false
+          },
+          "_uid": "bbec517f",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 28,
+          "_eventName": {
+            "constValue": "#b1b9a195"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "b1b9a195",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 38,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 40
+          },
+          "_onTrueID": 0,
+          "_onFalseID": 39,
+          "_uid": "bf506948"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 39,
+          "_nextID": 32,
+          "_value": {
+            "paramSource": 300,
+            "path": "isDone",
+            "constValue": false
+          },
+          "_uid": "b379e72d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 32,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 31
+          },
+          "_onTrueID": 33,
+          "_onFalseID": 0,
+          "_uid": "17bcb1a3"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 33,
+          "_eventName": {
+            "constValue": "#24590e18"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "24590e18",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsProcessing, Gameplay.Beyond",
+          "_ID": 20,
+          "_isQuest": {
+            "constValue": true
+          },
+          "_missionId": {
+            "constValue": "sm1l3m2_q#6"
+          },
+          "_uid": "0a83a5f6"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EventArgsGetBool, Gameplay.Beyond",
+          "_ID": 40,
+          "_eventArgsPtr": {
+            "paramSource": 100,
+            "path": "$37@_eventArgsPtr",
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_key": {
+            "constValue": "is_busy"
+          },
+          "_uid": "44069506"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsProcessing, Gameplay.Beyond",
+          "_ID": 31,
+          "_isQuest": {
+            "constValue": true
+          },
+          "_missionId": {
+            "constValue": "sm1l3m2_q#16d1"
+          },
+          "_uid": "371d9813"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [],
+  "startShapeList": [],
+  "properties": [
+    {
+      "key": "movea",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "moveb",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "move0a",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "move0b",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "isDone",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "movea",
+    "2": "moveb",
+    "3": "move0a",
+    "4": "move0b",
+    "5": "isDone"
+  }
+}

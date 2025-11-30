@@ -1,0 +1,236 @@
+{
+  "scriptId": 8700020020,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "enemyCount",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#2b7bd72c"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "2b7bd72c"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_key": {
+            "constValue": "au_music_tundra_000_battlefield_1_to_2_before_tower_intro"
+          },
+          "_audioPlayingId": {
+            "path": "$7@_audioPlayingId"
+          },
+          "_uid": "9e208f3f",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 8,
+          "_nextID": 9,
+          "_seconds": {
+            "constValue": 1.0
+          },
+          "_uid": "b65e0acb",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudio, Gameplay.Beyond",
+          "_ID": 9,
+          "_key": {
+            "constValue": "au_music_tundra_000_battlefield_2_before_tower"
+          },
+          "_audioPlayingId": {
+            "path": "$9@_audioPlayingId"
+          },
+          "_uid": "5a700cff",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 6.4,
+        "y": 61.9,
+        "z": 150.9
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 337.08923,
+        "z": 0.0
+      },
+      "size": {
+        "x": 230.0,
+        "y": 170.0,
+        "z": 250.0
+      },
+      "radius": 0.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 6.4,
+        "y": 61.9,
+        "z": 150.9
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 337.08923,
+        "z": 0.0
+      },
+      "size": {
+        "x": 80.0,
+        "y": 20.0,
+        "z": 100.0
+      },
+      "radius": 30.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "waveAttack3",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": [
+          {
+            "valueBit64": 8700030008
+          },
+          {
+            "valueBit64": 8700030009
+          },
+          {
+            "valueBit64": 8700030011
+          },
+          {
+            "valueBit64": 8700030020
+          },
+          {
+            "valueBit64": 8700030022
+          }
+        ]
+      }
+    },
+    {
+      "key": "isFinished",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:4e9942f9:a770a250",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:4e9942f9:a770a250",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    }
+  ],
+  "taskMap": {
+    "4e9942f9": {
+      "conditionDict": {
+        "a770a250": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckLevelScriptPropertyBool, Gameplay.Beyond",
+            "_mapId": {
+              "paramSource": 1000,
+              "constValue": null
+            },
+            "_scriptId": {
+              "paramSource": 1002,
+              "constValue": {
+                "scriptId": 0
+              }
+            },
+            "_key": {
+              "constValue": "isFinished"
+            },
+            "_value": {
+              "constValue": true
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "uniqueId": "a770a250",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "propertyIdToKeyMap": {
+    "2": "isFinished",
+    "3": "lt:p:4e9942f9:a770a250",
+    "1028": "lt:mp:4e9942f9:a770a250",
+    "1029": "waveAttack3"
+  }
+}

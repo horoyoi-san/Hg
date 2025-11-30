@@ -1,0 +1,557 @@
+{
+  "scriptId": 3400020025,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "invert",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 1,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnBBVariableChanged, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_key": {
+            "constValue": "invert"
+          },
+          "_value": {
+            "path": "$0@_value"
+          },
+          "_oldValue": {
+            "path": "$0@_oldValue"
+          },
+          "_uid": "7ea2c577"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 17,
+          "_nextID": 18,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "invert"
+          },
+          "_eventArgsPtr": {
+            "path": "$17@_eventArgsPtr"
+          },
+          "_uid": "a63ba3cd"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 20,
+          "_nextID": 21,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "bbec6ffc"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#252b164b"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "252b164b"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 11,
+          "_nextID": 12,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#e4ca9044"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "e4ca9044"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 1,
+          "_condition": {
+            "paramSource": 100,
+            "path": "invert",
+            "constValue": true
+          },
+          "_onTrueID": 2,
+          "_onFalseID": 8,
+          "_uid": "5f13de21"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 2,
+          "_callClientOutputUIDs": [
+            "252b164b"
+          ],
+          "_eventName": {
+            "constValue": "#ce49419f"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "ce49419f",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 8,
+          "_callClientOutputUIDs": [
+            "e4ca9044"
+          ],
+          "_eventName": {
+            "constValue": "#760c867e"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "760c867e",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForOneFrame, Gameplay.Beyond",
+          "_ID": 18,
+          "_nextID": 19,
+          "_uid": "b809fbbf",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetBoolInvert, Gameplay.Beyond",
+          "_ID": 19,
+          "_key": {
+            "paramSource": 100,
+            "path": "invert",
+            "constValue": false
+          },
+          "_uid": "003fcd97",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetBoolInvert, Gameplay.Beyond",
+          "_ID": 21,
+          "_key": {
+            "paramSource": 100,
+            "path": "invert",
+            "constValue": false
+          },
+          "_uid": "c161a751",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_seconds": {
+            "paramSource": 200,
+            "path": "delay",
+            "constValue": 1.0
+          },
+          "_uid": "126e8156",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomScriptEvent, Gameplay.Beyond",
+          "_ID": 7,
+          "_eventKey": {
+            "constValue": "invert"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "968c5713",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_seconds": {
+            "paramSource": 200,
+            "path": "delay",
+            "constValue": 1.0
+          },
+          "_uid": "a670babc",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomScriptEvent, Gameplay.Beyond",
+          "_ID": 13,
+          "_eventKey": {
+            "constValue": "invert"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "9476c1e2",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 509.83,
+        "y": 87.21,
+        "z": -171.26
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 170.0,
+        "y": 160.0,
+        "z": 190.0
+      },
+      "radius": 0.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 511.0,
+        "y": 87.21,
+        "z": -181.0
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 515.85,
+        "y": 88.9946,
+        "z": -173.747
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 515.85,
+        "y": 88.21,
+        "z": -173.747
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 515.85,
+        "y": 89.71,
+        "z": -173.747
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 499.727,
+        "y": 88.21,
+        "z": -175.99199
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 499.727,
+        "y": 88.96,
+        "z": -175.99199
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 499.727,
+        "y": 89.71,
+        "z": -175.99199
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 506.809,
+        "y": 88.21,
+        "z": -180.42099
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 506.809,
+        "y": 88.96,
+        "z": -180.42099
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 506.809,
+        "y": 89.71,
+        "z": -180.42099
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 509.83,
+        "y": 87.21,
+        "z": -171.26
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 20.0,
+        "y": 10.0,
+        "z": 40.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "infrared_g1",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": [
+          {
+            "valueBit64": 3400020764
+          },
+          {
+            "valueBit64": 3400020765
+          },
+          {
+            "valueBit64": 3400020766
+          },
+          {
+            "valueBit64": 3400020825
+          },
+          {
+            "valueBit64": 3400020826
+          },
+          {
+            "valueBit64": 3400020827
+          }
+        ]
+      }
+    },
+    {
+      "key": "infrared_g2",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": [
+          {
+            "valueBit64": 3400020768
+          },
+          {
+            "valueBit64": 3400020769
+          },
+          {
+            "valueBit64": 3400020767
+          }
+        ]
+      }
+    },
+    {
+      "key": "delay",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1077936128,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "savepoint",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400020567
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1025": "infrared_g1",
+    "1026": "infrared_g2",
+    "1027": "delay",
+    "1028": "savepoint"
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "scriptId": 13000000019,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "8be3c6ef"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptEnd, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_reasonFilter": null,
+          "_uid": "c3bf5a0e"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SummmonTeamWithPos, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "target": {
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "positionList": {
+            "paramSource": 200,
+            "path": "teammate",
+            "constValue": null
+          },
+          "allowMove": {
+            "constValue": true
+          },
+          "_uid": "c69fdc51",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AllGuardSwitchAIMode, Gameplay.Beyond",
+          "_ID": 2,
+          "_aiMode": {
+            "constValue": "Idle"
+          },
+          "_enable": {
+            "constValue": true
+          },
+          "_uid": "986a0fda",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.AllGuardSwitchAIMode, Gameplay.Beyond",
+          "_ID": 4,
+          "_aiMode": {
+            "constValue": "Idle"
+          },
+          "_enable": {
+            "constValue": false
+          },
+          "_uid": "28fdfc7a",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 337.8,
+        "y": 9.998169,
+        "z": 348.08
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 230.0,
+        "y": 160.0,
+        "z": 210.0
+      },
+      "radius": 0.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 337.8,
+        "y": 9.998169,
+        "z": 348.08
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 80.0,
+        "y": 10.0,
+        "z": 60.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "teammate",
+      "value": {
+        "type": "Vector3List",
+        "valueArray": [
+          {
+            "valueBit64": 1135345358
+          },
+          {
+            "valueBit64": 1092614798
+          },
+          {
+            "valueBit64": 1134557135
+          },
+          {
+            "valueBit64": 1135512212
+          },
+          {
+            "valueBit64": 1092614272
+          },
+          {
+            "valueBit64": 1134582917
+          },
+          {
+            "valueBit64": 1135435373
+          },
+          {
+            "valueBit64": 1092614272
+          },
+          {
+            "valueBit64": 1134495377
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:f47af03e:14111a9b",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:f47af03e:14111a9b",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    }
+  ],
+  "taskMap": {
+    "f47af03e": {
+      "conditionDict": {
+        "14111a9b": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "c1m3d5_q#9"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetQuestState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "14111a9b",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "propertyIdToKeyMap": {
+    "2": "lt:p:f47af03e:14111a9b",
+    "1025": "teammate",
+    "1027": "lt:mp:f47af03e:14111a9b"
+  }
+}

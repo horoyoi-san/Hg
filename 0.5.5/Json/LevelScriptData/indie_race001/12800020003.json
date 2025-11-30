@@ -1,0 +1,499 @@
+{
+  "scriptId": 12800020003,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "PoleBegin",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        },
+        {
+          "key": "Firsttime",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 1,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnTravelPoleBegin, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 2,
+          "_validate": {
+            "constValue": true
+          },
+          "_entityOutput": {
+            "path": "$0@_entityOutput"
+          },
+          "_instKeyOutput": {
+            "path": "$0@_instKeyOutput"
+          },
+          "_uid": "155802e9"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 12800021815
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 4
+          },
+          "_trigger": {
+            "path": "$5@_trigger"
+          },
+          "_uid": "2004cfd5"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 11,
+          "_nextID": 12,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 12800021816
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_trigger": {
+            "path": "$11@_trigger"
+          },
+          "_uid": "2c9cce44"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#3a5e20a8"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "3a5e20a8"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 2,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 1
+          },
+          "_onTrueID": 3,
+          "_onFalseID": 0,
+          "_uid": "df936fd1"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetBool, Gameplay.Beyond",
+          "_ID": 3,
+          "_key": {
+            "paramSource": 100,
+            "path": "PoleBegin",
+            "constValue": false
+          },
+          "_value": {
+            "constValue": true
+          },
+          "_uid": "4c32f4e9",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_value": {
+            "paramSource": 100,
+            "path": "Firsttime",
+            "constValue": false
+          },
+          "_uid": "47eff6cc",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 7,
+          "_callClientOutputUIDs": [
+            "3a5e20a8"
+          ],
+          "_eventName": {
+            "constValue": "#d8700eb6"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "d8700eb6",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 12,
+          "_eventName": {
+            "constValue": "#6b84674a"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "6b84674a",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetBool, Gameplay.Beyond",
+          "_ID": 10,
+          "_key": {
+            "paramSource": 100,
+            "path": "Firsttime",
+            "constValue": false
+          },
+          "_value": {
+            "constValue": false
+          },
+          "_uid": "abbc7559",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityCompare, Gameplay.Beyond",
+          "_ID": 1,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": 100,
+            "path": "$0@_entityOutput",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_valueB": {
+            "constValue": {
+              "logicId": 12800020232
+            }
+          },
+          "_uid": "4a6f23e7"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 4,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": 100,
+            "path": "PoleBegin",
+            "constValue": false
+          },
+          "_valueB": {
+            "constValue": true
+          },
+          "_uid": "607a3377"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 109.40024,
+        "y": 3.79,
+        "z": -270.26364
+      },
+      "eulerAngles": {
+        "x": 330.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 153.0,
+        "y": 153.0,
+        "z": 157.0
+      },
+      "radius": 0.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 109.43024,
+        "y": 2.5969872,
+        "z": -271.31268
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 109.43024,
+        "y": -7.487954,
+        "z": -293.78027
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 94.54559,
+        "y": -0.12649107,
+        "z": -288.14557
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 98.90344,
+        "y": -24.013336,
+        "z": -288.1436
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 93.85651,
+        "y": -5.177747,
+        "z": -288.1436
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 113.8642,
+        "y": 5.049871,
+        "z": -288.14557
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 114.83014,
+        "y": 5.308684,
+        "z": -288.14557
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 93.57965,
+        "y": -0.38530397,
+        "z": -288.14557
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 93.59772,
+        "y": -4.2118187,
+        "z": -288.1436
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 93.33893,
+        "y": -3.245891,
+        "z": -288.1436
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 99.16223,
+        "y": -24.979263,
+        "z": -288.1436
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 109.40024,
+        "y": 3.79,
+        "z": -270.26364
+      },
+      "eulerAngles": {
+        "x": 330.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 3.0,
+        "y": 3.0,
+        "z": 7.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [],
+  "propertyIdToKeyMap": {}
+}

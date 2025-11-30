@@ -1,0 +1,292 @@
+{
+  "id": "int_edoor_experbase_v2",
+  "name": "int_edoor_experbase_v2",
+  "factionIndex": "Neutral",
+  "bornTag": [],
+  "delayToRecycleTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.ModelComponentData, Gameplay.Beyond",
+      "modelId": "int_edoor_experbase_v1",
+      "randomModelId": [],
+      "modelScale": 1.0,
+      "loadDelayTime": 0.0,
+      "useLod": false,
+      "cullDistance": 100.0,
+      "cullTimeInterval": 2.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.SimpleAnimatorComponentData, Gameplay.Beyond"
+    }
+  ],
+  "facOccDis": 0.5,
+  "hideInDialog": false,
+  "dataMap": {
+    "headerList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnEntityStart, Gameplay.Beyond",
+        "_ID": 0,
+        "_nextID": 1,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "eb43706c"
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnSavePropertyChanged, Gameplay.Beyond",
+        "_ID": 6,
+        "_nextID": 7,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "652725d6",
+        "_propertyKey": {
+          "constValue": "is_opened"
+        },
+        "_value": {
+          "path": "$6@_value"
+        },
+        "_oldValue": {
+          "path": "$6@_oldValue"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnCustomEventNew, Gameplay.Beyond",
+        "_ID": 8,
+        "_nextID": 9,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "2de8037c",
+        "_eventKey": {
+          "constValue": "open_door"
+        },
+        "_eventArgsPtr": {
+          "path": "$8@_eventArgsPtr"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnCustomEventNew, Gameplay.Beyond",
+        "_ID": 10,
+        "_nextID": 11,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "ffb55f6a",
+        "_eventKey": {
+          "constValue": "close_door"
+        },
+        "_eventArgsPtr": {
+          "path": "$10@_eventArgsPtr"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnCustomEventNew, Gameplay.Beyond",
+        "_ID": 12,
+        "_nextID": 9,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "6bcb0033",
+        "_eventKey": {
+          "constValue": "ON_OPEN"
+        },
+        "_eventArgsPtr": {
+          "path": "$12@_eventArgsPtr"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnCustomEventNew, Gameplay.Beyond",
+        "_ID": 13,
+        "_nextID": 11,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "a6aeb313",
+        "_eventKey": {
+          "constValue": "ON_DEFAULT_EVENT"
+        },
+        "_eventArgsPtr": {
+          "path": "$13@_eventArgsPtr"
+        }
+      }
+    ],
+    "actionList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+        "_ID": 1,
+        "_uid": "38142334",
+        "_condition": {
+          "paramSource": 300,
+          "path": "is_opened",
+          "constValue": true
+        },
+        "_onTrueID": 2,
+        "_onFalseID": 4
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetAnimatorBool, Gameplay.Beyond",
+        "_ID": 2,
+        "_nextID": 3,
+        "_uid": "05a67b45",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_key": {
+          "constValue": "is_opened"
+        },
+        "_value": {
+          "constValue": true
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetAnimatorBool, Gameplay.Beyond",
+        "_ID": 4,
+        "_nextID": 5,
+        "_uid": "3d709f6b",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_key": {
+          "constValue": "is_opened"
+        },
+        "_value": {
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetAnimatorState, Gameplay.Beyond",
+        "_ID": 3,
+        "_uid": "5a36ca58",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_stateName": {
+          "constValue": "open_idle"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetAnimatorState, Gameplay.Beyond",
+        "_ID": 5,
+        "_uid": "7d90b3c2",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_stateName": {
+          "constValue": "close_idle"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SetAnimatorBool, Gameplay.Beyond",
+        "_ID": 7,
+        "_uid": "6c0e243a",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "path": "@self",
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_key": {
+          "constValue": "is_opened"
+        },
+        "_value": {
+          "paramSource": 300,
+          "path": "is_opened",
+          "constValue": false
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SaveBool, Gameplay.Beyond",
+        "_ID": 9,
+        "_uid": "255c214e",
+        "useCurrentScope": true,
+        "_eventName": {
+          "constValue": ""
+        },
+        "_key": {
+          "paramSource": 300,
+          "path": "is_opened",
+          "constValue": false
+        },
+        "_value": {
+          "constValue": true
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.SaveBool, Gameplay.Beyond",
+        "_ID": 11,
+        "_uid": "cf6fb26c",
+        "useCurrentScope": true,
+        "_eventName": {
+          "constValue": ""
+        },
+        "_key": {
+          "paramSource": 300,
+          "path": "is_opened",
+          "constValue": false
+        },
+        "_value": {
+          "constValue": false
+        }
+      }
+    ],
+    "getterList": []
+  },
+  "tempProperties": [],
+  "configProperties": [],
+  "saveProperties": [
+    {
+      "key": "is_opened",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "is_opened"
+  },
+  "propertyKeyToIdMap": {
+    "is_opened": 1
+  },
+  "templateVariant": {}
+}

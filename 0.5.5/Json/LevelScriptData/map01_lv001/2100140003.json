@@ -1,0 +1,263 @@
+{
+  "scriptId": 2100140003,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": 9,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "7740719e"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 4,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 8
+          },
+          "_uid": "7e8d1090",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 5,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 3
+          },
+          "_uid": "881e8710",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 5,
+          "_eventName": {
+            "constValue": "#90785e36"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "90785e36",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CompareMissionState, Gameplay.Beyond",
+          "_ID": 8,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": "None",
+            "idRef": 7
+          },
+          "_valueB": {
+            "constValue": "Completed"
+          },
+          "_uid": "dc18d384"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetMissionState, Gameplay.Beyond",
+          "_ID": 7,
+          "_missionId": {
+            "constValue": "e2m1"
+          },
+          "_uid": "e36943f2"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetEntityExist, Gameplay.Beyond",
+          "_ID": 3,
+          "_target": {
+            "constValue": {
+              "logicId": 2100260000
+            }
+          },
+          "_uid": "8ff54f6f"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -75.36,
+        "y": 82.417206,
+        "z": -251.65
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 105.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -75.36,
+        "y": 82.417206,
+        "z": -251.65
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 30.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "lt:p:d598d789:857f868c",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:8f866c31:e157458c",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:d598d789:857f868c",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:8f866c31:e157458c",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    }
+  ],
+  "taskMap": {
+    "8f866c31": {
+      "conditionDict": {
+        "e157458c": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckMissionState, Gameplay.Beyond",
+            "_missionId": {
+              "constValue": "e2m1"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetMissionState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "e157458c",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "d598d789": {
+      "conditionDict": {
+        "857f868c": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckMissionState, Gameplay.Beyond",
+            "_missionId": {
+              "constValue": "e1m9"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetMissionState": {
+              "constValue": "Processing"
+            },
+            "uniqueId": "857f868c",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "propertyIdToKeyMap": {
+    "1": "lt:p:d598d789:857f868c",
+    "3": "lt:p:8f866c31:e157458c",
+    "1026": "lt:mp:d598d789:857f868c",
+    "1028": "lt:mp:8f866c31:e157458c"
+  }
+}

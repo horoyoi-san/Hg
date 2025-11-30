@@ -1,0 +1,671 @@
+{
+  "id": "int_rope_port",
+  "name": "int_rope_port",
+  "factionIndex": "Neutral",
+  "bornTag": [],
+  "delayToRecycleTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.ModelComponentData, Gameplay.Beyond",
+      "modelId": "int_rope_port_top_postmodel",
+      "randomModelId": [],
+      "modelScale": 1.0,
+      "loadDelayTime": 0.0,
+      "useLod": false,
+      "cullDistance": 100.0,
+      "cullTimeInterval": 2.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.TriggerObserverComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1074580685
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 1060320051
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "size",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1077936128
+              },
+              {
+                "valueBit64": 1077936128
+              }
+            ]
+          }
+        },
+        {
+          "key": "interactive_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_offset",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1092616192
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_height",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1084227584
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_angle",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1135869952
+              }
+            ]
+          }
+        },
+        {
+          "key": "player_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_important",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveLogicControllerComponentData, Gameplay.Beyond",
+      "logicType": 7
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveAudioData, Gameplay.Beyond",
+      "propertyList": [],
+      "audioData": {
+        "openAudio": true,
+        "useDynamicLevel": false,
+        "useCustomStencil": false,
+        "useTiggerStencil": false,
+        "useWorkStencil": true,
+        "useAttackStencil": false,
+        "useRepairStencil": false,
+        "useDestroyStencil": false,
+        "useCollectStencil": false,
+        "useInteractStencil": false,
+        "useActiveStencil": false,
+        "audioNameDict": {
+          "StartUp": [
+            "au_int_rope_port_start"
+          ],
+          "Stop": [
+            "au_int_rope_port_end"
+          ]
+        },
+        "customAudioData": []
+      }
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.SummonTeamComponentData, Gameplay.Beyond",
+      "propertyList": []
+    }
+  ],
+  "facOccDis": 0.5,
+  "hideInDialog": false,
+  "mountPoints": [],
+  "dataMap": {
+    "headerList": [
+      {
+        "$type": "Beyond.Gameplay.OnRopePortPlayAnim, Gameplay.Beyond",
+        "_ID": 4,
+        "_nextID": 5,
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "6d71bee1",
+        "position": {
+          "path": "$4@position"
+        },
+        "rotation": {
+          "path": "$4@rotation"
+        },
+        "fov": {
+          "path": "$4@fov"
+        },
+        "time": {
+          "path": "$4@time"
+        }
+      }
+    ],
+    "actionList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.BlendToCameraTransformWithTime, Gameplay.Beyond",
+        "_ID": 5,
+        "_uid": "f261323d",
+        "useCurrentScope": true,
+        "pos": {
+          "paramSource": 100,
+          "path": "$4@position",
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        },
+        "rot": {
+          "paramSource": 100,
+          "path": "$4@rotation",
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        },
+        "fov": {
+          "paramSource": 100,
+          "path": "$4@fov",
+          "constValue": -1.0
+        },
+        "useBlackScreen": {
+          "constValue": true
+        },
+        "tweenTime": {
+          "constValue": 0.5
+        },
+        "duration": {
+          "paramSource": 100,
+          "path": "$4@time",
+          "constValue": 2.0
+        },
+        "overrideBlend": {
+          "constValue": false
+        },
+        "blendStyle": {
+          "constValue": "EaseInOut"
+        },
+        "useYawCheck": {
+          "constValue": false
+        }
+      }
+    ],
+    "getterList": []
+  },
+  "tempProperties": [
+    {
+      "key": "camera_pos",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          },
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          },
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "camera_rot",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          },
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          },
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "rope_camera_fov",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "configProperties": [
+    {
+      "key": "speed",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1090519040
+          }
+        ]
+      }
+    },
+    {
+      "key": "move_speed",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": -1082130432
+          }
+        ]
+      }
+    },
+    {
+      "key": "rope_end_pos",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": -1162379212
+          },
+          {
+            "valueBit64": 1121779987
+          },
+          {
+            "valueBit64": 985104436
+          }
+        ]
+      }
+    },
+    {
+      "key": "name_as_target",
+      "value": {
+        "type": "LangKey",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "lang_int_interact_general"
+          }
+        ]
+      }
+    },
+    {
+      "key": "target",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "rope_port_unlock",
+      "value": {
+        "type": "LangKey",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "lang_int_rope_unlock"
+          }
+        ]
+      }
+    },
+    {
+      "key": "top_rope_port",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    },
+    {
+      "key": "rope_camera_fov",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "camera_pos",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          },
+          {
+            "valueBit64": 0
+          },
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "camera_rot",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          },
+          {
+            "valueBit64": 0
+          },
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "scale",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1090519040
+          }
+        ]
+      }
+    },
+    {
+      "key": "rope_horizontal_scale",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1073741824
+          }
+        ]
+      }
+    },
+    {
+      "key": "rope_init_pos",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          },
+          {
+            "valueBit64": 1057467924
+          },
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "camera_anim_duration",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1073741824
+          }
+        ]
+      }
+    },
+    {
+      "key": "light_vfx_render",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "P_interactive_collectingmaterials_asset"
+          }
+        ]
+      }
+    },
+    {
+      "key": "rope_cam_setting",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "saveProperties": [
+    {
+      "key": "state",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "state",
+    "1029": "speed",
+    "1030": "rope_end_pos",
+    "1031": "name_as_target",
+    "1032": "rope_port_unlock",
+    "1033": "top_rope_port",
+    "1034": "target",
+    "1036": "rope_camera_fov",
+    "1037": "camera_pos",
+    "1038": "camera_rot",
+    "1039": "scale",
+    "1040": "rope_horizontal_scale",
+    "1041": "rope_init_pos",
+    "1042": "camera_anim_duration",
+    "1043": "light_vfx_render",
+    "1044": "rope_cam_setting",
+    "1045": "move_speed"
+  },
+  "propertyKeyToIdMap": {
+    "camera_anim_duration": 1042,
+    "camera_pos": 1037,
+    "camera_rot": 1038,
+    "light_vfx_render": 1043,
+    "move_speed": 1045,
+    "name_as_target": 1031,
+    "rope_cam_setting": 1044,
+    "rope_camera_fov": 1036,
+    "rope_end_pos": 1030,
+    "rope_horizontal_scale": 1040,
+    "rope_init_pos": 1041,
+    "rope_port_unlock": 1032,
+    "scale": 1039,
+    "speed": 1029,
+    "state": 1,
+    "target": 1034,
+    "top_rope_port": 1033
+  },
+  "templateVariant": {
+    "int_rope_port_bottom": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_rope_port_bottom_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [
+        {
+          "key": "state",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "componentDiffProperties": {}
+    },
+    "int_rope_port_top_right": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_rope_port_topright_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": true,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    }
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "scriptId": 3500010011,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 3500010158
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 0
+          },
+          "_trigger": {
+            "path": "$1@_trigger"
+          },
+          "_uid": "200b9fd8"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "dcac8f06"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.StartDialogAction, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_shouldWaitForFinish": {
+            "constValue": true
+          },
+          "_dialogId": {
+            "constValue": "dlg_e2m6_8"
+          },
+          "_uid": "d3eaa69a",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.DestroyMissionNpc, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_levelId": {
+            "constValue": "map01_lv006"
+          },
+          "_npcIdList": {
+            "constValue": [
+              "npc_girl_unionscholar_a_10_g01_map01_lv006_e2m6_002"
+            ]
+          },
+          "_uid": "0fe7703f",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 4,
+          "_eventName": {
+            "constValue": "#b4e097bb"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "b4e097bb",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CreateMissionNpc, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": 11,
+          "_levelId": {
+            "constValue": "map01_lv006"
+          },
+          "_npcIdList": {
+            "constValue": [
+              "npc_girl_unionscholar_a_10_g01_map01_lv006_e2m6_002"
+            ]
+          },
+          "_uid": "9ce5b2eb",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForEntityStart, Gameplay.Beyond",
+          "_ID": 11,
+          "_nextID": 12,
+          "_target": {
+            "constValue": {
+              "logicId": 3500010081
+            }
+          },
+          "_uid": "1720cb05",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 13,
+          "_seconds": {
+            "constValue": 0.5
+          },
+          "_uid": "ec1ecfbc",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcPatrolStart, Gameplay.Beyond",
+          "_ID": 13,
+          "_targetNpc": {
+            "constValue": {
+              "logicId": 3500010081
+            }
+          },
+          "_levelId": {
+            "constValue": "map01_lv006"
+          },
+          "_patrolId": {
+            "constValue": 10000
+          },
+          "_startFromBeginning": {
+            "constValue": true
+          },
+          "_uid": "3cfd32e4",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 0,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": 300,
+            "path": "towncenter_1stTalk_Finished",
+            "constValue": false
+          },
+          "_valueB": {
+            "constValue": false
+          },
+          "_uid": "4302de55"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 612.31,
+        "y": 37.523895,
+        "z": 182.78
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 125.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 572.18,
+        "y": 37.17,
+        "z": 279.12
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 612.31,
+        "y": 37.523895,
+        "z": 182.78
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 50.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "RefPos_10011_1",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 1141765177
+          },
+          {
+            "valueBit64": 1108791498
+          },
+          {
+            "valueBit64": 1133338919
+          }
+        ]
+      }
+    },
+    {
+      "key": "RefRot_10011_1",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": -2147483648
+          },
+          {
+            "valueBit64": 1122682458
+          },
+          {
+            "valueBit64": -2147483648
+          }
+        ]
+      }
+    },
+    {
+      "key": "towncenter_1stTalk_Finished",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "towncenter_1stTalk_Finished",
+    "1028": "RefPos_10011_1",
+    "1029": "RefRot_10011_1"
+  }
+}

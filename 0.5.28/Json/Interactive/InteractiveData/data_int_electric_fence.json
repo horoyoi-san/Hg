@@ -1,0 +1,759 @@
+{
+  "id": "int_electric_fence",
+  "name": "int_electric_fence",
+  "factionIndex": "Neutral",
+  "bornTag": [
+    {
+      "tagName": "SelectCategory/UnSkillAutoSelectable",
+      "tagId": -1066992442
+    },
+    {
+      "tagName": "SelectCategory/Unmarkable",
+      "tagId": 619636651
+    }
+  ],
+  "delayToRecycleTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.ModelComponentData, Gameplay.Beyond",
+      "modelId": "int_electric_fence_postmodel",
+      "randomModelId": [],
+      "modelScale": 1.0,
+      "loadDelayTime": 0.0,
+      "useLod": false,
+      "cullDistance": 100.0,
+      "cullTimeInterval": 2.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.ElectricNodeComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_online",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_terminal",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "power_generated",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "connected_node_list",
+          "value": {
+            "type": "EntityPtrList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "power_signal_threshold_list",
+          "value": {
+            "type": "IntList",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.SimpleAnimatorComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.TriggerObserverComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 1073741824
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "size",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1084227584
+              },
+              {
+                "valueBit64": 1082130432
+              },
+              {
+                "valueBit64": 1060320051
+              }
+            ]
+          }
+        },
+        {
+          "key": "interactive_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_offset",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1092616192
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_height",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1084227584
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_angle",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1135869952
+              }
+            ]
+          }
+        },
+        {
+          "key": "player_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_important",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveLogicControllerComponentData, Gameplay.Beyond",
+      "logicType": 36
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.AbilitySystemForIntData, Gameplay.Beyond",
+      "shapeData": {
+        "detectedRadius": 0.5,
+        "detectedHeight": 1.0
+      },
+      "skillDataBundle": {
+        "allActiveSkillPath": [],
+        "allPassiveSkillPath": [],
+        "enabledPassiveSkills": []
+      },
+      "uiData": {
+        "showBigHeadBar": false,
+        "useSpecificDamageTextParam": false
+      },
+      "plungingAttackData": {
+        "startDuration": 0.0,
+        "endDuration": 0.0
+      },
+      "battleRootData": {
+        "overrideBattleRoot": false,
+        "rootMountPoint": "None"
+      },
+      "poiseBrokenEndTime": 0.0,
+      "overrideMarkTargetDistance": false,
+      "customMarkTargetDistance": 0.0,
+      "battleShapeData": {
+        "_shape": "Capsule",
+        "_rotationOffset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "_useExtentKey": false,
+        "_extent": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "_useCenterKey": false,
+        "_center": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "_height": 1.0,
+        "_radius": 0.5
+      },
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "extent",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1065353216
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1056964608
+              }
+            ]
+          }
+        },
+        {
+          "key": "height",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              }
+            ]
+          }
+        },
+        {
+          "key": "load_from_table",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "active_skill",
+          "value": {
+            "type": "StringList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "passive_skill",
+          "value": {
+            "type": "StringList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "skill_blackboard",
+          "value": {
+            "type": "StringList",
+            "valueArray": []
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveAudioData, Gameplay.Beyond",
+      "propertyList": [],
+      "audioData": {
+        "openAudio": true,
+        "useDynamicLevel": false,
+        "useCustomStencil": true,
+        "useTiggerStencil": false,
+        "useWorkStencil": true,
+        "useAttackStencil": false,
+        "useRepairStencil": false,
+        "useDestroyStencil": false,
+        "useCollectStencil": false,
+        "useInteractStencil": false,
+        "useActiveStencil": false,
+        "audioNameDict": {
+          "StartUp": [
+            "au_int_electric_fence_start"
+          ],
+          "Stop": [
+            "au_int_electric_fence_end"
+          ]
+        },
+        "customAudioData": [
+          {
+            "audioState": "onHit",
+            "audioEvent": "au_int_electric_fence_hit",
+            "desc": "玩家碰撞到通电的栅栏会被电击"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.ShowGuideComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 1073741824
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "size",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1084227584
+              },
+              {
+                "valueBit64": 1082130432
+              },
+              {
+                "valueBit64": 1082130432
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1088421888
+              }
+            ]
+          }
+        },
+        {
+          "key": "guide_id",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "guide_group_electric_fence"
+              }
+            ]
+          }
+        },
+        {
+          "key": "id",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "guide_text_electric_fence_title_1"
+              }
+            ]
+          }
+        },
+        {
+          "key": "wiki_id",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "wiki_tut_adv_electric_fence"
+              }
+            ]
+          }
+        },
+        {
+          "key": "duration",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1092616192
+              }
+            ]
+          }
+        }
+      ],
+      "shapeType": "OBB",
+      "center": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 5.0,
+        "y": 4.0,
+        "z": 4.0
+      },
+      "radius": 7.0,
+      "guideId": "guide_group_electric_fence",
+      "textId": "guide_text_electric_fence_title_1",
+      "wikiId": "wiki_tut_adv_electric_fence",
+      "duration": 10.0
+    }
+  ],
+  "facOccDis": 0.5,
+  "hideInDialog": false,
+  "mountPoints": [],
+  "dataMap": {
+    "headerList": [],
+    "actionList": [],
+    "getterList": []
+  },
+  "tempProperties": [
+    {
+      "key": "estate",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "configProperties": [
+    {
+      "key": "buff_id",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "buff_abilityentity_interact_knockback"
+          }
+        ]
+      }
+    },
+    {
+      "key": "net_power",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "use_electric",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    },
+    {
+      "key": "inverse_output",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "saveProperties": [
+    {
+      "key": "state",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "5": "state",
+    "1026": "buff_id",
+    "1027": "net_power",
+    "1028": "use_electric",
+    "1030": "inverse_output"
+  },
+  "propertyKeyToIdMap": {
+    "buff_id": 1026,
+    "inverse_output": 1030,
+    "net_power": 1027,
+    "state": 5,
+    "use_electric": 1028
+  },
+  "templateVariant": {
+    "int_electric_fense_lower": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_doodad_electric_fence_4_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": true,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {
+        "Comp_ShowGuide": {
+          "value": [
+            {
+              "key": "size",
+              "value": {
+                "type": "Vector3",
+                "valueArray": [
+                  {
+                    "valueBit64": 0
+                  },
+                  {
+                    "valueBit64": 0
+                  },
+                  {
+                    "valueBit64": 0
+                  }
+                ]
+              }
+            },
+            {
+              "key": "height",
+              "value": {
+                "type": "Float",
+                "valueArray": [
+                  {
+                    "valueBit64": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "Comp_TriggerObserver": {
+          "value": [
+            {
+              "key": "center",
+              "value": {
+                "type": "Vector3",
+                "valueArray": [
+                  {
+                    "valueBit64": 0
+                  },
+                  {
+                    "valueBit64": 1068708659
+                  },
+                  {
+                    "valueBit64": 0
+                  }
+                ]
+              }
+            },
+            {
+              "key": "size",
+              "value": {
+                "type": "Vector3",
+                "valueArray": [
+                  {
+                    "valueBit64": 1084227584
+                  },
+                  {
+                    "valueBit64": 1076677837
+                  },
+                  {
+                    "valueBit64": 1060320051
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

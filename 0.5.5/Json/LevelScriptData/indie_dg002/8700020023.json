@@ -1,0 +1,326 @@
+{
+  "scriptId": 8700020023,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_targetScript": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 1
+          },
+          "_uid": "7dd363e7"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 9,
+          "_nextID": 10,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 8700020043
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 8
+          },
+          "_trigger": {
+            "path": "$9@_trigger"
+          },
+          "_uid": "23b14298"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 13,
+          "_nextID": 14,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 8700020044
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_trigger": {
+            "path": "$13@_trigger"
+          },
+          "_uid": "2f72d5f1"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayRadio, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_radioId": {
+            "constValue": "radio_e0m0_1d5"
+          },
+          "_fromBegin": {
+            "constValue": true
+          },
+          "_index": {
+            "constValue": -1
+          },
+          "_uid": "0f09015a",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 4,
+          "_eventName": {
+            "constValue": "#bb79de30"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "bb79de30",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayLevelSequenceAction, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": 11,
+          "_shouldWaitForFinish": {
+            "constValue": false
+          },
+          "_levelSeqId": {
+            "constValue": "levelseq_e0m0_003"
+          },
+          "_existingInteractives": {
+            "constValue": []
+          },
+          "_existingEnemy": {
+            "constValue": []
+          },
+          "_uid": "30698b1b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 11,
+          "_eventName": {
+            "constValue": "#7c4c93b0"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "7c4c93b0",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.StopLevelSeqLoopSegment, Gameplay.Beyond",
+          "_ID": 14,
+          "_nextID": 15,
+          "_levelSeqId": {
+            "constValue": "levelseq_e0m0_003"
+          },
+          "_loopSegmentName": {
+            "constValue": "PhantomPelicaLoop3"
+          },
+          "_uid": "6e1e22d4",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 15,
+          "_nextID": 16,
+          "_seconds": {
+            "constValue": 12.0
+          },
+          "_uid": "fbe4ff68",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.StopLevelSequenceAction, Gameplay.Beyond",
+          "_ID": 16,
+          "_levelSeqId": {
+            "constValue": "levelseq_e0m0_003"
+          },
+          "_uid": "85b079a1",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.BoolGetterInvert, Gameplay.Beyond",
+          "_ID": 1,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 0
+          },
+          "_uid": "3331d3e8"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetterBool, Gameplay.Beyond",
+          "_ID": 0,
+          "_value": {
+            "paramSource": 300,
+            "path": "isFinished",
+            "constValue": false
+          },
+          "_uid": "6f3fad3b"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 8,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": 300,
+            "path": "pelica_played",
+            "constValue": false
+          },
+          "_valueB": {
+            "constValue": false
+          },
+          "_uid": "8a61c378"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": -239.98,
+        "y": 82.11243,
+        "z": -72.63
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 2.2390254,
+        "z": 0.0
+      },
+      "size": {
+        "x": 160.0,
+        "y": 160.0,
+        "z": 170.0
+      },
+      "radius": 0.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -204.52036,
+        "y": 76.89575,
+        "z": -69.49295
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -161.02753,
+        "y": 76.89575,
+        "z": -69.50216
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": -239.98,
+        "y": 82.11243,
+        "z": -72.63
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 2.2390254,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 20.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "isFinished",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "pelica_played",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "2": "isFinished",
+    "3": "pelica_played"
+  }
+}

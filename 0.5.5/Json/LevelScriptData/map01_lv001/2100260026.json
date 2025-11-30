@@ -1,0 +1,222 @@
+{
+  "scriptId": 2100260026,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "6375e809"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnQuestStateChanged, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 3,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_questId": {
+            "path": "$7@_questId"
+          },
+          "_oldState": {
+            "path": "$7@_oldState"
+          },
+          "_newState": {
+            "path": "$7@_newState"
+          },
+          "_filtedQuestId": {
+            "constValue": "e1m9_q#23"
+          },
+          "_filtedNewState": {
+            "constValue": "Completed"
+          },
+          "_uid": "2d077f7f"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnQuestStateChanged, Gameplay.Beyond",
+          "_ID": 10,
+          "_nextID": 11,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_questId": {
+            "path": "$10@_questId"
+          },
+          "_oldState": {
+            "path": "$10@_oldState"
+          },
+          "_newState": {
+            "path": "$10@_newState"
+          },
+          "_filtedQuestId": {
+            "constValue": "e2m1_q#8"
+          },
+          "_filtedNewState": {
+            "constValue": "Completed"
+          },
+          "_uid": "dabf26a1"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 1,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 6
+          },
+          "_onTrueID": 2,
+          "_onFalseID": 0,
+          "_uid": "36bb9b6f"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 2,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 9
+          },
+          "_onTrueID": 0,
+          "_onFalseID": 3,
+          "_uid": "218287f3"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcOverrideEnvTalk, Gameplay.Beyond",
+          "_ID": 3,
+          "_npcId": {
+            "constValue": "npc_9111_andrew_g01_i003"
+          },
+          "_envTalks": {
+            "constValue": [
+              {
+                "envTalkId": "envTalk_e1m9_9",
+                "odds": 1
+              }
+            ]
+          },
+          "_overrideNpc": {
+            "constValue": true
+          },
+          "_uid": "86d486bf",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcResetEnvTalks, Gameplay.Beyond",
+          "_ID": 11,
+          "_nextID": 12,
+          "_npcId": {
+            "constValue": "npc_9111_andrew_g01_i003"
+          },
+          "_uid": "6585cbaa",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcResetEnvTalks, Gameplay.Beyond",
+          "_ID": 12,
+          "_npcId": {
+            "constValue": "npc_9108_qinjc_g01_i001"
+          },
+          "_uid": "1612e28f",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CompareQuestState, Gameplay.Beyond",
+          "_ID": 6,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": "None",
+            "idRef": 5
+          },
+          "_valueB": {
+            "constValue": "Completed"
+          },
+          "_uid": "0fb8e38b"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetQuestState, Gameplay.Beyond",
+          "_ID": 5,
+          "_questId": {
+            "constValue": "e1m9_q#23"
+          },
+          "_uid": "20cbd6a3"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CompareQuestState, Gameplay.Beyond",
+          "_ID": 9,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": "None",
+            "idRef": 8
+          },
+          "_valueB": {
+            "constValue": "Completed"
+          },
+          "_uid": "8c527da7"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetQuestState, Gameplay.Beyond",
+          "_ID": 8,
+          "_questId": {
+            "constValue": "e2m1_q#8"
+          },
+          "_uid": "31f1e823"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -394.83316,
+        "y": 118.30492,
+        "z": -100.51614
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 20.0
+    }
+  ],
+  "properties": [],
+  "propertyIdToKeyMap": {}
+}

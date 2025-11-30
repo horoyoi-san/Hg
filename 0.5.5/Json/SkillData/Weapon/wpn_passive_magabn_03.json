@@ -1,0 +1,185 @@
+{
+  "skillId": "wpn_passive_magabn_03",
+  "level": 1,
+  "skillName": "",
+  "iconId": "",
+  "iconBgType": "Physical",
+  "attackRangeType": "Melee",
+  "castType": "Passive",
+  "passiveSkillType": "AddBuff",
+  "castData": {
+    "checkCastDistanceType": "NotCheck",
+    "useCustomCastDistance": false,
+    "castDistance": {
+      "useBlackboardKey": false,
+      "value": 0.0,
+      "blackboardKey": ""
+    },
+    "checkHeightDiff": false,
+    "heightDiffLimit": {
+      "useBlackboardKey": false,
+      "value": 0.0,
+      "blackboardKey": ""
+    },
+    "rotateType": "RotateToTarget",
+    "castAngle": 360.0,
+    "cooldownTime": 0.0,
+    "startCdFrame": 0,
+    "maxChargeTime": 1,
+    "costData": {
+      "costType": "UltimateSp",
+      "costValue": 0.0,
+      "atbValueThreshold": 0.0
+    }
+  },
+  "durationFrame": 0,
+  "exclusiveFrame": 0,
+  "cacheComboFrame": 0,
+  "startComboFrame": 0,
+  "latestComboFrame": 0,
+  "selectStrategy": "SelectObject",
+  "smartTargetSelectStrategy": "SelectComboSkillTarget",
+  "smartTargetBuffIds": [],
+  "smartTargetTagQuery": {
+    "queryType": "HasAny",
+    "tags": []
+  },
+  "canDummyCast": true,
+  "dummyPositionOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "canMove": false,
+  "canCastInAir": false,
+  "rootMotionCliffCheck": true,
+  "switchToCenterBeforeCast": false,
+  "skillTags": {
+    "predefinedTag": []
+  },
+  "tagDuringAttach": {
+    "predefinedTag": []
+  },
+  "actionGroupData": {
+    "timelineActions": [],
+    "passiveEventActions": [
+      {
+        "abilityEvent": "OnCollectOutputBuffBbValue",
+        "actions": [
+          {
+            "actionData": [
+              {
+                "$type": "Beyond.Gameplay.Core.Conditions.CheckOnAddedBuffId+Data, Gameplay.Beyond",
+                "checkType": "Tag",
+                "buffIdList": [],
+                "query": {
+                  "queryType": "HasAny",
+                  "tags": [
+                    {
+                      "tagName": "Skill/Character/Common/SpellStatus/Corrupt",
+                      "tagId": -421286163
+                    }
+                  ]
+                },
+                "blackboardKey": "",
+                "isEnable": true,
+                "priorityLevel": "Default",
+                "priorityOffset": 0,
+                "serverActionIndex": 0
+              },
+              {
+                "$type": "Beyond.Gameplay.Core.Conditions.ModifyCollectedBuffBbValue+Data, Gameplay.Beyond",
+                "blackboardKey": "duration",
+                "multiplier": {
+                  "useBlackboardKey": true,
+                  "value": 0.0,
+                  "blackboardKey": "duration_scale"
+                },
+                "addition": {
+                  "useBlackboardKey": false,
+                  "value": 0.0,
+                  "blackboardKey": ""
+                },
+                "isEnable": true,
+                "priorityLevel": "Default",
+                "priorityOffset": 0,
+                "serverActionIndex": 1
+              },
+              {
+                "$type": "Beyond.Gameplay.Core.Conditions.ModifyCollectedBuffBbValue+Data, Gameplay.Beyond",
+                "blackboardKey": "additional_def_decrease",
+                "multiplier": {
+                  "useBlackboardKey": false,
+                  "value": 1.0,
+                  "blackboardKey": ""
+                },
+                "addition": {
+                  "useBlackboardKey": true,
+                  "value": 0.0,
+                  "blackboardKey": "def_down"
+                },
+                "isEnable": true,
+                "priorityLevel": "Default",
+                "priorityOffset": 0,
+                "serverActionIndex": 2
+              }
+            ],
+            "onlyExecuteWhenSourceIsMainChar": false
+          }
+        ]
+      }
+    ]
+  },
+  "uiRangeHints": [],
+  "buffs": [],
+  "toggleBuffs": [
+    {
+      "conditions": [],
+      "buffs": [
+        {
+          "buffId": "buff_wpn_passive_spirit_01",
+          "assignBlackboard": true,
+          "assignItems": [
+            {
+              "targetKey": "atk_up",
+              "inputValueKey": "atk_up",
+              "useDirectValue": false,
+              "numericValue": 0.0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cardAttributeModifier": {
+    "isConvertedAttribute": false,
+    "attributeModifiers": []
+  },
+  "blackboard": [
+    {
+      "key": "duration_up",
+      "valueFloat": 0.5,
+      "valueStr": "",
+      "isDynamic": false
+    },
+    {
+      "key": "def_down",
+      "valueFloat": -0.05,
+      "valueStr": "",
+      "isDynamic": false
+    },
+    {
+      "key": "duration_scale",
+      "valueFloat": 1.5,
+      "valueStr": "",
+      "isDynamic": false
+    }
+  ],
+  "getBlackboardItemFromOtherSkill": false,
+  "skillBlackboardItemRefs": [],
+  "skillHighlightCondition": {
+    "actionData": [],
+    "onlyExecuteWhenSourceIsMainChar": false
+  },
+  "buffInputBase": null
+}

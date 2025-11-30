@@ -1,0 +1,196 @@
+{
+  "scriptId": 2100010046,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnSavePropertyChanged, Gameplay.Beyond",
+          "_ID": 12,
+          "_nextID": 6,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "constValue": {
+              "logicId": 2100010052
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 11
+          },
+          "_propertyKey": {
+            "constValue": "is_enabled"
+          },
+          "_value": {
+            "path": "$12@_value"
+          },
+          "_oldValue": {
+            "path": "$12@_oldValue"
+          },
+          "_uid": "cdcf9a22"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 6,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 5
+          },
+          "_onTrueID": 0,
+          "_onFalseID": 7,
+          "_uid": "d5254c4b"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowLimitedGuide, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_textId": {
+            "constValue": "guide_text_hit_iron_title_1"
+          },
+          "_duration": {
+            "constValue": 10.0
+          },
+          "_type": {
+            "constValue": "MediaGuide"
+          },
+          "_needIgnoreWhenConflict": {
+            "constValue": false
+          },
+          "_mediaGuideGroupId": {
+            "constValue": "guide_group_hit_iron"
+          },
+          "_wikiId": null,
+          "_uid": "30fc24a0",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 8,
+          "_eventName": {
+            "constValue": "#c6298367"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "c6298367",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 11,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 10
+          },
+          "_valueB": {
+            "constValue": true
+          },
+          "_uid": "c92ab209"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.InteractiveGetSavePropertyBool, Gameplay.Beyond",
+          "_ID": 10,
+          "_entity": {
+            "constValue": {
+              "logicId": 2100010052
+            }
+          },
+          "_key": {
+            "constValue": "is_enabled"
+          },
+          "_uid": "90f0a417"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetConditionResult, Gameplay.Beyond",
+          "_ID": 5,
+          "_condition": {
+            "$type": "Beyond.Gameplay.CheckWikiEntryUnlocked, Gameplay.Beyond",
+            "_wikiEntryId": {
+              "constValue": "wiki_tut_adv_hit_iron"
+            },
+            "uniqueId": "6cf43ac5",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          },
+          "_uid": "e0619676"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 53.973766,
+        "y": 113.7497,
+        "z": -415.89896
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 85.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 53.973766,
+        "y": 113.7497,
+        "z": -415.89896
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [],
+  "propertyIdToKeyMap": {}
+}

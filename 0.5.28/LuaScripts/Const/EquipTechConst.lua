@@ -1,0 +1,3 @@
+local EquipTechConst = { EEquipEnhanceSuccessProb = { None = 1, Normal = 2, High = 3, }, EQUIP_PRODUCE_SORT_OPTION = { { name = Language.LUA_DEPOT_SORT_OPTION_DEFAULT, keys = { "minWearLv", "rarity", "sortId1", "sortId2", "id" } }, }, EQUIP_ENHANCE_SORT_OPTION = { { name = Language.LUA_DEPOT_SORT_OPTION_DEFAULT, keys = { "equipEnhanceLevel", "sortId1", "sortId2", "id" } }, }, EQUIP_ENHANCE_MATERIALS_SORT_OPTION = { { name = Language.LUA_DEPOT_SORT_OPTION_DEFAULT, keys = { "equipEnhanceSuccessProb", "sortId1", "sortId2", "id" } }, }, }
+_G.EquipTechConst = EquipTechConst
+return EquipTechConst

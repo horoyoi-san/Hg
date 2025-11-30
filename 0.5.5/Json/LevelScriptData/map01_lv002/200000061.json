@@ -1,0 +1,241 @@
+{
+  "scriptId": 200000061,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": [
+        {
+          "key": "doonce",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "5719a798"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 7,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 12
+          },
+          "_onTrueID": 8,
+          "_onFalseID": 11,
+          "_uid": "1dd07206"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetFunctionAreaEnable, Gameplay.Beyond",
+          "_ID": 8,
+          "_nextID": 9,
+          "_enable": {
+            "constValue": false
+          },
+          "_functionAreaPtr": {
+            "constValue": {
+              "id": 200000001
+            }
+          },
+          "_uid": "3cdb5004",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetFunctionAreaEnable, Gameplay.Beyond",
+          "_ID": 11,
+          "_nextID": 1,
+          "_enable": {
+            "constValue": true
+          },
+          "_functionAreaPtr": {
+            "constValue": {
+              "id": 200000001
+            }
+          },
+          "_uid": "4e13405d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 9,
+          "_eventName": {
+            "constValue": "#6eb840b2"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "6eb840b2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetCharacterGait, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_character": {
+            "paramSource": -1,
+            "constValue": {
+              "logicId": 0
+            },
+            "idRef": 0
+          },
+          "_gait": {
+            "constValue": "Walk"
+          },
+          "_uid": "c5a62953",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_seconds": {
+            "constValue": 2.0
+          },
+          "_uid": "651ab070",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RestoreCharacterGait, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_character": {
+            "paramSource": -1,
+            "constValue": {
+              "logicId": 0
+            },
+            "idRef": 0
+          },
+          "_uid": "f420ff46",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 4,
+          "_eventName": {
+            "constValue": "#5150b7b3"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "5150b7b3",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 12,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": 300,
+            "path": "done",
+            "constValue": false
+          },
+          "_valueB": {
+            "constValue": true
+          },
+          "_uid": "94de5e5b"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetMainCharacter, Gameplay.Beyond",
+          "_ID": 0,
+          "_uid": "be851604"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -670.13,
+        "y": 116.759155,
+        "z": 12.38
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 92.5387,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 81.2
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": -670.13,
+        "y": 116.759155,
+        "z": 12.38
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 92.5387,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 6.2
+    }
+  ],
+  "properties": [
+    {
+      "key": "done",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "done"
+  }
+}

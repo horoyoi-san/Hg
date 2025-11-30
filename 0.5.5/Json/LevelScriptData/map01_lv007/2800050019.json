@@ -1,0 +1,341 @@
+{
+  "scriptId": 2800050019,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "919e52a8"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 13,
+          "_nextID": 14,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#a984b8d1"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "a984b8d1"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 1,
+          "_nextID": 2,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 9
+          },
+          "_uid": "db53af9b",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfFalse, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_value": {
+            "paramSource": -1,
+            "constValue": false,
+            "idRef": 10
+          },
+          "_uid": "2e5cbb43",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetFunctionAreaEnable, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_enable": {
+            "constValue": true
+          },
+          "_functionAreaPtr": {
+            "constValue": {
+              "id": 2800050000
+            }
+          },
+          "_uid": "43a57a39",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 4,
+          "_condition": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 16
+          },
+          "_onTrueID": 7,
+          "_onFalseID": 5,
+          "_uid": "2da51fa5"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcPlayMontage, Gameplay.Beyond",
+          "_ID": 7,
+          "_nextID": 8,
+          "_targetNpc": {
+            "constValue": {
+              "logicId": 2800050028
+            }
+          },
+          "_montageTag": {
+            "constValue": {
+              "tagName": "Montage/NPC/Humanoid/Girl/Common/padlook",
+              "tagId": 463345484
+            }
+          },
+          "_montageMaskType": {
+            "constValue": "Default"
+          },
+          "_overrideMontageState": {
+            "constValue": false
+          },
+          "_montageState": {
+            "constValue": "Start"
+          },
+          "_switchDefaultMontageTag": {
+            "constValue": false
+          },
+          "_uid": "6abb80b5",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CreateMissionNpc, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_levelId": {
+            "constValue": "map01_lv007"
+          },
+          "_npcIdList": {
+            "constValue": [
+              "npc_chr_0004_pelica_g01_map01_lv007_e4m2_001"
+            ]
+          },
+          "_uid": "3d465421",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcOverrideEnvTalk, Gameplay.Beyond",
+          "_ID": 8,
+          "_npcId": {
+            "constValue": "npc_chr_0004_pelica_g01_map01_lv007_e4m2_001"
+          },
+          "_envTalks": {
+            "constValue": [
+              {
+                "envTalkId": "envTalk_e4m2_1",
+                "odds": 1
+              }
+            ]
+          },
+          "_overrideNpc": {
+            "constValue": true
+          },
+          "_uid": "8ac85cd5",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForEntityStart, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_target": {
+            "constValue": {
+              "logicId": 2800050028
+            }
+          },
+          "_uid": "9b2c21b2",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetFunctionAreaEnable, Gameplay.Beyond",
+          "_ID": 14,
+          "_nextID": 15,
+          "_enable": {
+            "constValue": false
+          },
+          "_functionAreaPtr": {
+            "constValue": {
+              "id": 2800050000
+            }
+          },
+          "_uid": "696ccc45",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.DestroyMissionNpc, Gameplay.Beyond",
+          "_ID": 15,
+          "_levelId": {
+            "constValue": "map01_lv007"
+          },
+          "_npcIdList": {
+            "constValue": [
+              "npc_chr_0004_pelica_g01_map01_lv007_e4m2_001"
+            ]
+          },
+          "_uid": "b82c3be1",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsComplete, Gameplay.Beyond",
+          "_ID": 9,
+          "_isQuest": {
+            "constValue": true
+          },
+          "_missionId": {
+            "constValue": "e4m2_q#5"
+          },
+          "_uid": "76fdbddc"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckMissionOrQuestIsComplete, Gameplay.Beyond",
+          "_ID": 10,
+          "_isQuest": {
+            "constValue": true
+          },
+          "_missionId": {
+            "constValue": "e4m2_q#6"
+          },
+          "_uid": "463c417f"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.GetEntityExist, Gameplay.Beyond",
+          "_ID": 16,
+          "_target": {
+            "constValue": {
+              "logicId": 2800050028
+            }
+          },
+          "_uid": "cf4c9397"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 119.0013,
+        "y": 246.2289,
+        "z": 472.1449
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 110.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 119.0013,
+        "y": 246.2289,
+        "z": 472.1449
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 35.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "lt:p:504560b9:285bd20a",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:504560b9:285bd20a",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    }
+  ],
+  "taskMap": {
+    "504560b9": {
+      "conditionDict": {
+        "285bd20a": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "e4m2_q#6"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetQuestState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "285bd20a",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "propertyIdToKeyMap": {
+    "1": "lt:p:504560b9:285bd20a",
+    "1026": "lt:mp:504560b9:285bd20a"
+  }
+}

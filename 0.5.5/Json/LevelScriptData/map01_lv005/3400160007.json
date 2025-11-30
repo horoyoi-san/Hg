@@ -1,0 +1,671 @@
+{
+  "scriptId": 3400160007,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 25,
+          "_nextID": 26,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "TeleportToFinalPos"
+          },
+          "_eventArgsPtr": {
+            "path": "$25@_eventArgsPtr"
+          },
+          "_uid": "719d18e2"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnMissionStateChanged, Gameplay.Beyond",
+          "_ID": 31,
+          "_nextID": 32,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_missionId": {
+            "path": "$31@_missionId"
+          },
+          "_oldState": {
+            "path": "$31@_oldState"
+          },
+          "_newState": {
+            "path": "$31@_newState"
+          },
+          "_succeedId": {
+            "path": "$31@_succeedId"
+          },
+          "_filtedMissionId": {
+            "constValue": "gm01m16"
+          },
+          "_filtedNewState": {
+            "constValue": "Processing"
+          },
+          "_filtedSucceedId": {
+            "constValue": -2
+          },
+          "_uid": "2af38ad3"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 21,
+          "_nextID": 22,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#c16264d6"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "c16264d6"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SetNpcTransform, Gameplay.Beyond",
+          "_ID": 26,
+          "_nextID": 27,
+          "_target": {
+            "constValue": {
+              "logicId": 3400160003
+            }
+          },
+          "_position": {
+            "paramSource": 200,
+            "path": "finalPos_G",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_rotation": {
+            "paramSource": 200,
+            "path": "finalRot_G",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_uid": "49a1000f",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetNpcTransform, Gameplay.Beyond",
+          "_ID": 27,
+          "_nextID": 28,
+          "_target": {
+            "constValue": {
+              "logicId": 3400160002
+            }
+          },
+          "_position": {
+            "paramSource": 200,
+            "path": "finalPos_B",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_rotation": {
+            "paramSource": 200,
+            "path": "finalRot_B",
+            "constValue": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "_uid": "a0d0f25d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ShowUIToast_DevOnly, Gameplay.Beyond",
+          "_ID": 28,
+          "_info": {
+            "constValue": ""
+          },
+          "_duration": {
+            "constValue": 4.0
+          },
+          "_uid": "b5732460",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcPatrolStart, Gameplay.Beyond",
+          "_ID": 32,
+          "_nextID": 33,
+          "_targetNpc": {
+            "constValue": {
+              "logicId": 3400160002
+            }
+          },
+          "_levelId": {
+            "constValue": "map01_lv005"
+          },
+          "_patrolId": {
+            "constValue": 160002
+          },
+          "_startFromBeginning": {
+            "constValue": true
+          },
+          "_uid": "b82f2fca",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.NpcPatrolStart, Gameplay.Beyond",
+          "_ID": 33,
+          "_targetNpc": {
+            "constValue": {
+              "logicId": 3400160003
+            }
+          },
+          "_levelId": {
+            "constValue": "map01_lv005"
+          },
+          "_patrolId": {
+            "constValue": 160001
+          },
+          "_startFromBeginning": {
+            "constValue": true
+          },
+          "_uid": "58969356",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RaiseCustomScriptEvent, Gameplay.Beyond",
+          "_ID": 22,
+          "_eventKey": {
+            "constValue": "TeleportToFinalPos"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": null
+            }
+          },
+          "_receiver": {
+            "paramSource": 1002,
+            "constValue": {
+              "scriptId": 0
+            }
+          },
+          "_uid": "2fd5c945",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 483.7,
+        "y": 82.3,
+        "z": -262.6
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 115.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 483.7,
+        "y": 82.3,
+        "z": -262.6
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 40.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "finalPos_G",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 1139722142
+          },
+          {
+            "valueBit64": 1119986626
+          },
+          {
+            "valueBit64": -1014788233
+          }
+        ]
+      }
+    },
+    {
+      "key": "finalRot_G",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": -2147483648
+          },
+          {
+            "valueBit64": 1132920832
+          },
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "finalPos_B",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 1140195783
+          },
+          {
+            "valueBit64": 1120031224
+          },
+          {
+            "valueBit64": -1014960714
+          }
+        ]
+      }
+    },
+    {
+      "key": "finalRot_B",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": -2147483648
+          },
+          {
+            "valueBit64": 1119105448
+          },
+          {
+            "valueBit64": -2147483648
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:ef7e5179:de67a9bb",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:470ca376:3584fa5c",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:470ca376:9576a978",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:470ca376:3d2b9445",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:ef15c953:1a216924",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:ef15c953:61fc2007",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:ef15c953:743065c8",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:ef7e5179:de67a9bb",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:470ca376:3584fa5c",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:470ca376:9576a978",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:470ca376:3d2b9445",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:ef15c953:1a216924",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:ef15c953:61fc2007",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:ef15c953:743065c8",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    }
+  ],
+  "taskMap": {
+    "470ca376": {
+      "conditionDict": {
+        "3584fa5c": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CombineCondition, Gameplay.Beyond",
+            "conditionEvalString": "{0}and{1}",
+            "ast": null,
+            "subConditions": [],
+            "uniqueId": "3584fa5c",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "3d2b9445": {
+          "isMainObjective": false,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "gm01m16_q#3"
+            },
+            "_comparer": {
+              "constValue": "NotEqual"
+            },
+            "_targetQuestState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "3d2b9445",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "9576a978": {
+          "isMainObjective": false,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckMissionState, Gameplay.Beyond",
+            "_missionId": {
+              "constValue": "e2m5"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetMissionState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "9576a978",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "ef15c953": {
+      "conditionDict": {
+        "1a216924": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CombineCondition, Gameplay.Beyond",
+            "conditionEvalString": "{1}or{0}",
+            "ast": null,
+            "subConditions": [],
+            "uniqueId": "1a216924",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "61fc2007": {
+          "isMainObjective": false,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "gm01m16_q#28"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetQuestState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "61fc2007",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        },
+        "743065c8": {
+          "isMainObjective": false,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "gm01m16_q#28"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetQuestState": {
+              "constValue": "Processing"
+            },
+            "uniqueId": "743065c8",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    },
+    "ef7e5179": {
+      "conditionDict": {
+        "de67a9bb": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckQuestState, Gameplay.Beyond",
+            "_questId": {
+              "constValue": "gm01m16_q#3"
+            },
+            "_comparer": {
+              "constValue": "Equal"
+            },
+            "_targetQuestState": {
+              "constValue": "Completed"
+            },
+            "uniqueId": "de67a9bb",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "propertyIdToKeyMap": {
+    "3": "lt:p:470ca376:9576a978",
+    "7": "lt:p:ef7e5179:de67a9bb",
+    "9": "lt:p:ef15c953:1a216924",
+    "11": "lt:p:ef15c953:61fc2007",
+    "13": "lt:p:ef15c953:743065c8",
+    "15": "lt:p:470ca376:3584fa5c",
+    "17": "lt:p:470ca376:3d2b9445",
+    "1028": "lt:mp:470ca376:9576a978",
+    "1032": "lt:mp:ef7e5179:de67a9bb",
+    "1034": "lt:mp:ef15c953:1a216924",
+    "1036": "lt:mp:ef15c953:61fc2007",
+    "1038": "lt:mp:ef15c953:743065c8",
+    "1040": "lt:mp:470ca376:3584fa5c",
+    "1042": "lt:mp:470ca376:3d2b9445",
+    "1043": "finalPos_G",
+    "1044": "finalRot_G",
+    "1045": "finalPos_B",
+    "1046": "finalRot_B"
+  }
+}

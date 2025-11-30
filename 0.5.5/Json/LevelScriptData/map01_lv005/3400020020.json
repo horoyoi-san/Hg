@@ -1,0 +1,272 @@
+{
+  "scriptId": 3400020020,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "SameWithActive",
+  "endType": "SameWithDeactive",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptStart, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_uid": "f3d0b741"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.Split, Gameplay.Beyond",
+          "_ID": 1,
+          "_idList": [
+            2
+          ],
+          "_uid": "9070e725"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelCameraLookAt, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "lookAt1Type": {
+            "constValue": "Entity"
+          },
+          "lookAt1": {
+            "paramSource": 200,
+            "path": "LookAt_target",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "position1": null,
+          "direction1": null,
+          "rotation1": null,
+          "lookAt2Type": {
+            "constValue": "Entity"
+          },
+          "lookAt2": {
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "position2": null,
+          "direction2": null,
+          "rotation2": null,
+          "alpha": {
+            "constValue": 0.0
+          },
+          "horizontalBaseAngle": {
+            "constValue": 0.0
+          },
+          "verticalBaseValue": {
+            "constValue": 0.5
+          },
+          "horizontalSpeedFactor": {
+            "constValue": 0.05
+          },
+          "verticalSpeedFactor": {
+            "constValue": 0.05
+          },
+          "noInputDampingTime": {
+            "constValue": 1.0
+          },
+          "blendStyle": {
+            "constValue": "EaseInOut"
+          },
+          "blendTime": {
+            "constValue": 0.2
+          },
+          "useInitialParam": {
+            "constValue": false
+          },
+          "initParam": {
+            "constValue": {
+              "applyHorizontalAngle": false,
+              "horizontalAngleRelativeToCharacter": false,
+              "horizontalAngle": 0.0,
+              "applyVerticalValue": false,
+              "verticalValue": 0.0,
+              "applyZoomScale": false,
+              "zoomScale": 0.0
+            }
+          },
+          "useExitParam": {
+            "constValue": false
+          },
+          "exitParam": {
+            "constValue": {
+              "applyHorizontalAngle": false,
+              "horizontalAngleRelativeToCharacter": false,
+              "horizontalAngle": 0.0,
+              "applyVerticalValue": false,
+              "verticalValue": 0.0,
+              "applyZoomScale": false,
+              "zoomScale": 0.0
+            }
+          },
+          "controlState": {
+            "path": "$2@controlState"
+          },
+          "controlStateId": {
+            "path": "$2@controlStateId"
+          },
+          "_uid": "569c990a",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.WaitForSeconds, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_seconds": {
+            "paramSource": 200,
+            "path": "camera_time",
+            "constValue": 1.0
+          },
+          "_uid": "abaead9d",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.RemoveCameraControlState, Gameplay.Beyond",
+          "_ID": 4,
+          "_nextID": 5,
+          "_controlState": {
+            "paramSource": 100,
+            "path": "$2@controlState",
+            "constValue": null
+          },
+          "_controlStateId": {
+            "constValue": 0
+          },
+          "_overrideBlend": {
+            "constValue": false
+          },
+          "_blendStyle": {
+            "constValue": "Cut"
+          },
+          "_blendTime": {
+            "constValue": 0.2
+          },
+          "_uid": "8f57f3e3",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CheckBoolIfTrue, Gameplay.Beyond",
+          "_ID": 5,
+          "_nextID": 6,
+          "_value": {
+            "paramSource": 200,
+            "path": "do_once",
+            "constValue": false
+          },
+          "_uid": "5bb18fc4",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+          "_ID": 6,
+          "_eventName": {
+            "constValue": "#a299f752"
+          },
+          "_eventArgsPtr": {
+            "constValue": {
+              "key": "event_args"
+            }
+          },
+          "_uid": "a299f752",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "ResetAllWhenNotDone",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 786.3107,
+        "y": 102.087776,
+        "z": -188.54922
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [],
+  "properties": [
+    {
+      "key": "LookAt_target",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400020474
+          }
+        ]
+      }
+    },
+    {
+      "key": "camera_time",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1073741824,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "do_once",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 1,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "blend_time",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1065353216,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1025": "LookAt_target",
+    "1026": "camera_time",
+    "1027": "do_once",
+    "1028": "blend_time"
+  }
+}

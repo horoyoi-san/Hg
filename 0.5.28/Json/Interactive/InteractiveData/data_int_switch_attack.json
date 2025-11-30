@@ -1,0 +1,656 @@
+{
+  "id": "int_switch_attack",
+  "name": "int_switch_attack",
+  "factionIndex": "Neutral",
+  "bornTag": [
+    {
+      "tagName": "SelectCategory/Unmarkable",
+      "tagId": 619636651
+    },
+    {
+      "tagName": "SelectCategory/UnSkillAutoSelectable",
+      "tagId": -1066992442
+    },
+    {
+      "tagName": "Immune/Damage",
+      "tagId": 652284403
+    }
+  ],
+  "delayToRecycleTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.ModelComponentData, Gameplay.Beyond",
+      "modelId": "int_switch_attack_v2",
+      "randomModelId": [],
+      "modelScale": 1.0,
+      "loadDelayTime": 0.0,
+      "useLod": false,
+      "cullDistance": 100.0,
+      "cullTimeInterval": 2.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.ElectricNodeComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_online",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_terminal",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "power_generated",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "connected_node_list",
+          "value": {
+            "type": "EntityPtrList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "power_signal_threshold_list",
+          "value": {
+            "type": "IntList",
+            "valueArray": []
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.HittableComponentForIntData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "extent",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1065353216
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 1056964608
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1056964608
+              }
+            ]
+          }
+        },
+        {
+          "key": "height",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1073741824
+              }
+            ]
+          }
+        },
+        {
+          "key": "load_from_table",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "active_skill",
+          "value": {
+            "type": "StringList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "passive_skill",
+          "value": {
+            "type": "StringList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "skill_blackboard",
+          "value": {
+            "type": "StringList",
+            "valueArray": []
+          }
+        }
+      ],
+      "battleShapeData": {
+        "_shape": "Box",
+        "_rotationOffset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "_useExtentKey": false,
+        "_extent": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "_useCenterKey": false,
+        "_center": {
+          "x": 0.0,
+          "y": 0.5,
+          "z": 0.0
+        },
+        "_height": 2.0,
+        "_radius": 0.5
+      }
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.SimpleAnimatorComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveLogicControllerComponentData, Gameplay.Beyond",
+      "logicType": 3
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveBehitPerformComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "use_interactive_behit",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "interactive_behit_config_key",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "AttackSwitch"
+              }
+            ]
+          }
+        },
+        {
+          "key": "mount_point",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.ShowGuideComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "size",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1088421888
+              },
+              {
+                "valueBit64": 1073741824
+              },
+              {
+                "valueBit64": 1088421888
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "guide_id",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "guide_group_ewitch_attacked"
+              }
+            ]
+          }
+        },
+        {
+          "key": "id",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "guide_text_attacked_switch_title_1"
+              }
+            ]
+          }
+        },
+        {
+          "key": "wiki_id",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "wiki_tut_adv_ewitch"
+              }
+            ]
+          }
+        },
+        {
+          "key": "duration",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1092616192
+              }
+            ]
+          }
+        }
+      ],
+      "shapeType": "OBB",
+      "center": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 7.0,
+        "y": 2.0,
+        "z": 7.0
+      },
+      "radius": 0.0,
+      "guideId": "guide_group_ewitch_attacked",
+      "textId": "guide_text_attacked_switch_title_1",
+      "wikiId": "wiki_tut_adv_ewitch",
+      "duration": 10.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveAudioData, Gameplay.Beyond",
+      "propertyList": [],
+      "audioData": {
+        "openAudio": true,
+        "useDynamicLevel": false,
+        "useCustomStencil": false,
+        "useTiggerStencil": false,
+        "useWorkStencil": true,
+        "useAttackStencil": false,
+        "useRepairStencil": false,
+        "useDestroyStencil": false,
+        "useCollectStencil": false,
+        "useInteractStencil": false,
+        "useActiveStencil": false,
+        "audioNameDict": {
+          "StartUp": [
+            "au_int_eswitch_attacked_auto_open"
+          ],
+          "Stop": [
+            "au_int_eswitch_attacked_auto_close"
+          ]
+        },
+        "customAudioData": []
+      }
+    }
+  ],
+  "facOccDis": 0.5,
+  "hideInDialog": false,
+  "mountPoints": [],
+  "dataMap": {
+    "headerList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnIntReceiveAttack, Gameplay.Beyond",
+        "_ID": 4,
+        "_nextID": 5,
+        "_targetEntityList": {},
+        "_validate": {
+          "constValue": true
+        },
+        "_uid": "f9340fdb",
+        "_instigator": {
+          "path": "$4@_instigator"
+        },
+        "_instigatorType": {
+          "path": "$4@_instigatorType"
+        },
+        "_instigatorTid": {
+          "path": "$4@_instigatorTid"
+        },
+        "_skillId": {
+          "path": "$4@_skillId"
+        },
+        "_isNormalAttack": {
+          "path": "$4@_isNormalAttack"
+        },
+        "_eventArgsPtr": {
+          "path": "$4@_eventArgsPtr"
+        }
+      }
+    ],
+    "actionList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.PlayBehitPerform, Gameplay.Beyond",
+        "_ID": 5,
+        "_nextID": 6,
+        "_uid": "9eefd380",
+        "useCurrentScope": true,
+        "_entity": {
+          "paramSource": 1001,
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_blackboardKey": {
+          "paramSource": 100,
+          "path": "$4@_eventArgsPtr",
+          "constValue": {
+            "key": "blackboard"
+          }
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.DebugLogAction, Gameplay.Beyond",
+        "_ID": 6,
+        "_nextID": 7,
+        "_uid": "e57a72e2",
+        "useCurrentScope": true,
+        "_info": {
+          "constValue": "wytest: switch on hit"
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CreateEffectAtPosition, Gameplay.Beyond",
+        "_ID": 7,
+        "_uid": "51e1481b",
+        "useCurrentScope": true,
+        "_effectKey": {
+          "constValue": "P_interactive_lazerlinestrikespot_01_Variant"
+        },
+        "_position": {
+          "paramSource": -1,
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "idRef": 9
+        },
+        "_eulerAngles": {
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        },
+        "_scale": {
+          "constValue": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          }
+        },
+        "_isUnique": {
+          "constValue": false
+        },
+        "_effectSaveId": {
+          "path": "$7@_effectSaveId"
+        }
+      }
+    ],
+    "getterList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.Vector3GetterPlus, Gameplay.Beyond",
+        "_ID": 9,
+        "_uid": "664eeb5c",
+        "_valueA": {
+          "paramSource": -1,
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "idRef": 8
+        },
+        "_valueB": {
+          "paramSource": 100,
+          "path": "effectOffset",
+          "constValue": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.GetEntityPosition, Gameplay.Beyond",
+        "_ID": 8,
+        "_uid": "e916f15e",
+        "_target": {
+          "paramSource": 1001,
+          "constValue": {
+            "logicId": 0
+          }
+        }
+      }
+    ]
+  },
+  "tempProperties": [
+    {
+      "key": "effectOffset",
+      "value": {
+        "type": "Vector3",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          },
+          {
+            "valueBit64": 1068708659,
+            "valueString": ""
+          },
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "configProperties": [
+    {
+      "key": "use_countdown",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "countdown_duration",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1084227584
+          }
+        ]
+      }
+    },
+    {
+      "key": "target_list",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": []
+      }
+    }
+  ],
+  "saveProperties": [
+    {
+      "key": "state",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "is_locked",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "state",
+    "2": "is_locked",
+    "1027": "use_countdown",
+    "1028": "countdown_duration",
+    "1029": "target_list"
+  },
+  "propertyKeyToIdMap": {
+    "countdown_duration": 1028,
+    "is_locked": 2,
+    "state": 1,
+    "target_list": 1029,
+    "use_countdown": 1027
+  },
+  "templateVariant": {}
+}

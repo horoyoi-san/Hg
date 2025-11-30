@@ -1,0 +1,240 @@
+{
+  "scriptId": 3400010020,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnEnemyInFight, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_filterMode": true,
+          "_validate": {
+            "constValue": true
+          },
+          "_entityFilter": {
+            "paramSource": 200,
+            "path": "enemy",
+            "constValue": null
+          },
+          "_entityOutput": {
+            "path": "$0@_entityOutput"
+          },
+          "_uid": "7e24d910"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.RepeatAction, Gameplay.Beyond",
+          "_ID": 1,
+          "_repeatIndex": {
+            "path": "$1@_repeatIndex"
+          },
+          "_repeatTimes": {
+            "paramSource": -1,
+            "constValue": 1,
+            "idRef": 4
+          },
+          "_doID": 2,
+          "_uid": "545fc36a"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.PlayAudioOnTarget, Gameplay.Beyond",
+          "_ID": 2,
+          "_target": {
+            "paramSource": -1,
+            "constValue": {
+              "logicId": 0
+            },
+            "idRef": 3
+          },
+          "_audioKey": {
+            "constValue": "au_global_trigger_eny_hound"
+          },
+          "_audioPlayingId": {
+            "path": "$2@_audioPlayingId"
+          },
+          "_uid": "738992dd",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ListGetLengthEntityPtr, Gameplay.Beyond",
+          "_ID": 4,
+          "_list": {
+            "paramSource": 200,
+            "path": "enemy",
+            "constValue": null
+          },
+          "_uid": "c163eff5"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ListGetValueEntityPtr, Gameplay.Beyond",
+          "_ID": 3,
+          "_list": {
+            "paramSource": 200,
+            "path": "enemy",
+            "constValue": null
+          },
+          "_index": {
+            "paramSource": 100,
+            "path": "$1@_repeatIndex",
+            "constValue": 0
+          },
+          "_uid": "a28bac96"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 686.526,
+        "y": 101.96389,
+        "z": -189.554
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 45.000004,
+        "z": 0.0
+      },
+      "size": {
+        "x": 178.0,
+        "y": 180.0,
+        "z": 177.0
+      },
+      "radius": 0.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 691.9749,
+        "y": 101.53389,
+        "z": -189.35886
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 684.22595,
+        "y": 101.49389,
+        "z": -194.65987
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 687.13995,
+        "y": 101.49389,
+        "z": -204.07185
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 684.04535,
+        "y": 101.49389,
+        "z": -197.28212
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 686.526,
+        "y": 101.96389,
+        "z": -189.554
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 45.000004,
+        "z": 0.0
+      },
+      "size": {
+        "x": 28.0,
+        "y": 30.0,
+        "z": 27.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "enemy",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": [
+          {
+            "valueBit64": 3400010217
+          },
+          {
+            "valueBit64": 3400010218
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1025": "enemy"
+  }
+}

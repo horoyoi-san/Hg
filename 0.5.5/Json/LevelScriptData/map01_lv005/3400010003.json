@@ -1,0 +1,181 @@
+{
+  "scriptId": 3400010003,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.EntityEvent.OnLeaderEnterTrigger, Gameplay.Beyond",
+          "_ID": 0,
+          "_nextID": 1,
+          "_triggerTarget": "SPECIFY_ENTITY",
+          "_targetEntity": {
+            "paramSource": 200,
+            "path": "trigger",
+            "constValue": {
+              "logicId": 0
+            }
+          },
+          "_targetEntityList": {
+            "constValue": null
+          },
+          "_targetEntityListOutput": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_trigger": {
+            "path": "$0@_trigger"
+          },
+          "_uid": "4aefd31c"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.LevelEvent.OnSquadInFightChanged, Gameplay.Beyond",
+          "_ID": 2,
+          "_nextID": 3,
+          "_validate": {
+            "constValue": true
+          },
+          "_inFight": {
+            "path": "$2@_inFight"
+          },
+          "_uid": "2fda2486"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.SetEnemyUIShowRange, Gameplay.Beyond",
+          "_ID": 1,
+          "_reset": {
+            "constValue": false
+          },
+          "_forceHide": {
+            "constValue": true
+          },
+          "_showRange": {
+            "constValue": 20.0
+          },
+          "_uid": "1867eb82",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+          "_ID": 3,
+          "_condition": {
+            "paramSource": 100,
+            "path": "$2@_inFight",
+            "constValue": true
+          },
+          "_onTrueID": 4,
+          "_onFalseID": 0,
+          "_uid": "2e50a5a8"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.SetEnemyUIShowRange, Gameplay.Beyond",
+          "_ID": 4,
+          "_reset": {
+            "constValue": true
+          },
+          "_forceHide": {
+            "constValue": false
+          },
+          "_showRange": {
+            "constValue": 20.0
+          },
+          "_uid": "8437f399",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": []
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 715.78864,
+        "y": 121.14912,
+        "z": -193.00949
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 43.361427,
+        "z": 0.0
+      },
+      "size": {
+        "x": 173.32498,
+        "y": 164.49182,
+        "z": 185.93555
+      },
+      "radius": 0.0
+    },
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 709.69885,
+        "y": 125.840004,
+        "z": -209.36482
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 75.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "BOX",
+      "offset": {
+        "x": 715.78864,
+        "y": 121.14912,
+        "z": -193.00949
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 43.361427,
+        "z": 0.0
+      },
+      "size": {
+        "x": 23.324982,
+        "y": 14.491824,
+        "z": 35.935547
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "trigger",
+      "value": {
+        "type": "EntityPtr",
+        "valueArray": [
+          {
+            "valueBit64": 3400010069
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1025": "trigger"
+  }
+}

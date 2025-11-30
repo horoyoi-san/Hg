@@ -1,0 +1,1147 @@
+{
+  "id": "int_switch_common",
+  "name": "int_switch_common",
+  "factionIndex": "Neutral",
+  "bornTag": [],
+  "delayToRecycleTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.ModelComponentData, Gameplay.Beyond",
+      "modelId": "int_eswitch_v2",
+      "randomModelId": [],
+      "modelScale": 1.0,
+      "loadDelayTime": 0.0,
+      "useLod": false,
+      "cullDistance": 100.0,
+      "cullTimeInterval": 2.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.TriggerObserverComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1067030938
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 1045220557
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "size",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1077936128
+              },
+              {
+                "valueBit64": 1077936128
+              }
+            ]
+          }
+        },
+        {
+          "key": "interactive_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_offset",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1092616192
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_height",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1084227584
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_angle",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1135869952
+              }
+            ]
+          }
+        },
+        {
+          "key": "player_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_important",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.SimpleAnimatorComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveLogicControllerComponentData, Gameplay.Beyond",
+      "logicType": 1
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.ElectricNodeComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "type",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_online",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_terminal",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "power_generated",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "connected_node_list",
+          "value": {
+            "type": "EntityPtrList",
+            "valueArray": []
+          }
+        },
+        {
+          "key": "power_signal_threshold_list",
+          "value": {
+            "type": "IntList",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveAudioData, Gameplay.Beyond",
+      "propertyList": [],
+      "audioData": {
+        "openAudio": true,
+        "useDynamicLevel": false,
+        "useCustomStencil": true,
+        "useTiggerStencil": false,
+        "useWorkStencil": false,
+        "useAttackStencil": false,
+        "useRepairStencil": false,
+        "useDestroyStencil": false,
+        "useCollectStencil": false,
+        "useInteractStencil": true,
+        "useActiveStencil": false,
+        "audioNameDict": {},
+        "customAudioData": [
+          {
+            "audioState": "switch_on",
+            "audioEvent": "au_int_switch_common_interact",
+            "desc": "开关开启的时候调用"
+          },
+          {
+            "audioState": "switch_off",
+            "audioEvent": "au_int_switch_common_interact",
+            "desc": "开关关闭的时候调用"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.PlayerInteractPerformComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "animation_key",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "CharIntPerform_QuickFix"
+              }
+            ]
+          }
+        },
+        {
+          "key": "position",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "rotation",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "wait_time",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1072064102
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "facOccDis": 0.5,
+  "hideInDialog": false,
+  "mountPoints": [],
+  "dataMap": {
+    "headerList": [],
+    "actionList": [],
+    "getterList": []
+  },
+  "tempProperties": [],
+  "configProperties": [
+    {
+      "key": "add_visually_available",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    },
+    {
+      "key": "light_vfx_render",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "option_2",
+      "value": {
+        "type": "LangKey",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "lang_int_collection_eswitch_option"
+          }
+        ]
+      }
+    },
+    {
+      "key": "option_disconnected",
+      "value": {
+        "type": "LangKey",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "lang_int_collection_eswitch_option"
+          }
+        ]
+      }
+    },
+    {
+      "key": "option_general",
+      "value": {
+        "type": "LangKey",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "lang_int_collection_eswitch_option"
+          }
+        ]
+      }
+    },
+    {
+      "key": "option_submit",
+      "value": {
+        "type": "LangKey",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "lang_int_submit_option"
+          }
+        ]
+      }
+    },
+    {
+      "key": "submit_id",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "target_list",
+      "value": {
+        "type": "EntityPtrList",
+        "valueArray": []
+      }
+    },
+    {
+      "key": "toast_disconnected",
+      "value": {
+        "type": "LangKey",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "lang_int_fence_switch_poweroff_toast"
+          }
+        ]
+      }
+    },
+    {
+      "key": "toast_success",
+      "value": {
+        "type": "LangKey",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "use_electric",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "saveProperties": [
+    {
+      "key": "is_do_once",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "is_locked",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "state",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "is_do_once",
+    "2": "state",
+    "3": "is_locked",
+    "1029": "option_general",
+    "1030": "option_2",
+    "1031": "submit_id",
+    "1032": "option_submit",
+    "1034": "toast_success",
+    "1035": "use_electric",
+    "1036": "option_disconnected",
+    "1037": "toast_disconnected",
+    "1038": "target_list",
+    "1039": "light_vfx_render",
+    "1040": "add_visually_available"
+  },
+  "propertyKeyToIdMap": {
+    "add_visually_available": 1040,
+    "is_do_once": 1,
+    "is_locked": 3,
+    "light_vfx_render": 1039,
+    "option_2": 1030,
+    "option_disconnected": 1036,
+    "option_general": 1029,
+    "option_submit": 1032,
+    "state": 2,
+    "submit_id": 1031,
+    "target_list": 1038,
+    "toast_disconnected": 1037,
+    "toast_success": 1034,
+    "use_electric": 1035
+  },
+  "templateVariant": {
+    "gantry_terminal1": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_gantry_terminal1_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [
+        {
+          "key": "option_general",
+          "value": {
+            "type": "LangKey",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "lang_int_gantry_terminal1"
+              }
+            ]
+          }
+        },
+        {
+          "key": "option_2",
+          "value": {
+            "type": "LangKey",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "lang_int_gantry_terminal1"
+              }
+            ]
+          }
+        }
+      ],
+      "componentDiffProperties": {
+        "Comp_PlayerInteractResponse": {
+          "value": [
+            {
+              "key": "duration",
+              "value": {
+                "type": "Float",
+                "valueArray": [
+                  {
+                    "valueBit64": 1072064102
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "gantry_terminal2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_gantry_terminal2_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [
+        {
+          "key": "option_general",
+          "value": {
+            "type": "LangKey",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "lang_int_gantry_terminal2"
+              }
+            ]
+          }
+        },
+        {
+          "key": "option_2",
+          "value": {
+            "type": "LangKey",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "lang_int_gantry_terminal2"
+              }
+            ]
+          }
+        }
+      ],
+      "componentDiffProperties": {
+        "Comp_PlayerInteractResponse": {
+          "value": [
+            {
+              "key": "duration",
+              "value": {
+                "type": "Float",
+                "valueArray": [
+                  {
+                    "valueBit64": 1072064102
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "gantry_terminal3": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_gantry_terminal3_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [
+        {
+          "key": "option_general",
+          "value": {
+            "type": "LangKey",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "lang_int_gantry_terminal3"
+              }
+            ]
+          }
+        },
+        {
+          "key": "option_2",
+          "value": {
+            "type": "LangKey",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "lang_int_gantry_terminal3"
+              }
+            ]
+          }
+        }
+      ],
+      "componentDiffProperties": {
+        "Comp_PlayerInteractResponse": {
+          "value": [
+            {
+              "key": "duration",
+              "value": {
+                "type": "Float",
+                "valueArray": [
+                  {
+                    "valueBit64": 1072064102
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "int_eswitch_experbase_v2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_eswitch_experbase_v2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {
+        "Comp_TriggerObserver": {
+          "value": [
+            {
+              "key": "is_important",
+              "value": {
+                "type": "Bool",
+                "valueArray": [
+                  {
+                    "valueBit64": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "int_eswitch_v2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_eswitch_v2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [
+        {
+          "key": "add_visually_available",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 1
+              }
+            ]
+          }
+        }
+      ],
+      "componentDiffProperties": {
+        "Comp_TriggerObserver": {
+          "value": [
+            {
+              "key": "is_important",
+              "value": {
+                "type": "Bool",
+                "valueArray": [
+                  {
+                    "valueBit64": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "int_switch_console_lv005": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_console_lv005_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    },
+    "int_switch_doorunion_v2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_switch_doorunion"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {
+        "Comp_TriggerObserver": {
+          "value": [
+            {
+              "key": "is_important",
+              "value": {
+                "type": "Bool",
+                "valueArray": [
+                  {
+                    "valueBit64": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "int_switch_terminal_v2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_switch_terminal_v2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {
+        "Comp_TriggerObserver": {
+          "value": [
+            {
+              "key": "is_important",
+              "value": {
+                "type": "Bool",
+                "valueArray": [
+                  {
+                    "valueBit64": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "int_switch_union_v2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_switch_union_v2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {
+        "Comp_TriggerObserver": {
+          "value": [
+            {
+              "key": "is_important",
+              "value": {
+                "type": "Bool",
+                "valueArray": [
+                  {
+                    "valueBit64": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "int_switch_v2": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_switch_v2"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": false,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {
+        "Comp_TriggerObserver": {
+          "value": [
+            {
+              "key": "is_important",
+              "value": {
+                "type": "Bool",
+                "valueArray": [
+                  {
+                    "valueBit64": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "int_switch_wheel": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_switch_wheel_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": true,
+        "value": []
+      },
+      "diffProperties": [
+        {
+          "key": "light_vfx_render",
+          "value": {
+            "type": "String",
+            "valueArray": [
+              {
+                "valueBit64": 0,
+                "valueString": "P_interactive_collectingmaterials_asset"
+              }
+            ]
+          }
+        },
+        {
+          "key": "add_visually_available",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        }
+      ],
+      "componentDiffProperties": {}
+    }
+  }
+}

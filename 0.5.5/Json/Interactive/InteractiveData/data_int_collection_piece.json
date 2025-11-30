@@ -1,0 +1,455 @@
+{
+  "facOccDis": 0.5,
+  "hideInDialog": false,
+  "mountPoints": [],
+  "dataMap": {
+    "headerList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.EntityEvent.OnCustomEventNew, Gameplay.Beyond",
+        "_ID": 0,
+        "_nextID": 1,
+        "_targetEntity": null,
+        "_targetEntityList": {
+          "constValue": null
+        },
+        "_targetEntityListOutput": null,
+        "_validate": {
+          "constValue": true
+        },
+        "_eventKey": {
+          "constValue": "Interact_Start"
+        },
+        "_eventArgsPtr": {
+          "path": "$0@_eventArgsPtr"
+        },
+        "_uid": "d45395f9"
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.LevelEvent.OnDialogExit, Gameplay.Beyond",
+        "_ID": 2,
+        "_nextID": 3,
+        "_validate": {
+          "constValue": true
+        },
+        "_filteredDialogId": null,
+        "_dialogId": {
+          "path": "$2@_dialogId"
+        },
+        "_finishId": {
+          "path": "$2@_finishId"
+        },
+        "_uid": "cbf59647"
+      }
+    ],
+    "actionList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.StartDialogAction, Gameplay.Beyond",
+        "_ID": 1,
+        "_shouldWaitForFinish": {
+          "constValue": false
+        },
+        "_dialogId": {
+          "paramSource": 200,
+          "path": "dialog_id",
+          "constValue": null
+        },
+        "_uid": "56b63f61",
+        "useCurrentScope": true
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.IfElseAction, Gameplay.Beyond",
+        "_ID": 3,
+        "_condition": {
+          "paramSource": -1,
+          "constValue": true,
+          "idRef": 10
+        },
+        "_onTrueID": 4,
+        "_onFalseID": 0,
+        "_uid": "2e9b57ad"
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.RaiseCustomEntityEvent, Gameplay.Beyond",
+        "_ID": 4,
+        "_nextID": 5,
+        "_eventKey": {
+          "constValue": "on_block_pick_up"
+        },
+        "_eventArgsPtr": {
+          "constValue": {
+            "key": null
+          }
+        },
+        "_receiver": {
+          "paramSource": 1001,
+          "constValue": {
+            "logicId": 0
+          }
+        },
+        "_uid": "e94b1aae",
+        "useCurrentScope": true
+      },
+      {
+        "$type": "Beyond.Gameplay.Actions.CallServer, Gameplay.Beyond",
+        "_ID": 5,
+        "_eventName": {
+          "constValue": "#d7c122ab"
+        },
+        "_eventArgsPtr": {
+          "constValue": {
+            "key": "event_args"
+          }
+        },
+        "_uid": "d7c122ab",
+        "useCurrentScope": true
+      }
+    ],
+    "getterList": [
+      {
+        "$type": "Beyond.Gameplay.Actions.StringEqual, Gameplay.Beyond",
+        "_ID": 10,
+        "_valueA": {
+          "paramSource": 100,
+          "path": "$2@_dialogId",
+          "constValue": null
+        },
+        "_valueB": {
+          "paramSource": 200,
+          "path": "dialog_id",
+          "constValue": null
+        },
+        "_uid": "43884181"
+      }
+    ]
+  },
+  "tempProperties": [],
+  "configProperties": [
+    {
+      "key": "item_id",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "item_puzzle_M1L3"
+          }
+        ]
+      }
+    },
+    {
+      "key": "option_general",
+      "value": {
+        "type": "LangKey",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": "lang_int_interact_general_check"
+          }
+        ]
+      }
+    },
+    {
+      "key": "highlight_distance",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1092616192
+          }
+        ]
+      }
+    },
+    {
+      "key": "hint_distance",
+      "value": {
+        "type": "Float",
+        "valueArray": [
+          {
+            "valueBit64": 1103626240
+          }
+        ]
+      }
+    },
+    {
+      "key": "dialog_id",
+      "value": {
+        "type": "String",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    }
+  ],
+  "saveProperties": [
+    {
+      "key": "state",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    }
+  ],
+  "propertyIdToKeyMap": {
+    "1": "state",
+    "1026": "item_id",
+    "1027": "option_general",
+    "1028": "highlight_distance",
+    "1029": "hint_distance",
+    "1030": "dialog_id"
+  },
+  "propertyKeyToIdMap": {
+    "dialog_id": 1030,
+    "highlight_distance": 1028,
+    "hint_distance": 1029,
+    "item_id": 1026,
+    "option_general": 1027,
+    "state": 1
+  },
+  "templateVariant": {
+    "int_collection_piece_in_door": {
+      "modelId": {
+        "enabled": true,
+        "value": "int_collection_piece_indoor_postmodel"
+      },
+      "factionIndex": {
+        "enabled": false,
+        "value": "Neutral"
+      },
+      "delayToRecycleTime": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "facOccDis": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "hideInDialog": {
+        "enabled": false,
+        "value": false
+      },
+      "bornTag": {
+        "enabled": false,
+        "value": []
+      },
+      "mountPoints": {
+        "enabled": true,
+        "value": []
+      },
+      "diffProperties": [],
+      "componentDiffProperties": {}
+    }
+  },
+  "bornTag": [],
+  "delayToRecycleTime": 0.0,
+  "componentList": [
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveRootComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.View.ModelComponentData, Gameplay.Beyond",
+      "modelId": "int_collection_piece_postmodel",
+      "randomModelId": [],
+      "modelScale": 1.0,
+      "loadDelayTime": 0.0,
+      "useLod": false,
+      "cullDistance": 100.0,
+      "cullTimeInterval": 2.0
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.BaseControllerData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.SimpleAnimatorComponentData, Gameplay.Beyond"
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.TriggerObserverComponentData, Gameplay.Beyond",
+      "propertyList": [
+        {
+          "key": "shape",
+          "value": {
+            "type": "Int",
+            "valueArray": [
+              {
+                "valueBit64": 2
+              }
+            ]
+          }
+        },
+        {
+          "key": "radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1068960317
+              }
+            ]
+          }
+        },
+        {
+          "key": "center",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "size",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1065353216
+              },
+              {
+                "valueBit64": 1065353216
+              }
+            ]
+          }
+        },
+        {
+          "key": "interactive_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_offset",
+          "value": {
+            "type": "Vector3",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              },
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_radius",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1092616192
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_area_height",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1084227584
+              }
+            ]
+          }
+        },
+        {
+          "key": "check_angle",
+          "value": {
+            "type": "Float",
+            "valueArray": [
+              {
+                "valueBit64": 1135869952
+              }
+            ]
+          }
+        },
+        {
+          "key": "player_direction_check",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "is_important",
+          "value": {
+            "type": "Bool",
+            "valueArray": [
+              {
+                "valueBit64": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveLogicControllerComponentData, Gameplay.Beyond",
+      "logicType": 78
+    },
+    {
+      "$type": "Beyond.Gameplay.Core.InteractiveAudioData, Gameplay.Beyond",
+      "audioData": {
+        "openAudio": true,
+        "useDynamicLevel": false,
+        "useCustomStencil": false,
+        "useTiggerStencil": true,
+        "useWorkStencil": true,
+        "useAttackStencil": false,
+        "useRepairStencil": false,
+        "useDestroyStencil": true,
+        "useCollectStencil": false,
+        "useInteractStencil": true,
+        "useActiveStencil": false,
+        "audioNameDict": {
+          "EnterArea": [
+            "au_int_collection_piece_stress"
+          ],
+          "Idle": [
+            "au_int_collection_piece_idle"
+          ],
+          "Destroy": [
+            "au_int_collection_piece_destroy"
+          ],
+          "Interact": [
+            "au_int_collection_piece_interact"
+          ]
+        },
+        "customAudioData": []
+      },
+      "propertyList": []
+    }
+  ],
+  "name": "int_collection_piece",
+  "factionIndex": "Neutral",
+  "id": "int_collection_piece"
+}

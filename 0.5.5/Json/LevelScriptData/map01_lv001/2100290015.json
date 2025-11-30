@@ -1,0 +1,213 @@
+{
+  "scriptId": 2100290015,
+  "allowTick": false,
+  "allowStartOnTravelPole": false,
+  "startType": "ByEnterStartShape",
+  "endType": "ByExitStartShape",
+  "refGameId": null,
+  "exitBuffer": 0.0,
+  "modules": {},
+  "isEmbedded": true,
+  "refActionMapPath": null,
+  "actionMap": {
+    "paramBlackboard": {
+      "value": []
+    },
+    "dataMap": {
+      "headerList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnScriptActive, Gameplay.Beyond",
+          "_ID": 6,
+          "_nextID": 7,
+          "_targetScript": null,
+          "_validate": {
+            "paramSource": -1,
+            "constValue": true,
+            "idRef": 5
+          },
+          "_uid": "1d87327b"
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.ScriptEvent.OnCustomEvent, Gameplay.Beyond",
+          "_ID": 3,
+          "_nextID": 4,
+          "_targetScript": null,
+          "_validate": {
+            "constValue": true
+          },
+          "_eventKey": {
+            "constValue": "#d0751abd"
+          },
+          "_eventArgsPtr": null,
+          "_uid": "d0751abd"
+        }
+      ],
+      "actionList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.CreateMissionNpc, Gameplay.Beyond",
+          "_ID": 7,
+          "_levelId": {
+            "constValue": "map01_lv001"
+          },
+          "_npcIdList": {
+            "constValue": [
+              "npc_gentleman_rfg_b_07_g01_map01_lv001_sm1l1m10_001",
+              "npc_gentleman_rfg_b_08_g01_map01_lv001_sm1l1m10_001"
+            ]
+          },
+          "_uid": "58ece1b0",
+          "useCurrentScope": true
+        },
+        {
+          "$type": "Beyond.Gameplay.Actions.CreateMissionNpc, Gameplay.Beyond",
+          "_ID": 4,
+          "_levelId": {
+            "constValue": "map01_lv001"
+          },
+          "_npcIdList": {
+            "constValue": [
+              "npc_gentleman_rfg_b_07_g01_map01_lv001_sm1l1m10_001",
+              "npc_gentleman_rfg_b_08_g01_map01_lv001_sm1l1m10_001"
+            ]
+          },
+          "_uid": "d8fd6ff4",
+          "useCurrentScope": true
+        }
+      ],
+      "getterList": [
+        {
+          "$type": "Beyond.Gameplay.Actions.BooleanCompare, Gameplay.Beyond",
+          "_ID": 5,
+          "_comparer": {
+            "constValue": "Equal"
+          },
+          "_valueA": {
+            "paramSource": 300,
+            "path": "finish",
+            "constValue": false
+          },
+          "_valueB": {
+            "constValue": true
+          },
+          "_uid": "a25a68a1"
+        }
+      ]
+    }
+  },
+  "resetModeWhenActive": "None",
+  "resetModeWhenEnd": "None",
+  "activeShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 37.570694,
+        "y": 95.400856,
+        "z": -332.2187
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 85.0
+    }
+  ],
+  "startShapeList": [
+    {
+      "type": "SPHERE",
+      "offset": {
+        "x": 37.570694,
+        "y": 95.400856,
+        "z": -332.2187
+      },
+      "eulerAngles": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 10.0
+      },
+      "radius": 10.0
+    }
+  ],
+  "properties": [
+    {
+      "key": "finish",
+      "value": {
+        "type": "Bool",
+        "valueArray": [
+          {
+            "valueBit64": 0,
+            "valueString": ""
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:p:45ce785e:2d2976a0",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 0
+          }
+        ]
+      }
+    },
+    {
+      "key": "lt:mp:45ce785e:2d2976a0",
+      "value": {
+        "type": "Int",
+        "valueArray": [
+          {
+            "valueBit64": 1
+          }
+        ]
+      }
+    }
+  ],
+  "taskMap": {
+    "45ce785e": {
+      "conditionDict": {
+        "2d2976a0": {
+          "isMainObjective": true,
+          "objectiveEnum": "Objective1",
+          "condition": {
+            "$type": "Beyond.Gameplay.CheckTalkOptionFinish, Gameplay.Beyond",
+            "_dialogId": {
+              "constValue": "dlg_sm1l1m10_3"
+            },
+            "_optionId": {
+              "constValue": null
+            },
+            "_finishId": {
+              "constValue": -1
+            },
+            "uniqueId": "2d2976a0",
+            "detail": null,
+            "parent": null,
+            "useCurrentScope": false,
+            "scopeMask": "Main",
+            "useGraphScope": true
+          }
+        }
+      },
+      "taskType": "None",
+      "needManualCheck": false,
+      "canBeTracked": false
+    }
+  },
+  "propertyIdToKeyMap": {
+    "1": "finish",
+    "2": "lt:p:45ce785e:2d2976a0",
+    "1027": "lt:mp:45ce785e:2d2976a0"
+  }
+}
