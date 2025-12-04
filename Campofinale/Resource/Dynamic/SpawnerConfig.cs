@@ -36,7 +36,7 @@ namespace Campofinale.Resource.Dynamic
         public class WaveGroup
         {
             public int groupId;
-            public int groupMode;
+            public string groupMode;
             public int groupModeKillCount;
             public float timestamp;
             public Dictionary<string, GroupAction> actionMap = new();

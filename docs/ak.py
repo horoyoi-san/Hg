@@ -6,7 +6,7 @@ import json
 
 
 def request(flow: http.HTTPFlow) -> None:
-    if "gryphline.com" in flow.request.pretty_url:
+    if ("hypergryph.com" in flow.request.pretty_url) or ("gryphline" in flow.request.pretty_url):
         if flow.request.method == "CONNECT":
             return
         if "/get_latest_resources" in flow.request.pretty_url:

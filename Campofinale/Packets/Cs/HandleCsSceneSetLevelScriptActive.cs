@@ -4,7 +4,7 @@ using Campofinale.Network;
 using Campofinale.Protocol;
 using Campofinale.Resource;
 using Campofinale.Resource.Json;
-using Pastel;
+using StardustUtils;
 using System.Net.Sockets;
 using static Campofinale.Resource.ResourceManager.LevelScene.LevelData;
 
@@ -51,7 +51,13 @@ namespace Campofinale.Packets.Cs
                     session.sceneManager.GetCurScene().activeScripts.Add(req.ScriptId);
                     session.sceneManager.GetCurScene().UpdateShowEntities();
                 }
-                session.Send(ScMsgId.ScSceneLevelScriptStateNotify, rsp);
+                session.Send(ScMsgId.ScSceneLevelScriptStateNotify, rsp,packet.csHead.UpSeqid);
+                session.Send(ScMsgId.ScSceneLevelScriptStageChange, new ScSceneLevelScriptStageChange()
+                {
+                    SceneNumId = req.SceneNumId,
+                    ScriptId = req.ScriptId,
+                    Stage=0
+                });
             }
 
 
@@ -88,9 +94,10 @@ namespace Campofinale.Packets.Cs
                     SceneNumId = req.SceneNumId,
                     ScriptId = req.ScriptId,
 
-                    State = sceneScript.state
+                    State = sceneScript.state,
+                    
                 };
-                session.Send(ScMsgId.ScSceneLevelScriptStateNotify, rsp);
+                session.Send(ScMsgId.ScSceneLevelScriptStateNotify, rsp,packet.csHead.UpSeqid);
             }
             
 
@@ -212,6 +219,10 @@ namespace Campofinale.Packets.Cs
                     foreach(string id in action.valueStr)
                     {
                         LevelScriptData levelscript = ResourceManager.GetLevelData(player.curSceneNumId).levelData.levelScripts.Find(l => l.actionMap.dataMap.headerList.Any(h=>h._eventKey.constValue==id));
+                        if(action.valueUlong.Count() > 0)
+                        {
+                            levelscript = ResourceManager.GetLevelData(player.curSceneNumId).levelData.levelScripts.Find(l => l.scriptId== action.valueUlong[0]);
+                        }
                         ScSceneTriggerClientLevelScriptEvent trigger = new()
                         {
                             EventName = id,

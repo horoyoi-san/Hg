@@ -12,10 +12,12 @@ Campofinale is an experimental server implementation for a certain factory build
 * Save data with MongoDB
 * Combat system
 
+
 ## TODO
 * Android Support
 * Mission System
 * Working buffs
+* Fixing Factory system for new versions
 
 ## Installation Steps (Windows)
 
@@ -27,19 +29,19 @@ Campofinale is an experimental server implementation for a certain factory build
     1. Make sure to setup Mitmproxy accordingly, and of course install the certificate system-wide.
     
 2. Download the [precompiled build](https://git.teamstardust.org/Campofinale/Campofinale/releases/latest) or build it by yourself
-3. Put the `Json`, `TableCfg` folder inside the `Campofinale.exe` folder (you can download a copy [here](https://github.com/horoyoi-san/Hg/tree/EndfieldData)) | Also get `DynamicAssets` from [here](https://github.com/horoyoi-san/Hg/tree/EndfieldData/0.5.28/DynamicAssets) and put them in the same folder as `Campofinale.exe`
+3. Put the `Json`, `TableCfg` folder inside the `Campofinale.exe` folder (you can download a copy [here](https://git.teamstardust.org/Campofinale/EndfieldData)) | Also get `DynamicAssets` from [here](https://git.teamstardust.org/Campofinale/EndfieldData-Archive/src/branch/main/0.5.28/DynamicAssets) and put them in the same folder as `Campofinale.exe`
 4. Run the server `Campofinale.exe`
 5. Proxy post-install setup
 
     ```shell
-    mitmproxy -s ak.py --mode local:EndfieldTBeta2
+    mitmweb -s ak.py --mode local:EndfieldTBeta2 --set stream_large_bodies=3m
     ```
 
    Get ak.py from [here](https://git.teamstardust.org/Campofinale/Campofinale/src/branch/development/docs/ak.py)
     
 6. Run the Mitmproxy command (from above) if you haven't
 
-7. Patch the game client (get the patch from our Discord) - Run launcher.exe after (Note: Only OS client is supported for now)
+7. Patch the game client (get the patch from our Discord) - Run launcher.exe after (Note: Only OS client is supported for now, CN CBT3 could work too because offsets are the same)
 8. You must create an account using `account create (username)` in the server console, then login in the game with an email like `(username)@randomemailformathere.whatyouwant`. There is no password so you can input a random password for its field.
 
 ## Additional Information
@@ -54,7 +56,7 @@ If you want to open the in-game console, go to `Settings -> Platform & Account -
 
 ## Discord for support
 
-If you want to discuss, ask for support or help with this project, join our [Discord Server](https://discord.gg/YZGYtAxeZk)!
+If you want to discuss, ask for support or help with this project, join our [Discord Server](https://discord.gg/HdXZY2Q9vs)!
 
 ## Note
 

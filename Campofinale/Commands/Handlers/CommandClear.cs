@@ -1,4 +1,6 @@
-﻿namespace Campofinale.Commands.Handlers
+﻿using StardustUtils;
+
+namespace Campofinale.Commands.Handlers
 {
     public static class CommandClear
     {

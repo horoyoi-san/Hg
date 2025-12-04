@@ -21,6 +21,11 @@ namespace Campofinale.Packets.Sc
                     {
                         Id="item_gold",
                         Amount=(ulong)client.inventoryManager.item_gold_amt,
+                    },
+                    new MoneyInfo()
+                    {
+                        Id="item_originium_recharge",
+                        Amount=(ulong)client.inventoryManager.item_originium_recharge_amt,
                     }
                 }
                 

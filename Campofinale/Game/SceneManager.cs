@@ -5,6 +5,7 @@ using Campofinale.Resource;
 using Campofinale.Resource.Dynamic;
 using Campofinale.Resource.Table;
 using MongoDB.Bson.Serialization.Attributes;
+using StardustUtils;
 using System;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
@@ -517,7 +518,27 @@ namespace Campofinale.Game
                 Logger.PrintWarn($"Enemy Id {v} not found on scene {sceneNumId}:{lv_scene.mapIdStr}");
             }
         }
-
+        public void SpawnEnemy(BattleSpawnEnemyActionDetail enemy)
+        {
+            LevelScene lv_scene = ResourceManager.GetLevelData(sceneNumId);
+            LevelEnemyData en = lv_scene.levelData.enemies.Find(e => e.levelLogicId == enemy.SourceId);
+            if (en != null)
+            {
+                EntityMonster entity = new(en.entityDataIdKey, en.level, ownerId, new Vector3f(enemy.Pos), new Vector3f(enemy.Rotation), sceneNumId, en.levelLogicId)
+                {
+                    type = en.entityType,
+                    belongLevelScriptId = en.belongLevelScriptId,
+                    levelLogicId = en.levelLogicId,
+                };
+                entities.Add(entity);
+                Logger.Print($"Enemy Id {en.levelLogicId} found on scene {sceneNumId}:{lv_scene.mapIdStr}, Spawning...");
+                SpawnEntity(entity);
+            }
+            else
+            {
+                Logger.PrintWarn($"Enemy Id {enemy.SourceId} not found on scene {sceneNumId}:{lv_scene.mapIdStr}");
+            }
+        }
         public void SpawnWaveEnemy(ulong spawnerId, int waveId)
         {
             LevelSpawnerData data=info().levelData.spawners.Find(s => s.spawnerId == spawnerId);
@@ -547,5 +568,7 @@ namespace Campofinale.Game
                 }
             }
         }
+
+       
     }
 }

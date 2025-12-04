@@ -6,6 +6,7 @@ using static Campofinale.Game.Factory.FactoryNode;
 using Campofinale.Game.Inventory;
 using Campofinale.Game.Factory;
 using Campofinale.Game.Factory.BuildingsBehaviour;
+using StardustUtils;
 
 namespace Campofinale.Database
 {
@@ -66,7 +67,10 @@ namespace Campofinale.Database
             BsonSerializer.RegisterSerializer(typeof(Dictionary<int, ulong>), new CustomDictionarySerializer<int, ulong>());
             BsonSerializer.RegisterSerializer(typeof(Dictionary<int, List<int>>), new CustomDictionarySerializer<int, List<int>>());
             BsonSerializer.RegisterSerializer(typeof(Dictionary<int, Item>), new CustomDictionarySerializer<int, Item>());
-            
+            if (!F05774815C749192A285FA14BC2A757C.Method_2BE9E582571C2D50551FBF2F5B1EE4CB(false))
+            {
+                throw new Exception("Signchecker validation failed!!!!!!!! This software has been altered and may not contain credits to the original creator!!!!");
+            }
             RegisterSubclasses<FComponent>();
             RegisterSubclasses<NodeBuildingBehaviour>();
             Logger.Print("Connecting to MongoDB..."); 

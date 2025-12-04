@@ -2,8 +2,7 @@
 
 using Campofinale.Network;
 using Campofinale.Protocol;
-
-using Pastel;
+using StardustUtils;
 
 namespace Campofinale.Packets.Cs
 {
@@ -34,7 +33,7 @@ namespace Campofinale.Packets.Cs
                 };
                 if (Server.config.logOptions.packets)
                 {
-                    Logger.Print("Recieved Packet: " + ((CsMsgId)packet.csHead.Msgid).ToString().Pastel(Color.LightCyan) + $" Id: {packet.csHead.Msgid} with {packet.finishedBody.Length} Bytes");
+                    Logger.Print("Received Packet: " + ((CsMsgId)packet.csHead.Msgid).ToString().Pastel(Color.LightCyan) + $" Id: {packet.csHead.Msgid} with {packet.finishedBody.Length} Bytes");
                     if (Server.config.logOptions.packetBodies)
                         Logger.Print(BitConverter.ToString(packet.finishedBody).Replace("-", string.Empty).ToLower());
                 }

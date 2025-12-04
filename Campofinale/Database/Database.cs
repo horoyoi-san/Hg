@@ -8,6 +8,7 @@ using Campofinale.Game.Spaceship;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using StardustUtils;
 using System.Security.Cryptography;
 using System.Text;
 using static Campofinale.Game.Adventure.AdventureBookManager;
@@ -40,6 +41,7 @@ namespace Campofinale.Database
         public List<Scene> scenes = new();
         public Dictionary<int, List<int>> bitsets = new();
         public PlayerSafeZoneInfo savedSafeZone = new();
+        public PlayerPersonalData personalData = new();
         public Gender gender = Gender.GenFemale;
         public Dictionary<int, Item> bag = new();
     }
@@ -122,9 +124,9 @@ namespace Campofinale.Database
             //These transactions never need to be changed
             collection.InsertOne(transaction);
         }
-        public List<GachaTransaction> LoadGachaTransaction(ulong roleId, string templateId)
+        public List<GachaTransaction> LoadGachaTransaction(ulong roleId, int type)
         {
-            return _database.GetCollection<GachaTransaction>("gachas").Find(c => c.ownerId== roleId && c.gachaTemplateId==templateId).ToList();
+            return _database.GetCollection<GachaTransaction>("gachas").Find(c => c.ownerId== roleId && c.bannerType == type).ToList();
         }
         public static string GenerateToken(int length)
         {
@@ -162,6 +164,7 @@ namespace Campofinale.Database
                 scenes=player.sceneManager.scenes,
                 bitsets=player.bitsetManager.bitsets,
                 savedSafeZone = player.savedSaveZone,
+                personalData = player.personalData,
                 gender=player.gender,
                 bag=player.inventoryManager.items.bag,
                 nextDailyReset = player.nextDailyReset,

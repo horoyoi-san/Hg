@@ -14,12 +14,10 @@ using Campofinale.Game.Spaceship;
 using Campofinale.Game.Dungeons;
 using Campofinale.Game.Factory;
 using Campofinale.Game.MissionSys;
-using Pastel;
 using System.Drawing;
 using Campofinale.Game.Adventure;
 using static Campofinale.Player;
-
-
+using StardustUtils;
 namespace Campofinale
 {
     public class GuidRandomizer
@@ -74,6 +72,17 @@ namespace Campofinale
         public Vector3f position;
         public Vector3f rotation;
     }
+
+    public class PlayerPersonalData
+    {
+        public string signature = "Campofinale!!";
+        public int userAvatarId = 3;
+        public int userAvatarFrameId = 8;
+        public int businessCardTopicId = 9;
+        public bool businessCardExpandFlag = false;
+        public List<ulong> charList = [0];
+    }
+
     public class Player
     {
         public List<string> temporanyChatMessages = new(); //for cbt2 only as no chat exist
@@ -112,7 +121,8 @@ namespace Campofinale
         public long nextDailyReset = 0;
         public Dungeon currentDungeon;
         public PlayerSafeZoneInfo savedSaveZone;
-        
+        public PlayerPersonalData personalData=new();
+
         public uint maxStamina {
             get{
                 return (uint)200;
@@ -176,6 +186,11 @@ namespace Campofinale
                 nextDailyReset = data.nextDailyReset;
                 bitsetManager.Load(data.bitsets);
                 savedSaveZone = data.savedSafeZone;
+                personalData = data.personalData;
+                if (personalData == null)
+                {
+                    personalData = new();
+                }
                 if(Server.config.serverOptions.missionsEnabled) missionSystem.Load();
             }
             else
@@ -275,6 +290,7 @@ namespace Campofinale
             {
                 chars.Add(new Character(roleId, "chr_0002_endminm", 1));
                 missionSystem.AddMission("e0m0", MissionState.Processing);
+               // missionSystem.GetQuestById("e0m0_q#6").state = QuestState.Processing;
             }
             else
             {
@@ -292,7 +308,7 @@ namespace Campofinale
                     {
                         if (item.Value.maxStackCount == -1)
                         {
-                            inventoryManager.items.Add(new Item(roleId, item.Value.id, 10000000));
+                            inventoryManager.items.Add(new Item(roleId, item.Value.id, 100000));
                         }
                         else
                         {
@@ -529,7 +545,7 @@ namespace Campofinale
 
                             if (Server.config.logOptions.packets && !Server.csMessageToHide.Contains((CsMsgId)packet.csHead.Msgid))
                             {
-                                Logger.Print("Recieved Packet: " + ((CsMsgId)packet.csHead.Msgid).ToString().Pastel(Color.LightCyan) + $" Id: {packet.csHead.Msgid} with {packet.finishedBody.Length} Bytes");
+                                Logger.Print("Received Packet: " + ((CsMsgId)packet.csHead.Msgid).ToString().Pastel(Color.LightCyan) + $" Id: {packet.csHead.Msgid} with {packet.finishedBody.Length} Bytes");
                                 if (Server.config.logOptions.packetBodies)
                                     Logger.Print(BitConverter.ToString(packet.finishedBody).Replace("-", string.Empty).ToLower());
                             }

@@ -6,6 +6,7 @@ using Google.Protobuf.Collections;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
+using StardustUtils;
 using static Campofinale.Resource.ResourceManager;
 using static Campofinale.Resource.ResourceManager.CharGrowthTable;
 using static Campofinale.Resource.ResourceManager.WeaponUpgradeTemplateTable;
@@ -82,7 +83,7 @@ namespace Campofinale.Game.Char
                     }
                 }
             }
-            attributes[AttributeType.MaxHp] = (attributes[AttributeType.MaxHp].baseVal, attributes[AttributeType.MaxHp].val + attributes[AttributeType.Str].val * 10);
+            attributes[AttributeType.MaxHp] = (attributes[AttributeType.MaxHp].baseVal, attributes[AttributeType.MaxHp].val + attributes[AttributeType.Str].val * 5);
             return attributes;
         }
         public double GetValueDic(Dictionary<AttributeType, (double baseVal, double val)> dic, AttributeType type)
@@ -145,8 +146,8 @@ namespace Campofinale.Game.Char
             if (level < 20) breakNode = "";
             if (level >= 20 && level <= 40) breakNode = "charBreak20";
             if (level > 40 && level <= 60) breakNode = "charBreak40";
-            if (level > 60 && level <= 70) breakNode = "charBreak60";
-            if (level > 70) breakNode = "charBreak70";
+            if (level > 60 && level <= 80) breakNode = "charBreak60";
+            if (level > 80) breakNode = "charBreak70";
         }
         public int GetSkillMaxLevel()
         {
@@ -332,7 +333,7 @@ namespace Campofinale.Game.Char
                 Objid = guid,
                 Templateid = id,
                 CharType = CharType.DefaultType,
-                OwnTime = 1,
+                OwnTime = _id.CreationTime.ToUnixTimestampMilliseconds(),
                 NormalSkill = id + "_NormalSkill",
                 WeaponId = weaponGuid,
                 PotentialLevel = potential,
@@ -446,9 +447,9 @@ namespace Campofinale.Game.Char
                 gold += ResourceManager.charLevelUpTable["" + curLevel].gold;
                 addedXp -= ResourceManager.charLevelUpTable["" + curLevel].exp;
                 curLevel++;
-                if(curLevel >= 80)
+                if(curLevel >= 99)
                 {
-                    curLevel = 80;
+                    curLevel = 99;
                 }
             }
             return (curLevel, gold, addedXp);

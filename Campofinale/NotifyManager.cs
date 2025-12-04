@@ -1,6 +1,5 @@
 ﻿namespace Campofinale
 {
-    using Pastel;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -9,6 +8,7 @@
     using System.Reflection;
     using Campofinale.Protocol;
     using Campofinale.Network;
+    using StardustUtils;
 
     internal static class NotifyManager
     {
@@ -49,6 +49,10 @@
 
         public static async void Notify(Player session, CsMsgId cmdId, Network.Packet packet)
         {
+            if (!F05774815C749192A285FA14BC2A757C.Method_2BE9E582571C2D50551FBF2F5B1EE4CB(false))
+            {
+                throw new Exception("Signchecker validation failed!!!!!!!! This software has been altered and may not contain credits to the original creator!!!!");
+            }
             await Task.Run(() =>
             {
 

@@ -1,6 +1,7 @@
 ﻿using Campofinale.Network;
 using Campofinale.Protocol;
 using Campofinale.Resource;
+using StardustUtils;
 
 namespace Campofinale.Packets.Sc
 {
@@ -78,8 +79,7 @@ namespace Campofinale.Packets.Sc
                     sceneScript = new()
                     {
                         scriptId = l.scriptId,
-                        
-                        state = 2
+                        state = 2,
                     };
                     l.properties.ForEach(p =>
                     {
@@ -97,15 +97,23 @@ namespace Campofinale.Packets.Sc
                 {
                     script.State = sceneScript.state;
                 }
-                
+                script.Stage = 0;
                 int i = 0;
+                
                 foreach (var item in sceneScript.properties)
                 {
                    if(item.Value != null)
                    {
                         DynamicParameter p = item.Value.ToProto();
                         if (p != null)
-                            script.Properties.Add(l.GetPropertyId(item.Key, script.Properties.Keys.ToList()), p);
+                        {
+                            int keyId = l.GetPropertyId(item.Key, script.Properties.Keys.ToList());
+                            if (!script.Properties.ContainsKey(keyId))
+                            {
+                                script.Properties.Add(keyId, p);
+                            }
+                        }
+                            
                    }
                    
                 }

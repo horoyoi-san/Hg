@@ -36,7 +36,7 @@ namespace Campofinale.Packets.Sc
             foreach(var item in gachaWeaponPoolTable)
             {
                 (int fiveStarPity, int sixStarPity, GachaTransaction? lastSixStar, bool isFiftyFiftyLost)
-                PityInfo = client.gachaManager.GetCurrentPity(item.Value.id);
+                PityInfo = client.gachaManager.GetCurrentPity(item.Value.type);
                 ScdGachaPoolInfo wPool = new ScdGachaPoolInfo()
                 {
                     GachaPoolId = item.Value.id,
@@ -74,7 +74,7 @@ namespace Campofinale.Packets.Sc
             foreach (var item in gachaCharPoolTable)
             {
                 (int fiveStarPity, int sixStarPity, GachaTransaction? lastSixStar, bool isFiftyFiftyLost)
-                PityInfo = client.gachaManager.GetCurrentPity(item.Value.id);
+                PityInfo = client.gachaManager.GetCurrentPity(item.Value.type);
                 proto.CharGachaPool.GachaPoolInfos.Add(new ScdGachaPoolInfo()
                 {
                     GachaPoolId = item.Value.id,

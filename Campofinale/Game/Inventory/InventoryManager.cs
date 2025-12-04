@@ -1,6 +1,7 @@
 ﻿using Campofinale.Database;
 using Campofinale.Packets.Sc;
 using Google.Protobuf.Collections;
+using StardustUtils;
 using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Game.Inventory
@@ -26,7 +27,14 @@ namespace Campofinale.Game.Inventory
                 return items.Find(i => i.id == "item_gold")!.amount;
             }
         }
-
+        public int item_originium_recharge_amt
+        {
+            get
+            {
+                if (items.Find(i => i.id == "item_originium_recharge") == null) return 0;
+                return items.Find(i => i.id == "item_originium_recharge")!.amount;
+            }
+        }
         public Item GetItemById(string id)
         {
             return items.FindInAll(i => i.id == id);

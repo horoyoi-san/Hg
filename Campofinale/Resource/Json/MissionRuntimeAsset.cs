@@ -1,12 +1,11 @@
-﻿namespace Campofinale.Resource.Table
+﻿namespace Campofinale.Resource.Json
 {
     //Beyond.Gameplay.MissionRuntimeAsset
-    [TableCfgType("TableCfg/MissionDataTable.json", LoadPriority.LOW)]
-    public class MissionDataTable
+    public class MissionRuntimeAsset
     {
         public string missionId;
         public string rewardId;
-        //public MissionType missionType;
+        public MissionType missionType;
         public string charId;
         public string levelId;
         public Dictionary<string, QuestInfo> questDic;
@@ -44,6 +43,10 @@
             Misc = 5,
             Dungeon = 6,
             World = 7,
+            WeekRaid = 8,
+            FakeMain = 9,
+            Side = 10,
+            Activity = 11,
         }
     }
 }

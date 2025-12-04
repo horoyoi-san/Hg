@@ -8,8 +8,6 @@ namespace Campofinale.Packets.Sc
     {
 
         public PacketScFactorySync(Player client) {
-            string json = File.ReadAllText("53_ScFactorySync.json");
-            //ScFactorySync proto = Newtonsoft.Json.JsonConvert.DeserializeObject<ScFactorySync>(json);
             ScFactorySync proto = new()
             {
                 FormulaMan = new()

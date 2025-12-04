@@ -6,6 +6,8 @@ using System.Numerics;
 using System;
 using static Campofinale.Resource.ResourceManager.LevelScene;
 using static Campofinale.Resource.ResourceManager.LevelScene.LevelData;
+using StardustUtils;
+using System.IO;
 
 namespace Campofinale.Resource
 {
@@ -38,7 +40,7 @@ namespace Campofinale.Resource
         public static Dictionary<string, WikiGroupTable> wikiGroupTable = new();
         public static Dictionary<string, object> blocUnlockTable = new();
         public static Dictionary<string, GameMechanicTable> gameMechanicTable = new();
-        public static Dictionary<string, WeaponBasicTable> weaponBasicTable= new();
+        public static Dictionary<string, WeaponBasicTable> weaponBasicTable = new();
         public static Dictionary<string, BlocDataTable> blocDataTable = new(); //
         public static Dictionary<string, ItemTable> itemTable = new();
         public static Dictionary<string, DomainDataTable> domainDataTable = new();
@@ -53,7 +55,7 @@ namespace Campofinale.Resource
         public static Dictionary<string, GachaCharPoolTable> gachaCharPoolTable = new();
         public static Dictionary<string, GachaCharPoolContentTable> gachaCharPoolContentTable = new();
         public static Dictionary<string, GachaCharPoolTypeTable> gachaCharPoolTypeTable = new();
-        
+
         public static Dictionary<string, GachaWeaponPoolTable> gachaWeaponPoolTable = new();
         //
         public static Dictionary<string, EnemyTable> enemyTable = new();
@@ -76,13 +78,13 @@ namespace Campofinale.Resource
         public static Dictionary<string, SNSChatTable> snsChatTable = new();//
         public static Dictionary<string, GiftItemTable> giftItemTable = new();
         public static Dictionary<string, InteractiveFacWrapperTable> interactiveFacWrapperTable = new();
-        public static List<MissionDataTable> missionDataTable = new();
+        public static List<MissionRuntimeAsset> missionDataTable = new();
 
         public static InteractiveTable interactiveTable = new(); //
         public static List<LevelScene> levelDatas = new();
         public static List<InteractiveData> interactiveData = new();
         public static List<SpawnerConfig> spawnerConfigs = new();
-        public static Dictionary<string,ConditionData> conditions=new();
+        public static Dictionary<string, ConditionData> conditions = new();
         public static int GetSceneNumIdFromLevelData(string name)
         {
             if (levelDatas.Find(a => a.id == name) == null) return 0;
@@ -100,20 +102,19 @@ namespace Campofinale.Resource
             {
                 return File.ReadAllText(path);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logger.PrintError($"Error occured while loading {path} Err: {e.Message}");
                 missingResources = true;
                 return "";
             }
-            
+
         }
         public static void Init()
         {
             Logger.Print("Loading TableCfg resources");
             // TODO: move all tables to the folder
-            sceneAreaTable=JsonConvert.DeserializeObject<Dictionary<string, SceneAreaTable>>(ReadJsonFile("TableCfg/SceneAreaTable.json"));
-            strIdNumTable = JsonConvert.DeserializeObject<StrIdNumTable>(ReadJsonFile("TableCfg/StrIdNumTable.json"));
+            sceneAreaTable = JsonConvert.DeserializeObject<Dictionary<string, SceneAreaTable>>(ReadJsonFile("TableCfg/SceneAreaTable.json"));
             systemJumpTable = JsonConvert.DeserializeObject<Dictionary<string, SystemJumpTable>>(ReadJsonFile("TableCfg/SystemJumpTable.json"));
             settlementBasicDataTable = JsonConvert.DeserializeObject<Dictionary<string, SettlementBasicDataTable>>(ReadJsonFile("TableCfg/SettlementBasicDataTable.json"));
             blocMissionTable = JsonConvert.DeserializeObject<Dictionary<string, BlocMissionTable>>(ReadJsonFile("TableCfg/BlocMissionTable.json"));
@@ -122,14 +123,13 @@ namespace Campofinale.Resource
             wikiGroupTable = JsonConvert.DeserializeObject<Dictionary<string, WikiGroupTable>>(ReadJsonFile("TableCfg/WikiGroupTable.json"));
             dialogIdTable = JsonConvert.DeserializeObject<DialogIdTable>(ReadJsonFile("Json/GameplayConfig/DialogIdTable.json"));
             blocUnlockTable = JsonConvert.DeserializeObject<Dictionary<string, object>>(ReadJsonFile("TableCfg/BlocUnlockTable.json"));
-            gameMechanicTable= JsonConvert.DeserializeObject<Dictionary<string, GameMechanicTable>>(ReadJsonFile("TableCfg/GameMechanicTable.json"));
+            gameMechanicTable = JsonConvert.DeserializeObject<Dictionary<string, GameMechanicTable>>(ReadJsonFile("TableCfg/GameMechanicTable.json"));
             weaponBasicTable = JsonConvert.DeserializeObject<Dictionary<string, WeaponBasicTable>>(ReadJsonFile("TableCfg/WeaponBasicTable.json"));
             missionAreaTable = JsonConvert.DeserializeObject<MissionAreaTable>(ReadJsonFile("Json/GameplayConfig/MissionAreaTable.json"));
             blocDataTable = JsonConvert.DeserializeObject<Dictionary<string, BlocDataTable>>(ReadJsonFile("TableCfg/BlocDataTable.json"));
             itemTable = JsonConvert.DeserializeObject<Dictionary<string, ItemTable>>(ReadJsonFile("TableCfg/ItemTable.json"));
             domainDataTable = JsonConvert.DeserializeObject<Dictionary<string, DomainDataTable>>(ReadJsonFile("TableCfg/DomainDataTable.json"));
             collectionTable = JsonConvert.DeserializeObject<Dictionary<string, CollectionTable>>(ReadJsonFile("TableCfg/CollectionTable.json"));
-            gachaCharPoolTable = JsonConvert.DeserializeObject<Dictionary<string, GachaCharPoolTable>>(ReadJsonFile("TableCfg/GachaCharPoolTable.json"));
             charBreakNodeTable = JsonConvert.DeserializeObject<Dictionary<string, CharBreakNodeTable>>(ReadJsonFile("TableCfg/CharBreakNodeTable.json"));
             enemyAttributeTemplateTable = JsonConvert.DeserializeObject<Dictionary<string, EnemyAttributeTemplateTable>>(ReadJsonFile("TableCfg/EnemyAttributeTemplateTable.json"));
             charLevelUpTable = JsonConvert.DeserializeObject<Dictionary<string, CharLevelUpTable>>(ReadJsonFile("TableCfg/CharLevelUpTable.json"));
@@ -154,13 +154,15 @@ namespace Campofinale.Resource
             LoadLevelDatas();
             LoadScriptsEvent();
             LoadSpawners();
+            LoadMissionRuntimeAsset();
             ResourceLoader.LoadTableCfg();
-           
+
             if (missingResources)
             {
                 Logger.PrintWarn("Some Resources are Missing. The Game server may not work properly.");
             }
         }
+
         public static List<int> GetAllShortIds()
         {
             List<int> IDS = new List<int>();
@@ -172,11 +174,11 @@ namespace Campofinale.Resource
         }
         public static string GetEquipSuitTableKey(string suitTableId)
         {
-            foreach(var item in equipSuitTable)
+            foreach (var item in equipSuitTable)
             {
                 if (item.Value.equipList.Contains(suitTableId))
                 {
-                    return item.Key;    
+                    return item.Key;
                 }
             }
             return "";
@@ -192,7 +194,7 @@ namespace Campofinale.Resource
 
         public static LevelScene GetLevelData(int sceneNumId)
         {
-           return levelDatas.Find(e => e.idNum == sceneNumId);
+            return levelDatas.Find(e => e.idNum == sceneNumId);
         }
         public static ulong[] CalculateWaypointIdsBitset()
         {
@@ -208,15 +210,15 @@ namespace Campofinale.Resource
         }
         public static LevelScene GetLevelData(string sceneId)
         {
-            if(levelDatas.Find(e => e.id == sceneId) == null)
+            if (levelDatas.Find(e => e.id == sceneId) == null)
             {
                 return new LevelScene();
             }
-            return levelDatas.Find(e => e.id==sceneId);
+            return levelDatas.Find(e => e.id == sceneId);
         }
         public static string GetDefaultWeapon(int type)
         {
-            return weaponBasicTable.Values.ToList().Find(x => x.weaponType == type).weaponId;  
+            return weaponBasicTable.Values.ToList().Find(x => x.weaponType == type).weaponId;
         }
         public static void LoadInteractiveData()
         {
@@ -228,7 +230,7 @@ namespace Campofinale.Resource
                 foreach (string json in jsonFiles)
                 {
                     InteractiveData data = JsonConvert.DeserializeObject<InteractiveData>(ReadJsonFile(json));
-                    
+
                     if (data != null)
                     {
                         interactiveData.Add(data);
@@ -236,11 +238,31 @@ namespace Campofinale.Resource
                 }
                 Logger.Print($"Loaded {interactiveData.Count} InteractiveData");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logger.PrintError($"Error occured when loading InteractiveData: " + e.Message);
             }
-           
+
+        }
+        public static void LoadMissionRuntimeAsset()
+        {
+            missionDataTable = new();
+            Logger.Print("Loading MissionRuntimeAssets");
+            string directoryPath = @"Json/MissionRuntimeAsset";
+            try
+            {
+                var jsonFiles = Directory.GetFiles(directoryPath, "*.json", SearchOption.AllDirectories).Where(f => !f.EndsWith("_meta.json"));
+                foreach (string json in jsonFiles)
+                {
+                    MissionRuntimeAsset asset = JsonConvert.DeserializeObject<MissionRuntimeAsset>(ReadJsonFile(json));
+                    missionDataTable.Add(asset);
+                }
+                Logger.Print($"Loaded {missionDataTable.Count} MissionRuntimeAssets");
+            }
+            catch (Exception e)
+            {
+                Logger.PrintWarn($"Error while loading MissionRuntimeAssets");
+            }
         }
         public static void LoadScriptsEvent()
         {
@@ -270,15 +292,15 @@ namespace Campofinale.Resource
             }
             catch (Exception e)
             {
-                Logger.PrintWarn($"No ScriptsEvents folder found in Json.");
+                Logger.PrintWarn($"No ScriptsEvents folder found in Json. Means no Events to execute server side are available.");
             }
 
-            
+
         }
         public static void LoadSpawners()
         {
             Logger.Print("Loading Spawners");
-            string directoryPath = @"DynamicAssets\gamedata\spawnerconfig";
+            string directoryPath = @"Json/SpawnerConfig";
             try
             {
                 string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json", SearchOption.AllDirectories);
@@ -294,24 +316,25 @@ namespace Campofinale.Resource
             {
                 Logger.PrintError($"Error occured when loading SpawnerConfigs: " + e.Message);
             }
-            
+
         }
         public static void LoadLevelDatas()
         {
             Logger.Print("Loading LevelData resources");
             string directoryPath = @"Json/LevelConfig";
             string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json", SearchOption.AllDirectories);
-            foreach(string json in jsonFiles)
+            int allLevelScripts = 0;
+            foreach (string json in jsonFiles)
             {
-               
+
                 LevelScene data = JsonConvert.DeserializeObject<LevelScene>(ReadJsonFile(json));
                 //Logger.Print($"{data.id}: {data.idNum}, {data.defaultState.exportedSceneConfigPath}");
                 data.levelData = new();
-                string[] dataPaths = Directory.GetFiles(@"Json\LevelData\"+data.id, "*.json", SearchOption.AllDirectories);
+                string[] dataPaths = Directory.GetFiles(@"Json/LevelData/" + data.id, "*.json", SearchOption.AllDirectories);
                 int i = 0;
                 foreach (string path in dataPaths)
                 {
-                    
+
                     try
                     {
 
@@ -327,13 +350,47 @@ namespace Campofinale.Resource
                     {
                         Console.WriteLine(ex.Message);
                         Logger.PrintWarn("Missing LevelData natural spawns file for scene " + data.mapIdStr + " path: " + path);
-                        
+
                     }
                 }
+                try
+                {
+                    string[] scriptPaths = Directory.GetFiles(@"Json/LevelScriptData/" + data.levelData.sceneId, "*.json", SearchOption.AllDirectories);
+
+                    foreach (string path in scriptPaths)
+                    {
+                        try
+                        {
+                            LevelScriptData script = JsonConvert.DeserializeObject<LevelScriptData>(File.ReadAllText(path));
+                            LevelScriptBriefData briefData = null;
+                            
+                            if(data.levelData.levelScriptBriefDataDict.TryGetValue(script.scriptId, out briefData))
+                            {
+                               
+                                script.properties = briefData.properties;
+                                script.propertyIdToKeyMap = briefData.propertyIdToKeyMap;
+                            }
+                            data.levelData.levelScripts.Add(script);
+                            allLevelScripts++;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.PrintWarn(ex.Message);
+                            Logger.PrintWarn("Unable to load LevelScript " + path);
+
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.PrintWarn(e.Message);
+                    Logger.PrintWarn("Levelscripts for " + json + " doesn't exist apparently. Not fatal error, you can still run the server fine.");
+                }
+
                 levelDatas.Add(data);
             }
 
-            Logger.Print($"Loaded {levelDatas.Count} LevelData");
+            Logger.Print($"Loaded {levelDatas.Count} LevelData with {allLevelScripts} LevelScriptData");
         }
         public static int GetItemTemplateId(string item_id)
         {
@@ -345,7 +402,7 @@ namespace Campofinale.Resource
             // Estrae solo gli ID degli items in input e li ordina
             var inputItemIds = items.Select(item => item.id).OrderBy(id => id).ToList();
 
-            foreach (var recipe in factoryMachineCraftTable.Values.ToList().FindAll(r=>r.formulaGroupId==group))
+            foreach (var recipe in factoryMachineCraftTable.Values.ToList().FindAll(r => r.formulaGroupId == group))
             {
                 // Raccoglie tutti gli ID degli ingredienti della ricetta
                 var recipeItemIds = new List<string>();
@@ -425,16 +482,16 @@ namespace Campofinale.Resource
                         default:
                         case 360:
                         case 0:
-                            offset = new Vector3f(0, 0, -1); 
+                            offset = new Vector3f(0, 0, -1);
                             break;
                         case 90:
-                            offset = new Vector3f(-1, 0, 0); 
+                            offset = new Vector3f(-1, 0, 0);
                             break;
                         case 180:
-                            offset = new Vector3f(0, 0, 1);  
+                            offset = new Vector3f(0, 0, 1);
                             break;
                         case 270:
-                            offset = new Vector3f(1, 0, 0); 
+                            offset = new Vector3f(1, 0, 0);
                             break;
                     }
 
@@ -444,7 +501,7 @@ namespace Campofinale.Resource
                 {
                     float angleY = trans.rotation.y % 360f;
 
-                    Vector3f offset=new();
+                    Vector3f offset = new();
 
                     switch ((int)angleY)
                     {
@@ -469,7 +526,7 @@ namespace Campofinale.Resource
 
                 public class FacPortTrans
                 {
-                    public Vector3f position=new();
+                    public Vector3f position = new();
                     public Vector3f rotation = new();
                 }
             }
@@ -615,7 +672,7 @@ namespace Campofinale.Resource
             public ulong minWearLv;
             public int partType;
             public string suitID;
-            public List<AttributeModifier> displayAttrModifiers; 
+            public List<AttributeModifier> displayAttrModifiers;
             public List<AttributeModifier> equipAttrModifiers;
             public AttributeModifier displayBaseAttrModifier;
         }
@@ -623,7 +680,7 @@ namespace Campofinale.Resource
         {
             public List<WikiGroup> list;
         }
-        
+
         public class WikiGroup
         {
             public string groupId;
@@ -685,7 +742,7 @@ namespace Campofinale.Resource
             [JsonProperty("m_isSeamless")]
             public bool isSeamless;
             [JsonProperty("m_defaultState")]
-            public DefaultState defaultState=new();
+            public DefaultState defaultState = new();
             [JsonProperty("m_playerInitPos")]
             public Vector3f playerInitPos;
             [JsonProperty("m_playerInitRot")]
@@ -696,12 +753,13 @@ namespace Campofinale.Resource
             //public List<LevelData> levelDataList;
             public class LevelData
             {
-                public string sceneId="";
+                public string sceneId = "";
                 public int levelIdNum;
-                public List<LevelEnemyData> enemies=new();
+                public List<LevelEnemyData> enemies = new();
                 public List<LevelInteractiveData> interactives = new();
                 public List<LevelNpcData> npcs = new();
                 public List<LevelScriptData> levelScripts = new();
+                public Dictionary<ulong, LevelScriptBriefData> levelScriptBriefDataDict = new();
                 public List<WorldWayPointSets> worldWayPointSets = new();
                 public List<LevelFactoryRegionData> factoryRegions = new();
                 public List<LevelSpawnerData> spawners = new();
@@ -718,14 +776,20 @@ namespace Campofinale.Resource
                     this.factoryRegions.AddRange(other.factoryRegions);
                     this.spawners.AddRange(other.spawners);
                     this.functionArea.ranges.AddRange(other.functionArea.ranges);
+                    foreach(KeyValuePair<ulong,LevelScriptBriefData> brief in other.levelScriptBriefDataDict)
+                    {
+                        if(!this.levelScriptBriefDataDict.ContainsKey(brief.Key))
+                        this.levelScriptBriefDataDict.Add(brief.Key,brief.Value);
+                    }
+                    
                 }
-                
+
                 public class WorldWayPointSets
                 {
                     public int id;
                     public Dictionary<string, int> pointIdToIndex = new();
                 }
-                
+
                 public class LevelFunctionAreaData
                 {
                     public List<LevelFunctionRangeData> ranges = new();
@@ -751,20 +815,27 @@ namespace Campofinale.Resource
                     public string configId;
                     public ulong belongLevelScriptId;
                 }
+                public class LevelScriptBriefData
+                {
+                    public ulong scriptId;
+                    public List<ParamKeyValue> properties = new();
+                    public Dictionary<int, string> propertyIdToKeyMap = new();
+                }
+
                 public class LevelScriptData
                 {
                     public ulong scriptId;
                     public string refGameId;
+                    
+                    public ScriptActionMap actionMap = new();
                     public List<ParamKeyValue> properties = new();
                     public Dictionary<int, string> propertyIdToKeyMap = new();
-                    public ScriptActionMap actionMap = new();
-
 
                     public int GetPropertyId(string key, List<int> toExclude)
                     {
-                        foreach(var keyValuePair in propertyIdToKeyMap)
+                        foreach (var keyValuePair in propertyIdToKeyMap)
                         {
-                            if(keyValuePair.Value == key && !toExclude.Contains(keyValuePair.Key))
+                            if (keyValuePair.Value == key && !toExclude.Contains(keyValuePair.Key))
                             {
                                 return keyValuePair.Key;
                             }
@@ -775,7 +846,7 @@ namespace Campofinale.Resource
                     public class ScriptActionMap
                     {
                         public ActionDataMap dataMap = new();
-                        
+
 
                         public class ScriptHeader
                         {
@@ -785,7 +856,7 @@ namespace Campofinale.Resource
 
                             public class EventKey
                             {
-                                public string constValue ="";
+                                public string constValue = "";
                             }
                         }
                         public class ActionDataMap
@@ -896,16 +967,16 @@ namespace Campofinale.Resource
                 {
                     public string key;
                     public ParamValue value;
-                    
+
                     public DynamicParameter ToProto()
                     {
                         DynamicParameter param = new()
                         {
                             RealType = (int)value.type,
-                            ValueType= (int)value.type,
-                            
+                            ValueType = (int)value.type,
+
                         };
-                        foreach(var val in value.valueArray)
+                        foreach (var val in value.valueArray)
                         {
                             switch (value.type)
                             {
@@ -929,8 +1000,8 @@ namespace Campofinale.Resource
                                     param.ValueFloatList.Add(val.ToFloat());
                                     param.ValueType = (int)ParamValueType.FloatList;
                                     break;
-                                 case ParamRealType.Float:
-                                     param.ValueFloatList.Add(val.ToFloat());
+                                case ParamRealType.Float:
+                                    param.ValueFloatList.Add(val.ToFloat());
                                     param.ValueType = (int)ParamValueType.Float;
                                     break;
                                 case ParamRealType.FloatList:
@@ -938,7 +1009,7 @@ namespace Campofinale.Resource
                                     param.ValueType = (int)ParamValueType.FloatList;
                                     break;
                                 case ParamRealType.Int:
-                                     param.ValueIntList.Add(val.valueBit64);
+                                    param.ValueIntList.Add(val.valueBit64);
                                     param.ValueType = (int)ParamValueType.Int;
                                     break;
                                 case ParamRealType.IntList:
@@ -982,10 +1053,10 @@ namespace Campofinale.Resource
                                     break;
                             }
                         }
-                        
+
                         return param;
                     }
-                    
+
                     public ScriptProperty ToScriptProperty()
                     {
                         ScriptProperty param = new()
@@ -1074,7 +1145,7 @@ namespace Campofinale.Resource
                     {
                         foreach (var item in value.ValueBoolList)
                         {
-                            
+
                         }
                     }
 
@@ -1085,12 +1156,12 @@ namespace Campofinale.Resource
                     }
                     public class ParamValueAtom
                     {
-                        public long valueBit64=0;
-                        public string valueString ="";
+                        public long valueBit64 = 0;
+                        public string valueString = "";
 
                         public float ToFloat()
                         {
-                            int intValueFromBit64 = (int)valueBit64; 
+                            int intValueFromBit64 = (int)valueBit64;
                             float floatValueFromBit64 = (float)BitConverter.Int64BitsToDouble(valueBit64);
                             //float floatValueFromBit64 = BitConverter.ToSingle(BitConverter.GetBytes(intValueFromBit64), 0);
                             return floatValueFromBit64;
@@ -1098,7 +1169,7 @@ namespace Campofinale.Resource
                         public int ToInt()
                         {
                             int intValueFromBit64 = (int)valueBit64;
-                          
+
                             return intValueFromBit64;
                         }
                     }
@@ -1163,7 +1234,7 @@ namespace Campofinale.Resource
 
             public Vector3f(Vector v) : this()
             {
-                this.x=v.X; this.y=v.Y; this.z=v.Z; 
+                this.x = v.X; this.y = v.Y; this.z = v.Z;
             }
 
             public Vector3f(ScdVec3Int v)
@@ -1198,15 +1269,15 @@ namespace Campofinale.Resource
             {
                 return new Vector()
                 {
-                    X=x,
-                    Y=y,
-                    Z=z,
+                    X = x,
+                    Y = y,
+                    Z = z,
                 };
             }
         }
         public class DefaultState
         {
-            public string sourceSceneName="";
+            public string sourceSceneName = "";
             public string exportedSceneConfigPath = "";
         }
         public class SettlementBasicDataTable
@@ -1214,13 +1285,7 @@ namespace Campofinale.Resource
             public string settlementId;
             public string domainId;
         }
-        public class GachaCharPoolTable
-        {
-            public string id;
-            public List<string> upCharIds;
-            public int type;
 
-        }
         public class GachaCharPoolTypeTable
         {
             public int type;
@@ -1241,10 +1306,10 @@ namespace Campofinale.Resource
         {
 
         }
-        
+
         public class StrIdDic
         {
-            public Dictionary<string, int> dic;
+            public Dictionary<string, int> dic = new();
         }
         public class SceneAreaTable
         {
@@ -1258,7 +1323,7 @@ namespace Campofinale.Resource
             public string enemyId;
             public string templateId;
         }
-        
+
         public class ItemTable
         {
             public ItemValuableDepotType valuableTabType;
@@ -1315,7 +1380,7 @@ namespace Campofinale.Resource
         }
         public class CharGrowthTable
         {
-            public Dictionary<string,CharTalentNode> talentNodeMap;
+            public Dictionary<string, CharTalentNode> talentNodeMap;
             public string defaultWeaponId;
 
             public class CharTalentNode
@@ -1330,13 +1395,13 @@ namespace Campofinale.Resource
             public string id;
             public int count;
         }
-        
+
         public class Attributes
         {
             public int breakStage;
             public AttributeList Attribute;
             //Enemy
-            public List<Attribute> attrs; 
+            public List<Attribute> attrs;
         }
         public class AttributeList
         {

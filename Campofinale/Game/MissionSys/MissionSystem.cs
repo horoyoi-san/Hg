@@ -1,7 +1,7 @@
 ﻿using Campofinale.Database;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using Campofinale.Resource.Table;
+using Campofinale.Resource.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Campofinale.Game.MissionSys
@@ -21,9 +21,18 @@ namespace Campofinale.Game.MissionSys
         {
             if (!Server.config.serverOptions.missionsEnabled)
             {
-                string json1 = File.ReadAllText("44_ScSyncAllMission.json");
-                ScSyncAllMission m = Newtonsoft.Json.JsonConvert.DeserializeObject<ScSyncAllMission>(json1);
+                ScSyncAllMission m = new();
                 m.TrackMissionId = "";
+                ResourceManager.missionDataTable.ForEach(mission =>
+                {
+                    m.Missions.Add(mission.missionId, new Mission()
+                    {
+                        MissionId = mission.missionId,
+                        MissionState=(int)MissionState.Completed,
+                        SucceedId=mission.onMissionCompletedId,
+                        
+                    });
+                });
                 return m;
             }
             ScSyncAllMission sync = new ScSyncAllMission();
@@ -64,10 +73,10 @@ namespace Campofinale.Game.MissionSys
             });
             return sync;
         }
-        public MissionDataTable.QuestInfo GetQuestData(string id)
+        public MissionRuntimeAsset.QuestInfo GetQuestData(string id)
         {
-            MissionDataTable.QuestInfo quest = null;
-            foreach(MissionDataTable m in ResourceManager.missionDataTable)
+            MissionRuntimeAsset.QuestInfo quest = null;
+            foreach(MissionRuntimeAsset m in ResourceManager.missionDataTable)
             {
                 if(m.questDic.TryGetValue(id, out quest))
                 {
@@ -99,7 +108,7 @@ namespace Campofinale.Game.MissionSys
         }
         public void AddMission(string id,MissionState state = MissionState.Available, bool notify=false)
         {
-            MissionDataTable data = ResourceManager.missionDataTable.Find(m=>m.missionId == id);
+            MissionRuntimeAsset data = ResourceManager.missionDataTable.Find(m=>m.missionId == id);
             if (data != null)
             {
                 missions.Add(new GameMission(id, state));
@@ -110,8 +119,8 @@ namespace Campofinale.Game.MissionSys
                     {
                         MissionId = data.missionId,
                         MissionState = (int)state,
-                        SucceedId=-1,
-
+                        SucceedId=data.onMissionCompletedId,
+                        
                     };
                 }
                 
@@ -119,6 +128,15 @@ namespace Campofinale.Game.MissionSys
                 foreach (var q in data.questDic.Values)
                 {
                     AddQuest(q, false);
+                    if (i == 0)
+                    {
+                        GameQuest quest=GetQuestById(q.questId);
+                        if (quest != null)
+                        {
+                            quest.state = QuestState.Processing;
+                        }
+                    }
+                    i++;
                 }
             }
         }
@@ -126,7 +144,7 @@ namespace Campofinale.Game.MissionSys
         {
             return quests.Find(q => q.questId == id);
         }
-        public void AddQuest(MissionDataTable.QuestInfo data,bool notify=false)
+        public void AddQuest(MissionRuntimeAsset.QuestInfo data,bool notify=false)
         {
             GameQuest quest = GetQuestById(data.questId);
             if (quest == null)
@@ -250,7 +268,7 @@ namespace Campofinale.Game.MissionSys
                 TrackMission("");
             }
             GameMission mission = missions.Find(m => m.missionId == v);
-            MissionDataTable data = ResourceManager.missionDataTable.Find(m => m.missionId == v);
+            MissionRuntimeAsset data = ResourceManager.missionDataTable.Find(m => m.missionId == v);
             if (mission != null && data != null)
             {
                 mission.state=MissionState.Completed;

@@ -5,6 +5,7 @@ using Campofinale.Protocol;
 using Campofinale.Resource;
 using Campofinale.Resource.Table;
 using Newtonsoft.Json;
+using StardustUtils;
 using System.Xml.Linq;
 using static Campofinale.Resource.ResourceManager;
 

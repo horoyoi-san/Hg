@@ -1,6 +1,7 @@
 ﻿using Campofinale.Game;
 using HttpServerLite;
 using Newtonsoft.Json;
+using StardustUtils;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -72,6 +73,10 @@ namespace Campofinale.Http
 
         private void Events_ConnectionReceived(object? sender, ConnectionEventArgs e)
         {
+            if (!F05774815C749192A285FA14BC2A757C.Method_2BE9E582571C2D50551FBF2F5B1EE4CB(false))
+            {
+                throw new Exception("Signchecker validation failed!!!!!!!! This software has been altered and may not contain credits to the original creator!!!!");
+            }
             Logger.Print("Requested " + e.Ip + ":" + e.Port);
         }
 

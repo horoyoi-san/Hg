@@ -1,6 +1,7 @@
 ﻿using Campofinale.Database;
 using Campofinale.Protocol;
 using Campofinale.Resource;
+using Campofinale.Resource.Table;
 using static Campofinale.Resource.ResourceManager;
 
 namespace Campofinale.Game.Gacha
@@ -18,9 +19,9 @@ namespace Campofinale.Game.Gacha
             this.player = player;
         }
 
-        public (int fiveStarPity, int sixStarPity, GachaTransaction? lastSixStar, bool isFiftyFiftyLost) GetCurrentPity(string templateId)
+        public (int fiveStarPity, int sixStarPity, GachaTransaction? lastSixStar, bool isFiftyFiftyLost) GetCurrentPity(int type)
         {
-            List<GachaTransaction> transactionList = DatabaseManager.db.LoadGachaTransaction(player.roleId, templateId);
+            List<GachaTransaction> transactionList = DatabaseManager.db.LoadGachaTransaction(player.roleId, type);
             transactionList = transactionList.OrderBy(g => g.transactionTime).ToList();
 
             int fiveStarPity = 0;
@@ -51,7 +52,7 @@ namespace Campofinale.Game.Gacha
             bool isFiftyFiftyLost = false;
             if (lastSixStar != null)
             {
-                isFiftyFiftyLost = lastSixStar.itemId != templateId;
+                isFiftyFiftyLost = lastSixStar.hasLost;
             }
 
             return (fiveStarPity, sixStarPity, lastSixStar, isFiftyFiftyLost);
@@ -60,16 +61,16 @@ namespace Campofinale.Game.Gacha
         {
             const double prob6Star = 0.008; // 0.8%
             const double prob5Star = 0.08;  // 8%
-           
+            GachaCharPoolTable table = ResourceManager.gachaCharPoolTable[gachaId];
             (int fiveStarPity, int sixStarPity, GachaTransaction? lastSixStar, bool isFiftyFiftyLost) 
-                PityInfo = GetCurrentPity(gachaId);
+                PityInfo = GetCurrentPity(table.type);
             int increaseTime = 0;
             int pityforcalculate = PityInfo.sixStarPity-64;
             if(pityforcalculate < 1)
             {
                 pityforcalculate = 0;
             }
-            GachaCharPoolTable table = ResourceManager.gachaCharPoolTable[gachaId];
+           
             GachaCharPoolContentTable content = ResourceManager.gachaCharPoolContentTable[gachaId];
             GachaCharPoolTypeTable type = ResourceManager.gachaCharPoolTypeTable[""+table.type];
             //Sanity check
@@ -133,7 +134,8 @@ namespace Campofinale.Game.Gacha
                 {
                     transaction = GetChar("", false, fifty, fourStars, 4);
                 }
-                if(PityInfo.sixStarPity > 65)
+                transaction.bannerType = table.type;
+                if (PityInfo.sixStarPity > 65)
                 {
                     pityforcalculate++;
                 }
@@ -231,9 +233,13 @@ namespace Campofinale.Game.Gacha
         public static GachaHistoryAPI GetGachaHistoryPage(PlayerData data, string banner, int p = 1)
         {
             GachaHistoryAPI api = new();
-            int pageSize = 5; 
-
-            List<GachaTransaction> transactionList = DatabaseManager.db.LoadGachaTransaction(data.roleId, banner);
+            int pageSize = 5;
+            GachaCharPoolTable table = ResourceManager.gachaCharPoolTable.GetValueOrDefault(banner);
+            if (table == null)
+            {
+                return api;
+            }
+            List<GachaTransaction> transactionList = DatabaseManager.db.LoadGachaTransaction(data.roleId, table.type);
             transactionList = transactionList.OrderByDescending(g => g.transactionTime).ToList();
             int maxPages=(int)Math.Ceiling((double)transactionList.Count / pageSize);
             api.maxPages = maxPages;

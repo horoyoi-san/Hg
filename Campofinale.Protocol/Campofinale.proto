@@ -435,6 +435,8 @@ message BattleClientOpData {
   BattleActionOperateType op_type = 2;
   uint32 generation = 3;
   int32 chapter_map_id = 4;
+  int32 seq_id = 5;
+  int64 client_tick_tms = 6;
   oneof op_data_impl {
     BattleAddBuffOpData add_buff_op_data = 101;
     BattleFinishBuffOpData finish_buff_op_data = 102;
@@ -447,7 +449,7 @@ message BattleClientOpData {
     BattleTriggerActionOpData trigger_action_op_data = 109;
     //BattleUpdateHubOpData update_hub_op_data = 109;
     BattleEntityDieOpData entity_die_op_data = 110;
-    BattleEntityValueModifyData entity_value_modify_data =111;
+    BattleEntityValueModifyData entity_value_modify_data = 111;
     BattleResetBattleDataOpData reset_battle_op_data = 112;
     BattleUpdateDataVersionOpData update_data_version_op_data =113;
   }
@@ -463,11 +465,17 @@ enum BattleActionOperateType {
   BATTLE_OP_SKILL_END_CAST = 6;
   BATTLE_OP_SWITCH_MODE = 7;
   BATTLE_OP_TRIGGER_ACTION = 8;
-  BATTLE_OP_UPDATE_HUB = 9;
   BATTLE_OP_ENTITY_DIE = 10;
   BATTLE_OP_ENTITY_VALUE_MODIFY = 11;
   BATTLE_OP_RESET_BATTLE_DATA = 12;
   BATTLE_OP_UPDATE_DATA_VERSION = 13;
+  BATTLE_OP_ENABLE_PASSIVE_SKILL = 14;
+  BATTLE_OP_TRIGGER_KEYWORD = 15;
+  BATTLE_OP_SHIELD_VALUE_MODIFY = 16;
+  BATTLE_OP_UPDATE_ATB_INFO = 17;
+  BATTLE_OP_MODIFY_BATTLE_STATE = 18;
+  BATTLE_OP_MODIFY_POISE_VALUE = 19;
+  BATTLE_OP_SET_BUFF_ENABLE_STATE = 20;
 }
 
 message BattleAddBuffOpData {
@@ -515,8 +523,9 @@ enum BattleSkillSource {
   BATTLE_SKILL_SOURCE_SUMMON = 6;
   BATTLE_SKILL_SOURCE_PLUNGING_ATTACK = 7;
   BATTLE_SKILL_SOURCE_POWER_ATTACK = 8;
-  BATTLE_SKILL_SOURCE_TALENT_NODE_SKILL = 9;
-  BATTLE_SKILL_SOURCE_POTENTIAL_LV_SKILL = 10;
+  BATTLE_SKILL_SOURCE_TALENT_POTENTIAL = 9;
+  BATTLE_SKILL_SOURCE_CHAR_COMMON = 10;
+  BATTLE_SKILL_SOURCE_CLIENT_TEMP_ADD = 11;
 }
 
 message BattleSkillDetachOpData {
@@ -557,8 +566,8 @@ message BattleSwitchModeOpData {
 message BattleTriggerActionOpData {
   uint64 owner_id = 1;
   uint64 inst_id = 2;
-  string template_id = 3;
-  BattleTargetHandle input_targets = 4;
+  TemplateId template_id = 3;
+  //BattleTargetHandle input_targets = 4;
   BattleActionInst action = 5;
   BattleTriggerType trigger_type = 6;
   BattleActionOwnerType owner_type = 7;
@@ -739,6 +748,9 @@ message BattleSpawnEnemyActionDetail {
   int32 scene_num_id = 5;
 }
 
+message CsWalletRecordRequire {
+  string id = 1;
+}
 message BattleCheckDamageTypeActionRuntime {
   bool result = 1;
 }
@@ -898,6 +910,9 @@ message BattleEntityValueModifyData {
   int32 scene_num_id = 2;
   BattleInfo value = 3;
   int32 source = 4;
+  TemplateId template_id = 5;
+  TemplateId original_source_template_id = 6;
+  double delta_value= 7;
 }
 
 message BattleInfo {
@@ -1781,6 +1796,7 @@ message ScAdventureBookSync {
   int32 adventure_book_stage = 1;
   repeated AdventureTask tasks = 2;
   int32 daily_activation = 3;
+  repeated int32 dailyActivationGatheredRewardIds = 4;
 }
 
 message ScDailyActivationModify {
@@ -2203,8 +2219,12 @@ message CsFinishDialog {
   int32 dialog_id = 1;
   repeated int32 option_ids = 2;
   repeated int32 finish_nums = 3;
+  DialogExtraInfoType dialogExtraInfoType = 4;
 }
-
+enum DialogExtraInfoType {
+  DialogExtraInfoType_NONE = 0;
+  DialogExtraInfoType_SUBMIT_ITEM = 1;
+}
 message ScFinishDialog {
   int32 dialog_id = 1;
   repeated int32 option_ids = 2;
@@ -3926,6 +3946,30 @@ message CsFriendRequestSubmit {
   uint64 role_id = 1;
 }
 
+message CsFriendUserAvatarModify {
+    uint32 user_avatar_id = 1;
+}
+
+message CsFriendBusinessCardTopicModify {
+    uint32 id = 1;
+}
+
+message CsFriendBusinessCardExpandFlagModify {
+    bool flag = 1;
+}
+
+message CsFriendUserAvatarFrameModify {
+    uint32 user_avatar_frame_id = 1;
+}
+
+message CsFriendSignatureModify {
+    string signature = 1;
+}
+
+message CsFriendDisplayCharModify {
+    repeated uint64 obj_id_list = 1;
+}
+
 message ScFriendListSync {
   repeated FriendFriendInfo friend_list = 1;
 }
@@ -3962,6 +4006,31 @@ message ScFriendAddNotify {
   FriendFriendInfo friend_info = 1;
 }
 
+message ScFriendUserAvatarModify {
+    uint32 user_avatar_id = 1;
+}
+
+message ScFriendBusinessCardTopicModify {
+    uint32 id = 1;
+}
+
+message ScFriendBusinessCardExpandFlagModify {
+    bool flag = 1;
+}
+
+message ScFriendUserAvatarFrameModify {
+    uint32 user_avatar_frame_id = 1;
+}
+
+message ScFriendSignatureModify {
+    string signature = 1;
+}
+
+message ScFriendDisplayCharModify {
+    repeated uint64 obj_id_list = 1;
+}
+
+
 message CsGachaSinglePullReq {
   int32 gacha_type = 1;
   string gacha_pool_id = 2;
@@ -3991,6 +4060,13 @@ message ScdGachaPoolRoleData {
   int32 soft_guarantee_progress = 6;
   int32 star5_soft_guarantee_progress = 7;
   int32 up_got_count = 8;
+  int64 timestampToClose = 9;
+  repeated int32 cumulativeRewardList = 10;
+  int32 freeTenPullCount = 11;
+  map<int32, bool> onceAutoRewardCheckMap = 12;
+  map<int32, bool> intervalAutoRewardCheckMap = 13;
+  int32 choicePackCount = 14;
+  int32 star6GotCount = 15;
 }
 
 message ScdGachaPoolCategoryRoleData {
@@ -3998,6 +4074,7 @@ message ScdGachaPoolCategoryRoleData {
   int32 total_pull_count = 2;
   int32 soft_guarantee_progress = 3;
   int32 star5_soft_guarantee_progress = 4;
+  int32 star6GotCount = 5;
 }
 
 message ScdGachaPoolMgr {
@@ -5463,7 +5540,11 @@ message SceneObjectDetailContainer {
   repeated SceneNpc npc_list = 4;
   repeated SceneSummon summon_list = 5;
 }
-
+message ScSceneLevelScriptStageChange {
+  int32 sceneNumId = 1;
+  uint64 scriptId = 2;
+  int32 stage = 3;
+}
 message CsSceneSetLevelScriptActive {
   int32 scene_num_id = 1;
   uint64 script_id = 2;
@@ -5483,6 +5564,7 @@ message CsSceneLevelScriptEventTrigger {
   uint64 script_id = 2;
   string event_name = 3;
   map<string, DynamicParameter> properties = 4;
+  string ctxToken = 5;
 }
 
 message CsSceneCommitLevelScriptCacheStep {
@@ -5495,6 +5577,14 @@ message LevelScriptInfo {
   int32 state = 2;
   map<int32, DynamicParameter> properties = 3;
   bool is_done = 4;
+  int32 stage = 5;
+  repeated ScdTriggerVolumeInfo triggerVolumeInfos = 6;
+}
+
+message ScdTriggerVolumeInfo {
+  uint64 scriptLocalId = 1;
+  bool isHidden = 2;
+  int32 triggerCount = 3;
 }
 
 message ScSceneUpdateLevelScriptProperty {
@@ -5508,6 +5598,7 @@ message ScSceneLevelScriptStateNotify {
   int32 scene_num_id = 1;
   uint64 script_id = 2;
   int32 state = 3;
+  bool isComplete = 4;
 }
 
 message ScSceneLevelScriptResetBegin {
@@ -6673,19 +6764,20 @@ message CsSpaceshipGrowCabinCancel {
 message CsSceneInteractSpInteractive {
   uint64 obj_id = 1;
   SpInteractiveOpType op_type = 2;
-  oneof op_payload {
-    CsdSpInteractiveDoodadCommonPick doodad_common_pick = 10;
-    CsdSpInteractiveDoodadCommonBreak doodad_common_break = 11;
-    CsdSpInteractiveCommonActive common_active = 12;
-  }
+  uint64 operateCharId = 3;
+  uint64 newHpRatio = 5;
+  string itemId = 6;
+  int32 state = 7;
+  repeated bool availableList = 8;
 }
 
 enum SpInteractiveOpType {
-  SP_INTERACTIVE_OP_TYPE_NONE = 0;
-  DOODAD_COMMON_PICK = 1;
-  DOODAD_COMMON_BREAK = 2;
-  COMMON_ACTIVE = 3;
-  SP_INTERACTIVE_OP_TYPE_MAX = 4;
+  DefaultInteract = 0;
+  PickDropPackItem = 1;
+  DoodadCommonBreak = 2;
+  SetState = 3;
+  ResetSwitch=4;
+  UpdateAvailableList = 5;
 }
 
 message CsdSpInteractiveDoodadCommonPick {
@@ -6878,8 +6970,23 @@ message CsMoneyChange {
 
 message ScSyncWallet {
   repeated MoneyInfo money_list = 1;
+  repeated WalletMoneyRecord recordMgr = 2;
 }
 
+message WalletMoneyRecord {
+  int32 recordType = 1;
+  string moneyId = 2;
+  oneof recordData {
+    WalletDailySourceMoneyRecord daily_source_data = 5;
+  }
+}
+message WalletDailySourceMoneyBook {
+  int64 ts = 1;
+  repeated int64 record = 2;
+}
+message WalletDailySourceMoneyRecord {
+  repeated WalletDailySourceMoneyBook books = 1;
+}
 message ScWalletSyncMoney {
   string id = 1;
   uint64 amount = 2;
@@ -6976,8 +7083,6 @@ message Opts {
 message ScDomainDevelopmentSystemSync {
   repeated DomainDevelopment domains = 1;
 }
-
-
 
 message ScDomainDevelopmentSync {
   DomainDevelopment domain = 1;

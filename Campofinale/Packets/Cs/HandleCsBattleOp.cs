@@ -1,7 +1,9 @@
-﻿using Campofinale.Game.Char;
+﻿using Campofinale.Game;
+using Campofinale.Game.Char;
 using Campofinale.Game.Entities;
 using Campofinale.Network;
 using Campofinale.Protocol;
+using StardustUtils;
 
 namespace Campofinale.Packets.Cs
 {
@@ -72,6 +74,14 @@ namespace Campofinale.Packets.Cs
                     foreach (BattleHealActionDetail item in data.Action.HealAction.Details)
                     {
                         HealEntity(session, item);
+                    }
+                    break;
+                case ServerBattleActionType.BattleActionSpawnEnemy:
+                    if(data.Action.SpawnEnemyAction!=null)
+                    foreach(BattleSpawnEnemyActionDetail enemy in data.Action.SpawnEnemyAction.Details)
+                    {
+                        Scene scene = session.sceneManager.GetScene(enemy.SceneNumId);
+                        scene.SpawnEnemy(enemy);
                     }
                     break;
                 default:

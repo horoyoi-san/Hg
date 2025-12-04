@@ -4,7 +4,7 @@ using Campofinale.Game;
 using Campofinale.Http;
 using Campofinale.Protocol;
 using Campofinale.Resource;
-using Pastel;
+using StardustUtils;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
@@ -59,7 +59,7 @@ namespace Campofinale
             public delegate void HandlerDelegate(Player sender, string command, string[] args, Player target);
         }
         public static List<Player> clients = new List<Player>();
-        public static string ServerVersion = "1.2.0-dev";
+        public static string ServerVersion = "1.2.2-dev";
         public static bool Initialized = false;
         public static bool showLogs = true;
         public static bool showWarningLogs = true;
@@ -93,6 +93,10 @@ namespace Campofinale
             Logger.Print($"Logs are {(showLogs ? "enabled" : "disabled")}");
             Logger.Print($"Warning logs are {(showWarningLogs ? "enabled" : "disabled")}");
             Logger.Print($"Packet body logs are {(showBodyLogs ? "enabled" : "disabled")}");
+            if (!F05774815C749192A285FA14BC2A757C.Method_2BE9E582571C2D50551FBF2F5B1EE4CB(false))
+            {
+                throw new Exception("Signchecker validation failed!!!!!!!! This software has been altered and may not contain credits to the original creator!!!!");
+            }
             StartDBService();
             DatabaseManager.Init();
             ResourceManager.Init();
@@ -153,6 +157,10 @@ namespace Campofinale
                 {
                     clients.ForEach(client => { if (client != null) client.Update(); });
                     Thread.Sleep(250);
+                    if (!F05774815C749192A285FA14BC2A757C.Method_2BE9E582571C2D50551FBF2F5B1EE4CB(false))
+                    {
+                        throw new Exception("Signchecker validation failed!!!!!!!! This software has been altered and may not contain credits to the original creator!!!!");
+                    }
                 }
                 catch (Exception ex)
                 {

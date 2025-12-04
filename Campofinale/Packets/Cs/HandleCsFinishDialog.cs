@@ -1,5 +1,7 @@
-﻿using Campofinale.Network;
+﻿using Campofinale.Game;
+using Campofinale.Network;
 using Campofinale.Protocol;
+using System.Numerics;
 
 namespace Campofinale.Packets.Cs
 {
@@ -15,7 +17,8 @@ namespace Campofinale.Packets.Cs
                 DialogId=req.DialogId,
                 FinishNums = { req.FinishNums },
                 OptionIds = { req.OptionIds },
-            });
+            },packet.csHead.UpSeqid);
+           
         }
        
     }

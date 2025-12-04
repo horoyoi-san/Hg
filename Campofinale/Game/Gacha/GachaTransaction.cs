@@ -14,5 +14,6 @@ namespace Campofinale.Game.Gacha
         public string gachaTemplateId;
         public int rarity;
         public bool hasLost = false;
+        public int bannerType;
     }
 }

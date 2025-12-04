@@ -6,7 +6,8 @@
         Available = 1,
         Processing = 2,
         Completed = 3,
-        Failed = 4
+        Failed = 4,
+        Paused = 5
     }
     public enum QuestState
     {
@@ -16,6 +17,7 @@
         Processing = 2,
         Completed = 3,
         Failed = 4,
+        Paused = 5
     }
     public enum AdventureTaskState
     {
@@ -443,7 +445,18 @@
         WaterVolumePtrList = 57,
         FunctionAreaPtr = 58,
         FunctionAreaPtrList = 59,
-        E_NUM = 60
+        ScriptEntityPtr = 60,
+        ScriptEntityPtrList = 61,
+        DynamicEntityPtr = 62,
+        DynamicEntityPtrList = 63,
+        ScriptAirWallPtr = 64,
+        ScriptAirWallPtrList = 65,
+        SubScriptIndex = 66,
+        SubScriptIndexList = 67,
+        OverwriteOuterDP = 68,
+        DPLength = 69,
+        DPAtIdx = 70,
+        E_NUM = 71,
     }
     public enum FCDirection
     {

@@ -35,14 +35,18 @@ namespace Campofinale.Game
                 2267743508524
             };
             LongBitSet readActiveBlackbox = new LongBitSet(hardcodedReadActiveBlackbox.ToArray());
-            foreach (int v in  strIdNumTable.chapter_map_id.dic.Values)
+            foreach (var v in ResourceManager.levelDatas)
             {
-                AddValue(BitsetType.LevelHaveBeen, v);
+                AddValue(BitsetType.LevelHaveBeen, v.idNum);
             }
-            /*foreach (int v in readActiveBlackbox.ConvertToIntValues())
+            foreach (var v in levelShortIdTable.Values)
             {
-                AddValue(BitsetType.ReadActiveBlackbox, v);
-            }*/
+                foreach(int vl in v.ids.Values)
+                {
+                    AddValue(BitsetType.InteractiveActive, vl);
+                }
+                
+            }
             foreach (int v in strIdNumTable.char_doc_id.dic.Values)
             {
                 AddValue(BitsetType.CharDoc, v);
@@ -55,9 +59,18 @@ namespace Campofinale.Game
             {
                 AddValue(BitsetType.Wiki, v);
             }
-
-            AddValue(BitsetType.UnlockUserAvatar, 8);
-            AddValue(BitsetType.UnlockUserAvatarFrame, 3);
+            foreach (int v in ResourceManager.strIdNumTable.user_avatar_id.dic.Values)
+            {
+                AddValue(BitsetType.UnlockUserAvatar, v);
+            }
+            foreach (int v in ResourceManager.strIdNumTable.business_card_topic_id.dic.Values)
+            {
+                AddValue(BitsetType.UnlockBusinessCardTopic, v);
+            }
+            foreach (int v in ResourceManager.strIdNumTable.user_avatar_frame_id.dic.Values)
+            {
+                AddValue(BitsetType.UnlockUserAvatarFrame, v);
+            }
         }
         public void InitBitsets()
         {
