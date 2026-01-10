@@ -33,3 +33,42 @@
 | :--- | :--- | :--- |
 | BETA 0.5.5 | installer.apk | https://launcher.hycdn.cn/EndField/0.5.5_ue6CODTS8UuMXxYW/EndField-055.apk |
 | BETA 0.5.5 | CN Client (001-008) |  |
+
+# Arknights Endfield CBT2 Download OS 0.5.28
+| Version | File name | Download link|
+| :--- | :--- | :--- |
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.001|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.002|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.003|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.004|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.005|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.006|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.007|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.008|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.009|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.010|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.011|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.012|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.013|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.014|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.015|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.016|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.017|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.018|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.019|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.020|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.021|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.022|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.023|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.024|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.025|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.026|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.027|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.028|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.029|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.030|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.031|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.032|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.033|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.034|
+| OS BETA 0.8.27 |https://beyond.hg-cdn.com/zePXHT2t4L2tKR4m/0.8/update/6/6/Windows/0.8.27_HFD5Idxlos1csiQX/packs/Beyond_Release_CBT3-Rel-4898146-23_OS_Prod.zip.035|
