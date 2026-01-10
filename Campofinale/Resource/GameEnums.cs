@@ -11,7 +11,7 @@
     }
     public enum QuestState
     {
-    
+
         None = 0,
         Available = 1,
         Processing = 2,
@@ -198,7 +198,23 @@
         Daily = 1,
         AdventureBook = 2
     }
-    public enum LevelScriptState 
+
+    public enum ActivityType
+    {
+        None = 0,
+        Basic = 1,
+        Checkin = 2,
+        LevelRewards = 3,
+        PhotoTaking = 4,
+        GlobalEffect = 5,
+        BeginnerGachaPool = 6,
+        NormalChallenge = 7,
+        HighDifficultyChallenge = 8,
+        CharacterTrial = 9,
+        CharacterGuideLine = 10,
+        Max = 11,
+    }
+    public enum LevelScriptState
     {
         None = 0,
         Disabled = 1,
@@ -628,7 +644,15 @@
         FluidSpray = 34,
         Soil = 35,
         WaterCollector = 36,
-        Empty = 37
+        BoxValve = 37,
+        FluidValve = 38,
+        BusStart = 39,
+        BusFree = 40,
+        DepositBeacon = 41,
+        Sign = 42,
+        UdPipeLoader = 43,
+        UdPipeUnloader = 44,
+        Empty = 99,
     }
 
     public enum FCMeshType
@@ -726,21 +750,21 @@
         RemoteFactoryEntity = 2048,
         Creature = 4096
     }
-enum ParamValueType
-{
+    enum ParamValueType
+    {
 
-    Invalid = 0,
-    Bool = 1,
-    BoolList = 2,
-    Int = 3,
-    IntList = 4,
-    Float = 5,
-    FloatList = 6,
-    String = 7,
-    StringList = 8,
+        Invalid = 0,
+        Bool = 1,
+        BoolList = 2,
+        Int = 3,
+        IntList = 4,
+        Float = 5,
+        FloatList = 6,
+        String = 7,
+        StringList = 8,
 
-}
-public enum EntityDataType // TypeDefIndex: 24999
+    }
+    public enum EntityDataType // TypeDefIndex: 24999
     {
         Character = 0,
         Enemy = 1,

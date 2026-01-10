@@ -1482,6 +1482,15 @@ enum ItemFlag {
   ItemLock = 1;
   ItemTrash = 2;
 }
+
+enum ItemMoveMode {
+  ItemMoveModeNormal = 0;
+  ItemMoveModeBatchItemId = 1;
+  ItemMoveModeGrid = 2;
+  ItemMoveModeHalfGrid = 3;
+  ItemMoveModeAutoBatch = 4;
+}
+
 message ItemInstEmpty {
 }
 
@@ -1650,6 +1659,16 @@ message SceneTrackPoint {
 
 message SceneStaticMapMark {
   int32 index = 1;
+}
+
+message SceneDynamicMapMark {
+  uint32 id = 1;
+  int32 scene_num_id = 2;
+  Vector pos = 3;
+  string note = 4;
+  uint32 typ = 5;
+  int32 tier_index = 6;
+  int32 tier_id = 7;
 }
 
 message CsAchieveComplete {
@@ -2238,7 +2257,15 @@ message ScSyncAllDialog {
 message CsEnterDungeon {
   repeated TeamCharId char_team = 1;
   string dungeon_id = 2;
-  EnterRacingDungeonParam racing_param = 10;
+  oneof param {
+    EnterRacingDungeonParam racing_param = 21;
+    EnterWeekRaidParam week_raid_param = 22;
+  }
+}
+
+message EnterWeekRaidParam {
+  string itemId = 1;
+  int32 count = 2;
 }
 
 message EnterRacingDungeonParam {
@@ -2368,6 +2395,7 @@ message ScdFactorySttNode {
   int32 state = 2;
   map<string, int32> values = 3;
   map<string, bool> flags = 4;
+  bool hidden = 5;
 }
 
 message ScdFactorySttPackage {
@@ -2387,6 +2415,12 @@ message ScdFactorySyncStt {
   repeated ScdFactorySttNode nodes = 1;
   repeated ScdFactorySttPackage packages = 2;
   repeated ScdFactorySttLayer layers = 3;
+  repeated ScdFactorySttCategory categories = 4;
+}
+
+message ScdFactorySttCategory {
+  string id = 1;
+  bool hidden = 2;
 }
 
 message ScdFactorySyncFormulaMan {
@@ -2468,11 +2502,41 @@ message ScFactoryModifyFormulaMode {
 message ScFactorySyncScope {
   int32 scope_name = 1;
   string current_chapter_id = 2;
-  repeated ScdFactorySyncQuickbar quickbars = 4;
+  repeated string activeChapterIds = 3;
   ScdFactorySyncHubTransportRouteManager transport_route = 5;
   ScdFactoryStatisticBookmark book_mark = 6;
+  ScdFactorySyncPanelStore panelStore = 7;
+  ScdFactorySyncSignMgr signMgr = 8;
+  ScdFactorySyncSharedMgr sharedMgr = 9;
+}
+message ScdFactorySyncPanelStore {
+  repeated ScdFactoryPanelStoreGood goods = 1;
 }
 
+message ScdFactorySyncSignMgr {
+  repeated ScdFactorySignNodeInfo signNode = 1;
+}
+
+message ScdFactorySyncSharedMgr {
+  repeated ScdFactorySharedNodeInfo recevieSharedNodes = 1;
+}
+
+message ScdFactorySharedNodeInfo {
+  int32 sceneNumId = 1;
+  uint32 nodeId = 2;
+  uint64 ownerId = 3;
+  uint64 sharedRoleId = 4;
+  int64 createTimestamp = 5;
+}
+message ScdFactorySignNodeInfo {
+  string chapterId = 1;
+  uint32 nodeId = 2;
+  repeated int32 signId = 3;
+}
+message ScdFactoryPanelStoreGood {
+  string id = 1;
+  int32 state = 2;
+}
 message ScdFactorySyncHubTransportRouteManager {
   int64 update_ts = 1;
   repeated ScdFactoryHubTransportRoute routes = 2;
@@ -2543,6 +2607,7 @@ message ScFactoryModifyScope {
 message ScFactoryModifyQuickbar {
   int32 scope_name = 1;
   repeated ScdFactorySyncQuickbar quickbars = 2;
+  string chapter_id = 3;
 }
 
 message ScFactorySoilReclaim {
@@ -2586,6 +2651,7 @@ message CsFactoryQuickbarSetOne {
   int32 type = 2;
   int32 index = 3;
   string item_id = 4;
+  string chapter_id = 5;
 }
 
 message CsFactoryQuickbarMoveOne {
@@ -2593,6 +2659,7 @@ message CsFactoryQuickbarMoveOne {
   int32 type = 2;
   int32 from_index = 3;
   int32 to_index = 4;
+  string chapter_id = 5;
 }
 
 message CsFactorySoilReclaim {
@@ -3228,6 +3295,7 @@ message ScFactorySyncChapter {
   ScdFactorySyncBlackboard blackboard = 5;
   ScdFactorySyncPinBoard pin_board = 6;
   repeated ScdFactorySyncMap maps = 7;
+  repeated ScdFactorySyncQuickbar quickbars = 8;
   ScdFactorySyncStatistic statistic = 9;
   ScdFactorySyncPendingPlace pendingPlace = 10;
 }
@@ -3490,43 +3558,54 @@ message CsFactoryOp {
 }
 
 enum FactoryOpType {
-  NONE = 0;
-  PLACE = 1;
-  PLACE_CONVEYOR = 2;
-  DISMANTLE = 3;
-  SET_SELECT_TARGET = 5;
-  ENABLE_NODE = 6;
-  MOVE_NODE = 7;
-  DISMANTLE_BOX_CONVEYOR = 8;
-  REPAIR_NODE = 9;
-  MOVE_ITEM_CACHE_TO_CACHE = 10;
-  MOVE_ITEM_BAG_TO_CACHE = 11;
-  MOVE_ITEM_CACHE_TO_BAG = 12;
-  MOVE_ITEM_DEPOT_TO_CACHE = 13;
-  MOVE_ITEM_CACHE_TO_DEPOT = 14;
-  MOVE_ITEM_CONVEYOR_TO_BAG = 15;
-  CACHE_TRANSPORT_TRANSFER = 16;
-  CACHE_TRANSPORT_ENABLE = 17;
-  SET_TRAVEL_POLE_DEFAULT_NEXT = 18;
-  USE_HEAL_TOWER_POINT = 19;
-  BATTLE_REPAIR = 20;
-  ADD_CONNECTION = 21;
-  DEL_CONNECTION = 22;
-  GRID_BOX_INNER_MOVE = 31;
-  GRID_BOX_INNER_SPLIT = 32;
-  MOVE_ITEM_BAG_TO_GRID_BOX = 33;
-  MOVE_ITEM_GRID_BOX_TO_BAG = 34;
-  MOVE_ITEM_DEPOT_TO_GRID_BOX = 35;
-  MOVE_ITEM_GRID_BOX_TO_DEPOT = 36;
-  MOVE_ALL_CACHE_OUT_ITEM_TO_BAG = 37;
-  QUICK_PUT_BATTERY = 38;
-  CHANGE_PRODUCER_MODE = 41;
-  REVERSE_FLUID_CONVEYOR_DIRECTION = 42;
-  DISMANTLE_BATCH = 43;
-  TAKE_OUT_FLUID_FROM_LIQUID_BODY = 51;
-  PUT_IN_FLUID_TO_LIQUID_BODY = 52;
-  FILLING_FLUID_COM_WITH_BAG = 53;
-  FILLING_FLUID_COM_WITH_DEPOT = 54;
+  FACTORY_OP_TYPE_NONE = 0;
+  FACTORY_OP_TYPE_PLACE = 1;
+  FACTORY_OP_TYPE_PLACE_CONVEYOR = 2;
+  FACTORY_OP_TYPE_DISMANTLE = 3;
+  FACTORY_OP_TYPE_SET_SELECT_TARGET = 5;
+  FACTORY_OP_TYPE_ENABLE_NODE = 6;
+  FACTORY_OP_TYPE_MOVE_NODE = 7;
+  FACTORY_OP_TYPE_DISMANTLE_BOX_CONVEYOR = 8;
+  FACTORY_OP_TYPE_REPAIR_NODE = 9;
+  FACTORY_OP_TYPE_MOVE_ITEM_CACHE_TO_CACHE = 10;
+  FACTORY_OP_TYPE_MOVE_ITEM_BAG_TO_CACHE = 11;
+  FACTORY_OP_TYPE_MOVE_ITEM_CACHE_TO_BAG = 12;
+  FACTORY_OP_TYPE_MOVE_ITEM_DEPOT_TO_CACHE = 13;
+  FACTORY_OP_TYPE_MOVE_ITEM_CACHE_TO_DEPOT = 14;
+  FACTORY_OP_TYPE_MOVE_ITEM_CONVEYOR_TO_BAG = 15;
+  FACTORY_OP_TYPE_CACHE_TRANSPORT_TRANSFER = 16;
+  FACTORY_OP_TYPE_CACHE_TRANSPORT_ENABLE = 17;
+  FACTORY_OP_TYPE_SET_TRAVEL_POLE_DEFAULT_NEXT = 18;
+  FACTORY_OP_TYPE_USE_HEAL_TOWER_POINT = 19;
+  FACTORY_OP_TYPE_BATTLE_REPAIR = 20;
+  FACTORY_OP_TYPE_ADD_CONNECTION = 21;
+  FACTORY_OP_TYPE_DEL_CONNECTION = 22;
+  FACTORY_OP_TYPE_PLACE_SIGN = 23;
+  FACTORY_OP_TYPE_GRID_BOX_INNER_MOVE = 31;
+  FACTORY_OP_TYPE_GRID_BOX_INNER_SPLIT = 32;
+  FACTORY_OP_TYPE_MOVE_ITEM_BAG_TO_GRID_BOX = 33;
+  FACTORY_OP_TYPE_MOVE_ITEM_GRID_BOX_TO_BAG = 34;
+  FACTORY_OP_TYPE_MOVE_ITEM_DEPOT_TO_GRID_BOX = 35;
+  FACTORY_OP_TYPE_MOVE_ITEM_GRID_BOX_TO_DEPOT = 36;
+  FACTORY_OP_TYPE_MOVE_ALL_CACHE_OUT_ITEM_TO_BAG = 37;
+  FACTORY_OP_TYPE_QUICK_PUT_BATTERY = 38;
+  FACTORY_OP_TYPE_CHANGE_PRODUCER_MODE = 41;
+  FACTORY_OP_TYPE_REVERSE_FLUID_CONVEYOR_DIRECTION = 42;
+  FACTORY_OP_TYPE_DISMANTLE_BATCH = 43;
+  FACTORY_OP_TYPE_SET_VALVE_ITEM = 44;
+  FACTORY_OP_TYPE_SET_VALVE_LIMIT = 45;
+  FACTORY_OP_TYPE_RESET_VALVE_RECORD = 46;
+  FACTORY_OP_TYPE_TAKE_OUT_FLUID_FROM_LIQUID_BODY = 51;
+  FACTORY_OP_TYPE_PUT_IN_FLUID_TO_LIQUID_BODY = 52;
+  FACTORY_OP_TYPE_FILLING_FLUID_COM_WITH_BAG = 53;
+  FACTORY_OP_TYPE_FILLING_FLUID_COM_WITH_DEPOT = 54;
+  FACTORY_OP_TYPE_PLACE_BATCH = 55;
+  FACTORY_OP_TYPE_MOVE_BATCH = 56;
+  FACTORY_OP_TYPE_SUBMIT_PENDING_ITEMS = 57;
+  FACTORY_OP_TYPE_CANCEL_BATCH_PENDING = 58;
+  FACTORY_OP_TYPE_SET_SOCIAL_LIKE = 59;
+  FACTORY_OP_TYPE_ADD_UD_PIPE_CONNECTION = 60;
+  FACTORY_OP_TYPE_DEL_UD_PIPE_CONNECTION = 61;
 }
 
 message CsdFactoryOpPlace {
@@ -4121,6 +4200,11 @@ message CsGameMechanicsReqActive {
   string game_id = 1;
 }
 
+message CsGameMechanicsReqStart {
+  string game_id = 1;
+  uint64 interactive_obj_id = 2;
+}
+
 message CsGameMechanicsReqReward {
   string game_id = 1;
 }
@@ -4319,22 +4403,16 @@ message CsItemBagSplitInBag {
 }
 
 message CsItemBagFactoryDepotToBag {
-  map<string, int32> items = 1;
-  repeated uint64 inst_id_list = 2;
+  string item_id = 1;
+  int32 grid_index = 2;
+  int32 count = 3;
+  ItemMoveMode mode = 4;
   int32 scope_name = 11;
   string chapter_id = 12;
 }
 
 message CsItemBagBagToFactoryDepot {
   repeated int32 grid_list = 1;
-  int32 scope_name = 11;
-  string chapter_id = 12;
-}
-
-message CsItemBagFactoryDepotToBagGrid {
-  int32 grid_index = 1;
-  string id = 2;
-  int32 count = 3;
   int32 scope_name = 11;
   string chapter_id = 12;
 }
@@ -4567,7 +4645,11 @@ message CsLogin {
   EnvType env = 12;//
   int32 client_language = 16;//
 }
-
+message CsSetClientSetting {
+  bytes clientSettingModify = 1;
+}
+message ScSetClientSetting {
+}
 enum ClientPlatformType {
   DEFAULT = 0;
   ANDRIOD = 1;
@@ -4894,6 +4976,40 @@ message ScDelMailNotify {
   repeated uint64 mail_id_list = 1;
 }
 
+message CsPayCreateOrder {
+  string goodsId = 1;
+  string cashShopId = 2;
+  int32 count = 3;
+}
+
+message ScPayCreateOrder {
+  string signParam = 1;
+  string goodsId = 2;
+  string cashShopId = 3;
+  int32 count = 4;
+}
+
+message CsPayQueryPlatformData {
+}
+
+message ScdPlatformGoodsData {
+  string goodsId = 1;
+  PlatformGoodsLimitType limitType = 2;
+  int32 limitCount = 3;
+  int32 purchaseCount = 4;
+}
+
+message ScPayQueryPlatformData {
+  repeated ScdPlatformGoodsData platformGoodsData = 1;
+}
+
+enum PlatformGoodsLimitType {
+  PGLT_INVALID = 0;
+  PGLT_COMMON = 1;
+  PGLT_ONCE_BONUS = 2;
+  PGLT_GIFT_PACK = 5;
+}
+
 message ScNewMailNotify {
   repeated uint64 mail_id_list = 1;
   bool new_questionnaire_tag = 2;
@@ -4917,14 +5033,41 @@ message CsSceneSetTrackPoint {
   SceneTrackPoint track_point = 1;
 }
 
+message CsSceneDynamicMapMarkAdd {
+  int32 scene_num_id = 1;
+  Vector position = 2;
+  string note = 3;
+  uint32 typ = 4;
+  int32 tier_index = 5;
+  int32 tier_id = 6;
+}
+
+message CsSceneDynamicMapMarkDelete {
+  int32 scene_num_id = 1;
+  repeated uint32 id = 2;
+}
+
+message CsSceneDynamicMapMarkUpdate {
+  int32 scene_num_id = 1;
+  uint32 id = 2;
+  string note = 3;
+  uint32 typ = 4;
+}
+
 message ScSceneMapMarkSync {
   repeated SceneStaticMapMark scene_static_map_mark_list = 1;
   SceneTrackPoint track_point = 2;
+  repeated SceneDynamicMapMark scene_dynamic_map_mark_list = 3;
 }
 
 message ScSceneStaticMapMarkModify {
   repeated SceneStaticMapMark added_list = 1;
   repeated int32 deleted_list = 2;
+}
+
+message ScSceneDynamicMapMarkModify {
+  repeated SceneDynamicMapMark modified_marks = 1;
+  repeated uint32 deleted_marks = 2;
 }
 
 message ScSceneSetTrackPoint {
@@ -6122,6 +6265,8 @@ message CsShopBuy {
   string shop_id = 1;
   string goods_id = 2;
   int32 count = 3;
+  int64 timestamp = 4;
+  bool use_weaponbox_ticket = 5;
 }
 
 message CsShopSwapMoney {
@@ -6460,6 +6605,7 @@ message ScdSpaceshipRoom {
   repeated string stationed_char_list = 6;
   map<int32, ScdSpaceshipRoomAttr> attrs_map = 7;
   bool has_char_working = 8;
+  int32 serialNum = 9;
   oneof room_data {
     ScdSpaceshipControlCenter control_center = 21;
     ScdSpaceshipManufacturingStation manufacturing_station = 22;
@@ -7109,6 +7255,39 @@ message ScBpSyncAll {
   ScdBpTaskMgr bpTaskMgr = 4;
 }
 
+message CsBpBuyLevel {
+  int32 target_level = 1;
+}
+
+message CsBpTakeTaskReward {
+  repeated string task_ids = 1;
+}
+
+message CsBpTakeTrackReward {
+  repeated CsdBpTrackReward take_track_reward = 1;
+}
+
+message ScBpTakeTrackReward {
+  repeated CsdBpTrackReward failed_reward = 1;
+  repeated ItemBundle items = 2;
+}
+
+message CsBpBuyOriginiumTrack {
+  // Empty message - no fields needed
+}
+
+message ScBpBuyLevel {
+  int32 target_level = 1;
+}
+
+message ScBpLevelModify {
+  ScdBpLevelData level_data = 1;
+}
+
+message ScBpTrackMgrModify {
+  ScdBpTrackMgr bp_track_mgr = 1;
+}
+
 message ScdBpSeasonData {
   string seasonId = 1;
   int32 abscentCnt = 2;
@@ -7176,4 +7355,51 @@ message ScdBpTask {
   int64 visibleTms = 4;
   BpTaskState taskState = 5;
   ScdBpCloseStatus closeStatus = 6;
+}
+
+message CsdBpTrackReward {
+  string bp_track_id = 1;
+  repeated int32 level = 2;
+}
+
+enum DomainDevelopmentReadVersionType {
+  DOMAIN_DEV_SYSTEM = 0;
+  DOMAIN_DEV_KITE_STATION = 1;
+  DOMAIN_DEV_SETTLEMENT = 2;
+  DOMAIN_DEV_DOMAIN_SHOP = 3;
+  DOMAIN_DEV_DOMAIN_DEPOT = 4;
+}
+
+message ScDomainDepotUnlockRsp {
+  string domain_depot_id = 1;
+}
+
+message CsDomainDepotUnlockReq {
+  string domain_depot_id = 1;
+}
+
+message ScdDomainDevelopmentReadVersionInfoModify {
+  DomainDevelopmentReadVersionType dataType = 1;
+  string chapterId = 2;
+  string version = 3;
+}
+
+message ScSyncAllDoodadGroup {
+  repeated DoodadGroupInfo doodadGroupInfoList = 1;
+}
+
+
+message DoodadGroupInfo {
+  int32 sceneNumId = 1;
+  uint64 groupId = 2;
+  int64 nextRefreshTime = 3;
+  int32 nextRefreshCount = 4;
+  int32 maxCount = 5;
+  int32 curCount = 8;
+}
+
+
+
+message ScDoodadGroupModify {
+  repeated DoodadGroupInfo doodadGroupInfoList = 1;
 }

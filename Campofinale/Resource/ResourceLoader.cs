@@ -15,7 +15,18 @@ namespace Campofinale.Resource
             foreach (var type in tableCfgTypes)
             {
                 var attr = type.GetCustomAttribute<TableCfgTypeAttribute>();
-                string json = ResourceManager.ReadJsonFile(attr.Name);
+                string filePath;
+                if (attr.Name.StartsWith("Data/"))
+                {
+                    // Special case: Data files are relative to the project directory, not EndfieldData
+                    filePath = attr.Name;
+                }
+                else
+                {
+                    // Normal case: Use configured resource paths
+                    filePath = ResourceManager.GetResourcePath(attr.Name);
+                }
+                string json = ResourceManager.ReadJsonFile(filePath);
                 FieldInfo field = GetResourceField(type);
                 if (field != null && json.Length > 0)
                 {
@@ -45,7 +56,7 @@ namespace Campofinale.Resource
 
             return JsonConvert.DeserializeObject(json, valueType);
         }
-        
+
         public static List<Type> GetAllTableCfgTypes()
         {
             return Assembly.GetExecutingAssembly()

@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-
 using Campofinale.Network;
 using Campofinale.Protocol;
 using StardustUtils;
@@ -14,16 +13,15 @@ namespace Campofinale.Packets.Cs
         {
             CsMergeMsg req = p.DecodeBody<CsMergeMsg>();
 
-
-
             byte[] allBytes = req.Msg.ToByteArray();
-            while (allBytes.Length > 3) {
+            while (allBytes.Length > 3)
+            {
 
                 byte headLength = Packet.GetByte(allBytes, 0);
                 ushort bodyLength = Packet.GetUInt16(allBytes, 1);
 
                 byte[] head = allBytes.AsSpan().Slice(3, headLength).ToArray();
-                byte[] body = allBytes.AsSpan().Slice(3+ headLength, bodyLength).ToArray();
+                byte[] body = allBytes.AsSpan().Slice(3 + headLength, bodyLength).ToArray();
                 Packet packet = new()
                 {
                     finishedBody = body,
@@ -35,7 +33,11 @@ namespace Campofinale.Packets.Cs
                 {
                     Logger.Print("Received Packet: " + ((CsMsgId)packet.csHead.Msgid).ToString().Pastel(Color.LightCyan) + $" Id: {packet.csHead.Msgid} with {packet.finishedBody.Length} Bytes");
                     if (Server.config.logOptions.packetBodies)
-                        Logger.Print(BitConverter.ToString(packet.finishedBody).Replace("-", string.Empty).ToLower());
+                    {
+                        // Try to parse and print as JSON, fallback to hex if parsing fails
+                        string bodyStr = PacketBodyParser.TryParsePacketBody((CsMsgId)packet.csHead.Msgid, packet.finishedBody);
+                        Logger.Print(bodyStr);
+                    }
                 }
 
                 try
@@ -50,6 +52,6 @@ namespace Campofinale.Packets.Cs
             }
 
         }
-       
+
     }
 }

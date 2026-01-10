@@ -7,6 +7,7 @@
         public GameserverSettings gameServer = new();
         public ServerOptions serverOptions = new();
         public LogSettings logOptions = new();
+        public ResourcePathsSettings resourcePaths = new();
     }
     public class ServerOptions
     {
@@ -16,10 +17,9 @@
         /// Experimental, Mission System is still a work in progress.
         /// </summary>
         public bool missionsEnabled = false;
-        public bool giveAllItems = false;
-        /// <summary>
-        /// Bug: on mobile some scenes doesn't want to load fine
-        /// </summary>
+
+        //public bool giveAllItems = false;
+
         public bool disableLevelscripts = true;
         /// <summary>
         /// Not yet implemented
@@ -36,6 +36,7 @@
         public bool packetWarnings = true;
         public bool packetBodies = false;
         public bool debugPrint = false;
+        public List<string> packetBodyMessages = new(); // List of message names to output body for
 
         public LogSettings()
         {
@@ -70,6 +71,16 @@
         public string uri = "mongodb://localhost:27017";
         public string collection = "Campofinale";
         public MongoDatabaseSettings()
+        {
+        }
+    }
+    public class ResourcePathsSettings
+    {
+        public string baseDirectory = "./";
+        public string tableCfgPath = "TableCfg";
+        public string jsonPath = "Json";
+        public string dynamicAssetsPath = "DynamicAssets";
+        public ResourcePathsSettings()
         {
         }
     }

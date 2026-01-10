@@ -26,6 +26,16 @@ namespace Campofinale.Packets.Sc
                     {
                         Id="item_originium_recharge",
                         Amount=(ulong)client.inventoryManager.item_originium_recharge_amt,
+                    },
+                    new MoneyInfo()
+                    {
+                        Id="item_domain_tundra_coupon",
+                        Amount=(ulong)client.inventoryManager.item_domain_tundra_coupon_amt,
+                    },
+                    new MoneyInfo()
+                    {
+                        Id="item_domain_jinlong_coupon",
+                        Amount=(ulong)client.inventoryManager.item_domain_jinlong_coupon_amt,
                     }
                 }
                 

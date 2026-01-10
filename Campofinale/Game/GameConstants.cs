@@ -12,7 +12,7 @@
         };*/
 
         //Not used on top ^
-        public static string GAME_VERSION = "0.8.25"; //CBT 3
+        public static string GAME_VERSION = "0.8.27"; //CBT 3
         public static string GAME_VERSION_ANDROID = "0.8.24"; //CBT 3 ANDROID
         public static string GAME_VERSION_ASSET_URL = "https://beyond.hg-cdn.com/uXUuLlNbIYmMMTlN/0.5/update/6/1/Windows/0.5.28_U1mgxrslUitdn3hb/files";//CBT 2 
         public static int MAX_TEAMS_NUMBER = 5; //Not used yet

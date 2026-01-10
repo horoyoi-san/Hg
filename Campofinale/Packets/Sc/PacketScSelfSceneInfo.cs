@@ -28,7 +28,10 @@ namespace Campofinale.Packets.Sc
                 Detail = new()
                 {
                     TeamIndex = session.teamIndex,
-                    
+                    NpcList =
+                    {
+                        
+                    }
                 },
                 LevelScripts =
                 {

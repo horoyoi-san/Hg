@@ -10,15 +10,20 @@ namespace Campofinale.Commands.Handlers
         {
             if (args.Length < 2)
             {
-                CommandManager.SendMessage(sender, "Example: spawn (id) (level)");
-
+                CommandManager.SendMessage(sender, "Example: spawn (id) (level) (count)");
                 return;
             }
             string templateId = args[0];
             int level = int.Parse(args[1]);
+            int count = int.Parse(args[2]);
             if (level < 1)
             {
                 CommandManager.SendMessage(sender, "Level can't be less than 1");
+                return;
+            }
+            if (count < 1)
+            {
+                CommandManager.SendMessage(sender, "Count can't be less than 1");
                 return;
             }
             switch (templateId.Split("_")[0])
@@ -26,8 +31,11 @@ namespace Campofinale.Commands.Handlers
                 case "eny":
                     if (ResourceManager.enemyTable.ContainsKey(templateId))
                     {
-                        EntityMonster mon = new(templateId, level, target.roleId, target.position, target.rotation,target.curSceneNumId);
-                        target.sceneManager.SpawnEntity(mon);
+                        for (int i = 0; i < count; i++)
+                        {
+                            EntityMonster mon = new(templateId, level, target.roleId, target.position, target.rotation, target.curSceneNumId);
+                            target.sceneManager.SpawnEntity(mon);
+                        }
                     }
                     else
                     {
@@ -36,7 +44,6 @@ namespace Campofinale.Commands.Handlers
 
                     break;
                 default:
-
                     CommandManager.SendMessage(sender, "Unsupported template id to spawn: " + templateId.Split("_")[0]);
                     break;
             }

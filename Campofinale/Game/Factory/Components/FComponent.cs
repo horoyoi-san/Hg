@@ -1,4 +1,4 @@
-﻿using Campofinale.Game.Factory.Components;
+using Campofinale.Game.Factory.Components;
 using Campofinale.Resource;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
@@ -29,7 +29,7 @@ namespace Campofinale.Game.Factory
         public FCComponentType type;
         public FCompInventory inventory;
         public FCComponentPos customPos = FCComponentPos.Invalid;
-        public FComponent(uint id, FCComponentType t, FCComponentPos custom= FCComponentPos.Invalid)
+        public FComponent(uint id, FCComponentType t, FCComponentPos custom = FCComponentPos.Invalid)
         {
             this.compId = id;
             this.type = t;
@@ -37,12 +37,16 @@ namespace Campofinale.Game.Factory
         }
         public FCComponentPos GetComPos()
         {
-            if(customPos  == FCComponentPos.Invalid)
+            if (customPos == FCComponentPos.Invalid)
             {
                 switch (type)
                 {
                     case FCComponentType.PowerPole:
                         return FCComponentPos.PowerPole;
+                    case FCComponentType.SubHub:
+                        return FCComponentPos.SubHub;
+                    case FCComponentType.Hub:
+                        return FCComponentPos.Hub;
                     case FCComponentType.TravelPole:
                         return FCComponentPos.TravelPole;
                     case FCComponentType.Battle:
@@ -60,10 +64,10 @@ namespace Campofinale.Game.Factory
                     case FCComponentType.PowerSave:
                         return FCComponentPos.PowerSave;
                     default:
-                        return FCComponentPos.Invalid;
+                        return customPos;
                 }
             }
-            
+
             return customPos;
         }
         public ScdFacCom ToProto()
@@ -72,7 +76,7 @@ namespace Campofinale.Game.Factory
             {
                 ComponentType = (int)type,
                 ComponentId = compId,
-                
+
             };
             SetComponentInfo(proto);
             return proto;
@@ -88,7 +92,7 @@ namespace Campofinale.Game.Factory
             {
                 proto.PowerPole = new()
                 {
-                    
+
                 };
             }
         }
@@ -106,6 +110,7 @@ namespace Campofinale.Game.Factory
             return this;
         }
 
-        
+
     }
 }
+

@@ -21,10 +21,11 @@ namespace Campofinale.Game
         public List<Scene> scenes = new List<Scene>();
         public Player player;
         public List<Entity> globalEntities = new List<Entity>();
-        public SceneManager(Player player) {
-        
-            this.player = player;   
-            
+        public SceneManager(Player player)
+        {
+
+            this.player = player;
+
         }
         public void Update()
         {
@@ -34,12 +35,12 @@ namespace Campofinale.Game
                 {
                     GetCurScene().UpdateShowEntities();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
 
                 }
             }
-            
+
         }
         public Entity GetEntity(ulong guid)
         {
@@ -69,19 +70,19 @@ namespace Campofinale.Game
         {
             Scene curscene = GetCurScene();
             string sceneConfigPath = curscene.info().defaultState.exportedSceneConfigPath;
-            foreach(Scene scene in scenes.FindAll(s => s.info().defaultState.exportedSceneConfigPath == sceneConfigPath))
+            foreach (Scene scene in scenes.FindAll(s => s.info().defaultState.exportedSceneConfigPath == sceneConfigPath))
             {
                 if (scene != null)
                 {
                     scene.Load();
                 }
             }
-           
+
 
         }
         public Scene GetScene(int sceneId)
         {
-            return scenes.Find(s=>s.sceneNumId==sceneId);
+            return scenes.Find(s => s.sceneNumId == sceneId);
         }
         public Scene GetCurScene()
         {
@@ -96,10 +97,10 @@ namespace Campofinale.Game
             {
                 scene.entities.Add(entity);
                 //Spawn packet
-                player.Send(new PacketScObjectEnterView(player,new List<Entity>{ entity }));
+                player.Send(new PacketScObjectEnterView(player, new List<Entity> { entity }));
             }
         }
-        public void KillEntity(ulong guid, bool killClient=false, int reason=1)
+        public void KillEntity(ulong guid, bool killClient = false, int reason = 1)
         {
             Scene scene = GetCurScene();
 
@@ -118,7 +119,7 @@ namespace Campofinale.Game
                             SceneNumId = GetEntity(guid).sceneNumId,
                         };
                         player.Send(Protocol.ScMsgId.ScSceneDestroyEntity, destroy);
-                        
+
                     }
                     if (entity is EntityMonster monster)
                     {
@@ -136,12 +137,12 @@ namespace Campofinale.Game
                     {
                         scenes.Find(s => s.sceneNumId == entity.sceneNumId).entities.Remove(entity);
                     }
-                    
+
                 }
-                
+
             }
         }
-        public void CreateDrop(Vector3f pos,ResourceManager.RewardTable.ItemBundle bundle)
+        public void CreateDrop(Vector3f pos, ResourceManager.RewardTable.ItemBundle bundle)
         {
             ItemTable info = ResourceManager.itemTable[bundle.id];
             Item item = new Item(player.roleId, info.id, bundle.count);
@@ -162,7 +163,7 @@ namespace Campofinale.Game
                                 new ParamKeyValue.ParamValueAtom()
                                 {
 
-                                    
+
                                 }
                             }
                         }
@@ -177,7 +178,7 @@ namespace Campofinale.Game
                             {
                                 new ParamKeyValue.ParamValueAtom()
                                 {
-                                    
+
                                     valueString=info.id,
                                 }
                             }
@@ -185,17 +186,17 @@ namespace Campofinale.Game
                     },
 
                 }
-                
+
             };
-           
-            
+
+
             drop.properties.Add(new ParamKeyValue()
             {
                 key = "count",
                 value = new()
                 {
                     type = ParamRealType.Int,
-                    
+
                     valueArray = new ParamKeyValue.ParamValueAtom[1]
                     {
                         new ParamKeyValue.ParamValueAtom()
@@ -227,30 +228,53 @@ namespace Campofinale.Game
         }
         public ulong GetSceneGuid(int sceneNumId)
         {
-            return scenes.Find(s=>s.sceneNumId == sceneNumId).guid;
+            return scenes.Find(s => s.sceneNumId == sceneNumId).guid;
         }
         public void Load()
         {
             foreach (var level in ResourceManager.levelDatas)
             {
                 int grade = 1;
-                
-                if (scenes.Find(s=>s.sceneNumId==level.idNum) == null)
-                scenes.Add(new Scene()
+
+                if (scenes.Find(s => s.sceneNumId == level.idNum) == null)
                 {
-                    guid = (ulong)player.random.Next(),
-                    ownerId=player.roleId,
-                    sceneNumId=level.idNum,
-                    grade= grade
-                });
+                    // Get domain ID for this scene to set max SubmitEther level
+                    string domainId = GetDomainIdForScene(level.idNum);
+                    int maxSubmitEtherLevel = GetMaxSubmitEtherLevelForDomain(domainId);
+
+                    scenes.Add(new Scene()
+                    {
+                        guid = (ulong)player.random.Next(),
+                        ownerId = player.roleId,
+                        sceneNumId = level.idNum,
+                        grade = grade,
+                        submitEtherLevel = maxSubmitEtherLevel, // Set to max level by default
+                        submitEtherCount = 0
+                    });
+                }
             }
-            List<Scene> Todelete = new();
-            foreach(Scene scene in scenes)
+            // Update existing scenes to max SubmitEther level if not already set
+            foreach (Scene scene in scenes)
             {
                 LevelScene sc = ResourceManager.GetLevelData(scene.sceneNumId);
-                if(sc==null) Todelete.Add(scene);
+                if (sc == null) continue;
+
+                // Auto-upgrade to max level for existing scenes
+                string domainId = GetDomainIdForScene(scene.sceneNumId);
+                int maxSubmitEtherLevel = GetMaxSubmitEtherLevelForDomain(domainId);
+                if (scene.submitEtherLevel < maxSubmitEtherLevel)
+                {
+                    scene.submitEtherLevel = maxSubmitEtherLevel;
+                }
             }
-            foreach(Scene scene in Todelete)
+
+            List<Scene> Todelete = new();
+            foreach (Scene scene in scenes)
+            {
+                LevelScene sc = ResourceManager.GetLevelData(scene.sceneNumId);
+                if (sc == null) Todelete.Add(scene);
+            }
+            foreach (Scene scene in Todelete)
             {
                 scenes.Remove(scene);
             }
@@ -266,11 +290,53 @@ namespace Campofinale.Game
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the domain ID for a given scene by looking up the domainDataTable.
+        /// Returns empty string if the scene is not found in any domain.
+        /// </summary>
+        private string GetDomainIdForScene(int sceneNumId)
+        {
+            try
+            {
+                LevelScene levelData = GetLevelData(sceneNumId);
+                if (levelData == null) return "";
+
+                DomainDataTable? table = domainDataTable.Values.ToList().Find(c => c.levelGroup.Contains(levelData.id));
+                return table?.domainId ?? "";
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        /// <summary>
+        /// Gets the maximum SubmitEther level for a given domain.
+        /// Based on EtherSubmitInfoTable.json:
+        /// - map01 (domain_1): max level 18
+        /// - map02 (domain_2): max level 8
+        /// </summary>
+        public static int GetMaxSubmitEtherLevelForDomain(string domainId)
+        {
+            // Map domain IDs to max levels based on EtherSubmitInfoTable.json
+            switch (domainId)
+            {
+                case "domain_1":
+                case "map01":
+                    return 18; // map01 max level
+                case "domain_2":
+                case "map02":
+                    return 8; // map02 max level
+                default:
+                    return 18; // Default to map01 max level
+            }
+        }
     }
     public class LevelScript
     {
         public ulong scriptId;
-        public int state; 
+        public int state;
         public Dictionary<string, ScriptProperty> properties = new();
     }
     public class Scene
@@ -279,13 +345,15 @@ namespace Campofinale.Game
         public ulong guid;
         public int sceneNumId;
         public Dictionary<string, int> collections = new();
-        [BsonIgnore,JsonIgnore]
+        [BsonIgnore, JsonIgnore]
         public List<Entity> entities = new();
         [BsonIgnore, JsonIgnore]
         public List<ulong> activeScripts = new();
 
         public List<LevelScript> scripts = new();
         public int grade = 1;
+        public int submitEtherLevel = 1;
+        public int submitEtherCount = 0;
 
         public int GetCollection(string id)
         {
@@ -293,10 +361,10 @@ namespace Campofinale.Game
             {
                 return collections[id];
             }
-            return 0; 
+            return 0;
         }
 
-        public void AddCollection(string id,int amt)
+        public void AddCollection(string id, int amt)
         {
             if (collections.ContainsKey(id))
             {
@@ -315,7 +383,7 @@ namespace Campofinale.Game
         public void Unload()
         {
             List<ulong> guids = new();
-            foreach(Entity e in GetEntityExcludingChar().FindAll(e => e.spawned))
+            foreach (Entity e in GetEntityExcludingChar().FindAll(e => e.spawned))
             {
                 guids.Add(e.guid);
                 e.spawned = false;
@@ -335,21 +403,21 @@ namespace Campofinale.Game
             }
             Unload();
             LevelScene lv_scene = ResourceManager.GetLevelData(sceneNumId);
-            
+
             LevelGradeInfo sceneGrade = null;
             LevelGradeTable table = null;
             ResourceManager.levelGradeTable.TryGetValue(lv_scene.id, out table);
             if (table != null)
             {
-                sceneGrade=table.grades.Find(g=>g.grade==grade);
+                sceneGrade = table.grades.Find(g => g.grade == grade);
             }
             if (sceneGrade == null)
             {
                 sceneGrade = new()
                 {
-                    monsterBaseLevel=1,
-                    grade=1,
-                    
+                    monsterBaseLevel = 1,
+                    grade = 1,
+
                 };
             }
             lv_scene.levelData.interactives.ForEach(en =>
@@ -360,18 +428,18 @@ namespace Campofinale.Game
                 }
                 EntityInteractive entity = new(en.entityDataIdKey, ownerId, en.position, en.rotation, sceneNumId, en.levelLogicId)
                 {
-                    belongLevelScriptId=en.belongLevelScriptId,
-                    dependencyGroupId=en.dependencyGroupId,
-                    levelLogicId= en.levelLogicId,
+                    belongLevelScriptId = en.belongLevelScriptId,
+                    dependencyGroupId = en.dependencyGroupId,
+                    levelLogicId = en.levelLogicId,
                     type = en.entityType,
-                    properties= en.properties,
-                    componentProperties=en.componentProperties,
+                    properties = en.properties,
+                    componentProperties = en.componentProperties,
                 };
                 entities.Add(entity);
             });
-            /*lv_scene.levelData.factoryRegions.ForEach(en =>
+            lv_scene.levelData.factoryRegions.ForEach(en =>
             {
-                if (GetOwner().noSpawnAnymore.Contains(en.levelLogicId) && sceneNumId!=87)
+                if (GetOwner().noSpawnAnymore.Contains(en.levelLogicId) && sceneNumId != 87)
                 {
                     return;
                 }
@@ -382,21 +450,21 @@ namespace Campofinale.Game
                     levelLogicId = en.levelLogicId,
                     type = en.entityType,
                 };
-                
+
                 entities.Add(entity);
-            });*/
+            });
             lv_scene.levelData.enemies.ForEach(en =>
             {
-                if(GetOwner().noSpawnAnymore.Contains(en.levelLogicId) && sceneNumId != 87) return;
-                
-                EntityMonster entity = new(en.entityDataIdKey,sceneGrade.monsterBaseLevel+ en.level,ownerId,en.position,en.rotation, sceneNumId, en.levelLogicId)
+                if (GetOwner().noSpawnAnymore.Contains(en.levelLogicId) && sceneNumId != 87) return;
+
+                EntityMonster entity = new(en.entityDataIdKey, sceneGrade.monsterBaseLevel + en.level, ownerId, en.position, en.rotation, sceneNumId, en.levelLogicId)
                 {
-                    type=en.entityType,
-                    belongLevelScriptId=en.belongLevelScriptId,
+                    type = en.entityType,
+                    belongLevelScriptId = en.belongLevelScriptId,
                     levelLogicId = en.levelLogicId,
-                    
+
                 };
-                entity.defaultHide=en.defaultHide;
+                entity.defaultHide = en.defaultHide;
                 entities.Add(entity);
             });
             lv_scene.levelData.npcs.ForEach(en =>
@@ -406,12 +474,12 @@ namespace Campofinale.Game
                     en.npcGroupId = "";
                 }
                 if (en.npcGroupId.Contains("chr") && sceneNumId == 98) return;
-                EntityNpc entity = new(en.entityDataIdKey,ownerId,en.position,en.rotation, sceneNumId, en.levelLogicId)
+                EntityNpc entity = new(en.entityDataIdKey, ownerId, en.position, en.rotation, sceneNumId, en.levelLogicId)
                 {
                     belongLevelScriptId = en.belongLevelScriptId,
                     levelLogicId = en.levelLogicId,
                     type = en.entityType,
-                    
+
                 };
                 entity.defaultHide = en.defaultHide;
                 entities.Add(entity);
@@ -428,8 +496,8 @@ namespace Campofinale.Game
             });
             UpdateShowEntities();
         }
-        
-        public void SpawnEntity(Entity en,bool spawnedCheck=true)
+
+        public void SpawnEntity(Entity en, bool spawnedCheck = true)
         {
             en.spawned = true;
             GetOwner().Send(new PacketScObjectEnterView(GetOwner(), new List<Entity>() { en }));
@@ -455,11 +523,11 @@ namespace Campofinale.Game
             toCheck.Sort((a, b) => a.Position.Distance(GetOwner().position).CompareTo(b.Position.Distance(GetOwner().position)));
             foreach (Entity e in toCheck)
             {
-                if(e.Position.Distance(GetOwner().position) > 300 && sceneNumId != 87)
+                if (e.Position.Distance(GetOwner().position) > 300 && sceneNumId != 87)
                 {
                     continue;
                 }
-                if(e.spawned==false)
+                if (e.spawned == false)
                 {
                     if (!e.defaultHide)
                     {
@@ -469,9 +537,9 @@ namespace Campofinale.Game
                             e.spawned = true;
                         }
                     }
-                    
+
                 }
-                
+
             }
             if (toSpawn.Count > 0)
             {
@@ -479,7 +547,7 @@ namespace Campofinale.Game
                 {
                     int chunkSize = Math.Min(5, toSpawn.Count - i);
                     var chunk = toSpawn.GetRange(i, chunkSize);
-                    
+
                     GetOwner().Send(new PacketScObjectEnterView(GetOwner(), chunk));
                 }
             }
@@ -497,11 +565,11 @@ namespace Campofinale.Game
             });
             GetOwner().Send(new PacketScObjectEnterView(GetOwner(), GetEntityExcludingChar().FindAll(e => e.belongLevelScriptId == id)));
         }
-        public void SpawnEnemy(ulong v, bool scriptSpawn=false)
+        public void SpawnEnemy(ulong v, bool scriptSpawn = false)
         {
             LevelScene lv_scene = ResourceManager.GetLevelData(sceneNumId);
-            LevelEnemyData en = lv_scene.levelData.enemies.Find(e=>e.levelLogicId == v);
-            if(en!=null)
+            LevelEnemyData en = lv_scene.levelData.enemies.Find(e => e.levelLogicId == v);
+            if (en != null)
             {
                 EntityMonster entity = new(en.entityDataIdKey, en.level, ownerId, en.position, en.rotation, sceneNumId, en.levelLogicId)
                 {
@@ -541,34 +609,34 @@ namespace Campofinale.Game
         }
         public void SpawnWaveEnemy(ulong spawnerId, int waveId)
         {
-            LevelSpawnerData data=info().levelData.spawners.Find(s => s.spawnerId == spawnerId);
-            if (data!=null)
+            LevelSpawnerData data = info().levelData.spawners.Find(s => s.spawnerId == spawnerId);
+            if (data != null)
             {
                 SpawnerConfig config = spawnerConfigs.Find(s => s.configId == data.configId);
                 if (config != null)
                 {
-                    foreach(var group in config.waveMap[$"{waveId}"].groupMap.Values)
+                    foreach (var group in config.waveMap[$"{waveId}"].groupMap.Values)
                     {
                         foreach (var act in group.actionMap.Values)
                         {
-                            EnemyLibraryData enemyData = config.enemyLibrary.Find(e=>e.key==act.libraryKey);
+                            EnemyLibraryData enemyData = config.enemyLibrary.Find(e => e.key == act.libraryKey);
                             if (enemyData != null)
                             {
                                 entities.Add(new EntityMonster(enemyData.enemyId, enemyData.enemyLevel, ownerId, act.position, act.rotation, sceneNumId)
                                 {
-                                    
+
                                     defaultHide = false,
                                     spawned = false,
                                     belongLevelScriptId = data.belongLevelScriptId
                                 });
                             }
-                            
+
                         }
                     }
                 }
             }
         }
 
-       
+
     }
 }

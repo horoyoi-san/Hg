@@ -16,9 +16,28 @@ class Program
         {
             throw new Exception("Signchecker validation failed!!!!!!!! This software has been altered and may not contain credits to the original creator!!!!");
         }
-        StartServer(args);
-        //FakeClientTester();
 
+        try
+        {
+            StartServer(args);
+            //FakeClientTester();
+        }
+        catch (Exception ex)
+        {
+            // Catch all exceptions to prevent window from closing
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n" + new string('=', 80));
+            Console.WriteLine("FATAL ERROR:");
+            Console.WriteLine(new string('=', 80));
+            Console.WriteLine($"{ex.GetType().Name}: {ex.Message}");
+            Console.WriteLine($"\nStackTrace:\n{ex.StackTrace}");
+            Console.WriteLine(new string('=', 80));
+            Console.ResetColor();
+
+            // Keep window open
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
+        }
     }
     public static byte[] ConcatenateByteArrays(byte[] array1, byte[] array2)
     {
@@ -27,7 +46,7 @@ class Program
     private static void FakeClientTester()
     {
         //beyond-ric.gryphline.com
-        string serverIp = "beyond-euandus-exhibition.gryphline.com"; 
+        string serverIp = "beyond-euandus.gryphline.com";
         int serverPort = 30000;
         Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         IPAddress[] addresses = Dns.GetHostAddresses(serverIp);
@@ -36,9 +55,9 @@ class Program
 
         socket.Connect(new IPEndPoint(ipAddress, serverPort));
         //CBT 3 info we got: Proto body encrypted, Packet format seem the same, Cmd Id is not encrypted and is not shuffled
-         socket.Send(Packet.EncodePacket((int)CsMsgId.CsLogin,new CsLogin() { ClientVersion="0.5.5",Uid= "", Token= "", Env=EnvType.Prod,PlatformId=ClientPlatformType.Windows,Area=AreaType.Oversea,ClientResVersion="" }.ToByteArray()));
+        socket.Send(Packet.EncodePacket((int)CsMsgId.CsLogin, new CsLogin() { ClientVersion = "0.5.5", Uid = "", Token = "", Env = EnvType.Prod, PlatformId = ClientPlatformType.Windows, Area = AreaType.Oversea, ClientResVersion = "" }.ToByteArray()));
         //socket.Send(Packet.EncodePacket((int)CsMsgId.CsFriendListSync, new CsFriendListSync() { }.ToByteArray()));
-        
+
         while (true)
         {
             byte[] buffer = new byte[3];
@@ -49,7 +68,7 @@ class Program
                 byte headLength = Packet.GetByte(buffer, 0);
                 ushort bodyLength = Packet.GetUInt16(buffer, 1);
                 byte[] moreData = new byte[bodyLength + headLength];
-                
+
                 while (socket.Available < moreData.Length)
                 {
 
@@ -59,7 +78,7 @@ class Program
                 {
                     buffer = ConcatenateByteArrays(buffer, moreData);
                     packet = Packet.Read(buffer);
-                   
+
                     switch ((ScMsgId)packet.cmdId)
                     {
                         case ScMsgId.ScLogin:
@@ -70,7 +89,7 @@ class Program
                             //ScNtfErrorCode p2 = ScNtfErrorCode.Parser.ParseFrom(packet.finishedBody);
                             //Console.WriteLine(JsonConvert.SerializeObject(p2));
                             string base642 = Convert.ToBase64String(packet.finishedBody);
-                            
+
                             Console.WriteLine($"{(ScMsgId)packet.cmdId}: HEAD:{packet.csHead.ToString()} BODY:{base642}");
                             break;
                         default:
@@ -79,7 +98,7 @@ class Program
                             break;
                     }
 
-                    
+
 
                 }
             }
@@ -102,7 +121,7 @@ class Program
         AppDomain.CurrentDomain.ProcessExit += (_, _) =>
         {
             Logger.Print("Shutting down...");
-            
+
             Server.Shutdown();
         };
 

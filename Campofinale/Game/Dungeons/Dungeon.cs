@@ -11,26 +11,37 @@ namespace Campofinale.Game.Dungeons
         public Vector3f prevPlayerRot;
         public int prevPlayerSceneNumId;
         public Player player;
+        public CsEnterDungeon req;
         public Dungeon()
         {
 
         }
-
+        public string GetSceneId()
+        {
+            if(table.sceneId.Length > 0)
+            {
+                return table.sceneId;
+            }
+            else
+            {
+                return table.levelId;
+            }
+        }
         public void Enter()
         {
-            player.sceneManager.GetScene(GetSceneNumIdFromLevelData(table.sceneId)).activeScripts.Clear();
-            player.sceneManager.GetScene(GetSceneNumIdFromLevelData(table.sceneId)).scripts.ForEach(script =>
+            player.sceneManager.GetScene(GetSceneNumIdFromLevelData(GetSceneId())).activeScripts.Clear();
+            player.sceneManager.GetScene(GetSceneNumIdFromLevelData(GetSceneId())).scripts.ForEach(script =>
             {
                 script.state = 1;
             });
             ScEnterDungeon enter = new()
             {
                 DungeonId = table.dungeonId,
-                SceneId = table.sceneId,
+                SceneId = GetSceneId(),
             };
             player.Send(new PacketScSyncAllUnlock(player));
 
-            player.EnterScene(GetSceneNumIdFromLevelData(table.sceneId));
+            player.EnterScene(GetSceneNumIdFromLevelData(GetSceneId()));
             player.Send(ScMsgId.ScEnterDungeon, enter);
         }
         public void Leave()

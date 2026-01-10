@@ -1,13 +1,16 @@
-﻿using Campofinale.Game.Factory.Components;
+using Campofinale.Game.Factory.Components;
 using Campofinale.Game.Inventory;
 using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
 using Campofinale.Resource;
 using Campofinale.Resource.Table;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using StardustUtils;
+using System.Linq;
 using System.Xml.Linq;
 using static Campofinale.Resource.ResourceManager;
+using static Campofinale.Resource.Table.DomainDataTable;
 
 namespace Campofinale.Game.Factory
 {
@@ -15,14 +18,44 @@ namespace Campofinale.Game.Factory
     {
         public string chapterId;
         public ulong ownerId;
+        public int domainDevelopmentLevel = 12;
         public List<FactoryNode> nodes = new();
         public uint v = 1;
         public uint compV = 0;
         public int bandwidth = 200;
         public FactoryBlackboard blackboard = new();
+        public Dictionary<string, int> regionsLevels = [];
+        public List<FactoryQuickbar> quickbars = [];
+        // set of purchased good IDs (state = Done)
+        public HashSet<string> panelStorePurchasedGoods = [];
+
+        public Player GetOwner()
+        {
+            return Server.clients.Find(c => c.roleId == ownerId);
+        }
+        public uint nextCompV()
+        {
+            compV++;
+            return compV;
+        }
+
+        // Sub-managers for operations (not serialized to database, initialized via InitializeSubManagers())
+        [BsonIgnore]
+        public FactoryNodeOps nodeOps;
+        [BsonIgnore]
+        public FactoryWire wire;
+        [BsonIgnore]
+        public FactoryPower power;
+        [BsonIgnore]
+        public FactoryItemTransfer itemTransfer;
+        public class FactoryQuickbar
+        {
+            public int Type;
+            public List<string> List = [];
+        }
         public class FactoryBlackboard
         {
-            public uint inventoryNodeId=1;
+            public uint inventoryNodeId = 1;
             public FacBbPower power = new();
 
             public class FacBbPower
@@ -40,11 +73,11 @@ namespace Campofinale.Game.Factory
                     InventoryNodeId = inventoryNodeId,
                     Power = new()
                     {
-                        IsStopByPower=power.isStopByPower,
-                        PowerCost=power.powerCost,
-                        PowerGen=power.powerGen,
-                        PowerSaveCurrent=power.powerSaveCurrent,
-                        PowerSaveMax=power.powerSaveMax,    
+                        IsStopByPower = power.isStopByPower,
+                        PowerCost = power.powerCost,
+                        PowerGen = power.powerGen,
+                        PowerSaveCurrent = power.powerSaveCurrent,
+                        PowerSaveMax = power.powerSaveMax,
                     }
                 };
             }
@@ -58,660 +91,9 @@ namespace Campofinale.Game.Factory
                         IsStopByPower = power.isStopByPower,
                         PowerSaveCurrent = power.powerSaveCurrent,
                         PowerSaveMax = power.powerSaveMax,
-                        
                     },
-                    
                 };
             }
-        }
-        public ScFactorySyncChapter ToProto()
-        {
-            blackboard = new();
-            
-            ScFactorySyncChapter chapter = new()
-            {
-                ChapterId = chapterId,
-                Tms = DateTime.UtcNow.ToUnixTimestampMilliseconds(),
-                Blackboard = new(),
-                Statistic = new()
-                {
-                    LastDay = new()
-                    {
-                        
-                    },
-                    Other = new()
-                    {
-                        InPowerBuilding = nodes.FindAll(n=>n.lastPowered==true).Count,
-                        
-                    }
-                },
-                PinBoard = new()
-                {
-                    Cards =
-                    {
-
-                    },
-
-                },
-                PendingPlace = new()
-                {
-                    
-                },
-                
-            };
-            blackboard.power.powerSaveCurrent = bandwidth;
-            domainDataTable[chapterId].levelGroup.ForEach(levelGroup =>
-            {
-                try
-                {
-                    int grade = 1;
-                    /* LevelGradeInfo sceneGrade = ResourceManager.levelGradeTable[levelGroup].grades.Find(g => g.grade == grade);
-                     if (sceneGrade != null)
-                     {*/
-                    blackboard.power.powerGen += 1;
-                    blackboard.power.powerSaveMax += 1;
-
-                    var scene = new ScdFactorySyncScene()
-                    {
-                        SceneId = GetSceneNumIdFromLevelData(levelGroup),
-
-                        Bandwidth = new()
-                        {
-                            Current = 0,
-                            Max = 1,
-                            TravelPoleMax = 111,
-
-                            BattleCurrent = 0,
-                            BattleMax = 11,
-                        },
-                        Settlements =
-                        {
-
-                        },
-
-                        Panels =
-                        {
-
-                        }
-                    };
-                    int index = 0;
-                    LevelScene scen = GetLevelData(GetSceneNumIdFromLevelData(levelGroup));
-                    /*foreach (var reg in scen.levelData.factoryRegions)
-                    {
-                        foreach (var area in reg.areas)
-                        {
-                            var lvData = area.levelData.Find(l => l.level == grade);
-                            if (lvData == null)
-                            {
-                                lvData = area.levelData.Last();
-                            }
-                            if (lvData.levelBounds.Count > 0)
-                            {
-                                var bounds = lvData.levelBounds[0];
-                                scene.Panels.Add(new ScdFactorySyncScenePanel()
-                                {
-                                    Index = index,
-                                    Level = lvData.level,
-                                    MainMesh =
-                                    {
-                                        new ScdRectInt()
-                                        {
-                                            X=(int)bounds.start.x,
-                                            Z=(int)bounds.start.z,
-                                            Y=(int)bounds.start.y,
-                                            W=(int)bounds.size.x,
-                                            H=(int)bounds.size.y,
-                                            L=(int)bounds.size.z,
-                                        }
-                                    }
-                                });
-                                index++;
-                            }
-
-                        }
-                    }*/
-                    chapter.Scenes.Add(scene);
-                }
-                catch (Exception ex)
-                {
-
-                }
-                
-                /* }
-             */
-
-            });
-            try
-            {
-                nodes.ForEach(node =>
-                {
-                    chapter.Nodes.Add(node.ToProto());
-                });
-            }
-            catch(Exception e)
-            {
-
-            }
-            chapter.Blackboard = blackboard.ToProto();
-            chapter.Maps.AddRange(GetMaps());
-            return chapter;
-        }
-        public List<ScdFactorySyncMap> GetMaps()
-        {
-            List<ScdFactorySyncMap> maps = new();
-            string levelId = domainDataTable[chapterId].levelGroup[0];
-            string mapId = GetLevelData(GetSceneNumIdFromLevelData(levelId)).mapIdStr;
-            maps.Add(new ScdFactorySyncMap()
-            {
-                MapId = ResourceManager.strIdNumTable.chapter_map_id.dic[mapId],
-                
-                Wires =
-                {
-                    GetWires()
-                },
-                
-            });
-            return maps;
-        }
-
-        public List<ScdFactorySyncMapWire> GetWires()
-        {
-            List<ScdFactorySyncMapWire> wires = new();
-            HashSet<(ulong, ulong)> addedConnections = new();
-            ulong i = 0;
-
-            foreach (FactoryNode node in nodes)
-            {
-                foreach (var conn in node.connectedComps)
-                {
-                    ulong compA = conn.Key;
-                    ulong compB = conn.Value;
-
-                    var key = (compA, compB);
-
-                    if (!addedConnections.Contains(key))
-                    {
-                        wires.Add(new ScdFactorySyncMapWire()
-                        {
-                            Index = i,
-                            FromComId = compA,
-                            ToComId = compB,
-                            
-                        });
-
-                        addedConnections.Add(key);
-                        i++;
-                    }
-                }
-            }
-
-            return wires;
-        }
-
-
-        public void Update()
-        {
-            try
-            {
-                UpdatePowerGrid(nodes);
-                foreach (FactoryNode node in nodes)
-                {
-                    try
-                    {
-                        node.Update(this);
-                    }
-                    catch (Exception e)
-                    {
-                        Logger.PrintError($"Error occured while updating nodeId {node.nodeId}: {e.Message}");
-                    }
-                    
-                }
-            }
-            catch (Exception e)
-            {
-
-            }
-
-        }
-        public List<FactoryNode> GetNodesInRange(Vector3f pos, float range)
-        {
-            return nodes.FindAll(n => n.position.Distance(pos) <= range);
-        }
-
-        public void ExecOp(CsFactoryOp op, ulong seq)
-        {
-
-            switch (op.OpType)
-            {
-                case FactoryOpType.Place:
-                    CreateNode(op, seq);
-                    break;
-                case FactoryOpType.MoveNode:
-                    MoveNode(op, seq);
-                    break;
-                case FactoryOpType.Dismantle:
-                    DismantleNode(op, seq);
-                    break;
-                case FactoryOpType.AddConnection:
-                    AddConnection(op, seq);
-                    break;
-                case FactoryOpType.MoveItemBagToCache:
-                    MoveItemBagToCache(op, seq);
-                    break;
-                case FactoryOpType.MoveItemCacheToBag:
-                    MoveItemCacheToBag(op, seq);
-                    break;
-                case FactoryOpType.ChangeProducerMode:
-                    ChangeProducerMode(op, seq);
-                    break;
-                case FactoryOpType.EnableNode:
-                    EnableNode(op, seq);
-                    break;
-                case FactoryOpType.PlaceConveyor:
-                    PlaceConveyor(op, seq);
-                    break;
-                case FactoryOpType.DismantleBoxConveyor:
-                    DismantleBoxConveyor(op, seq);
-                    break;
-                case FactoryOpType.UseHealTowerPoint:
-                    //TODO
-                    break;
-                case FactoryOpType.SetTravelPoleDefaultNext:
-                    FactoryNode travelNode = GetNodeByCompId(op.SetTravelPoleDefaultNext.ComponentId);
-                    travelNode.GetComponent<FComponentTravelPole>().defaultNext = op.SetTravelPoleDefaultNext.DefaultNext;
-                    GetOwner().Send(new PacketScFactoryModifyChapterNodes(GetOwner(), chapterId, travelNode));
-                    GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), 0, op), seq);
-                    break;
-                default:
-                    break;
-            }
-
-        }
-        public void DismantleBoxConveyor(CsFactoryOp op, ulong seq)
-        {
-            var dismantle = op.DismantleBoxConveyor;
-
-            FactoryNode nodeRem = nodes.Find(n => n.nodeId == dismantle.NodeId);
-            if (nodeRem != null)
-            {
-                RemoveConnectionsToNode(nodeRem, nodes);
-                nodes.Remove(nodeRem);
-                GetOwner().Send(new PacketScFactoryModifyChapterNodes(GetOwner(), chapterId, nodeRem.nodeId));
-                GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), nodeRem.nodeId, op), seq);
-            }
-            else
-            {
-                ScFactoryOpRet ret = new()
-                {
-                    RetCode = FactoryOpRetCode.Fail,
-                    
-                };
-                GetOwner().Send(ScMsgId.ScFactoryOpRet, ret, seq);
-            }
-        }
-        public void EnableNode(CsFactoryOp op, ulong seq)
-        {
-            var enableNode = op.EnableNode;
-            FactoryNode node = nodes.Find(n => n.nodeId == enableNode.NodeId);
-            if(node!= null)
-            {
-                node.deactive = !enableNode.Enable;
-                GetOwner().Send(new PacketScFactoryModifyChapterNodes(GetOwner(), chapterId, node));
-            }
-            GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), 0, op), seq);
-        }
-        public void ChangeProducerMode(CsFactoryOp op, ulong seq)
-        {
-            var changeMode = op.ChangeProducerMode;
-            FactoryNode node = nodes.Find(n=>n.nodeId == changeMode.NodeId);
-            if(node != null)
-            {
-                FComponentFormulaMan formula = node.GetComponent<FComponentFormulaMan>();
-                if (formula != null)
-                {
-                    formula.currentMode = changeMode.ToMode; //test, not sure
-                }
-                
-            }
-            GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), 0, op), seq);
-            
-        }
-        public void MoveItemCacheToBag(CsFactoryOp op, ulong seq)
-        {
-            var move = op.MoveItemCacheToBag;
-            FComponentCache cacheComp = GetCompById<FComponentCache>(move.ComponentId);
-            if (cacheComp != null)
-            {
-                ItemCount cacheItem = cacheComp.items[move.CacheGridIndex];
-                Item gridItem = null;
-                GetOwner().inventoryManager.items.bag.TryGetValue(move.GridIndex, out gridItem);
-                if (gridItem == null)
-                {
-                    GetOwner().inventoryManager.items.bag.Add(move.GridIndex, new Item(ownerId,cacheItem.id,cacheItem.count));
-                    cacheItem.id = "";
-                    cacheItem.count = 0;
-                    
-                }
-                else
-                {
-                    if(gridItem.id == cacheItem.id)
-                    {
-                        int availableSpace = 50 - gridItem.amount;
-                        if(cacheItem.count > availableSpace)
-                        {
-                            gridItem.amount += availableSpace;
-                            cacheItem.count-= availableSpace;
-                        }
-                        else
-                        {
-                            gridItem.amount += cacheItem.count;
-                            cacheItem.id = "";
-                            cacheItem.count = 0;
-                        }
-                    }
-                    else
-                    {
-                        //TODO Swap
-                    }
-                    
-                }
-            }
-            GetOwner().inventoryManager.items.UpdateBagInventoryPacket();
-            GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), 0, op), seq);
-        }
-        public void MoveItemBagToCache(CsFactoryOp op, ulong seq)
-        {
-            var move = op.MoveItemBagToCache;
-            FComponentCache cacheComp = GetCompById<FComponentCache>(move.ComponentId);
-            if (cacheComp != null)
-            {
-                Item gridItem = null;
-                GetOwner().inventoryManager.items.bag.TryGetValue(move.GridIndex, out gridItem);
-                if (gridItem != null)
-                {
-                    if(cacheComp.items[move.CacheGridIndex].id == "" || cacheComp.items[move.CacheGridIndex].id == gridItem.id)
-                    {
-                        int canAdd = 50 - cacheComp.items[move.CacheGridIndex].count;
-
-                        if (canAdd >= gridItem.amount)
-                        {
-                            cacheComp.items[move.CacheGridIndex].id = gridItem.id;
-                            cacheComp.items[move.CacheGridIndex].count += gridItem.amount;
-                            GetOwner().inventoryManager.items.bag.Remove(move.GridIndex);
-                            GetOwner().inventoryManager.items.UpdateBagInventoryPacket();
-                        }
-                        else
-                        {
-                            cacheComp.items[move.CacheGridIndex].id = gridItem.id;
-                            cacheComp.items[move.CacheGridIndex].count += canAdd;
-                            gridItem.amount-=canAdd;
-                            GetOwner().inventoryManager.items.UpdateBagInventoryPacket();
-                        }
-                    }
-                }
-                
-            }
-            GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), 0, op), seq);
-        }
-
-        public void MoveNode(CsFactoryOp op, ulong seq)
-        {
-            var move = op.MoveNode;
-            FactoryNode node = nodes.Find(n => n.nodeId == move.NodeId);
-            if (node != null)
-            {
-                node.direction = new Vector3f(move.Direction);
-                node.position = new Vector3f(move.Position);
-                node.worldPosition = new Vector3f(move.InteractiveParam.Position);
-                GetOwner().Send(new PacketScFactoryModifyChapterNodes(GetOwner(), chapterId, node));
-                GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), node.nodeId, op), seq);
-                node.SendEntity(GetOwner(), chapterId);
-            }
-            else
-            {
-                ScFactoryOpRet ret = new()
-                {
-                    RetCode = FactoryOpRetCode.Fail,
-                };
-                GetOwner().Send(ScMsgId.ScFactoryOpRet, ret, seq);
-            }
-        }
-        public void DismantleNode(CsFactoryOp op, ulong seq)
-        {
-            var dismantle = op.Dismantle;
-
-            FactoryNode nodeRem = nodes.Find(n => n.nodeId == dismantle.NodeId);
-            if (nodeRem != null)
-            {
-                RemoveConnectionsToNode(nodeRem, nodes);
-                nodes.Remove(nodeRem);
-                GetOwner().Send(ScMsgId.ScFactoryModifyChapterMap, new ScFactoryModifyChapterMap()
-                {
-                    ChapterId = chapterId,
-                    MapId = nodeRem.mapId,
-                    Tms = DateTime.UtcNow.ToUnixTimestampMilliseconds(),
-                    Wires =
-                    {
-                        GetWires()
-                    }
-                });
-                GetOwner().Send(new PacketScFactoryModifyChapterNodes(GetOwner(), chapterId, nodeRem.nodeId));
-                GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), nodeRem.nodeId, op), seq);
-            }
-            else
-            {
-                ScFactoryOpRet ret = new()
-                {
-                    RetCode = FactoryOpRetCode.Fail,
-
-                };
-                GetOwner().Send(ScMsgId.ScFactoryOpRet, ret, seq);
-            }
-        }
-        public void RemoveConnectionsToNode(FactoryNode nodeRem, List<FactoryNode> allNodes)
-        {
-            // Ottieni tutti i compId del nodo da rimuovere
-            HashSet<ulong> remCompIds = nodeRem.components.Select(c => (ulong)c.compId).ToHashSet();
-
-            foreach (var node in allNodes)
-            {
-                node.connectedComps.RemoveAll(conn =>
-                    remCompIds.Contains(conn.Key) || remCompIds.Contains(conn.Value));
-            }
-        }
-
-
-        public uint nextCompV()
-        {
-            compV++;
-            return compV;
-        }
-        public FComponent GetCompById(ulong compId)
-        {
-            foreach (FactoryNode node in nodes)
-            {
-                if (node.components.Find(c => c.compId == compId) != null)
-                {
-                    return node.components.Find(c => c.compId == compId);
-                }
-            }
-            return null;
-        }
-        public FComponent GetCompById<FComponent>(ulong compId) where FComponent : class
-        {
-            foreach (FactoryNode node in nodes)
-            {
-                if (node.components.Find(c => c.compId == compId) != null)
-                {
-                    return node.components.Find(c => c.compId == compId && c is FComponent) as FComponent;
-                }
-            }
-            return null;
-        }
-        public FactoryNode GetNodeByCompId(ulong compId)
-        {
-            foreach (FactoryNode node in nodes)
-            {
-                if (node.components.Find(c => c.compId == compId) != null)
-                {
-                    return node;
-                }
-            }
-            return null;
-        }
-        private void AddConnection(CsFactoryOp op, ulong seq)
-        {
-            FComponent nodeFrom = GetCompById(op.AddConnection.FromComId);
-            FComponent nodeTo = GetCompById(op.AddConnection.ToComId);
-
-            if (nodeFrom != null && nodeTo != null)
-            {
-                GetNodeByCompId(nodeFrom.compId).connectedComps.Add(new(nodeFrom.compId, nodeTo.compId));
-                GetNodeByCompId(nodeTo.compId).connectedComps.Add(new(nodeTo.compId, nodeFrom.compId));
-                GetOwner().Send(ScMsgId.ScFactoryModifyChapterMap, new ScFactoryModifyChapterMap()
-                {
-                    ChapterId = chapterId,
-                    MapId = GetNodeByCompId(nodeFrom.compId).mapId,
-                    Tms = DateTime.UtcNow.ToUnixTimestampMilliseconds(),
-                    Wires =
-                    {
-                        GetWires()
-                    }
-                });
-                var wire = GetWires().Find(w =>
-    (w.FromComId == op.AddConnection.FromComId && w.ToComId == op.AddConnection.ToComId) ||
-    (w.FromComId == op.AddConnection.ToComId && w.ToComId == op.AddConnection.FromComId));
-
-                if (wire != null)
-                {
-                    GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), (uint)wire.Index, op), seq);
-                }
-                else
-                {
-                    // Facoltativo: log di errore
-                    Console.WriteLine($"[WARN] Connessione non trovata tra {op.AddConnection.FromComId} e {op.AddConnection.ToComId}");
-                }
-
-            }
-
-        }
-        void ResetAllPower(List<FactoryNode> allNodes)
-        {
-            foreach (var node in allNodes)
-                node.powered = false;
-        }
-        void UpdatePowerGrid(List<FactoryNode> allNodes)
-        {
-            ResetAllPower(allNodes);
-
-            HashSet<uint> visited = new();
-
-            foreach (var node in allNodes)
-            {
-                if (node.templateId.Contains("hub") || node.templateId == "power_diffuser_1")
-                {
-                    //if(node.forcePowerOn)
-                    if (node.templateId == "power_diffuser_1")
-                    {
-                        //Check inside factory region
-
-                    }
-                    else
-                    {
-                        PropagatePowerFrom(node, visited);
-                    }
-
-                }
-            }
-        }
-        void PropagatePowerFrom(FactoryNode node, HashSet<uint> visited)
-        {
-            if (visited.Contains(node.nodeId))
-                return;
-
-            visited.Add(node.nodeId);
-            node.powered = true;
-            if (node.templateId == "power_diffuser_1")
-            {
-                //get builds in area test
-                List<FactoryNode> nodes = GetNodesInRange(node.position, 15);
-                foreach (FactoryNode propagateNode in nodes)
-                {
-                    if (propagateNode.GetComponent<FComponentPowerPole>() == null)
-                    {
-                        propagateNode.powered = true;
-                    }
-                }
-            }
-            if (node.GetComponent<FComponentPowerPole>() != null)
-                foreach (var connectedCompId in node.connectedComps)
-                {
-                    FactoryNode connectedNode = GetNodeByCompId(connectedCompId.Value);
-                    if (connectedNode != null)
-                    {
-                        PropagatePowerFrom(connectedNode, visited);
-                    }
-                }
-        }
-        public void PlaceConveyor(CsFactoryOp op, ulong seq)
-        {
-            var placeConveyor = op.PlaceConveyor;
-            v++;
-            uint nodeId = v;
-            List<Vector3f> points = new();
-            foreach(var point in placeConveyor.Points)
-            {
-                points.Add(new Vector3f(point));
-            }
-            FactoryNode node = new()
-            {
-                nodeId = nodeId,
-                templateId = placeConveyor.TemplateId,
-                mapId = placeConveyor.MapId,
-                sceneNumId = GetOwner().sceneManager.GetCurScene().sceneNumId,
-                nodeType = FCNodeType.BoxConveyor,
-                position = new Vector3f(placeConveyor.Points[0]),
-                direction = new(),
-                directionIn = new Vector3f(placeConveyor.DirectionIn),
-                directionOut = new Vector3f(placeConveyor.DirectionOut),
-                worldPosition = null,
-                points = points,
-                guid = GetOwner().random.NextRand(),
-            };
-            
-            node.InitComponents(this);
-            GetOwner().Send(new PacketScFactoryModifyChapterNodes(GetOwner(), chapterId, node));
-            nodes.Add(node);
-            
-            GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), nodeId, op), seq);
-        }
-        private void CreateNode(CsFactoryOp op, ulong seq)
-        {
-            v++;
-            uint nodeId = v;
-            CsdFactoryOpPlace place = op.Place;
-            FactoryBuildingTable table = ResourceManager.factoryBuildingTable[place.TemplateId];
-            FactoryNode node = new()
-            {
-                nodeId = nodeId,
-                templateId = place.TemplateId,
-                mapId = place.MapId,
-                sceneNumId = GetOwner().sceneManager.GetCurScene().sceneNumId,
-                nodeType = table.GetNodeType(),
-                position = new Vector3f(place.Position),
-                direction = new Vector3f(place.Direction),
-                worldPosition = new Vector3f(place.InteractiveParam.Position),
-                guid = GetOwner().random.NextRand(),
-
-            };
-
-            node.InitComponents(this);
-            GetOwner().Send(new PacketScFactoryModifyChapterNodes(GetOwner(), chapterId, node));
-            nodes.Add(node);
-            node.SendEntity(GetOwner(), chapterId);
-
-            GetOwner().Send(new PacketScFactoryOpRet(GetOwner(), node.nodeId, op), seq);
-
         }
 
         public FactoryChapter(string chapterId, ulong ownerId)
@@ -729,10 +111,547 @@ namespace Campofinale.Game.Factory
             };
             node.InitComponents(this);
             nodes.Add(node);
+
+            // Initialize quickbars
+            quickbars = new List<FactoryQuickbar>
+            {
+                new FactoryQuickbar { Type = 0, List = [] },
+                new FactoryQuickbar { Type = 1, List = [] }
+            };
+
+            // Initialize empty slots for quickbars
+            foreach (var quickbar in quickbars)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    quickbar.List.Add("");
+                }
+            }
+
+            // Initialize sub-managers
+            InitializeSubManagers();
         }
-        public Player GetOwner()
+
+        public void InitializeSubManagers()
         {
-            return Server.clients.Find(c => c.roleId == ownerId);
+            nodeOps = new FactoryNodeOps(this);
+            wire = new FactoryWire(this);
+            power = new FactoryPower(this);
+            itemTransfer = new FactoryItemTransfer(this);
+        }
+        private ScFactorySyncChapter CreateBaseChapterProto()
+        {
+            return new ScFactorySyncChapter()
+            {
+                Tms = DateTime.UtcNow.ToUnixTimestampMilliseconds(),
+                ChapterId = chapterId,
+                Blackboard = new()
+                {
+                    Power = new()
+                },
+                PinBoard = new(),
+                Quickbars = { BuildQuickbars() },
+                Statistic = new()
+                {
+                    LastDay = new(),
+                    Other = new()
+                    {
+                        InPowerBuilding = nodes.FindAll(n => n.lastPowered == true).Count
+                    },
+                },
+                PendingPlace = new()
+            };
+        }
+
+        public ScFactorySyncChapter ToProto()
+        {
+            // Build chapter proto with all components
+            var chapter = CreateBaseChapterProto();
+            BuildNodes(chapter);
+            BuildScenes(chapter);
+            BuildBlackboard(chapter);
+            BuildMaps(chapter);
+            // TODO: build remaining
+
+            return chapter;
+        }
+
+        public List<ScdFactoryPanelStoreGood> BuildPanelStoreGoodsProto()
+        {
+            var goods = new List<ScdFactoryPanelStoreGood>();
+
+            panelStorePurchasedGoods ??= new HashSet<string>();
+
+            if (ResourceManager.factoryPanelStoreTable == null)
+            {
+                return goods;
+            }
+
+            // Get levelIds for this chapter to filter goods
+            var chapterLevelIds = new HashSet<string>();
+            if (domainDataTable.TryGetValue(chapterId, out var domainData))
+            {
+                foreach (var levelId in domainData.levelGroup)
+                {
+                    chapterLevelIds.Add(levelId);
+                }
+            }
+
+            foreach (var kvp in ResourceManager.factoryPanelStoreTable)
+            {
+                if (kvp.Value == null)
+                    continue;
+
+                var good = kvp.Value;
+
+                // Only include goods that belong to this chapter (regionId matches levelId in levelGroup)
+                if (!chapterLevelIds.Contains(good.regionId))
+                    continue;
+
+                int state;
+
+                // Check if purchased (Done = 2)
+                if (panelStorePurchasedGoods.Contains(good.id))
+                {
+                    state = 2; // Done
+                }
+                else
+                {
+                    // TODO: Check conditions to determine if Ready (1) or Lock (0)
+                    // For now, set to Ready (1) - conditions check should be implemented later
+                    state = 1; // Ready
+                }
+
+                goods.Add(new ScdFactoryPanelStoreGood
+                {
+                    Id = good.id,
+                    State = state
+                });
+            }
+
+            return goods;
+        }
+
+        public List<ScdFactorySyncQuickbar> BuildQuickbars()
+        {
+            var protoQuickbars = new List<ScdFactorySyncQuickbar>();
+            for (int type = 0; type < 2; type++)
+            {
+                var protoQuickbar = new ScdFactorySyncQuickbar { Type = type };
+
+                var existingQuickbar = quickbars?.FirstOrDefault(q => q.Type == type);
+                var items = existingQuickbar?.List ?? new List<string>();
+
+                for (int i = 0; i < 8; i++)
+                {
+                    protoQuickbar.List.Add(i < items.Count ? (items[i] ?? "") : "");
+                }
+
+                protoQuickbars.Add(protoQuickbar);
+            }
+
+            return protoQuickbars;
+        }
+
+        private void BuildBlackboard(ScFactorySyncChapter chapter)
+        {
+            blackboard = new();
+            blackboard.power.powerSaveCurrent = bandwidth;
+
+            chapter.Blackboard = blackboard.ToProto();
+        }
+
+        private void BuildMaps(ScFactorySyncChapter chapter)
+        {
+            chapter.Maps.AddRange(GetMaps());
+        }
+
+        private void BuildScenes(ScFactorySyncChapter chapter)
+        {
+            DomainDataTable? domainData = domainDataTable[chapterId];
+            if (domainData?.levelGroup == null)
+            {
+                return;
+            }
+
+            foreach (var levelGroup in domainData.levelGroup)
+            {
+                var scene = BuildSceneForLevelGroup(levelGroup, domainData);
+                if (scene != null)
+                {
+                    chapter.Scenes.Add(scene);
+                }
+            }
+        }
+
+        private ScdFactorySyncScene? BuildSceneForLevelGroup(string levelGroup, DomainDataTable domainData)
+        {
+            // Find matching domain development level, or use the highest available level that is <= target level
+            DomainDevelopmentLevel? devLvl = domainData.domainDevelopmentLevel.Find(D => D.domainDevelopmentLevel == domainDevelopmentLevel);
+            if (devLvl == null)
+            {
+                // If exact match not found, find the highest available level that is <= target level
+                devLvl = domainData.domainDevelopmentLevel
+                    .Where(D => D.domainDevelopmentLevel <= domainDevelopmentLevel)
+                    .OrderByDescending(D => D.domainDevelopmentLevel)
+                    .FirstOrDefault();
+
+                if (devLvl == null)
+                {
+                    // If no level found, try to use the highest available level regardless
+                    devLvl = domainData.domainDevelopmentLevel
+                        .OrderByDescending(D => D.domainDevelopmentLevel)
+                        .FirstOrDefault();
+                }
+
+                if (devLvl == null)
+                {
+                    return null;
+                }
+            }
+
+            DomainDevelopmentLevelEffect? devEff = devLvl.domainDevelopmentLevelEffect.Values.ToList().Find(V => V.levelId == levelGroup);
+            if (devEff == null)
+            {
+                return null;
+            }
+
+            blackboard.power.powerGen += devEff.bandwidth;
+            blackboard.power.powerSaveMax += devEff.bandwidth;
+            blackboard.power.powerSaveCurrent = blackboard.power.powerSaveMax;
+
+            var scene = new ScdFactorySyncScene()
+            {
+                SceneId = GetSceneNumIdFromLevelData(levelGroup),
+                Bandwidth = new()
+                {
+                    Current = 0,
+                    Max = devEff.bandwidth,
+                    TravelPoleMax = devEff.travelPoleLimit,
+                    TravelPoleCurrent = 0,
+                    BattleCurrent = 0,
+                    BattleMax = devEff.battleBuildingLimit,
+                },
+                Settlements =
+                {
+
+                },
+                Panels =
+                {
+
+                }
+            };
+
+            BuildScenePanels(scene, levelGroup);
+            BuildSettlements(scene, levelGroup);
+
+            return scene;
+        }
+
+        private void BuildSettlements(ScdFactorySyncScene scene, string levelGroup)
+        {
+            LevelScene levelScene = GetLevelData(GetSceneNumIdFromLevelData(levelGroup));
+
+            foreach (var reg in levelScene.levelData.factoryRegions)
+            {
+                // Check if region has settlementAreas
+                if (reg.settlementAreas == null || reg.settlementAreas.Count == 0)
+                {
+                    continue;
+                }
+
+                foreach (var settlementArea in reg.settlementAreas)
+                {
+                    string settlementId = settlementArea.areaId;
+                    if (string.IsNullOrEmpty(settlementId))
+                    {
+                        continue;
+                    }
+
+                    // Get settlement level from player data (default to 1 if not found)
+                    int settlementLevel = GetSettlementLevel(settlementId);
+
+                    // Get settlement level data from settlementBasicDataTable
+                    if (ResourceManager.settlementBasicDataTable.TryGetValue(settlementId, out var settlementBasic))
+                    {
+                        // Get level-specific data from settlementLevelMap
+                        int bandwidth = 0;
+                        int travelPoleLimit = 0;
+                        int battleBuildingLimit = 0;
+
+                        if (settlementBasic.settlementLevelMap != null &&
+                            settlementBasic.settlementLevelMap.TryGetValue(settlementLevel.ToString(), out var levelData))
+                        {
+                            bandwidth = levelData.bandwidth;
+                            travelPoleLimit = levelData.travelPoleLimit;
+                            battleBuildingLimit = levelData.battleBuildingLimit;
+                        }
+                        else
+                        {
+                            // If level not found, try to get the first available level as fallback
+                            if (settlementBasic.settlementLevelMap != null && settlementBasic.settlementLevelMap.Count > 0)
+                            {
+                                var firstLevel = settlementBasic.settlementLevelMap.Values.First();
+                                bandwidth = firstLevel.bandwidth;
+                                travelPoleLimit = firstLevel.travelPoleLimit;
+                                battleBuildingLimit = firstLevel.battleBuildingLimit;
+                            }
+                        }
+
+                        var bandwidthData = new ScdFactorySyncSceneBandwidth()
+                        {
+                            Current = 0,
+                            Max = bandwidth,
+                            TravelPoleCurrent = 0,
+                            TravelPoleMax = travelPoleLimit,
+                            BattleCurrent = 0,
+                            BattleMax = battleBuildingLimit,
+                            SpCurrent = 0,
+                            SpMax = 0
+                        };
+
+                        scene.Settlements[settlementId] = bandwidthData;
+                    }
+                }
+            }
+        }
+
+        private int GetSettlementLevel(string settlementId)
+        {
+            // TODO: Implement proper settlement level retrieval from player settlement data
+            // For now, return default level 1
+            return 1;
+        }
+
+        private void BuildScenePanels(ScdFactorySyncScene scene, string levelGroup)
+        {
+            int index = 0;
+            LevelScene levelScene = GetLevelData(GetSceneNumIdFromLevelData(levelGroup));
+
+            foreach (var reg in levelScene.levelData.factoryRegions)
+            {
+                // Get current region level
+                int currentLevel = 3; // GetFactoryRegionLevel(reg.regionId);
+
+                foreach (var area in reg.areas)
+                {
+                    var lvData = area.levelData.Find(l => l.level == currentLevel);
+                    lvData ??= area.levelData.Last();
+
+                    if (lvData.levelBounds.Count > 0)
+                    {
+                        var bounds = lvData.levelBounds[0];
+                        scene.Panels.Add(new ScdFactorySyncScenePanel()
+                        {
+                            Index = index,
+                            Level = currentLevel,
+                            MainMesh =
+                            {
+                                new ScdRectInt()
+                                {
+                                    X = (int)bounds.start.x,
+                                    Z = (int)bounds.start.z,
+                                    Y = (int)bounds.start.y,
+                                    W = (int)bounds.size.x,
+                                    H = (int)bounds.size.y,
+                                    L = (int)bounds.size.z,
+                                }
+                            }
+                        });
+                        index++;
+                    }
+                }
+            }
+        }
+
+        private void BuildNodes(ScFactorySyncChapter chapter)
+        {
+            foreach (var node in nodes)
+            {
+                chapter.Nodes.Add(node.ToProto());
+            }
+        }
+
+        public int GetFactoryRegionLevel(string regionId)
+        {
+            regionsLevels ??= new();
+            if (regionsLevels.TryGetValue(regionId, out var r))
+            {
+                return r;
+            }
+
+            // use max level for region. NOTICE: some region may have cropPanel levelBounds. no idea what it is.
+            regionsLevels.Add(regionId, 3);
+            return 3;
+        }
+
+        public List<ScdFactorySyncMap> GetMaps()
+        {
+
+            List<ScdFactorySyncMap> maps = [];
+            if (!domainDataTable.TryGetValue(chapterId, out var domainData) || domainData?.levelGroup == null || domainData.levelGroup.Count == 0)
+            {
+                return maps;
+            }
+
+            string levelId = domainData.levelGroup[0];
+            LevelScene levelScene = GetLevelData(GetSceneNumIdFromLevelData(levelId));
+            if (levelScene == null || string.IsNullOrEmpty(levelScene.mapIdStr) || strIdNumTable?.chapter_map_id?.dic == null || !strIdNumTable.chapter_map_id.dic.TryGetValue(levelScene.mapIdStr, out int mapIdNum))
+            {
+                return maps;
+            }
+
+            // Use AddRange instead of collection initializer syntax for RepeatedField
+            var map = new ScdFactorySyncMap()
+            {
+                MapId = mapIdNum
+            };
+            map.Wires.AddRange(wire.GetWires());
+            maps.Add(map);
+            return maps;
+        }
+
+        public void Update()
+        {
+            power.UpdatePowerGrid(nodes);
+            foreach (FactoryNode node in nodes)
+            {
+                try
+                {
+                    node.Update(this);
+                }
+                catch (Exception e)
+                {
+                    Logger.PrintError($"Error occured while updating nodeId {node.nodeId}: {e.Message}");
+                }
+
+            }
+        }
+
+        public List<FactoryNode> GetNodesInRange(Vector3f pos, float range)
+        {
+            return nodes.FindAll(n => n.position.Distance(pos) <= range);
+        }
+
+        public void SetQuickbarOne(int scopeName, int type, int index, string itemId)
+        {
+            if (type < 0 || type >= 2) return; // Only 2 quickbar types (0 and 1)
+            if (index < 0 || index >= 8) return; // Quickbar always has 8 slots
+
+            if (quickbars == null)
+            {
+                quickbars = new List<FactoryQuickbar>();
+            }
+
+            // Find or create quickbar for this type
+            var quickbar = quickbars.FirstOrDefault(q => q.Type == type);
+            if (quickbar == null)
+            {
+                quickbar = new FactoryQuickbar { Type = type, List = new List<string>() };
+                quickbars.Add(quickbar);
+            }
+
+            quickbar.List[index] = itemId ?? "";
+        }
+
+        public void MoveQuickbarOne(int scopeName, int type, int fromIndex, int toIndex)
+        {
+            if (fromIndex < 0 || fromIndex >= 8) return;
+            if (toIndex < 0 || toIndex >= 8) return;
+            if (fromIndex == toIndex) return;
+
+            var quickbar = quickbars.FirstOrDefault(q => q.Type == type);
+            if (quickbar == null)
+            {
+                quickbar = new FactoryQuickbar { Type = type, List = new List<string>() };
+                quickbars.Add(quickbar);
+            }
+
+            var item = quickbar.List[fromIndex];
+            quickbar.List[fromIndex] = "";
+            quickbar.List[toIndex] = item ?? "";
+        }
+
+        public void ExecOp(CsFactoryOp op, ulong seq)
+        {
+            switch (op.OpType)
+            {
+                case FactoryOpType.Place:
+                    nodeOps.CreateNode(op, seq);
+                    break;
+                case FactoryOpType.MoveNode:
+                    nodeOps.MoveNode(op, seq);
+                    break;
+                case FactoryOpType.Dismantle:
+                    nodeOps.DismantleNode(op, seq);
+                    break;
+                case FactoryOpType.AddConnection:
+                    wire.AddConnection(op, seq);
+                    break;
+                case FactoryOpType.MoveItemBagToCache:
+                    itemTransfer.MoveItemBagToCache(op, seq);
+                    break;
+                case FactoryOpType.MoveItemCacheToBag:
+                    itemTransfer.MoveItemCacheToBag(op, seq);
+                    break;
+                case FactoryOpType.ChangeProducerMode:
+                    nodeOps.ChangeProducerMode(op, seq);
+                    break;
+                case FactoryOpType.EnableNode:
+                    nodeOps.EnableNode(op, seq);
+                    break;
+                case FactoryOpType.PlaceConveyor:
+                    nodeOps.PlaceConveyor(op, seq);
+                    break;
+                case FactoryOpType.DismantleBoxConveyor:
+                    nodeOps.DismantleBoxConveyor(op, seq);
+                    break;
+                case FactoryOpType.UseHealTowerPoint:
+                    //TODO
+                    break;
+                case FactoryOpType.SetTravelPoleDefaultNext:
+                    nodeOps.SetTravelPoleDefaultNext(op, seq);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        public FComponent GetCompById(ulong compId)
+        {
+            foreach (FactoryNode node in nodes)
+            {
+                var comp = node.components.Find(c => c.compId == compId);
+                if (comp != null)
+                {
+                    return comp;
+                }
+            }
+            return null;
+        }
+        public FComponent GetCompById<FComponent>(ulong compId) where FComponent : class
+        {
+            foreach (FactoryNode node in nodes)
+            {
+                var comp = node.components.Find(c => c.compId == compId && c is FComponent);
+                if (comp != null)
+                {
+                    return comp as FComponent;
+                }
+            }
+            return null;
+        }
+        public FactoryNode GetNodeByCompId(ulong compId)
+        {
+            foreach (FactoryNode node in nodes)
+            {
+                if (node.components.Any(c => c.compId == compId))
+                {
+                    return node;
+                }
+            }
+            return null;
         }
     }
 }

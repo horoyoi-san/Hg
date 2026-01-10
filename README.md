@@ -24,25 +24,13 @@ Campofinale is an experimental server implementation for a certain factory build
 1. Install:
    * [.NET SDK](https://dotnet.microsoft.com/en-us/download) (8.0.12 is recommended)
    * [MongoDB](https://www.mongodb.com/try/download/community)
-   * [mitmproxy](https://mitmproxy.org/)
-
-    1. Make sure to setup Mitmproxy accordingly, and of course install the certificate system-wide.
     
-2. Download the [precompiled build](https://git.teamstardust.org/Campofinale/Campofinale/releases/latest) or build it by yourself
-3. Put the `Json`, `TableCfg` folder inside the `Campofinale.exe` folder (you can download a copy [here](https://git.teamstardust.org/Campofinale/EndfieldData)) | Also get `DynamicAssets` from [here](https://git.teamstardust.org/Campofinale/EndfieldData-Archive/src/branch/main/0.5.28/DynamicAssets) and put them in the same folder as `Campofinale.exe`
-4. Run the server `Campofinale.exe`
-5. Proxy post-install setup
+2. Download the [precompiled build](https://git.teamstardust.org/Campofinale/Campofinale/releases/latest) or build it [yourself](#manual-build)
 
-    ```shell
-    mitmweb -s ak.py --mode local:EndfieldTBeta2 --set stream_large_bodies=3m
-    ```
-
-   Get ak.py from [here](https://git.teamstardust.org/Campofinale/Campofinale/src/branch/development/docs/ak.py)
-    
-6. Run the Mitmproxy command (from above) if you haven't
-
-7. Patch the game client (get the patch from our Discord) - Run launcher.exe after (Note: Only OS client is supported for now, CN CBT3 could work too because offsets are the same)
-8. You must create an account using `account create (username)` in the server console, then login in the game with an email like `(username)@randomemailformathere.whatyouwant`. There is no password so you can input a random password for its field.
+3. Get the `Json`, `TableCfg` and `DynamicAssets` folders from [here](https://git.teamstardust.org/Campofinale/EndfieldData) and place them in the same folder as `Campofinale.exe`
+4. Run the server (`Campofinale.exe`)
+5. Patch the game (get the patch from our Discord) - Run launcher.exe after (Note: Only OS client is supported for now, CN CBT3 could work too because offsets are the same)
+6. Create an account (required) using `account create (username) [uid]` in the server console, then login in the game with an email like `(username)@randomemailformathere.whatyouwant`. (uid is optional) There is no actual password requirement for the ps so you can input a random password for its field.
 
 ## Additional Information
 
@@ -53,6 +41,17 @@ The list of all characters is [here](docs/CharactersTable.md).<br>
 The list of all items is [here](docs/ItemsTable.md).<br>
 
 If you want to open the in-game console, go to `Settings -> Platform & Account -> Account Settings (Access Account button)`. To view available commands, type `help`.
+
+## Manual build
+- Make sure .NET 8.0 SDK is installed
+- Open a command prompt/terminal in the same folder as the .sln file and run:
+```sh
+dotnet build -c Release
+```
+- Output will be at Campofinale/bin/Release/net8.0
+
+- Or build with Visual Studio if you have it installed (and the .NET desktop development "module")
+
 
 ## Discord for support
 

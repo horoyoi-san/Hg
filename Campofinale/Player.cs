@@ -18,6 +18,10 @@ using System.Drawing;
 using Campofinale.Game.Adventure;
 using static Campofinale.Player;
 using StardustUtils;
+using Campofinale.Game.BP;
+using Campofinale.Game.MapMarks;
+using Campofinale.Game.Domain;
+using Campofinale.Resource.Table;
 namespace Campofinale
 {
     public class GuidRandomizer
@@ -32,29 +36,29 @@ namespace Campofinale
         }
         public ulong Next()
         {
-            if(v+1>= IdConst.LogicIdSegment)
+            if (v + 1 >= IdConst.LogicIdSegment)
             {
-                v = IdConst.MaxLogicIdBound+1;
+                v = IdConst.MaxLogicIdBound + 1;
             }
             v++;
             return (ulong)v;
         }
-        
+
         public ulong NextRand()
         {
-            var maxGuid = IdConst.MaxLogicIdBound+1;
-            
-            ulong val = (ulong)random.NextInt64((long)maxGuid,(long)IdConst.MaxRuntimeClientId);
-           
-            if(val <= v)
+            var maxGuid = IdConst.MaxLogicIdBound + 1;
+
+            ulong val = (ulong)random.NextInt64((long)maxGuid, (long)IdConst.MaxRuntimeClientId);
+
+            if (val <= v)
             {
                 return NextRand();
             }
-            if(player.sceneManager.GetCurScene()!=null)
-            if (player.sceneManager.GetCurScene().entities.Find(e => e.guid == val) != null)
-            {
-                return NextRand();
-            }
+            if (player.sceneManager.GetCurScene() != null)
+                if (player.sceneManager.GetCurScene().entities.Find(e => e.guid == val) != null)
+                {
+                    return NextRand();
+                }
             if (usedGuids.Contains(val))
             {
                 return NextRand();
@@ -96,7 +100,9 @@ namespace Campofinale
         public Gender gender = Gender.GenFemale;
         public uint level = 20;
         public uint xp = 0;
-        //
+        public uint worldLevel = 7;
+        public uint unlockWorldLevel = 7;
+        public long lastSetWorldLevelTs = 0;
         public Vector3f position;
         public Vector3f rotation;
         public Vector3f safeZonePoint; //Don't need to be saved
@@ -110,6 +116,9 @@ namespace Campofinale
         public FactoryManager factoryManager;
         public MissionSystem missionSystem;
         public AdventureBookManager adventureBookManager;
+        public BattlePassManager battlePassManager;
+        public MapMarkManager mapMarkManager;
+        public DomainDepotManager domainDepotManager;
         public int teamIndex = 0;
         public List<Team> teams = new List<Team>();
         public List<Mail> mails = new List<Mail>();
@@ -121,12 +130,14 @@ namespace Campofinale
         public long nextDailyReset = 0;
         public Dungeon currentDungeon;
         public PlayerSafeZoneInfo savedSaveZone;
-        public PlayerPersonalData personalData=new();
-
-        public uint maxStamina {
-            get{
+        public PlayerPersonalData personalData = new();
+        public byte[] clientSetting = new byte[0];
+        public uint maxStamina
+        {
+            get
+            {
                 return (uint)200;
-            } 
+            }
         }
         public bool Initialized = false;
 
@@ -139,25 +150,28 @@ namespace Campofinale
             inventoryManager = new(this);
             sceneManager = new(this);
             gachaManager = new(this);
-            spaceshipManager = new(this);   
+            spaceshipManager = new(this);
             factoryManager = new(this);
             missionSystem = new(this);
             adventureBookManager = new(this);
+            battlePassManager = new(this);
+            mapMarkManager = new(this);
+            domainDepotManager = new(this);
             receivorThread = new Thread(new ThreadStart(Receive));
-           
+
         }
         public List<Character> GetCurTeam()
         {
-            return chars.FindAll(c=> teams[teamIndex].members.Contains(c.guid));
+            return chars.FindAll(c => teams[teamIndex].members.Contains(c.guid));
         }
         public bool Load(string accountId)
         {
             this.accountId = accountId;
             PlayerData data = DatabaseManager.db.GetPlayerById(this.accountId);
-            
+
             if (data != null)
             {
-                nickname=data.nickname;
+                nickname = data.nickname;
                 position = data.position;
                 rotation = data.rotation;
                 curSceneNumId = data.curSceneNumId;
@@ -165,19 +179,56 @@ namespace Campofinale
                 roleId = data.roleId;
                 random.v = data.totalGuidCount;
                 teamIndex = data.teamIndex;
-                if(data.unlockedSystems!=null)
-                unlockedSystems = data.unlockedSystems;
+                if (data.unlockedSystems != null)
+                    unlockedSystems = data.unlockedSystems;
                 if (data.noSpawnAnymore != null)
                     noSpawnAnymore = data.noSpawnAnymore;
                 maxDashEnergy = data.maxDashEnergy;
                 curStamina = data.curStamina;
-                nextRecoverTime=data.nextRecoverTime;
+                nextRecoverTime = data.nextRecoverTime;
+                if (data.clientSetting != null)
+                {
+                    clientSetting = data.clientSetting;
+                }
                 if (data.gender > 0) gender = data.gender;
-                
+                level = data.level;
+                xp = data.xp;
+                worldLevel = data.worldLevel;
+                unlockWorldLevel = data.unlockWorldLevel;
+                lastSetWorldLevelTs = data.lastSetWorldLevelTs;
+
                 LoadCharacters();
                 mails = DatabaseManager.db.LoadMails(roleId);
                 inventoryManager.Load();
-                if (data.bag != null) inventoryManager.items.bag = data.bag;
+                // Load bag and ensure bag items reference the same Item objects from items.items
+                // This prevents data inconsistency where bag items and items.items have different object instances
+                if (data.bag != null)
+                {
+                    inventoryManager.items.bag = new Dictionary<int, Item>();
+                    foreach (var bagEntry in data.bag)
+                    {
+                        int gridIndex = bagEntry.Key;
+                        Item bagItem = bagEntry.Value;
+
+                        // Find the corresponding item in items.items by guid
+                        // This ensures bag items reference the same Item objects from items.items
+                        Item? existingItem = inventoryManager.items.items.Find(i => i.guid == bagItem.guid);
+                        if (existingItem != null)
+                        {
+                            // Use the item from items.items to ensure consistency
+                            inventoryManager.items.bag[gridIndex] = existingItem;
+                        }
+                        else
+                        {
+                            // Item not found in items.items, add it
+                            // This handles edge cases where bag has items not in items collection
+                            Logger.PrintWarn($"[Player.Load] Bag item {bagItem.id} (guid={bagItem.guid}) not found in items.items, adding it");
+                            inventoryManager.items.items.Add(bagItem);
+                            DatabaseManager.db.UpsertItem(bagItem);
+                            inventoryManager.items.bag[gridIndex] = bagItem;
+                        }
+                    }
+                }
                 spaceshipManager.Load();
                 if (data.scenes != null)
                 {
@@ -191,7 +242,7 @@ namespace Campofinale
                 {
                     personalData = new();
                 }
-                if(Server.config.serverOptions.missionsEnabled) missionSystem.Load();
+                if (Server.config.serverOptions.missionsEnabled) missionSystem.Load();
             }
             else
             {
@@ -200,6 +251,8 @@ namespace Campofinale
             adventureBookManager.Load();
             sceneManager.Load();
             factoryManager.Load();
+            battlePassManager.Load();
+            mapMarkManager.Load();
             return (data != null);
         }
         public void LoadCharacters()
@@ -222,7 +275,7 @@ namespace Campofinale
         /// <returns>Character</returns>
         public Character GetCharacter(string templateId)
         {
-            return chars.Find(c => c.id==templateId);
+            return chars.Find(c => c.id == templateId);
         }
         /// <summary>
         /// Add a character with template id if not present in the chars list *Added in 1.1.6*
@@ -235,9 +288,11 @@ namespace Campofinale
             {
                 chara = new Character(roleId, id, 1);
                 chars.Add(chara);
+                // Save character to database immediately
+                DatabaseManager.db.UpsertCharacter(chara);
                 if (notify)
                 {
-                    Send(new PacketScCharBagAddChar(this,chara));
+                    Send(new PacketScCharBagAddChar(this, chara));
                 }
             }
             return chara;
@@ -253,9 +308,13 @@ namespace Campofinale
             {
                 chara = new Character(roleId, id, level);
                 chars.Add(chara);
+                // Save character to database immediately
+                DatabaseManager.db.UpsertCharacter(chara);
                 if (notify)
                 {
                     Send(new PacketScCharBagAddChar(this, chara));
+                    Item weapon = inventoryManager.items.Find(i => i.guid == chara.weaponGuid);
+                    if (weapon != null) Send(new PacketScItemBagScopeModify(this, weapon));
                 }
             }
             return chara;
@@ -272,7 +331,9 @@ namespace Campofinale
                 return;
             }
             chars.Remove(chara);
-            Send(new PacketScCharBagDelChar(this,chara));
+            // Delete character from database immediately
+            DatabaseManager.db.DeleteCharacter(chara);
+            Send(new PacketScCharBagDelChar(this, chara));
         }
         public void ReplaceCharacter(string id, string newId)
         {
@@ -290,7 +351,7 @@ namespace Campofinale
             {
                 chars.Add(new Character(roleId, "chr_0002_endminm", 1));
                 missionSystem.AddMission("e0m0", MissionState.Processing);
-               // missionSystem.GetQuestById("e0m0_q#6").state = QuestState.Processing;
+                // missionSystem.GetQuestById("e0m0_q#6").state = QuestState.Processing;
             }
             else
             {
@@ -300,40 +361,60 @@ namespace Campofinale
                 }
                 UnlockImportantSystems();
             }
-            if (Server.config.serverOptions.giveAllItems)
-            {
-                foreach (var item in itemTable)
-                {
-                    if (item.Value.GetStorage() != ItemStorageSpace.BagAndFactoryDepot)
-                    {
-                        if (item.Value.maxStackCount == -1)
-                        {
-                            inventoryManager.items.Add(new Item(roleId, item.Value.id, 100000));
-                        }
-                        else
-                        {
-                            inventoryManager.items.Add(new Item(roleId, item.Value.id, item.Value.maxStackCount));
-                        }
-                    }
-                }
-            }
-            
+            /* if (Server.config.serverOptions.giveAllItems)
+             {
+                 foreach (var item in itemTable)
+                 {
+                     if (item.Value.GetStorage() != ItemStorageSpace.BagAndFactoryDepot)
+                     {
+                         if (item.Value.maxStackCount == -1)
+                         {
+                             inventoryManager.items.Add(new Item(roleId, item.Value.id, 100000));
+                         }
+                         else
+                         {
+                             inventoryManager.items.Add(new Item(roleId, item.Value.id, item.Value.maxStackCount));
+                         }
+                     }
+                 }
+             }*/
+
             teams.Add(new Team()
             {
                 leader = chars[0].guid,
-                members={ chars[0].guid }
+                members = { chars[0].guid }
             });
             teams.Add(new Team());
             teams.Add(new Team());
             teams.Add(new Team());
             teams.Add(new Team());
             bitsetManager.Load(new Dictionary<int, List<int>>());
+            mails.Add(new Mail()
+            {
+                expireTime = DateTime.UtcNow.AddDays(30).ToUnixTimestampMilliseconds() / 1000,
+                guid = random.NextRand(),
+                mailSubType = MailSubType.Default,
+                mailType = MailType.Mail,
+                owner = roleId,
+                sendTime = DateTime.UtcNow.ToUnixTimestampMilliseconds() / 1000,
 
+                content = new()
+                {
+                    content = "Campofinale PS",
+                    senderName = "Team Stardust",
+                    title = "Campofinale PS"
+                }
+            });
             spaceshipManager.Load();
+            // Save newly created characters to database
+            foreach (Character c in chars)
+            {
+                DatabaseManager.db.UpsertCharacter(c);
+            }
         }
         public void UnlockImportantSystems()
         {
-            foreach(UnlockSystemType type in Enum.GetValues(typeof(UnlockSystemType)))
+            foreach (UnlockSystemType type in Enum.GetValues(typeof(UnlockSystemType)))
             {
                 unlockedSystems.Add((int)type);
             }
@@ -361,14 +442,16 @@ namespace Campofinale
         }
         public enum SceneLoadState
         {
-            OK=0,
-            Loading=1,
+            OK = 0,
+            Loading = 1,
 
         }
-        public SceneLoadState sceneLoadState=0;
+        public SceneLoadState sceneLoadState = 0;
+
+
         public void EnterScene(int sceneNumId, Vector3f pos, Vector3f rot, PassThroughData passThroughData = null)
         {
-           // if (!LoadFinish) return;
+            // if (!LoadFinish) return;
             if (GetLevelData(sceneNumId) != null)
             {
                 LevelScene curLvData = GetLevelData(curSceneNumId);
@@ -399,16 +482,16 @@ namespace Campofinale
         /// <param name="sceneNumId"></param>
         public void SeamlessEnterScene(int sceneNumId)
         {
-            if(curSceneNumId != sceneNumId && sceneLoadState == SceneLoadState.OK)
+            if (curSceneNumId != sceneNumId && sceneLoadState == SceneLoadState.OK)
             {
-                sceneLoadState=SceneLoadState.Loading;
+                sceneLoadState = SceneLoadState.Loading;
                 curSceneNumId = sceneNumId;
                 Send(new PacketScSelfSceneInfo(this, SelfInfoReasonType.SlrSeamlesslyEnterScene));
                 ScFactoryModifyChapterScene modify = new()
                 {
-                    ChapterId=GetCurrentChapter(),
-                    SceneId=sceneNumId,
-                    Tms=DateTime.UtcNow.ToUnixTimestampMilliseconds()
+                    ChapterId = GetCurrentChapter(),
+                    SceneId = sceneNumId,
+                    Tms = DateTime.UtcNow.ToUnixTimestampMilliseconds()
                 };
                 Send(ScMsgId.ScFactoryModifyChapterScene, modify);
                 ScSceneCrossSceneStatus cross = new()
@@ -417,8 +500,8 @@ namespace Campofinale
                     SceneNumId = curSceneNumId
                 };
                 Send(ScMsgId.ScSceneCrossSceneStatus, cross);
-                
-               
+
+
                 sceneManager.LoadCurrentTeamEntities();
                 sceneManager.LoadCurrent();
                 sceneLoadState = SceneLoadState.OK;
@@ -426,7 +509,7 @@ namespace Campofinale
         }
         public void EnterScene(int sceneNumId)
         {
-            if(GetLevelData(sceneNumId) != null)
+            if (GetLevelData(sceneNumId) != null)
             {
                 //sceneManager.UnloadCurrent(true);
                 LevelScene curLvData = GetLevelData(curSceneNumId);
@@ -446,7 +529,7 @@ namespace Campofinale
                 // sceneManager.LoadCurrent();
                 sceneLoadState = SceneLoadState.Loading;
                 Send(new PacketScEnterSceneNotify(this, sceneNumId));
-                
+
             }
             else
             {
@@ -465,13 +548,13 @@ namespace Campofinale
             {
                 return false;
             }
-            
+
         }
         public void Send(Packet packet, ulong seq = 0, uint totalPackCount = 1, uint currentPackIndex = 0)
         {
-            Send(Packet.EncodePacket(packet,seq,totalPackCount,currentPackIndex));
+            Send(Packet.EncodePacket(packet, seq, totalPackCount, currentPackIndex));
         }
-        public void Send(ScMsgId id,IMessage mes, ulong seq = 0, uint totalPackCount = 1, uint currentPackIndex = 0)
+        public void Send(ScMsgId id, IMessage mes, ulong seq = 0, uint totalPackCount = 1, uint currentPackIndex = 0)
         {
             Send(Packet.EncodePacket((int)id, mes, seq, totalPackCount, currentPackIndex));
         }
@@ -479,7 +562,7 @@ namespace Campofinale
         {
             byte[] datas = packet.set_body.ToByteArray();
             int maxChunkSize = 65535;
-            if(datas.Length < maxChunkSize)
+            if (datas.Length < maxChunkSize)
             {
                 Send(Packet.EncodePacket(packet));
                 return;
@@ -498,7 +581,7 @@ namespace Campofinale
             for (int i = 0; i < chunks.Count; i++)
             {
                 byte[] data = chunks[i];
-                
+
                 Send(Packet.EncodePacket(packet.cmdId, data, seqNext, (uint)chunks.Count, (uint)i));
             }
         }
@@ -512,13 +595,13 @@ namespace Campofinale
             {
                 Disconnect();
             }
-            
+
         }
         public static byte[] ConcatenateByteArrays(byte[] array1, byte[] array2)
         {
             return array1.Concat(array2).ToArray();
         }
-        
+
         public void Receive()
         {
             try
@@ -547,30 +630,35 @@ namespace Campofinale
                             {
                                 Logger.Print("Received Packet: " + ((CsMsgId)packet.csHead.Msgid).ToString().Pastel(Color.LightCyan) + $" Id: {packet.csHead.Msgid} with {packet.finishedBody.Length} Bytes");
                                 if (Server.config.logOptions.packetBodies)
-                                    Logger.Print(BitConverter.ToString(packet.finishedBody).Replace("-", string.Empty).ToLower());
+                                {
+                                    // Try to parse and print as JSON, fallback to hex if parsing fails
+                                    string bodyStr = PacketBodyParser.TryParsePacketBody((CsMsgId)packet.csHead.Msgid, packet.finishedBody);
+                                    Logger.Print(bodyStr);
+                                }
+                                // Logger.Print(BitConverter.ToString(packet.finishedBody).Replace("-", string.Empty).ToLower());
                             }
-                           
+
                             try
                             {
                                 NotifyManager.Notify(this, (CsMsgId)packet.cmdId, packet);
                             }
                             catch (Exception e)
                             {
-                                
-                                Logger.PrintError("Error while notify packet: " + e.Message+": "+ e.StackTrace);
+
+                                Logger.PrintError("Error while notify packet: " + e.Message + ": " + e.StackTrace);
                             }
 
                         }
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
 
             }
             Disconnect();
         }
-        public void Kick(CODE code, string optionalMsg="")
+        public void Kick(CODE code, string optionalMsg = "")
         {
             Send(ScMsgId.ScNtfErrorCode, new ScNtfErrorCode()
             {
@@ -600,26 +688,26 @@ namespace Campofinale
         public void Save()
         {
             //Save playerdata
-            
+
             DatabaseManager.db.SavePlayerData(this);
             inventoryManager.Save();
             spaceshipManager.Save();
             adventureBookManager.Save();
             factoryManager.Save();
-            if(Server.config.serverOptions.missionsEnabled) missionSystem.Save();
+            if (Server.config.serverOptions.missionsEnabled) missionSystem.Save();
+            mapMarkManager.Save();
             SaveCharacters();
             SaveMails();
-            
+
         }
         public void AddStamina(uint stamina)
         {
-            
             curStamina += stamina;
-            if(curStamina > maxStamina)
+            if (curStamina > 999)
             {
-                curStamina = maxStamina;
+                curStamina = 999;
             }
-            if(Initialized)Send(new PacketScSyncStamina(this));
+            if (Initialized) Send(new PacketScSyncStamina(this));
         }
         public void Update()
         {
@@ -627,36 +715,39 @@ namespace Campofinale
             long curtimestamp = DateTime.UtcNow.ToUnixTimestampMilliseconds();
             if (curtimestamp >= nextRecoverTime)
             {
-                nextRecoverTime= DateTime.UtcNow.AddMinutes(7).ToUnixTimestampMilliseconds();
-                AddStamina(1);
+                nextRecoverTime = DateTime.UtcNow.AddMinutes(7).ToUnixTimestampMilliseconds();
+                if (curStamina < maxStamina)
+                {
+                    AddStamina(1);
+                }
             }
-            if(curtimestamp >= nextDailyReset && adventureBookManager.data!=null)
+            if (curtimestamp >= nextDailyReset && adventureBookManager.data != null)
             {
                 nextDailyReset = DateTime.UtcNow.GetNextDailyReset().ToUnixTimestampMilliseconds();
                 adventureBookManager.DailyReset();
                 if (Initialized)
                     this.Send(new PacketScAdventureBookSync(this));
             }
-            if(sceneLoadState==0)
-            sceneManager.Update();
+            if (sceneLoadState == 0)
+                sceneManager.Update();
             factoryManager.Update();
         }
         public void SaveMails()
         {
-            foreach(Mail mail in mails)
+            foreach (Mail mail in mails)
             {
                 DatabaseManager.db.UpsertMail(mail);
             }
         }
         public void SaveCharacters()
         {
-            foreach(Character c in chars)
+            foreach (Character c in chars)
             {
                 DatabaseManager.db.UpsertCharacter(c);
             }
         }
 
-        public void EnterDungeon(string dungeonId, EnterRacingDungeonParam racingParam)
+        public void EnterDungeon(string dungeonId, CsEnterDungeon req)
         {
             Dungeon dungeon = new()
             {
@@ -665,6 +756,7 @@ namespace Campofinale
                 prevPlayerRot = rotation,
                 prevPlayerSceneNumId = curSceneNumId,
                 table = ResourceManager.dungeonTable[dungeonId],
+                req = req
             };
             this.currentDungeon = dungeon;
             dungeon.Enter();
@@ -672,7 +764,7 @@ namespace Campofinale
 
         public void LeaveDungeon(CsLeaveDungeon req)
         {
-            if(currentDungeon!=null)
+            if (currentDungeon != null)
                 currentDungeon.Leave();
         }
 
@@ -690,7 +782,7 @@ namespace Campofinale
                     return "";
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return "";
             }
@@ -721,7 +813,7 @@ namespace Campofinale
                     ServerTs = (ulong)curtimestamp
                 };
             }
-            
+
         }
         /// <summary>
         /// Unlock a system
@@ -742,10 +834,10 @@ namespace Campofinale
             {
                 teams[index].members.Add(guid);
                 Send(new PacketScCharBagSetTeam(this, teams[index], index));
-                if(index==this.teamIndex)
-                Send(new PacketScSelfSceneInfo(this, Resource.SelfInfoReasonType.SlrChangeTeam));
+                if (index == this.teamIndex)
+                    Send(new PacketScSelfSceneInfo(this, Resource.SelfInfoReasonType.SlrChangeTeam));
             }
-                
+
         }
 
         public void RestTeam()

@@ -24,28 +24,19 @@ namespace Campofinale.Packets.Cs
                 {
                     case SpInteractiveOpType.DefaultInteract:
                     case SpInteractiveOpType.SetState:
-                        try
+                        // Only record state in bitset if this interactive has a shortId mapping
+                        // Not all interactive objects need persistent state tracking (e.g. dynamic/temporary objects)
+                        if (ResourceManager.levelShortIdTable[scene.id].ids.ContainsKey((long)entity.guid))
                         {
-                            session.bitsetManager.AddValue(BitsetType.InteractiveTwoState, ResourceManager.levelShortIdTable[scene.id].ids[(long)entity.guid]);
+                            long shortId = ResourceManager.levelShortIdTable[scene.id].ids[(long)entity.guid];
+                            session.bitsetManager.AddValue(BitsetType.InteractiveTwoState, (int)shortId);
+                            session.bitsetManager.AddValue(BitsetType.InteractiveActive, (int)shortId);
                         }
-                        catch (Exception e)
-                        {
-                            Logger.PrintError(e.Message);
-                        }
-                        try
-                        {
-                            session.bitsetManager.AddValue(BitsetType.InteractiveActive, ResourceManager.levelShortIdTable[scene.id].ids[(long)entity.guid]);
-                        }
-                        catch(Exception e)
-                        {
-                            Logger.PrintError(e.Message);
-                        }
-                        
                         break;
-                    
+
                     case SpInteractiveOpType.PickDropPackItem:
                         EntityInteractive interactive = entity as EntityInteractive;
-                        if (interactive.templateId== "int_doodad_flower_2")
+                        if (interactive.templateId == "int_doodad_flower_2")
                         {
                             session.inventoryManager.AddRewards("reward_doodad_moss_3", interactive.Position, 1);
                         }
@@ -55,20 +46,29 @@ namespace Campofinale.Packets.Cs
                         }
                         session.sceneManager.KillEntity(interactive.guid, true, 1);
                         break;
+                    case SpInteractiveOpType.DoodadCommonBreak:
+                        // DoodadCommonBreak: Client sends HP ratio update, server just acknowledges
+                        // No special handling needed, just send response
+                        break;
                     default:
                         Logger.PrintWarn($"Unimplemented SpInteractiveOpType.{(SpInteractiveOpType)req.OpType}");
                         break;
                 }
                 session.Send(new PacketScSyncAllBitset(session));
-                ScSceneInteractSpInteractive rsp = new()
-                {
-                    ObjId = req.ObjId,
-                    
-                };
-                session.Send(ScMsgId.ScSceneInteractSpInteractive, rsp,packet.csHead.UpSeqid);
             }
-            
+            else
+            {
+                Logger.PrintWarn($"CsSceneInteractSpInteractive: Entity not found for objId={req.ObjId}, opType={req.OpType}");
+            }
+
+            // Always send response with UpSeqid to complete the RPC request, even if entity is null
+            // Client waits for this response packet with matching UpSeqid
+            ScSceneInteractSpInteractive rsp = new()
+            {
+                ObjId = req.ObjId,
+            };
+            session.Send(ScMsgId.ScSceneInteractSpInteractive, rsp, packet.csHead.UpSeqid);
         }
-       
+
     }
 }

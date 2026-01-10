@@ -7,11 +7,12 @@ using Campofinale.Resource;
 using MongoDB.Bson.Serialization.Attributes;
 using static Campofinale.Resource.ResourceManager;
 using Campofinale.Game.Factory.BuildingsBehaviour;
-using static Campofinale.Resource.ResourceManager.FactoryBuildingTable;
 using Newtonsoft.Json;
 using System.Drawing;
 using Campofinale.Game.Inventory;
 using System.Numerics;
+using StardustUtils;
+using static Campofinale.Resource.ResourceManager.FactoryBuildingTable;
 
 namespace Campofinale.Game.Factory
 {
@@ -59,7 +60,7 @@ namespace Campofinale.Game.Factory
             }
             if (nodeBehaviour != null && !deactive)
             {
-                nodeBehaviour.Update(chapter,this);
+                nodeBehaviour.Update(chapter, this);
             }
             foreach (var comp in components.FindAll(c => c is FComponentPortManager))
             {
@@ -77,20 +78,17 @@ namespace Campofinale.Game.Factory
                     UpdatePortManager(chapter, portmanager);
                 }
             }
-            
+
         }
         public FactoryBuildingTable GetBuildingTable()
         {
-            ResourceManager.factoryBuildingTable.TryGetValue(templateId, out FactoryBuildingTable table);
-            if (table == null)
-            {
-                table = new FactoryBuildingTable();
-            }
+            factoryBuildingTable.TryGetValue(templateId, out FactoryBuildingTable table);
+            table ??= new FactoryBuildingTable();
             return table;
         }
-        public void UpdatePortManager(FactoryChapter chapter,FComponentPortManager manager)
+        public void UpdatePortManager(FactoryChapter chapter, FComponentPortManager manager)
         {
-            if (ResourceManager.factoryBuildingTable.TryGetValue(templateId, out FactoryBuildingTable table))
+            if (factoryBuildingTable.TryGetValue(templateId, out FactoryBuildingTable table))
             {
                 List<FacPort> ports = new();
                 if (manager.customPos == FCComponentPos.PortOutManager)
@@ -136,7 +134,7 @@ namespace Campofinale.Game.Factory
                                         count = 1
                                     };
 
-                                    if (conveyorNode.AddConveyorItem(chapter,add))
+                                    if (conveyorNode.AddConveyorItem(chapter, add))
                                     {
                                         did = true;
                                         outputCache.ConsumeItems(new List<ItemCount>() { add });
@@ -199,33 +197,34 @@ namespace Campofinale.Game.Factory
 
                                 }
                             }
-                            if(toRemove!=null)
-                                conveyorNode.RemoveConveyorItem(chapter,toRemove);
-
+                            if (toRemove != null)
+                            {
+                                conveyorNode.RemoveConveyorItem(chapter, toRemove);
+                            }
                         }
                     }
                 }
             }
-           
+
         }
 
-        private void RemoveConveyorItem(FactoryChapter chapter,ItemCount toRemove)
+        private void RemoveConveyorItem(FactoryChapter chapter, ItemCount toRemove)
         {
             FComponentBoxConveyor conveyorComp = GetComponent<FComponentBoxConveyor>();
             conveyorComp.items.Remove(toRemove);
-            chapter.GetOwner().Send(new PacketScFactoryHsSync(chapter.GetOwner(), chapter, new List<FactoryNode>() { this}));
+            chapter.GetOwner().Send(new PacketScFactoryHsSync(chapter.GetOwner(), chapter, new List<FactoryNode>() { this }));
         }
 
-        private bool AddConveyorItem(FactoryChapter chapter,ItemCount i)
+        private bool AddConveyorItem(FactoryChapter chapter, ItemCount i)
         {
-            float length=BlockCalculator.CalculateTotalBlocks(points);
+            float length = BlockCalculator.CalculateTotalBlocks(points);
             FComponentBoxConveyor conveyorComp = GetComponent<FComponentBoxConveyor>();
             if (conveyorComp != null)
             {
-                if(conveyorComp.items.Count < (int)length)
+                if (conveyorComp.items.Count < (int)length)
                 {
                     long timestamp = i.tms - conveyorComp.lastPopTms;
-                    if(timestamp >= 2000)
+                    if (timestamp >= 2000)
                     {
                         conveyorComp.items.Add(i);
                         i.tms = DateTime.UtcNow.ToUnixTimestampMilliseconds();
@@ -233,12 +232,8 @@ namespace Campofinale.Game.Factory
                         chapter.GetOwner().Send(new PacketScFactoryHsSync(chapter.GetOwner(), chapter, new List<FactoryNode>() { this }));
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
-                   
-                        
+
+                    return false;
                 }
             }
             return false;
@@ -258,7 +253,7 @@ namespace Campofinale.Game.Factory
         }
         public FComponent GetComponent<FComponent>(uint compid) where FComponent : class
         {
-            return components.Find(c => c is FComponent && c.compId==compid) as FComponent;
+            return components.Find(c => c is FComponent && c.compId == compid) as FComponent;
         }
         public List<FacPort> GetTransformedPorts(List<FacPort> originalPorts)
         {
@@ -275,7 +270,7 @@ namespace Campofinale.Game.Factory
             float objectRotationY = direction.y % 360f;
 
             FactoryBuildingTable table;
-            if (!ResourceManager.factoryBuildingTable.TryGetValue(templateId, out table))
+            if (!factoryBuildingTable.TryGetValue(templateId, out table))
                 return transformedPorts;
 
             float width = table.range.width - 1;
@@ -330,44 +325,67 @@ namespace Campofinale.Game.Factory
         public FMesh GetMesh()
         {
             FMesh mesh = new FMesh();
-            if(points != null)
+            if (points != null)
             {
-                points.ForEach(p =>
+                // Add points and remove duplicates
+                foreach (var p in points)
                 {
-                    mesh.points.Add(p);
-                });
+                    // Avoid adding duplicate consecutive points
+                    if (mesh.points.Count == 0 ||
+                        mesh.points[mesh.points.Count - 1].x != p.x ||
+                        mesh.points[mesh.points.Count - 1].y != p.y ||
+                        mesh.points[mesh.points.Count - 1].z != p.z)
+                    {
+                        mesh.points.Add(p);
+                    }
+                }
                 mesh.type = FCMeshType.Line;
                 return mesh;
             }
-            if (ResourceManager.factoryBuildingTable.TryGetValue(templateId, out FactoryBuildingTable table))
+            if (factoryBuildingTable.TryGetValue(templateId, out FactoryBuildingTable table))
             {
+                // Calculate size offset: range.width/height/depth represents grid count
+                // Convert grid count to coordinate offset (grid count - 1)
                 float width = table.range.width - 1;
                 float height = table.range.height - 1;
                 float depth = table.range.depth - 1;
 
+                // Ensure minimum offset of 1 for each dimension
+                // This is a mathematical requirement: a valid bounding box must be defined by two distinct vertices
+                // Without this, mesh with width/depth/height = 1 would have p1 == p2, causing "duplicated point" client error
+                if (width <= 0) width = 1;
+                if (height <= 0) height = 1;
+                if (depth <= 0) depth = 1;
+
                 Vector3f p1_final = new Vector3f();
                 Vector3f p2_final = new Vector3f();
 
+                // All rotation calculations use the same width/height/depth values to ensure consistency
+                // This prevents p1 and p2 from being identical after integer truncation in ToProto()
                 switch (direction.y)
                 {
                     case 0f:
                     case 360f:
                     default:
+                        // No rotation: use range.x/y/z as base position, then add width/height/depth offset
                         p1_final = position + new Vector3f(table.range.x, table.range.y, table.range.z);
                         p2_final = p1_final + new Vector3f(width, height, depth);
                         break;
 
                     case 90f:
+                        // Rotated 90 degrees: swap width and depth, adjust p1 position accordingly
                         p1_final = position + new Vector3f(table.range.x, table.range.y, table.range.z - width);
                         p2_final = p1_final + new Vector3f(depth, height, width);
                         break;
 
                     case 180f:
+                        // Rotated 180 degrees: adjust p1 position by width and depth
                         p1_final = position + new Vector3f(table.range.x - width, table.range.y, table.range.z - depth);
                         p2_final = p1_final + new Vector3f(width, height, depth);
                         break;
 
                     case 270f:
+                        // Rotated 270 degrees: swap width and depth, adjust p1 position accordingly
                         p1_final = position + new Vector3f(table.range.x - depth, table.range.y, table.range.z);
                         p2_final = p1_final + new Vector3f(depth, height, width);
                         break;
@@ -395,8 +413,8 @@ namespace Campofinale.Game.Factory
                 {
                     InPower = InPower(),
                     NeedInPower = true,
-                    PowerCost= GetBuildingTable().bandwidth,
-                    PowerCostShow= GetBuildingTable().bandwidth,
+                    PowerCost = GetBuildingTable().bandwidth,
+                    PowerCostShow = GetBuildingTable().bandwidth,
                 },
 
                 NodeType = (int)nodeType,
@@ -405,13 +423,13 @@ namespace Campofinale.Game.Factory
                     Position = position.ToProtoScd(),
                     Direction = direction.ToProtoScd(),
                     MapId = mapId,
-                    
+
                 }
             };
-            
+
             if (templateId != "__inventory__")
             {
-                if(nodeType != FCNodeType.BoxConveyor)
+                if (nodeType != FCNodeType.BoxConveyor)
                 {
                     node.Transform.Mesh = GetMesh().ToProto();
                     node.Transform.Position = position.ToProtoScd();
@@ -430,7 +448,7 @@ namespace Campofinale.Game.Factory
                     node.Transform.Position = position.ToProtoScd();
                     node.Transform.WorldPosition = null;
                     node.Transform.WorldRotation = null;
-                    node.InteractiveObject =null;
+                    node.InteractiveObject = null;
                     node.Transform.BcPortIn = new()
                     {
                         Direction = directionIn.ToProtoScd(),
@@ -439,12 +457,11 @@ namespace Campofinale.Game.Factory
                     node.Transform.BcPortOut = new()
                     {
                         Direction = directionOut.ToProtoScd(),
-                        Position = points[points.Count-1].ToProtoScd()
+                        Position = points[points.Count - 1].ToProtoScd()
                     };
                     node.Flag = 0;
                     node.InstKey = "";
                 }
-               
             }
 
             foreach (FComponent comp in components)
@@ -482,15 +499,18 @@ namespace Campofinale.Game.Factory
                     components.Add(new FComponentBattle(chapter.nextCompV()).Init());
                     break;
                 case FCNodeType.Producer:
-                    if (templateId == "grinder_1")
+                    switch (templateId)
                     {
-                        nodeBehaviour = new NodeBuilding_Producer();
-                    }else if (templateId == "furnance_1")
-                    {
-                        nodeBehaviour = new NodeBuilding_ProducerFurnace();
+                        case "grinder_1":
+                            nodeBehaviour = new NodeBuilding_Producer();
+                            break;
+                        case "furnance_1":
+                            nodeBehaviour = new NodeBuilding_ProducerFurnace();
+                            break;
+                        default:
+                            break;
                     }
-                    if(nodeBehaviour!=null)
-                    nodeBehaviour.Init(chapter, this);
+                    nodeBehaviour?.Init(chapter, this);
                     break;
                 case FCNodeType.BoxConveyor:
                     components.Add(new FComponentBoxConveyor(chapter.nextCompV()).Init());
@@ -499,6 +519,7 @@ namespace Campofinale.Game.Factory
                     components.Add(new FComponentTravelPole(chapter.nextCompV()).Init());
                     break;
                 case FCNodeType.Hub:
+                    components.Add(new FComponentHub(chapter.nextCompV()).Init());
                     components.Add(new FComponentSelector(chapter.nextCompV()).Init());
                     components.Add(new FComponentPowerPole(chapter.nextCompV()).Init());
                     components.Add(new FComponentPowerSave(chapter.nextCompV()).Init());
@@ -524,54 +545,154 @@ namespace Campofinale.Game.Factory
 
         }
 
+        /// <summary>
+        /// Sends or updates the factory node entity to the player
+        /// Handles both existing entity updates and new entity creation
+        /// </summary>
+        /// <param name="player">The player to send the entity to</param>
+        /// <param name="chapterId">The factory chapter ID</param>
         public void SendEntity(Player player, string chapterId)
         {
-            Entity exist = player.sceneManager.GetCurScene().entities.Find(e => e.guid == guid);
-            if (exist != null)
-            {
-                exist.Position = worldPosition;
-                exist.Rotation = direction;
-                ScMoveObjectMove move = new()
-                {
-                    ServerNotify = true,
-                    MoveInfo =
-                    {
-                        new MoveObjectMoveInfo()
-                        {
-                            Objid = guid,
-                            SceneNumId=sceneNumId,
-                            MotionInfo = new()
-                            {
-                                Position=exist.Position.ToProto(),
-                                Rotation=exist.Rotation.ToProto(),
-                                Speed=new Vector()
-                                {
+            var scene = player.sceneManager.GetCurScene();
 
-                                },
-                                State=MotionState.MotionNone
-                            }
-                        }
-                    }
-                };
-                player.Send(ScMsgId.ScMoveObjectMove, move);
+            // Check if entity already exists
+            Entity? existingEntity = scene.entities.Find(e => e.guid == guid);
+            if (existingEntity != null)
+            {
+                UpdateExistingEntity(player, existingEntity);
             }
             else
             {
-                if (interactiveFacWrapperTable.ContainsKey(templateId))
-                {
-                    EntityInteractive e = new(interactiveFacWrapperTable[templateId].interactiveTemplateId, player.roleId, worldPosition, direction, sceneNumId, guid);
-                    e.InitDefaultProperties();
-                    e.SetPropValue(nodeId, "factory_inst_id");
-
-                    player.sceneManager.GetCurScene().entities.Add(e);
-                    player.sceneManager.GetCurScene().SpawnEntity(e);
-                }
-
+                CreateNewEntity(player, scene);
             }
-
         }
 
-        
+        /// <summary>
+        /// Updates an existing entity's position and sends movement notification
+        /// </summary>
+        private void UpdateExistingEntity(Player player, Entity entity)
+        {
+            entity.Position = worldPosition;
+            entity.Rotation = direction;
+
+            var moveInfo = new MoveObjectMoveInfo()
+            {
+                Objid = guid,
+                SceneNumId = sceneNumId,
+                MotionInfo = new()
+                {
+                    Position = entity.Position.ToProto(),
+                    Rotation = entity.Rotation.ToProto(),
+                    Speed = new Vector(),
+                    State = MotionState.MotionNone
+                }
+            };
+
+            var move = new ScMoveObjectMove()
+            {
+                ServerNotify = true,
+                MoveInfo = { moveInfo }
+            };
+
+            player.Send(new PacketScMoveObjectMove(player, move));
+        }
+
+        /// <summary>
+        /// Creates a new entity based on the factory node type
+        /// </summary>
+        private void CreateNewEntity(Player player, Scene scene)
+        {
+            // Determine if this node type needs an interactive entity
+            var entityCreationResult = DetermineEntityCreationType();
+
+            switch (entityCreationResult.Type)
+            {
+                case EntityCreationType.InteractiveEntity:
+                    CreateInteractiveEntity(player, scene, entityCreationResult.InteractiveTemplateId!, entityCreationResult.LogMessage);
+                    break;
+
+                case EntityCreationType.NoEntity:
+                    Logger.Print(entityCreationResult.LogMessage);
+                    break;
+
+                case EntityCreationType.Unknown:
+                default:
+                    Logger.Print($"Warning: {entityCreationResult.LogMessage}");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Determines what type of entity creation is needed for this factory node
+        /// </summary>
+        private (EntityCreationType Type, string? InteractiveTemplateId, string LogMessage) DetermineEntityCreationType()
+        {
+            // 1. Check explicit interactive wrapper mappings (highest priority)
+            if (interactiveFacWrapperTable.TryGetValue(templateId, out var wrapper))
+            {
+                return (EntityCreationType.InteractiveEntity, wrapper.interactiveTemplateId,
+                    $"Interactive entity created for '{templateId}' using explicit mapping");
+            }
+
+            // 2. Standard factory buildings need auto-generated interactive entities
+            if (factoryBuildingTable.ContainsKey(templateId))
+            {
+                string interactiveTemplateId = $"int_fac_{templateId}";
+                return (EntityCreationType.InteractiveEntity, interactiveTemplateId,
+                    $"FactoryBuilding node '{templateId}' created with generated interactive entity '{interactiveTemplateId}'");
+            }
+
+            // 3. Logistics nodes don't need interactive entities
+            if (IsLogisticsNode())
+            {
+                return (EntityCreationType.NoEntity, null,
+                    $"Logistics node '{templateId}' created without interactive entity");
+            }
+
+            // 4. Unknown node type
+            return (EntityCreationType.Unknown, null,
+                $"templateId '{templateId}' not found in any factory table, skipping EntityInteractive creation");
+        }
+
+        /// <summary>
+        /// Checks if this node is a logistics node that doesn't need interactive entities
+        /// </summary>
+        private bool IsLogisticsNode()
+        {
+            return factoryGridConnecterTable.ContainsKey(templateId) ||
+                   factoryGridRouterTable.ContainsKey(templateId) ||
+                   factoryGridBeltTable.ContainsKey(templateId) ||
+                   factoryLiquidConnectorTable.ContainsKey(templateId) ||
+                   factoryLiquidRouterTable.ContainsKey(templateId) ||
+                   factoryLiquidRepeaterTable.ContainsKey(templateId) ||
+                   factoryLiquidPipeTable.ContainsKey(templateId);
+        }
+
+        /// <summary>
+        /// Creates and registers an interactive entity
+        /// </summary>
+        private void CreateInteractiveEntity(Player player, Scene scene, string interactiveTemplateId, string logMessage)
+        {
+            var entity = new EntityInteractive(interactiveTemplateId, player.roleId, worldPosition, direction, sceneNumId, guid);
+            entity.InitDefaultProperties();
+            entity.SetPropValue(nodeId, "factory_inst_id");
+
+            scene.entities.Add(entity);
+            scene.SpawnEntity(entity);
+
+            Logger.Print($"Info: {logMessage}");
+        }
+
+        /// <summary>
+        /// Entity creation type enumeration
+        /// </summary>
+        private enum EntityCreationType
+        {
+            InteractiveEntity,
+            NoEntity,
+            Unknown
+        }
+
         public class FMesh
         {
             public FCMeshType type;

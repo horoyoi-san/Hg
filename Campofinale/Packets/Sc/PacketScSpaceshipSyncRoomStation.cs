@@ -6,10 +6,8 @@ namespace Campofinale.Packets.Sc
 {
     public class PacketScSpaceshipSyncRoomStation : Packet
     {
-
-        public PacketScSpaceshipSyncRoomStation(Player client,SpaceshipRoom room) {
-
-           
+        public PacketScSpaceshipSyncRoomStation(Player client, SpaceshipRoom room)
+        {
             ScSpaceshipSyncRoomStation proto = new ScSpaceshipSyncRoomStation()
             {
                 Rooms =
@@ -22,7 +20,7 @@ namespace Campofinale.Packets.Sc
                         },
                         HasCharWorking=room.HasCharWorking(),
                         Id=room.id,
-                        Type=room.GetType(),
+                        Type=room.GetRoomType(),
                         AttrsMap =
                         {
                             {0, new ScdSpaceshipRoomAttr()
@@ -75,18 +73,16 @@ namespace Campofinale.Packets.Sc
                         }
                     }
                 },
-                
 
             };
             foreach (var chara in client.spaceshipManager.chars)
             {
                 proto.Chars.Add(new ScdSpaceshipCharStation()
                 {
-                    CharId=chara.id,
-                    IsWorking=chara.isWorking,
-                    StationedRoomId=chara.stationedRoomId,
-                    PhysicalStrength=chara.physicalStrength,
-                    
+                    CharId = chara.id,
+                    IsWorking = chara.isWorking,
+                    StationedRoomId = chara.stationedRoomId,
+                    PhysicalStrength = chara.physicalStrength,
                 });
             }
             SetData(ScMsgId.ScSpaceshipSyncRoomStation, proto);

@@ -11,25 +11,26 @@ namespace Campofinale.Packets.Cs
         public static void Handle(Player session, CsMsgId cmdId, Packet packet)
         {
             CsEquipPutoff req = packet.DecodeBody<CsEquipPutoff>();
-            Character toRemove = session.chars.Find(c => c.guid == req.Charid);
+            Character? toRemove = session.chars.Find(c => c.guid == req.Charid);
             if (toRemove != null)
             {
                 ScEquipPutoff put = new()
                 {
                     Charid = req.Charid,
                     Slotid = req.Slotid,
-                    
+
                 };
                 if (toRemove != null)
                 {
                     toRemove.equipCol[req.Slotid] = 0;
-                    
+                    // Save character data to database after equipment removal
+                    Database.DatabaseManager.db.UpsertCharacter(toRemove);
                 }
                 //TODO Improve all this maybe with an internal method in Character
                 session.Send(ScMsgId.ScEquipPutoff, put);
             }
 
         }
-       
+
     }
 }

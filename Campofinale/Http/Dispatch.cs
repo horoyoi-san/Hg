@@ -1,4 +1,6 @@
 ﻿using Campofinale.Game;
+using Campofinale.Resource;
+using Campofinale.Resource.Table;
 using HttpServerLite;
 using Newtonsoft.Json;
 using StardustUtils;
@@ -116,48 +118,52 @@ namespace Campofinale.Http
         }
         public class U8ProductInfo
         {
-            public string app_id; 
-            public string channel_id; 
-            public int world_id; 
-            public int store_id; 
-            public string product_id; 
+            
+            public int storeId; 
+            public string productCode; 
             public string desc;
             public string name; 
-            public int type; 
             public long price; 
-            public string extra_data;
-            public string appstore_id;
-            public string channel_product_id;
+            public string channelProductCode;
+            public string channelPayment;
+            public string displayPrices;
         }
         public class U8ProductListData
         {
-            public List<U8ProductInfo> productList = new();
+            public Data data = new();
+            public string msg = "OK";
+            public int status = 0;
+            public string type = "";
+            public class Data
+            {
+                public List<U8ProductInfo> productList = new();
+            }
         }
-        [StaticRoute(HttpServerLite.HttpMethod.POST, "/u8/pay/getAllProductList")]
+        [StaticRoute(HttpServerLite.HttpMethod.POST, "/u8/pay/v1/get_all_product_list")]
         public static async Task getAllProductList(HttpContext ctx)
         {
             string resp = "{\"productList\":[]}";
             U8ProductListData rsp = new();
-            rsp.productList.Add(new U8ProductInfo()
+            
+            int i = 5216;
+            foreach (CashShopGoodsTable good in ResourceManager.cashShopGoodsTable.Values)
             {
-                appstore_id="0",
-                app_id="1",
-                channel_id="1",
-                channel_product_id="1",
-                desc="Test",
-                name="Test",
-                price=10,
-                type=0,
-                product_id="1",
-                store_id=1,
-                world_id=0,
-                
-            });
+                rsp.data.productList.Add(new U8ProductInfo()
+                {
+                    storeId= i,
+                    productCode= good.cashGoodsId,
+                    channelProductCode = good.cashGoodsId,
+                    price=good.priceCNY*100,
+                    displayPrices = "$ "+good.priceUSD,
+                    channelPayment="",
+                    name ="Test "+i,
+                    desc="test"
+                });
+                i++;
+            }
             resp = JsonConvert.SerializeObject(rsp);
             ctx.Response.StatusCode = 200;
-            ctx.Response.ContentLength = resp.Length;
             ctx.Response.ContentType = "application/json";
-
             await ctx.Response.SendAsync(resp);
         }
         //WINDOWS

@@ -6,7 +6,5 @@ namespace Campofinale.Packets.Cs
     public class HandleCsSceneMoveStateSet
     {
         
-        
-       
     }
 }

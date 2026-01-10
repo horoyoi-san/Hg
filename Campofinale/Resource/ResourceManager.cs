@@ -27,6 +27,22 @@ namespace Campofinale.Resource
     //TODO Move all tables to separated class
     public class ResourceManager
     {
+        // Resource paths from config
+        private static string basePath;
+        private static string tableCfgPath;
+        private static string jsonPath;
+        private static string dynamicAssetsPath;
+
+        // Helper method to build full resource path
+        public static string GetResourcePath(string relativePath)
+        {
+            if (string.IsNullOrEmpty(basePath))
+            {
+                return relativePath;
+            }
+            return Path.Combine(basePath, relativePath);
+        }
+
         public static Dictionary<string, LevelScriptEvent> levelScriptsEvents = new(); //
         public static Dictionary<string, SceneAreaTable> sceneAreaTable = new();
         public static StrIdNumTable strIdNumTable = new StrIdNumTable();//
@@ -67,18 +83,37 @@ namespace Campofinale.Resource
         public static Dictionary<string, DungeonTable> dungeonTable = new();
         public static Dictionary<string, LevelGradeTable> levelGradeTable = new(); //
         public static Dictionary<string, RewardTable> rewardTable = new();
+        public static Dictionary<string, CheckInRewardTable> checkInRewardTable = new();
         public static Dictionary<string, AdventureTaskTable> adventureTaskTable = new();
+        public static Dictionary<string, BattlePassTrackTable> battlePassTrackTable = new();
+        public static Dictionary<string, BattlePassLevelGroupTable> battlePassLevelTable = new();
+        public static Dictionary<int, AdventureBookStageRewardTable> adventureBookStageRewardTable = new();
         public static DialogIdTable dialogIdTable = new();//
         public static Dictionary<string, LevelShortIdTable> levelShortIdTable = new();
         public static Dictionary<string, FactoryBuildingTable> factoryBuildingTable = new();
+        public static Dictionary<string, FactoryGridConnecterTable> factoryGridConnecterTable = new();
+        public static Dictionary<string, FactoryGridRouterTable> factoryGridRouterTable = new();
+        public static Dictionary<string, FactoryGridBeltTable> factoryGridBeltTable = new();
+        public static Dictionary<string, FactoryLiquidConnectorTable> factoryLiquidConnectorTable = new();
+        public static Dictionary<string, FactoryLiquidRouterTable> factoryLiquidRouterTable = new();
+        public static Dictionary<string, FactoryLiquidRepeaterTable> factoryLiquidRepeaterTable = new();
+        public static Dictionary<string, FactoryLiquidPipeTable> factoryLiquidPipeTable = new();
         public static Dictionary<string, FactoryMachineCraftTable> factoryMachineCraftTable = new();
         public static Dictionary<string, FacSTTNodeTable> facSTTNodeTable = new();
+        public static Dictionary<string, FactoryPanelStoreTable> factoryPanelStoreTable = new();
         public static Dictionary<string, FacSTTLayerTable> facSTTLayerTable = new();
+        public static Dictionary<string, FacSTTCategoryTable> facSTTCategoryTable = new();
         public static Dictionary<int, ItemTypeTable> itemTypeTable = new(); //
         public static Dictionary<string, SNSChatTable> snsChatTable = new();//
         public static Dictionary<string, GiftItemTable> giftItemTable = new();
         public static Dictionary<string, InteractiveFacWrapperTable> interactiveFacWrapperTable = new();
+        public static Dictionary<string, ActivityTable> activityTable = new();
+        public static Dictionary<string, CashShopGoodsTable> cashShopGoodsTable = new();
+        public static Dictionary<string, ShopTable> shopTable = new();
+        public static Dictionary<string, ShopGoodsTable> shopGoodsTable = new();
         public static List<MissionRuntimeAsset> missionDataTable = new();
+        public static Dictionary<string, RecoverApItemTable> recoverApItemTable = new();
+        public static DungeonConstTable dungeonConstTable;
 
         public static InteractiveTable interactiveTable = new(); //
         public static List<LevelScene> levelDatas = new();
@@ -110,46 +145,75 @@ namespace Campofinale.Resource
             }
 
         }
-        public static void Init()
+        /// <summary>
+        /// Initialize resource paths from config file.
+        /// </summary>
+        private static void InitializeResourcePaths(ConfigFile config)
         {
+            basePath = config.resourcePaths.baseDirectory ?? "./";
+            tableCfgPath = config.resourcePaths.tableCfgPath ?? "TableCfg";
+            jsonPath = config.resourcePaths.jsonPath ?? "Json";
+            dynamicAssetsPath = config.resourcePaths.dynamicAssetsPath ?? "DynamicAssets";
+        }
+
+        /// <summary>
+        /// Initialize ResourceManager by loading all configuration tables.
+        /// </summary>
+        public static void Init(ConfigFile config)
+        {
+            // Initialize resource paths from config
+            InitializeResourcePaths(config);
+
             Logger.Print("Loading TableCfg resources");
             // TODO: move all tables to the folder
-            sceneAreaTable = JsonConvert.DeserializeObject<Dictionary<string, SceneAreaTable>>(ReadJsonFile("TableCfg/SceneAreaTable.json"));
-            systemJumpTable = JsonConvert.DeserializeObject<Dictionary<string, SystemJumpTable>>(ReadJsonFile("TableCfg/SystemJumpTable.json"));
-            settlementBasicDataTable = JsonConvert.DeserializeObject<Dictionary<string, SettlementBasicDataTable>>(ReadJsonFile("TableCfg/SettlementBasicDataTable.json"));
-            blocMissionTable = JsonConvert.DeserializeObject<Dictionary<string, BlocMissionTable>>(ReadJsonFile("TableCfg/BlocMissionTable.json"));
-            dialogTextTable = JsonConvert.DeserializeObject<Dictionary<string, DialogTextTable>>(ReadJsonFile("TableCfg/DialogTextTable.json"));
-            gameSystemConfigTable = JsonConvert.DeserializeObject<Dictionary<string, GameSystemConfigTable>>(ReadJsonFile("TableCfg/GameSystemConfigTable.json"));
-            wikiGroupTable = JsonConvert.DeserializeObject<Dictionary<string, WikiGroupTable>>(ReadJsonFile("TableCfg/WikiGroupTable.json"));
-            dialogIdTable = JsonConvert.DeserializeObject<DialogIdTable>(ReadJsonFile("Json/GameplayConfig/DialogIdTable.json"));
-            blocUnlockTable = JsonConvert.DeserializeObject<Dictionary<string, object>>(ReadJsonFile("TableCfg/BlocUnlockTable.json"));
-            gameMechanicTable = JsonConvert.DeserializeObject<Dictionary<string, GameMechanicTable>>(ReadJsonFile("TableCfg/GameMechanicTable.json"));
-            weaponBasicTable = JsonConvert.DeserializeObject<Dictionary<string, WeaponBasicTable>>(ReadJsonFile("TableCfg/WeaponBasicTable.json"));
-            missionAreaTable = JsonConvert.DeserializeObject<MissionAreaTable>(ReadJsonFile("Json/GameplayConfig/MissionAreaTable.json"));
-            blocDataTable = JsonConvert.DeserializeObject<Dictionary<string, BlocDataTable>>(ReadJsonFile("TableCfg/BlocDataTable.json"));
-            itemTable = JsonConvert.DeserializeObject<Dictionary<string, ItemTable>>(ReadJsonFile("TableCfg/ItemTable.json"));
-            domainDataTable = JsonConvert.DeserializeObject<Dictionary<string, DomainDataTable>>(ReadJsonFile("TableCfg/DomainDataTable.json"));
-            collectionTable = JsonConvert.DeserializeObject<Dictionary<string, CollectionTable>>(ReadJsonFile("TableCfg/CollectionTable.json"));
-            charBreakNodeTable = JsonConvert.DeserializeObject<Dictionary<string, CharBreakNodeTable>>(ReadJsonFile("TableCfg/CharBreakNodeTable.json"));
-            enemyAttributeTemplateTable = JsonConvert.DeserializeObject<Dictionary<string, EnemyAttributeTemplateTable>>(ReadJsonFile("TableCfg/EnemyAttributeTemplateTable.json"));
-            charLevelUpTable = JsonConvert.DeserializeObject<Dictionary<string, CharLevelUpTable>>(ReadJsonFile("TableCfg/CharLevelUpTable.json"));
-            expItemDataMap = JsonConvert.DeserializeObject<Dictionary<string, ExpItemDataMap>>(ReadJsonFile("TableCfg/ExpItemDataMap.json"));
-            charGrowthTable = JsonConvert.DeserializeObject<Dictionary<string, CharGrowthTable>>(ReadJsonFile("TableCfg/CharGrowthTable.json"));
-            weaponUpgradeTemplateTable = JsonConvert.DeserializeObject<Dictionary<string, WeaponUpgradeTemplateTable>>(ReadJsonFile("TableCfg/WeaponUpgradeTemplateTable.json"));
-            gachaCharPoolContentTable = JsonConvert.DeserializeObject<Dictionary<string, GachaCharPoolContentTable>>(ReadJsonFile("TableCfg/GachaCharPoolContentTable.json"));
-            enemyTable = JsonConvert.DeserializeObject<Dictionary<string, EnemyTable>>(ReadJsonFile("TableCfg/EnemyTable.json"));
-            gachaCharPoolTypeTable = JsonConvert.DeserializeObject<Dictionary<string, GachaCharPoolTypeTable>>(ReadJsonFile("TableCfg/GachaCharPoolTypeTable.json"));
-            equipTable = JsonConvert.DeserializeObject<Dictionary<string, EquipTable>>(ReadJsonFile("TableCfg/EquipTable.json"));
-            spaceShipCharBehaviourTable = JsonConvert.DeserializeObject<Dictionary<string, SpaceShipCharBehaviourTable>>(ReadJsonFile("TableCfg/SpaceShipCharBehaviourTable.json"));
-            spaceshipRoomInsTable = JsonConvert.DeserializeObject<Dictionary<string, SpaceshipRoomInsTable>>(ReadJsonFile("TableCfg/SpaceshipRoomInsTable.json"));
-            dungeonTable = JsonConvert.DeserializeObject<Dictionary<string, DungeonTable>>(ReadJsonFile("TableCfg/DungeonTable.json"));
-            equipSuitTable = JsonConvert.DeserializeObject<Dictionary<string, EquipSuitTable>>(ReadJsonFile("TableCfg/EquipSuitTable.json"));
-            levelShortIdTable = JsonConvert.DeserializeObject<Dictionary<string, LevelShortIdTable>>(ReadJsonFile("DynamicAssets/gamedata/gameplayconfig/jsoncfg/LevelShortIdTable.json"));
-            rewardTable = JsonConvert.DeserializeObject<Dictionary<string, RewardTable>>(ReadJsonFile("TableCfg/RewardTable.json"));
-            adventureTaskTable = JsonConvert.DeserializeObject<Dictionary<string, AdventureTaskTable>>(ReadJsonFile("TableCfg/AdventureTaskTable.json"));
-            factoryBuildingTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryBuildingTable>>(ReadJsonFile("TableCfg/FactoryBuildingTable.json"));
-            facSTTNodeTable = JsonConvert.DeserializeObject<Dictionary<string, FacSTTNodeTable>>(ReadJsonFile("TableCfg/FacSTTNodeTable.json"));
-            facSTTLayerTable = JsonConvert.DeserializeObject<Dictionary<string, FacSTTLayerTable>>(ReadJsonFile("TableCfg/FacSTTLayerTable.json"));
+            sceneAreaTable = JsonConvert.DeserializeObject<Dictionary<string, SceneAreaTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/SceneAreaTable.json")));
+            systemJumpTable = JsonConvert.DeserializeObject<Dictionary<string, SystemJumpTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/SystemJumpTable.json")));
+            settlementBasicDataTable = JsonConvert.DeserializeObject<Dictionary<string, SettlementBasicDataTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/SettlementBasicDataTable.json")));
+            blocMissionTable = JsonConvert.DeserializeObject<Dictionary<string, BlocMissionTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/BlocMissionTable.json")));
+            dialogTextTable = JsonConvert.DeserializeObject<Dictionary<string, DialogTextTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/DialogTextTable.json")));
+            gameSystemConfigTable = JsonConvert.DeserializeObject<Dictionary<string, GameSystemConfigTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/GameSystemConfigTable.json")));
+            wikiGroupTable = JsonConvert.DeserializeObject<Dictionary<string, WikiGroupTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/WikiGroupTable.json")));
+            dialogIdTable = JsonConvert.DeserializeObject<DialogIdTable>(ReadJsonFile(GetResourcePath($"{jsonPath}/GameplayConfig/DialogIdTable.json")));
+            blocUnlockTable = JsonConvert.DeserializeObject<Dictionary<string, object>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/BlocUnlockTable.json")));
+            gameMechanicTable = JsonConvert.DeserializeObject<Dictionary<string, GameMechanicTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/GameMechanicTable.json")));
+            weaponBasicTable = JsonConvert.DeserializeObject<Dictionary<string, WeaponBasicTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/WeaponBasicTable.json")));
+            missionAreaTable = JsonConvert.DeserializeObject<MissionAreaTable>(ReadJsonFile(GetResourcePath($"{jsonPath}/GameplayConfig/MissionAreaTable.json")));
+            blocDataTable = JsonConvert.DeserializeObject<Dictionary<string, BlocDataTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/BlocDataTable.json")));
+            itemTable = JsonConvert.DeserializeObject<Dictionary<string, ItemTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/ItemTable.json")));
+            domainDataTable = JsonConvert.DeserializeObject<Dictionary<string, DomainDataTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/DomainDataTable.json")));
+            collectionTable = JsonConvert.DeserializeObject<Dictionary<string, CollectionTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/CollectionTable.json")));
+            charBreakNodeTable = JsonConvert.DeserializeObject<Dictionary<string, CharBreakNodeTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/CharBreakNodeTable.json")));
+            enemyAttributeTemplateTable = JsonConvert.DeserializeObject<Dictionary<string, EnemyAttributeTemplateTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/EnemyAttributeTemplateTable.json")));
+            charLevelUpTable = JsonConvert.DeserializeObject<Dictionary<string, CharLevelUpTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/CharLevelUpTable.json")));
+            expItemDataMap = JsonConvert.DeserializeObject<Dictionary<string, ExpItemDataMap>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/ExpItemDataMap.json")));
+            charGrowthTable = JsonConvert.DeserializeObject<Dictionary<string, CharGrowthTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/CharGrowthTable.json")));
+            weaponUpgradeTemplateTable = JsonConvert.DeserializeObject<Dictionary<string, WeaponUpgradeTemplateTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/WeaponUpgradeTemplateTable.json")));
+            gachaCharPoolContentTable = JsonConvert.DeserializeObject<Dictionary<string, GachaCharPoolContentTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/GachaCharPoolContentTable.json")));
+            enemyTable = JsonConvert.DeserializeObject<Dictionary<string, EnemyTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/EnemyTable.json")));
+            gachaCharPoolTypeTable = JsonConvert.DeserializeObject<Dictionary<string, GachaCharPoolTypeTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/GachaCharPoolTypeTable.json")));
+            equipTable = JsonConvert.DeserializeObject<Dictionary<string, EquipTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/EquipTable.json")));
+            spaceShipCharBehaviourTable = JsonConvert.DeserializeObject<Dictionary<string, SpaceShipCharBehaviourTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/SpaceShipCharBehaviourTable.json")));
+            spaceshipRoomInsTable = JsonConvert.DeserializeObject<Dictionary<string, SpaceshipRoomInsTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/SpaceshipRoomInsTable.json")));
+            dungeonTable = JsonConvert.DeserializeObject<Dictionary<string, DungeonTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/DungeonTable.json")));
+            equipSuitTable = JsonConvert.DeserializeObject<Dictionary<string, EquipSuitTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/EquipSuitTable.json")));
+            levelShortIdTable = JsonConvert.DeserializeObject<Dictionary<string, LevelShortIdTable>>(ReadJsonFile(GetResourcePath($"{dynamicAssetsPath}/gamedata/gameplayconfig/jsoncfg/LevelShortIdTable.json")));
+            rewardTable = JsonConvert.DeserializeObject<Dictionary<string, RewardTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/RewardTable.json")));
+            checkInRewardTable = JsonConvert.DeserializeObject<Dictionary<string, CheckInRewardTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/CheckInRewardTable.json")));
+            adventureTaskTable = JsonConvert.DeserializeObject<Dictionary<string, AdventureTaskTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/AdventureTaskTable.json")));
+            adventureBookStageRewardTable = JsonConvert.DeserializeObject<Dictionary<int, AdventureBookStageRewardTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/AdventureBookStageRewardTable.json")));
+            factoryBuildingTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryBuildingTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FactoryBuildingTable.json")));
+            factoryGridConnecterTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryGridConnecterTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FactoryGridConnecterTable.json")));
+            factoryGridRouterTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryGridRouterTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FactoryGridRouterTable.json")));
+            factoryGridBeltTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryGridBeltTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FactoryGridBeltTable.json")));
+            factoryLiquidConnectorTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryLiquidConnectorTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FactoryLiquidConnectorTable.json")));
+            factoryLiquidRouterTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryLiquidRouterTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FactoryLiquidRouterTable.json")));
+            factoryLiquidRepeaterTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryLiquidRepeaterTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FactoryLiquidRepeaterTable.json")));
+            factoryLiquidPipeTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryLiquidPipeTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FactoryLiquidPipeTable.json")));
+            facSTTNodeTable = JsonConvert.DeserializeObject<Dictionary<string, FacSTTNodeTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FacSTTNodeTable.json")));
+            facSTTLayerTable = JsonConvert.DeserializeObject<Dictionary<string, FacSTTLayerTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FacSTTLayerTable.json")));
+            factoryPanelStoreTable = JsonConvert.DeserializeObject<Dictionary<string, FactoryPanelStoreTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/FactoryPanelStoreTable.json")));
+            recoverApItemTable = JsonConvert.DeserializeObject<Dictionary<string, RecoverApItemTable>>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/RecoverApItemTable.json")));
+            dungeonConstTable = JsonConvert.DeserializeObject<DungeonConstTable>(ReadJsonFile(GetResourcePath($"{tableCfgPath}/DungeonConst.json")));
             LoadInteractiveData();
             LoadLevelDatas();
             LoadScriptsEvent();
@@ -185,7 +249,11 @@ namespace Campofinale.Resource
         }
         public static CharGrowthTable.CharTalentNode GetTalentNode(string c, string id)
         {
-            return charGrowthTable[c].talentNodeMap[id];
+            if (charGrowthTable.ContainsKey(c) && charGrowthTable[c].talentNodeMap.ContainsKey(id))
+            {
+                return charGrowthTable[c].talentNodeMap[id];
+            }
+            return null;
         }
         public static ItemTable GetItemTable(string id)
         {
@@ -223,7 +291,7 @@ namespace Campofinale.Resource
         public static void LoadInteractiveData()
         {
             Logger.Print("Loading InteractiveData resources");
-            string directoryPath = @"Json/Interactive/InteractiveData";
+            string directoryPath = GetResourcePath($"{jsonPath}/Interactive/InteractiveData");
             try
             {
                 string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json", SearchOption.AllDirectories);
@@ -248,7 +316,7 @@ namespace Campofinale.Resource
         {
             missionDataTable = new();
             Logger.Print("Loading MissionRuntimeAssets");
-            string directoryPath = @"Json/MissionRuntimeAsset";
+            string directoryPath = GetResourcePath($"{jsonPath}/MissionRuntimeAsset");
             try
             {
                 var jsonFiles = Directory.GetFiles(directoryPath, "*.json", SearchOption.AllDirectories).Where(f => !f.EndsWith("_meta.json"));
@@ -267,7 +335,7 @@ namespace Campofinale.Resource
         public static void LoadScriptsEvent()
         {
             Logger.Print("Loading ScriptsEvents");
-            string directoryPath = @"Json/ScriptEvents";
+            string directoryPath = GetResourcePath($"{jsonPath}/ScriptEvents");
             try
             {
                 string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json", SearchOption.AllDirectories);
@@ -300,7 +368,7 @@ namespace Campofinale.Resource
         public static void LoadSpawners()
         {
             Logger.Print("Loading Spawners");
-            string directoryPath = @"Json/SpawnerConfig";
+            string directoryPath = GetResourcePath($"{jsonPath}/SpawnerConfig");
             try
             {
                 string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json", SearchOption.AllDirectories);
@@ -321,7 +389,7 @@ namespace Campofinale.Resource
         public static void LoadLevelDatas()
         {
             Logger.Print("Loading LevelData resources");
-            string directoryPath = @"Json/LevelConfig";
+            string directoryPath = GetResourcePath($"{jsonPath}/LevelConfig");
             string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json", SearchOption.AllDirectories);
             int allLevelScripts = 0;
             foreach (string json in jsonFiles)
@@ -330,7 +398,7 @@ namespace Campofinale.Resource
                 LevelScene data = JsonConvert.DeserializeObject<LevelScene>(ReadJsonFile(json));
                 //Logger.Print($"{data.id}: {data.idNum}, {data.defaultState.exportedSceneConfigPath}");
                 data.levelData = new();
-                string[] dataPaths = Directory.GetFiles(@"Json/LevelData/" + data.id, "*.json", SearchOption.AllDirectories);
+                string[] dataPaths = Directory.GetFiles(GetResourcePath($"{jsonPath}/LevelData/" + data.id), "*.json", SearchOption.AllDirectories);
                 int i = 0;
                 foreach (string path in dataPaths)
                 {
@@ -355,7 +423,7 @@ namespace Campofinale.Resource
                 }
                 try
                 {
-                    string[] scriptPaths = Directory.GetFiles(@"Json/LevelScriptData/" + data.levelData.sceneId, "*.json", SearchOption.AllDirectories);
+                    string[] scriptPaths = Directory.GetFiles(GetResourcePath($"{jsonPath}/LevelScriptData/" + data.levelData.sceneId), "*.json", SearchOption.AllDirectories);
 
                     foreach (string path in scriptPaths)
                     {
@@ -363,10 +431,10 @@ namespace Campofinale.Resource
                         {
                             LevelScriptData script = JsonConvert.DeserializeObject<LevelScriptData>(File.ReadAllText(path));
                             LevelScriptBriefData briefData = null;
-                            
-                            if(data.levelData.levelScriptBriefDataDict.TryGetValue(script.scriptId, out briefData))
+
+                            if (data.levelData.levelScriptBriefDataDict.TryGetValue(script.scriptId, out briefData))
                             {
-                               
+
                                 script.properties = briefData.properties;
                                 script.propertyIdToKeyMap = briefData.propertyIdToKeyMap;
                             }
@@ -394,7 +462,12 @@ namespace Campofinale.Resource
         }
         public static int GetItemTemplateId(string item_id)
         {
-            return strIdNumTable.item_id.dic[item_id];
+            // Safely get numeric ID from strIdNumTable, return 0 if not found
+            if (strIdNumTable?.item_id?.dic != null && strIdNumTable.item_id.dic.TryGetValue(item_id, out int templateId))
+            {
+                return templateId;
+            }
+            return 0;
         }
 
         public static string FindFactoryMachineCraftIdUsingCacheItems(List<ItemCount> items, string group)
@@ -627,10 +700,17 @@ namespace Campofinale.Resource
             public string Id;
             public string Text;
         }
+        public class AdventureBookStageRewardTable
+        {
+            public int adventureBookStage;
+            public string rewardId;
+            public List<string> taskIds;
+        }
         public class DungeonTable
         {
             public string dungeonId;
             public string sceneId;
+            public string levelId;
 
         }
         public class EquipSuitTable
@@ -659,6 +739,7 @@ namespace Campofinale.Resource
         }
         public class AttributeModifier
         {
+            public int attrIndex;
             public AttributeType attrType;
             public double attrValue;
             public List<double> attrValues;
@@ -694,6 +775,7 @@ namespace Campofinale.Resource
         {
             public string id;
             public int roomType;
+            public int sortId;
         }
         public class RewardTable
         {
@@ -704,6 +786,27 @@ namespace Campofinale.Resource
             {
                 public int count;
                 public string id;
+            }
+        }
+        public class I18nText
+        {
+            public long id;
+            public string text;
+        }
+        public class CheckInRewardTable
+        {
+            public List<CheckInStage> stageList;
+            public class CheckInStage
+            {
+                public string activityId;
+                public string charId;
+                public int day;
+                public bool isKeyReward;
+                public bool isPopup;
+                public string rewardId;
+                public string rewardImg;
+                public I18nText rewardName;
+                public string weaponId;
             }
         }
         public class LevelShortIdTable
@@ -722,6 +825,7 @@ namespace Campofinale.Resource
             public string groupId;
             public string layerId;
         }
+
         public class FacSTTNodeTable
         {
             public string techId;
@@ -730,6 +834,7 @@ namespace Campofinale.Resource
             public List<int> uiPos;
             public int sortId;
             public string category;
+            public bool defaultHidden;
         }
         public class LevelScene
         {
@@ -764,6 +869,7 @@ namespace Campofinale.Resource
                 public List<LevelFactoryRegionData> factoryRegions = new();
                 public List<LevelSpawnerData> spawners = new();
                 public LevelFunctionAreaData functionArea = new();
+                public List<LevelMapVolumeData> mapVolumeDatas = new();
                 public void Merge(LevelData other)
                 {
                     this.sceneId = other.sceneId;
@@ -776,12 +882,14 @@ namespace Campofinale.Resource
                     this.factoryRegions.AddRange(other.factoryRegions);
                     this.spawners.AddRange(other.spawners);
                     this.functionArea.ranges.AddRange(other.functionArea.ranges);
-                    foreach(KeyValuePair<ulong,LevelScriptBriefData> brief in other.levelScriptBriefDataDict)
+                    this.functionArea.sceneToast.AddRange(other.functionArea.sceneToast);
+                    this.mapVolumeDatas.AddRange(other.mapVolumeDatas);
+                    foreach (KeyValuePair<ulong, LevelScriptBriefData> brief in other.levelScriptBriefDataDict)
                     {
-                        if(!this.levelScriptBriefDataDict.ContainsKey(brief.Key))
-                        this.levelScriptBriefDataDict.Add(brief.Key,brief.Value);
+                        if (!this.levelScriptBriefDataDict.ContainsKey(brief.Key))
+                            this.levelScriptBriefDataDict.Add(brief.Key, brief.Value);
                     }
-                    
+
                 }
 
                 public class WorldWayPointSets
@@ -793,7 +901,7 @@ namespace Campofinale.Resource
                 public class LevelFunctionAreaData
                 {
                     public List<LevelFunctionRangeData> ranges = new();
-
+                    public List<LevelFunctionSceneToastData> sceneToast = new();
                     public class LevelFunctionRangeData
                     {
                         public Vector3f m_center = new();
@@ -808,6 +916,15 @@ namespace Campofinale.Resource
                                    Math.Abs(position.z - m_center.z) <= halfSize.z;
                         }
                     }
+                    public class LevelFunctionSceneToastData
+                    {
+                        public int saveId;
+                    }
+                }
+                public class LevelMapVolumeData
+                {
+                    public int mapRegionId;
+                    public bool isMist;
                 }
                 public class LevelSpawnerData
                 {
@@ -826,7 +943,7 @@ namespace Campofinale.Resource
                 {
                     public ulong scriptId;
                     public string refGameId;
-                    
+
                     public ScriptActionMap actionMap = new();
                     public List<ParamKeyValue> properties = new();
                     public Dictionary<int, string> propertyIdToKeyMap = new();
@@ -878,6 +995,19 @@ namespace Campofinale.Resource
                     public bool forceLoad;
                     public string regionId;
                     public List<LevelFactoryRegionAreaData> areas;
+                    public List<LevelFactorySettlementArea>? settlementAreas;
+
+                    public class LevelFactorySettlementArea
+                    {
+                        public string areaId;
+                        public List<LevelFactoryRegionAreaBound> areas;
+
+                        public class LevelFactoryRegionAreaBound
+                        {
+                            public Vector3f start;
+                            public Vector3f size;
+                        }
+                    }
 
                     public class LevelFactoryRegionAreaData
                     {
@@ -1284,6 +1414,14 @@ namespace Campofinale.Resource
         {
             public string settlementId;
             public string domainId;
+            public Dictionary<string, SettlementLevelData> settlementLevelMap;
+
+            public class SettlementLevelData
+            {
+                public int bandwidth;
+                public int battleBuildingLimit;
+                public int travelPoleLimit;
+            }
         }
 
         public class GachaCharPoolTypeTable
@@ -1324,14 +1462,39 @@ namespace Campofinale.Resource
             public string templateId;
         }
 
+        /// <summary>
+        /// Basic item table configuration.
+        /// Matches client ItemData structure from Common.Beyond/Beyond/Cfg/ItemData.cs
+        /// </summary>
         public class ItemTable
         {
-            public ItemValuableDepotType valuableTabType;
+            // Basic info
             public string id;
+            public int type; // Item type ID, used to look up ItemTypeTable for storageSpace
+            public ItemValuableDepotType valuableTabType;
+
+            // Stack and storage configuration
             public int maxStackCount;
+            public int maxBackpackStackCount; // -1 when backpack storage is disabled
+
+            // Display and sorting
+            public int rarity;
+            public int sortId1;
+            public int sortId2;
+            public string iconId;
+            public string iconCompositeId;
+            public int showingType;
+            public bool showAllDepotCount;
+
+            // Gameplay
             public bool backpackCanDiscard;
             public string modelKey;
-            public int type;
+
+            // Item acquisition (arrays handled as List for JSON deserialization)
+            public List<string> obtainWayIds = new();
+            public List<string> outcomeItemIds = new();
+            public List<string> noObtainWayId = new();
+            public List<string> noObtainWayConditionId = new();
 
             public ItemStorageSpace GetStorage()
             {
@@ -1356,13 +1519,7 @@ namespace Campofinale.Resource
                 public ulong weaponLv;
             }
         }
-        public class DomainDataTable
-        {
-            public string domainId;
-            public int sortId;
-            public List<string> levelGroup;
-            public List<string> settlementGroup;
-        }
+
         public class CollectionTable
         {
             public string prefabId;
@@ -1381,6 +1538,7 @@ namespace Campofinale.Resource
         public class CharGrowthTable
         {
             public Dictionary<string, CharTalentNode> talentNodeMap;
+            public Dictionary<string, SkillGroupData> skillGroupMap;
             public string defaultWeaponId;
 
             public class CharTalentNode
@@ -1388,6 +1546,16 @@ namespace Campofinale.Resource
                 public string nodeId;
                 public TalentNodeType nodeType;
                 public List<RequireItem> requiredItem;
+            }
+
+            /// <summary>
+            /// Skill group data for character skills.
+            /// </summary>
+            public class SkillGroupData
+            {
+                public string skillGroupId;
+                public int skillGroupType; // 0=NormalAttack, 1=NormalSkill, 2=UltimateSkill, 3=ComboSkill
+                public List<string> skillIdList;
             }
         }
         public class RequireItem
@@ -1411,6 +1579,19 @@ namespace Campofinale.Resource
         {
             public int attrType;
             public double attrValue;
+        }
+
+        public class RecoverApItemTable
+        {
+            public string id;
+            public int apRecoverValue;
+        }
+
+        public class DungeonConstTable
+        {
+            public int apRecoverValue;
+            public int apRecoverValueByMoney;
+            public string recoverApMoneyId;
         }
 
 

@@ -26,8 +26,7 @@ namespace Campofinale.Game.Inventory
         }
         public void UpdateBagInventoryPacket()
         {
-            player.Send(new PacketScItemBagScopeSync(this.player,Resource.ItemValuableDepotType.Invalid));
-            
+            player.Send(new PacketScItemBagScopeSync(this.player, Resource.ItemValuableDepotType.Invalid));
         }
         private void AddToBagAvailableSlot(Item item)
         {
@@ -42,41 +41,76 @@ namespace Campofinale.Game.Inventory
         }
         ///
         ///<summary>Add a item directly to the bag if there is enough space or increment current stack value</summary>
+        /// Item must be saved to items collection first, then added to bag
         ///
         public bool AddToBag(Item item)
         {
-            Item existOne = Find(i=>i.id == item.id && i.amount < item.GetItemTable().maxStackCount,FindType.Bag);
+            // First, check if there's an existing stackable item in bag that can be merged
+            Item? existOne = Find(i => i.id == item.id && i.amount < i.GetItemTable().maxStackCount, FindType.Bag);
             if (existOne != null)
             {
-                
-                if(existOne.amount+item.amount > item.GetItemTable().maxStackCount)
+                // Found existing stackable item in bag, merge with it
+                if (existOne.amount + item.amount > existOne.GetItemTable().maxStackCount)
                 {
+                    // Stack would overflow, fill existing stack to max and create new stack if possible
                     int max = existOne.GetItemTable().maxStackCount;
                     int toAddInNewSlotAmount = existOne.amount + item.amount - max;
                     item.amount = toAddInNewSlotAmount;
                     if (SlotAvailableInBag())
                     {
                         existOne.amount = max;
+                        DatabaseManager.db.UpsertItem(existOne);
+                        // Add new item to items collection and bag
+                        // Use guid comparison instead of reference comparison for safety
+                        Item? existingItem = items.Find(i => i.guid == item.guid);
+                        if (existingItem == null)
+                        {
+                            items.Add(item);
+                        }
+                        else
+                        {
+                            // Use existing item from items collection to ensure consistency
+                            item = existingItem;
+                        }
+                        DatabaseManager.db.UpsertItem(item);
                         AddToBagAvailableSlot(item);
                         UpdateBagInventoryPacket();
                         return true;
                     }
                     else
                     {
+                        // Bag is full, cannot add new stack
                         return false;
                     }
                 }
                 else
                 {
+                    // Can merge into existing stack
                     existOne.amount += item.amount;
+                    DatabaseManager.db.UpsertItem(existOne);
                     UpdateBagInventoryPacket();
+                    // Don't add the new item object to items collection since we merged with existing one
                     return true;
                 }
             }
             else
             {
-                if(bag.Count < maxBagSize)
+                // No existing stackable item in bag, add as new item
+                if (bag.Count < maxBagSize)
                 {
+                    // Ensure item is in items collection before adding to bag
+                    // Use guid comparison instead of reference comparison for safety
+                    Item? existingItem = items.Find(i => i.guid == item.guid);
+                    if (existingItem == null)
+                    {
+                        items.Add(item);
+                    }
+                    else
+                    {
+                        // Use existing item from items collection to ensure consistency
+                        item = existingItem;
+                    }
+                    DatabaseManager.db.UpsertItem(item);
                     AddToBagAvailableSlot(item);
                     UpdateBagInventoryPacket();
                     return true;
@@ -113,7 +147,7 @@ namespace Campofinale.Game.Inventory
             }
             return null;
         }
-        public Item Find(Predicate<Item> match,FindType findType = FindType.Items)
+        public Item? Find(Predicate<Item> match, FindType findType = FindType.Items)
         {
             switch (findType)
             {
@@ -135,7 +169,7 @@ namespace Campofinale.Game.Inventory
                     }
                     break;
             }
-            
+
             return null;
         }
         public List<Item> FindAll(Predicate<Item> match, FindType findType = FindType.Items)
@@ -144,17 +178,12 @@ namespace Campofinale.Game.Inventory
             {
                 case FindType.Items:
                     return items.FindAll(match);
-                    break;
                 case FindType.FactoryDepots:
                     //TODO
                     break;
                 case FindType.Bag:
                     var itemB = bag.Values.ToList().FindAll(match);
-                    if (itemB != null)
-                    {
-                        return itemB;
-                    }
-                    break;
+                    return itemB;
             }
 
             return null;
@@ -177,7 +206,7 @@ namespace Campofinale.Game.Inventory
             }
             else
             {
-                Item exist=Find(i=>i.id==item.id);
+                Item? exist = Find(i => i.id == item.id);
                 if (exist != null)
                 {
                     exist.amount += item.amount;
@@ -201,17 +230,17 @@ namespace Campofinale.Game.Inventory
         public int GetItemAmount(string id)
         {
             int amt = 0;
-            Item item=Find(i=>i.id==id);
+            Item item = Find(i => i.id == id);
             if (item != null)
             {
                 amt += item.amount;
             }
-            List<Item> bagItems = FindAll(i=>i.id==id,FindType.Bag);
+            List<Item> bagItems = FindAll(i => i.id == id, FindType.Bag);
             foreach (Item bagItem in bagItems)
             {
                 amt += bagItem.amount;
             }
-            
+
             return amt;
         }
         public void Remove(Item item)

@@ -297,6 +297,8 @@
         ScItemBagSetQuickBarPos = 1006,
         ScItemBagSetItemLock = 1007,
         ScItemBagAbandonInBag = 1008,
+        ScItemBagBagToFactoryDepot = 1009,
+        ScItemBagFactoryDepotToBag = 1010,
         ScItemBagTakeoutLostAndFound = 1031,
         ScItemBagGotItemToast = 1032,
         ScItemBagTrialCharDepotModify = 1033,

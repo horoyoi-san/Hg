@@ -21,7 +21,6 @@ namespace Campofinale.Game.Char
         public string id;
         public ulong guid;
         public ulong weaponGuid;
-
         public int level;
         public int xp;
         public ulong owner;
@@ -32,12 +31,13 @@ namespace Campofinale.Game.Char
         public List<string> passiveSkillNodes = new();
         public List<string> attrNodes = new();
         public List<string> factoryNodes = new();
-        public Dictionary<int,ulong> equipCol = new() { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } };
+        public Dictionary<int, ulong> equipCol = new() { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } };
+        public int favorability = 0;
         public Character()
         {
-           
+
         }
-        
+
         public Character(ulong owner, string id) : this(owner, id, 1)
         {
 
@@ -50,15 +50,15 @@ namespace Campofinale.Game.Char
                 attributes.Add((AttributeType)item.attrType, (item.attrValue, item.attrValue));
             }
             Item weapon = GetOwner().inventoryManager.items.Find(w => w.guid == weaponGuid);
-            if(weapon != null)
+            if (weapon != null)
             {
                 WeaponBasicTable wTable = ResourceManager.weaponBasicTable[weapon.id];
                 WeaponUpgradeTemplateTable template = ResourceManager.weaponUpgradeTemplateTable[wTable.levelTemplateId];
-                WeaponCurve curve=template.list.Find(c => c.weaponLv == weapon.level);
+                WeaponCurve curve = template.list.Find(c => c.weaponLv == weapon.level);
                 attributes[AttributeType.Atk] = (attributes[AttributeType.Atk].baseVal + curve.baseAtk, attributes[AttributeType.Atk].baseVal + curve.baseAtk);
 
             }
-            
+
             //Won't be very precise but for now
             foreach (var equip in equipCol)
             {
@@ -71,11 +71,11 @@ namespace Campofinale.Game.Char
                         {
                             case ModifierType.BaseAddition:
                             case ModifierType.Addition:
-                                attributes=SetValueDic(attributes, modifier.attrType, GetValueDic(attributes, modifier.attrType) + (modifier.attrValues.Count > 0 ? modifier.attrValues[0] : 0));
+                                attributes = SetValueDic(attributes, modifier.attrType, GetValueDic(attributes, modifier.attrType) + (modifier.attrValues.Count > 0 ? modifier.attrValues[0] : 0));
                                 break;
                             case ModifierType.Multiplier:
                             case ModifierType.BaseMultiplier:
-                                attributes=SetValueDic(attributes, modifier.attrType, GetValueDic(attributes, modifier.attrType) * 1 + (modifier.attrValues.Count > 0 ? modifier.attrValues[0] : 1));
+                                attributes = SetValueDic(attributes, modifier.attrType, GetValueDic(attributes, modifier.attrType) * 1 + (modifier.attrValues.Count > 0 ? modifier.attrValues[0] : 1));
                                 break;
                             default:
                                 break;
@@ -95,11 +95,11 @@ namespace Campofinale.Game.Char
             }
             return 0;
         }
-        public Dictionary<AttributeType, (double baseVal, double val)> SetValueDic(Dictionary<AttributeType, (double baseVal, double val)> dic,AttributeType type,double value)
+        public Dictionary<AttributeType, (double baseVal, double val)> SetValueDic(Dictionary<AttributeType, (double baseVal, double val)> dic, AttributeType type, double value)
         {
             if (dic.ContainsKey(type))
             {
-                dic[type] = (dic[type].baseVal,value);
+                dic[type] = (dic[type].baseVal, value);
             }
             else
             {
@@ -133,9 +133,11 @@ namespace Campofinale.Game.Char
                     Logger.PrintWarn($"Unimplemented NodeType {nodeInfo.nodeType}, not unlocked server side.");
                     break;
             }
-            GetOwner().Send(new PacketScCharUnlockTalentNode(GetOwner(), this,nodeId));
+            // Save character data to database after unlocking node
+            Database.DatabaseManager.db.UpsertCharacter(this);
+            GetOwner().Send(new PacketScCharUnlockTalentNode(GetOwner(), this, nodeId));
         }
-        public Character(ulong owner,string id, int level) : this()
+        public Character(ulong owner, string id, int level) : this()
         {
             this.owner = owner;
             this.id = id;
@@ -148,13 +150,16 @@ namespace Campofinale.Game.Char
             if (level > 40 && level <= 60) breakNode = "charBreak40";
             if (level > 60 && level <= 80) breakNode = "charBreak60";
             if (level > 80) breakNode = "charBreak70";
+            // Sync favorability from SpaceshipChar if it exists
+            SyncFavorabilityFromSpaceship();
         }
         public int GetSkillMaxLevel()
         {
             if (GetBreakStage() == 0)
             {
                 return 1;
-            }else if (GetBreakStage() == 1)
+            }
+            else if (GetBreakStage() == 1)
             {
                 return 3;
             }
@@ -182,21 +187,71 @@ namespace Campofinale.Game.Char
         }
         public Player GetOwner()
         {
-            return Server.clients.Find(c=>c.roleId == this.owner); 
+            return Server.clients.Find(c => c.roleId == this.owner);
+        }
+
+        /// <summary>
+        /// Sync favorability from SpaceshipChar to Character.
+        /// This ensures Character has the latest favorability value from the spaceship system.
+        /// </summary>
+        public void SyncFavorabilityFromSpaceship()
+        {
+            Player owner = GetOwner();
+            if (owner != null && owner.spaceshipManager != null)
+            {
+                var spaceshipChar = owner.spaceshipManager.GetChar(id);
+                if (spaceshipChar != null)
+                {
+                    favorability = spaceshipChar.favorability;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sync favorability from Character to SpaceshipChar.
+        /// This updates the spaceship system with the Character's favorability value.
+        /// </summary>
+        public void SyncFavorabilityToSpaceship()
+        {
+            Player owner = GetOwner();
+            if (owner != null && owner.spaceshipManager != null)
+            {
+                var spaceshipChar = owner.spaceshipManager.GetChar(id);
+                if (spaceshipChar != null)
+                {
+                    spaceshipChar.favorability = favorability;
+                }
+            }
         }
         public SceneCharacter ToSceneProto()
         {
-            SceneCharacter proto= new SceneCharacter()
+            SceneCharacter proto = new SceneCharacter()
             {
                 Level = level,
-                
+
                 BattleInfo = new()
                 {
-                    
+
                     MsgGeneration = 1,
-                    
+
                     SkillList =
                                 {
+                                    new ServerSkill()
+                                    {
+                                        Blackboard = new()
+                                        {
+
+                                        },
+                                        InstId=GetOwner().random.Next(),
+                                        Level=GetSkillMaxLevel(),
+                                        Source=BattleSkillSource.Default,
+                                        PotentialLv=GetSkillMaxLevel(),
+                                        SkillId = new()
+                                        {
+                                            StrId=id+"_NormalAttack",
+                                        }
+
+                                    },
                                     new ServerSkill()
                                     {
                                         Blackboard = new()
@@ -222,7 +277,7 @@ namespace Campofinale.Game.Char
                                         Level=GetSkillMaxLevel(),
                                         Source=BattleSkillSource.Default,
                                         PotentialLv=GetSkillMaxLevel(),
-                                        
+
                                         SkillId = new()
                                         {
                                             StrId=id+"_ComboSkill",
@@ -238,33 +293,17 @@ namespace Campofinale.Game.Char
                                         Level=GetSkillMaxLevel(),
                                         Source=BattleSkillSource.Default,
                                         PotentialLv=GetSkillMaxLevel(),
-                                        
+
                                         SkillId = new()
                                         {
                                             StrId=id+"_UltimateSkill",
                                         }
-                                    },
-                                    new ServerSkill()
-                                    {
-                                        Blackboard = new()
-                                        {
-
-                                        },
-                                        InstId=GetOwner().random.Next(),
-                                        Level=GetSkillMaxLevel(),
-                                        Source=BattleSkillSource.Default,
-                                        PotentialLv=GetSkillMaxLevel(),
-                                        SkillId = new()
-                                        {
-                                            StrId=id+"_NormalAttack",
-                                        }
-                                        
                                     }
                                 }
                 },
 
                 Name = $"{ResourceManager.characterTable[id].engName}",
-                
+
                 CommonInfo = new()
                 {
                     Hp = curHp,
@@ -274,21 +313,21 @@ namespace Campofinale.Game.Char
                     SceneNumId = GetOwner().curSceneNumId,
                     Templateid = id,
                     Type = (int)0,
-                    IsBattleCreate=true
+                    IsBattleCreate = true
                 },
                 Attrs =
                 {
-                    
+
                 }
             };
-            foreach(var attr in CalcAttributes())
+            foreach (var attr in CalcAttributes())
             {
                 proto.Attrs.Add(new AttrInfo()
                 {
                     AttrType = (int)attr.Key,
                     BasicValue = attr.Value.baseVal,
                     Value = attr.Value.val
-                    
+
                 });
             }
             return proto;
@@ -306,18 +345,103 @@ namespace Campofinale.Game.Char
             }
 
         }
+
+        /// <summary>
+        /// Gets skill group ID from CharGrowthTable by skill group type.
+        /// skillGroupType: 0=NormalAttack, 1=NormalSkill, 2=UltimateSkill, 3=ComboSkill
+        /// Falls back to old format (id + "_SkillType") if CharGrowthTable data is not available.
+        /// </summary>
+        private string GetSkillGroupId(int skillGroupType)
+        {
+            // Try to get from CharGrowthTable
+            if (ResourceManager.charGrowthTable.TryGetValue(id, out var charGrowthData)
+                && charGrowthData.skillGroupMap != null)
+            {
+                // Find skillGroupId by skillGroupType
+                foreach (var skillGroup in charGrowthData.skillGroupMap.Values)
+                {
+                    if (skillGroup.skillGroupType == skillGroupType)
+                    {
+                        return skillGroup.skillGroupId;
+                    }
+                }
+            }
+
+            // Fallback to old format if CharGrowthTable not found or skillGroupId not found
+            return skillGroupType switch
+            {
+                0 => id + "_NormalAttack",
+                1 => id + "_NormalSkill",
+                2 => id + "_UltimateSkill",
+                3 => id + "_ComboSkill",
+                _ => id + "_NormalAttack"
+            };
+        }
+
+        /// <summary>
+        /// Creates SkillInfo with correct skillGroupId from CharGrowthTable.
+        /// </summary>
+        public SkillInfo GetSkillInfo()
+        {
+            string normalAttackGroupId = GetSkillGroupId(0);
+            string normalSkillGroupId = GetSkillGroupId(1);
+            string ultimateSkillGroupId = GetSkillGroupId(2);
+            string comboSkillGroupId = GetSkillGroupId(3);
+
+            int skillMaxLevel = GetSkillMaxLevel();
+
+            var skillInfo = new SkillInfo()
+            {
+                NormalSkill = normalSkillGroupId,
+                ComboSkill = comboSkillGroupId,
+                UltimateSkill = ultimateSkillGroupId,
+                DispNormalAttackSkill = normalAttackGroupId,
+                LevelInfo =
+                {
+                    new SkillLevelInfo()
+                    {
+                        SkillId = comboSkillGroupId,
+                        SkillLevel = skillMaxLevel,
+                        SkillMaxLevel = skillMaxLevel,
+                        SkillEnhancedLevel = 0
+                    },
+                    new SkillLevelInfo()
+                    {
+                        SkillId = ultimateSkillGroupId,
+                        SkillLevel = skillMaxLevel,
+                        SkillMaxLevel = skillMaxLevel,
+                        SkillEnhancedLevel = 0
+                    },
+                    new SkillLevelInfo()
+                    {
+                        SkillId = normalSkillGroupId,
+                        SkillLevel = skillMaxLevel,
+                        SkillMaxLevel = skillMaxLevel,
+                        SkillEnhancedLevel = 0
+                    },
+                    new SkillLevelInfo()
+                    {
+                        SkillId = normalAttackGroupId,
+                        SkillLevel = skillMaxLevel,
+                        SkillMaxLevel = skillMaxLevel,
+                        SkillEnhancedLevel = 0
+                    },
+                }
+            };
+            return skillInfo;
+        }
         public bool IsEquipped(ulong equipGuid)
         {
             return equipCol.Values.Contains(equipGuid);
         }
-        public Dictionary<int,ulong> GetEquipCol()
+        public Dictionary<int, ulong> GetEquipCol()
         {
             Dictionary<int, ulong> equips = new();
-            foreach(var item in equipCol)
+            foreach (var item in equipCol)
             {
                 if (item.Value != 0)
                 {
-                    equips.Add(item.Key,item.Value);
+                    equips.Add(item.Key, item.Value);
                 }
             }
             return equips;
@@ -329,7 +453,6 @@ namespace Campofinale.Game.Char
                 Exp = xp,
                 Level = level,
                 IsDead = curHp < 1,
-                
                 Objid = guid,
                 Templateid = id,
                 CharType = CharType.DefaultType,
@@ -341,10 +464,9 @@ namespace Campofinale.Game.Char
                 {
                     GetEquipCol()
                 },
-                
                 Talent = new()
                 {
-                    LatestBreakNode= breakNode,
+                    LatestBreakNode = breakNode,
                     LatestPassiveSkillNodes =
                     {
                         passiveSkillNodes
@@ -353,64 +475,20 @@ namespace Campofinale.Game.Char
                     {
                         attrNodes
                     },
-                    
                     LatestFactorySkillNodes =
                     {
                         factoryNodes
                     }
                 },
-                BattleMgrInfo = new()
-                {
-                    
-                },
+                BattleMgrInfo = new(),
                 BattleInfo = new()
                 {
                     Hp = curHp,
-                    Ultimatesp= ultimateSp,
-                    
+                    Ultimatesp = ultimateSp,
                 },
-                SkillInfo = new()
-                {
-                    
-                    NormalSkill = id + "_NormalSkill",
-                    ComboSkill = id + "_ComboSkill",
-                    UltimateSkill = id + "_UltimateSkill",
-                    DispNormalAttackSkill = id + "_NormalAttack",
-                    
-                    LevelInfo =
-                    {
-                        new SkillLevelInfo()
-                        {
-                            SkillId=id+"_NormalAttack",
-                            SkillLevel=GetSkillMaxLevel(),
-                            SkillMaxLevel=GetSkillMaxLevel(),
-                            SkillEnhancedLevel=GetSkillMaxLevel()
-                        },
-                        new SkillLevelInfo()
-                        {
-                            SkillId=id+"_NormalSkill",
-                            SkillLevel=GetSkillMaxLevel(),
-                            SkillMaxLevel=GetSkillMaxLevel(),
-                            SkillEnhancedLevel=GetSkillMaxLevel()
-                        },
-                        new SkillLevelInfo()
-                        {
-                            SkillId=id+"_UltimateSkill",
-                            SkillLevel=GetSkillMaxLevel(),
-                            SkillMaxLevel=GetSkillMaxLevel(),
-                            SkillEnhancedLevel=GetSkillMaxLevel()
-                        },
-                        new SkillLevelInfo()
-                        {
-                            SkillId=id+"_ComboSkill",
-                            SkillLevel=GetSkillMaxLevel(),
-                            SkillMaxLevel=GetSkillMaxLevel(),
-                            SkillEnhancedLevel=GetSkillMaxLevel()
-                        },
-
-                    }
-                }
+                SkillInfo = GetSkillInfo()
             };
+
             Item wep = GetOwner().inventoryManager.items.Find(w => w.guid == weaponGuid);
             if (wep != null)
             {
@@ -418,7 +496,8 @@ namespace Campofinale.Game.Char
             }
             foreach (ulong equipGuid in equipCol.Values)
             {
-                Item item = GetOwner().inventoryManager.items.Find(i => i.guid == equipGuid);
+                // equip item can only be in items, not in bag. bag is for factoryDepot.
+                Item item = GetOwner().inventoryManager.items.Find(i => i.guid == equipGuid, InventoryList.FindType.Items);
                 if (item != null)
                 {
                     string equipSuitId = ResourceManager.GetEquipSuitTableKey(item.id);
@@ -438,18 +517,18 @@ namespace Campofinale.Game.Char
             }
             return info;
         }
-        public (int,int,int) CalculateLevelAndGoldCost(int addedXp)
+        public (int, int, int) CalculateLevelAndGoldCost(int addedXp)
         {
             int gold = 0;
             int curLevel = this.level;
-            while(addedXp >= ResourceManager.charLevelUpTable["" + curLevel].exp)
+            while (curLevel < 99 && addedXp >= ResourceManager.charLevelUpTable["" + curLevel].exp)
             {
                 gold += ResourceManager.charLevelUpTable["" + curLevel].gold;
                 addedXp -= ResourceManager.charLevelUpTable["" + curLevel].exp;
                 curLevel++;
-                if(curLevel >= 99)
+                if (curLevel == 20 || curLevel == 40 || curLevel == 60 || curLevel == 80 || curLevel == 99)
                 {
-                    curLevel = 99;
+                    addedXp = 0;
                 }
             }
             return (curLevel, gold, addedXp);
@@ -462,7 +541,7 @@ namespace Campofinale.Game.Char
                 addedXp += ResourceManager.expItemDataMap[item.ResId].expGain * item.ResCount;
             }
 
-            (int, int, int) CalculatedValues = CalculateLevelAndGoldCost(xp+addedXp);
+            (int, int, int) CalculatedValues = CalculateLevelAndGoldCost(xp + addedXp);
             items.Add(new ItemInfo()
             {
                 ResId = "item_gold",
@@ -471,7 +550,9 @@ namespace Campofinale.Game.Char
             if (GetOwner().inventoryManager.ConsumeItems(items))
             {
                 this.level = CalculatedValues.Item1;
-                this.xp= CalculatedValues.Item3;
+                this.xp = CalculatedValues.Item3;
+                // Save character data to database after level up
+                Database.DatabaseManager.db.UpsertCharacter(this);
                 ScCharLevelUp levelUp = new()
                 {
                     CharObjID = guid,

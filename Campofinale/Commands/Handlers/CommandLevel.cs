@@ -47,7 +47,7 @@ namespace Campofinale.Game.Char
 
         private static void UpdateAllLevels(Player sender, Player target, int level)
         {
-            level = Math.Max(1, Math.Min(level, 80));
+            level = Math.Max(1, Math.Min(level, 99));
 
             int updatedCharCount = 0;
             foreach (var item in ResourceManager.itemTable)
@@ -82,7 +82,7 @@ namespace Campofinale.Game.Char
 
         private static void UpdateSingleLevel(Player sender, Player target, string id, int level)
         {
-            level = Math.Max(1, Math.Min(level, 80));
+            level = Math.Max(1, Math.Min(level, 99));
 
             if (id.StartsWith("chr_"))
             {
@@ -147,10 +147,11 @@ namespace Campofinale.Game.Char
         private static string GetBreakNodeByLevel(int level)
         {
             if (level <= 20) return "";
-            if (level <= 40) return "charBreak20";
-            if (level <= 60) return "charBreak40";
-            if (level <= 70) return "charBreak60";
-            return "charBreak70";
+            if (level > 20 && level <= 40) return "charBreak20";
+            if (level > 40 && level <= 60) return "charBreak40";
+            if (level > 60 && level <= 80) return "charBreak60";
+            if (level > 80) return "charBreak70";
+            return "";
         }
     }
 }

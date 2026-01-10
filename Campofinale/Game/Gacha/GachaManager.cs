@@ -1,4 +1,7 @@
 ﻿using Campofinale.Database;
+using Campofinale.Game.Char;
+using Campofinale.Game.Inventory;
+using Campofinale.Packets.Sc;
 using Campofinale.Protocol;
 using Campofinale.Resource;
 using Campofinale.Resource.Table;
@@ -39,7 +42,7 @@ namespace Campofinale.Game.Gacha
                 {
                     fiveStarPity = 0;
                     sixStarPity = 0;
-                    lastSixStar = transaction; 
+                    lastSixStar = transaction;
                 }
                 else
                 {
@@ -57,24 +60,24 @@ namespace Campofinale.Game.Gacha
 
             return (fiveStarPity, sixStarPity, lastSixStar, isFiftyFiftyLost);
         }
-        public void DoGacha(string gachaId,int attempts)
+        public void DoGacha(string gachaId, int attempts)
         {
             const double prob6Star = 0.008; // 0.8%
             const double prob5Star = 0.08;  // 8%
             GachaCharPoolTable table = ResourceManager.gachaCharPoolTable[gachaId];
-            (int fiveStarPity, int sixStarPity, GachaTransaction? lastSixStar, bool isFiftyFiftyLost) 
+            (int fiveStarPity, int sixStarPity, GachaTransaction? lastSixStar, bool isFiftyFiftyLost)
                 PityInfo = GetCurrentPity(table.type);
             int increaseTime = 0;
-            int pityforcalculate = PityInfo.sixStarPity-64;
-            if(pityforcalculate < 1)
+            int pityforcalculate = PityInfo.sixStarPity - 64;
+            if (pityforcalculate < 1)
             {
                 pityforcalculate = 0;
             }
-           
+
             GachaCharPoolContentTable content = ResourceManager.gachaCharPoolContentTable[gachaId];
-            GachaCharPoolTypeTable type = ResourceManager.gachaCharPoolTypeTable[""+table.type];
+            GachaCharPoolTypeTable type = ResourceManager.gachaCharPoolTypeTable["" + table.type];
             //Sanity check
-            if (table==null || content == null || type==null)
+            if (table == null || content == null || type == null)
             {
                 return;
             }
@@ -91,13 +94,13 @@ namespace Campofinale.Game.Gacha
                 PityInfo.sixStarPity++;
                 GachaTransaction transaction = null;
                 //Six star pull
-                if (roll < finalProb6Star || PityInfo.sixStarPity>=type.softGuarantee)
+                if (roll < finalProb6Star || PityInfo.sixStarPity >= type.softGuarantee)
                 {
                     PityInfo.sixStarPity -= PityInfo.sixStarPity >= type.softGuarantee ? type.softGuarantee : PityInfo.sixStarPity;
                     if (table.upCharIds.Count > 0)
                     {
                         transaction = GetChar(table.upCharIds[0], PityInfo.isFiftyFiftyLost, fifty, sixStars, 6);
-                        
+
                         if (transaction.itemId != table.upCharIds[0])
                         {
                             PityInfo.isFiftyFiftyLost = true;
@@ -112,14 +115,14 @@ namespace Campofinale.Game.Gacha
                         transaction = GetChar("", PityInfo.isFiftyFiftyLost, fifty, sixStars, 6);
                     }
                     pityforcalculate = 0;
-                   
-                    
+
+
                 }
                 else if (roll < prob5Star || PityInfo.fiveStarPity >= 10)
                 {
 
                     PityInfo.fiveStarPity -= PityInfo.fiveStarPity >= 10 ? 10 : PityInfo.fiveStarPity;
-                    
+
                     if (table.upCharIds.Count > 1)
                     {
                         transaction = GetChar(table.upCharIds[1], false, fifty, fiveStars, 5);
@@ -144,8 +147,7 @@ namespace Campofinale.Game.Gacha
             ScGachaSyncPullResult result = new ScGachaSyncPullResult()
             {
                 GachaPoolId = gachaId,
-                GachaType =table.type,
-                
+                GachaType = table.type,
                 OriResultIds =
                 {
                 },
@@ -155,30 +157,84 @@ namespace Campofinale.Game.Gacha
                 {
 
                 },
-                
                 UpGotCount = transactions.FindAll(t => table.upCharIds.Contains(t.itemId)).Count,
-
             };
+
+            // Track characters obtained in this pull to handle duplicates within the same pull
+            HashSet<string> obtainedInThisPull = new HashSet<string>();
+
             foreach (GachaTransaction transaction in transactions)
             {
                 transaction.gachaTemplateId = gachaId;
-                bool exist = player.chars.Find(c => c.id == transaction.itemId) != null;
+                bool existInCollection = player.chars.Find(c => c.id == transaction.itemId) != null;
+                bool existInThisPull = obtainedInThisPull.Contains(transaction.itemId);
+                bool exist = existInCollection || existInThisPull;
+
                 result.OriResultIds.Add(transaction.itemId);
                 result.FinalResults.Add(new ScdGachaFinalResult()
                 {
                     IsNew = !exist,
                     ItemId = !exist ? transaction.itemId : "item_charpotentialup_" + transaction.itemId,
-                    RewardItemId= !exist ? transaction.itemId : "item_charpotentialup_"+ transaction.itemId,
+                    RewardItemId = !exist ? transaction.itemId : "item_charpotentialup_" + transaction.itemId,
                     RewardIds =
                     {
                         $"reward_{transaction.rarity}starChar_weaponCoin",
                     },
-                    
                 });
-                
+
                 DatabaseManager.db.AddGachaTransaction(transaction);
+
+                // Mark as obtained in this pull
+                obtainedInThisPull.Add(transaction.itemId);
+
+                // Actually add the character or token to player's inventory
+                if (!exist)
+                {
+                    // Add new character to player's character list
+                    Character newChar = player.AddCharacter(transaction.itemId, 1, notify: true);
+
+                    // Update bitsets for character unlock (NewChar, UnreadCharDoc, UnreadCharVoice)
+                    player.bitsetManager.AddValue(BitsetType.NewChar, strIdNumTable.char_id.dic[newChar.id]);
+
+                    // Mark CharDoc and CharVoice as unread (new content notification)
+                    if (ResourceManager.strIdNumTable?.char_doc_id?.dic != null)
+                    {
+                        foreach (var kvp in ResourceManager.strIdNumTable.char_doc_id.dic)
+                        {
+                            if (kvp.Key.Contains(transaction.itemId))
+                            {
+                                int charDocId = kvp.Value;
+                                player.bitsetManager.AddValue(BitsetType.UnreadCharDoc, charDocId);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (ResourceManager.strIdNumTable?.char_voice_id?.dic != null)
+                    {
+                        foreach (var kvp in ResourceManager.strIdNumTable.char_voice_id.dic)
+                        {
+                            if (kvp.Key.Contains(transaction.itemId))
+                            {
+                                int charVoiceId = kvp.Value;
+                                player.bitsetManager.AddValue(BitsetType.UnreadCharVoice, charVoiceId);
+                                break;
+                            }
+                        }
+                    }
+                    player.Send(new PacketScSyncAllBitset(player));
+                }
+                else
+                {
+                    // Add token item for duplicate character
+                    string tokenId = "item_charpotentialup_" + transaction.itemId;
+                    player.inventoryManager.AddItem(tokenId, 1);
+                }
+
+                // Add the weapon coin reward
+                player.inventoryManager.AddRewards($"reward_{transaction.rarity}starChar_weaponCoin", player.position, 0);
             }
-            player.Send(ScMsgId.ScGachaSyncPullResult, result,upSeqId);
+            player.Send(ScMsgId.ScGachaSyncPullResult, result, upSeqId);
             ScGachaModifyPoolRoleData roleData = new()
             {
                 GachaPoolId = gachaId,
@@ -195,12 +251,11 @@ namespace Campofinale.Game.Gacha
                     GachaPoolId = gachaId,
                     HardGuaranteeProgress = PityInfo.sixStarPity,
                     SoftGuaranteeProgress = PityInfo.sixStarPity,
-
                 }
             };
             player.Send(ScMsgId.ScGachaModifyPoolRoleData, roleData, upSeqId);
         }
-        public GachaTransaction GetChar(string upChar,bool guaranteed, double fifty, List<GachaCharPoolItem> items, int rarity)
+        public GachaTransaction GetChar(string upChar, bool guaranteed, double fifty, List<GachaCharPoolItem> items, int rarity)
         {
             GachaTransaction transaction = new()
             {
@@ -208,19 +263,19 @@ namespace Campofinale.Game.Gacha
                 ownerId = player.roleId,
                 rarity = rarity,
             };
-            if((fifty >= fiftyfifty || guaranteed) && rarity != 4 && upChar.Length >0)
+            if ((fifty >= fiftyfifty || guaranteed) && rarity != 4 && upChar.Length > 0)
             {
                 transaction.itemId = upChar;
 
             }
             else
             {
-                int index = random.Next(0,items.Count);
-                if (index > items.Count-1)
+                int index = random.Next(0, items.Count);
+                if (index > items.Count - 1)
                 {
-                    index = items.Count-1;
+                    index = items.Count - 1;
                 }
-                if(index < 0)
+                if (index < 0)
                 {
                     index = 0;
                 }
@@ -241,10 +296,10 @@ namespace Campofinale.Game.Gacha
             }
             List<GachaTransaction> transactionList = DatabaseManager.db.LoadGachaTransaction(data.roleId, table.type);
             transactionList = transactionList.OrderByDescending(g => g.transactionTime).ToList();
-            int maxPages=(int)Math.Ceiling((double)transactionList.Count / pageSize);
+            int maxPages = (int)Math.Ceiling((double)transactionList.Count / pageSize);
             api.maxPages = maxPages;
             api.curPage = p;
-            api.transactionList= transactionList.Skip((p - 1) * pageSize).Take(pageSize).ToList();
+            api.transactionList = transactionList.Skip((p - 1) * pageSize).Take(pageSize).ToList();
             return api;
         }
         public class GachaHistoryAPI

@@ -25,38 +25,59 @@ namespace Campofinale.Game.Spaceship
         }
         public bool HasCharWorking()
         {
-            bool val = false;
+            Player? owner = GetOwner();
+            if (owner == null) return false;
+
             foreach (string chara in stationedCharList)
             {
-                SpaceshipChar ch = GetOwner().spaceshipManager.GetChar(chara);
+                SpaceshipChar? ch = owner.spaceshipManager.GetChar(chara);
                 if (ch != null)
                 {
                     if (ch.isWorking)
                     {
-                        val = true;
+                        return true;
                     }
                 }
             }
-            return val;
+            return false;
         }
-        public int GetType()
+        public int GetRoomType()
         {
-            //SpaceshipRoomInsTable roomInfo = ResourceManager.spaceshipRoomInsTable[id];
+            if (ResourceManager.spaceshipRoomInsTable.TryGetValue(id, out var roomInfo))
+            {
+                return roomInfo.roomType;
+            }
+            // Default to ControlCenter
             return 0;
         }
-        public Player GetOwner()
+        public Player? GetOwner()
         {
             return Server.clients.Find(c => c.roleId == owner);
         }
 
         public ScdSpaceshipRoom ToRoomProto()
         {
-           
+            // Get room info from resource table
+            int roomType = 0;
+            int serialNum = 0;
+
+            if (ResourceManager.spaceshipRoomInsTable.TryGetValue(id, out var roomInfo))
+            {
+                roomType = roomInfo.roomType;
+                // Use sortId as serialNum if available, otherwise use 0
+                serialNum = roomInfo.sortId;
+            }
+            else
+            {
+                roomType = GetRoomType();
+            }
+
             ScdSpaceshipRoom room = new()
             {
                 Id = id,
                 Level = level,
-                Type = 0,
+                Type = roomType,
+                SerialNum = serialNum,
                 HasCharWorking = HasCharWorking(),
                 StationedCharList =
                 {
@@ -121,24 +142,23 @@ namespace Campofinale.Game.Spaceship
                             }
                         },
             };
-            switch (0)
+
+            // Set room_data based on room type
+            switch (roomType)
             {
-                case 0:
-                    room.ControlCenter = new()
+                case 0: // ControlCenter
+                    room.ControlCenter = new ScdSpaceshipControlCenter
                     {
-
                     };
                     break;
-                case 1:
-                    room.ManufacturingStation = new()
+                case 1: // ManufacturingStation
+                    room.ManufacturingStation = new ScdSpaceshipManufacturingStation
                     {
-
                     };
                     break;
-                case 2:
-                    room.GrowCabin = new()
+                case 2: // GrowCabin
+                    room.GrowCabin = new ScdSpaceshipGrowCabin
                     {
-
                     };
                     break;
             }

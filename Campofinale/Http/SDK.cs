@@ -1,10 +1,15 @@
 ﻿using Campofinale.Database;
 using HttpServerLite;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using StardustUtils;
+using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Channels;
+using System.Xml.Linq;
 using static Campofinale.Game.Gacha.GachaManager;
 using static Campofinale.Http.Dispatch;
 
@@ -12,7 +17,7 @@ namespace Campofinale.Http
 {
     public class SDK
     {
-        
+
         [StaticRoute(HttpServerLite.HttpMethod.POST, "/user/info/v1/authenticate")]
         public static async Task cn_authenticate(HttpContext ctx)
         {
@@ -100,7 +105,7 @@ namespace Campofinale.Http
                 /*
                  * {"data":{"hgId":"**********","phone":"153****5243","email":null,"identityNum":"5002**********1619","identityName":"金*","isMinor":false,"isLatestUserAgreement":true},"msg":"OK","status":0,"type":"A"}
                  */
-                resp = "{\"data\":{\"phone\":\"153****5243\", \"identityNum\": \"5002**********1619\",\"identityName\":\"金*\",\"isMinor\":false,\"hgId\":\"" + account.id + "\",\"email\":\"" + account.username +Server.config.dispatchServer.emailFormat +"\",\"realEmail\":\"" + account.username + Server.config.dispatchServer.emailFormat + "\",\"isLatestUserAgreement\":true,\"nickName\":\"" + account.username + "\"},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
+                resp = "{\"data\":{\"phone\":\"153****5243\", \"identityNum\": \"5002**********1619\",\"identityName\":\"金*\",\"isMinor\":false,\"hgId\":\"" + account.id + "\",\"email\":\"" + account.username + Server.config.dispatchServer.emailFormat + "\",\"realEmail\":\"" + account.username + Server.config.dispatchServer.emailFormat + "\",\"isLatestUserAgreement\":true,\"nickName\":\"" + account.username + "\"},\"msg\":\"OK\",\"status\":0,\"type\":\"A\"}";
             }
             else
             {
@@ -139,7 +144,7 @@ namespace Campofinale.Http
             }
         }
 
-        
+
         /*[StaticRoute(HttpServerLite.HttpMethod.POST, "/user/oauth2/v2/grant")]
         public static async Task account_ugrant_old(HttpContext ctx)
         {
@@ -212,7 +217,7 @@ namespace Campofinale.Http
             {
                 rsp.status = 2;
                 rsp.msg = "Error";
-                
+
             }
 
             ctx.Response.StatusCode = 200;
@@ -251,7 +256,7 @@ namespace Campofinale.Http
 
             await ctx.Response.SendAsync(JsonConvert.SerializeObject(rsp));
         }
-        
+
         public class TokenChannelData
         {
             public string channelToken;
@@ -291,6 +296,8 @@ namespace Campofinale.Http
             public string email;
             public string password;
         }
+        
+       
         [StaticRoute(HttpServerLite.HttpMethod.POST, "/user/auth/v1/register")]
         public static async Task register(HttpContext ctx)
         {
@@ -300,7 +307,7 @@ namespace Campofinale.Http
                 Console.WriteLine(requestBody);
                 RegisterFormData data = Newtonsoft.Json.JsonConvert.DeserializeObject<RegisterFormData>(requestBody);
                 string username = data.email.Split("@")[0];
-                (string,int) msg=DatabaseManager.db.CreateAccount(username);
+                (string, int) msg = DatabaseManager.db.CreateAccount(username, "");
                 string resp = "";
                 if (msg.Item2 > 0)
                 {
@@ -311,7 +318,7 @@ namespace Campofinale.Http
                     Account account = DatabaseManager.db.GetAccountByUsername(username);
                     resp = "{\"data\": {    \"token\":\"" + account.token + "\"  }, \"msg\": \"" + msg.Item1 + "\",  \"status\": " + msg.Item2 + ",  \"type\": \"\"}";
                 }
-                
+
 
                 ctx.Response.StatusCode = 200;
                 ctx.Response.ContentType = "application/json";
@@ -324,7 +331,7 @@ namespace Campofinale.Http
             }
 
         }
-        
+
         [StaticRoute(HttpServerLite.HttpMethod.GET, "/api/gachahistory")]
         public static async Task gachahistory_api(HttpContext ctx)
         {

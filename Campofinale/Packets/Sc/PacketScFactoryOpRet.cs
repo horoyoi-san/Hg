@@ -6,15 +6,16 @@ namespace Campofinale.Packets.Sc
     public class PacketScFactoryOpRet : Packet
     {
 
-        public PacketScFactoryOpRet(Player client, uint val,CsFactoryOp op) {
+        public PacketScFactoryOpRet(Player client, uint val, CsFactoryOp op)
+        {
 
             ScFactoryOpRet proto = new ScFactoryOpRet()
             {
-                RetCode=FactoryOpRetCode.Ok,
-                OpType=op.OpType,
+                RetCode = FactoryOpRetCode.Ok,
+                OpType = op.OpType,
 
             };
-            if(op.OpType == FactoryOpType.Place)
+            if (op.OpType == FactoryOpType.Place)
             {
                 proto.Place = new()
                 {
@@ -25,7 +26,7 @@ namespace Campofinale.Packets.Sc
             {
                 proto.MoveNode = new()
                 {
-                    
+
                 };
             }
             if (op.OpType == FactoryOpType.AddConnection)
@@ -39,7 +40,7 @@ namespace Campofinale.Packets.Sc
             {
                 proto.Dismantle = new()
                 {
-                    
+
                 };
             }
             if (op.OpType == FactoryOpType.DismantleBoxConveyor)
@@ -53,21 +54,21 @@ namespace Campofinale.Packets.Sc
             {
                 proto.ChangeProducerMode = new()
                 {
-                    
+
                 };
             }
             if (op.OpType == FactoryOpType.SetTravelPoleDefaultNext)
             {
                 proto.SetTravelPoleDefaultNext = new()
                 {
-                    
+
                 };
             }
             if (op.OpType == FactoryOpType.EnableNode)
             {
                 proto.EnableNode = new()
                 {
-                    
+
                 };
             }
 
@@ -78,11 +79,11 @@ namespace Campofinale.Packets.Sc
 
                 };
             }
-            if(op.OpType == FactoryOpType.MoveItemCacheToBag)
+            if (op.OpType == FactoryOpType.MoveItemCacheToBag)
             {
                 proto.MoveItemCacheToBag = new();
             }
-            proto.Index=op.Index;
+            proto.Index = op.Index;
             SetData(ScMsgId.ScFactoryOpRet, proto);
         }
         public PacketScFactoryOpRet(Player client, List<uint> val, CsFactoryOp op)
@@ -94,7 +95,7 @@ namespace Campofinale.Packets.Sc
                 OpType = op.OpType,
 
             };
-            
+
             if (op.OpType == FactoryOpType.PlaceConveyor)
             {
                 proto.PlaceConveyor = new()
@@ -106,6 +107,20 @@ namespace Campofinale.Packets.Sc
                 };
             }
             proto.Index = op.Index;
+            SetData(ScMsgId.ScFactoryOpRet, proto);
+        }
+
+        /// <summary>
+        /// Constructor for failure response.
+        /// </summary>
+        public PacketScFactoryOpRet(Player client, CsFactoryOp op, ulong seq)
+        {
+            ScFactoryOpRet proto = new ScFactoryOpRet()
+            {
+                RetCode = FactoryOpRetCode.Fail,
+                OpType = op.OpType,
+                Index = op.Index
+            };
             SetData(ScMsgId.ScFactoryOpRet, proto);
         }
     }

@@ -10,7 +10,7 @@ namespace Campofinale.Packets.Cs
         public static void Handle(Player session, CsMsgId cmdId, Packet packet)
         {
             CsEnterDungeon req = packet.DecodeBody<CsEnterDungeon>();
-            session.EnterDungeon(req.DungeonId, req.RacingParam);
+            session.EnterDungeon(req.DungeonId, req);
 
         }
        

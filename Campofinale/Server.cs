@@ -50,7 +50,7 @@ namespace Campofinale
             public string command;
             public string desc;
             public bool requiredTarget;
-            public CommandAttribute(string cmdName, string desc = "No description", bool requireTarget=false)
+            public CommandAttribute(string cmdName, string desc = "No description", bool requireTarget = false)
             {
                 this.command = cmdName;
                 this.desc = desc;
@@ -59,15 +59,15 @@ namespace Campofinale
             public delegate void HandlerDelegate(Player sender, string command, string[] args, Player target);
         }
         public static List<Player> clients = new List<Player>();
-        public static string ServerVersion = "1.2.2-dev";
+        public static string ServerVersion = "1.2.3-dev";
         public static bool Initialized = false;
         public static bool showLogs = true;
         public static bool showWarningLogs = true;
         public static bool showBodyLogs = false;
         public static Dispatch? dispatch;
         public static ConfigFile? config;
-        public static List<CsMsgId> csMessageToHide = new() { CsMsgId.CsMoveObjectMove, CsMsgId.CsBattleOp,CsMsgId.CsPing };
-        public static List<ScMsgId> scMessageToHide = new() { ScMsgId.ScMoveObjectMove, ScMsgId.ScPing,ScMsgId.ScObjectEnterView,ScMsgId.ScFactoryHsSync };
+        public static List<CsMsgId> csMessageToHide = new() { CsMsgId.CsMoveObjectMove, CsMsgId.CsBattleOp, CsMsgId.CsPing };
+        public static List<ScMsgId> scMessageToHide = new() { ScMsgId.ScMoveObjectMove, ScMsgId.ScPing, ScMsgId.ScObjectEnterView, ScMsgId.ScFactoryHsSync };
         public void Start(ConfigFile config)
         {
             {
@@ -83,13 +83,13 @@ namespace Campofinale
                 NotifyManager.Init();
                 CommandManager.Init();
             }
-            
+
             Logger.Initialize();
             Server.config = config;
             showLogs = config.logOptions.packets;
             showWarningLogs = config.logOptions.packetWarnings;
             showBodyLogs = config.logOptions.packetBodies;
-            Logger.Print($"Starting server version {ServerVersion} with supported client version: WINDOWS-{GameConstants.GAME_VERSION} and MOBILE-{GameConstants.GAME_VERSION_ANDROID}");
+            Logger.Print($"Starting server version {ServerVersion} with supported client version {GameConstants.GAME_VERSION} for Windows");
             Logger.Print($"Logs are {(showLogs ? "enabled" : "disabled")}");
             Logger.Print($"Warning logs are {(showWarningLogs ? "enabled" : "disabled")}");
             Logger.Print($"Packet body logs are {(showBodyLogs ? "enabled" : "disabled")}");
@@ -99,9 +99,9 @@ namespace Campofinale
             }
             StartDBService();
             DatabaseManager.Init();
-            ResourceManager.Init();
+            ResourceManager.Init(config);
             new Thread(new ThreadStart(DispatchServer)).Start();
-            
+
             IPAddress ipAddress = IPAddress.Parse(Server.config.gameServer.bindAddress);
             int port = Server.config.gameServer.bindPort;
             Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -116,10 +116,10 @@ namespace Campofinale
                 while (true)
                 {
                     Socket clientSocket = serverSocket.Accept();
-                    
+
                     if (clientSocket.Connected)
                     {
-                        Logger.Print("Connected new client: " + clients.Count()+1);
+                        Logger.Print("Connected new client: " + clients.Count() + 1);
                         try
                         {
                             Player client = new Player(clientSocket);
@@ -130,9 +130,9 @@ namespace Campofinale
                         {
                             Logger.PrintError($" {e.Message}");
                         }
-                        
 
-                        
+
+
                     }
 
 
@@ -178,14 +178,14 @@ namespace Campofinale
                     string[] split = cmd.Split(" ");
                     string[] args = cmd.Split(" ").Skip(1).ToArray();
                     string command = split[0].ToLower();
-                    CommandManager.Notify(null,command, args,clients.Find(c=>c.accountId==CommandManager.targetId));
+                    CommandManager.Notify(null, command, args, clients.Find(c => c.accountId == CommandManager.targetId));
                 }
                 catch (Exception ex)
                 {
                     Logger.PrintError(ex.Message);
                 }
 
-            } 
+            }
 
         }
         public void DispatchServer()
@@ -200,10 +200,11 @@ namespace Campofinale
         }
         public static void Shutdown()
         {
-            foreach (Player player in clients)
+            for (int i = 0; i < clients.Count; i++)
             {
-                if(player.Initialized)
-                player.Save();
+                var player = clients[i];
+                if (player.Initialized)
+                    player.Save();
                 player.Kick(CODE.ErrServerClosed);
             }
         }

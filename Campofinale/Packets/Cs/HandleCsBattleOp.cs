@@ -14,14 +14,12 @@ namespace Campofinale.Packets.Cs
         public static void Handle(Player session, CsMsgId cmdId, Packet packet)
         {
             CsBattleOp req = packet.DecodeBody<CsBattleOp>();
-            
+
             foreach (BattleClientOpData data in req.ClientData.OpList)
             {
                 switch (data.OpType)
                 {
-                   
                     case BattleActionOperateType.BattleOpEntityValueModify:
-
                         OnEntityValueModify(session, data);
                         break;
                     case BattleActionOperateType.BattleOpSkillStartCast:
@@ -35,6 +33,21 @@ namespace Campofinale.Packets.Cs
                         break;
                     case BattleActionOperateType.BattleOpEntityDie:
                         OnEntityDie(session, data.EntityDieOpData);
+                        break;
+                    case BattleActionOperateType.BattleOpUpdateDataVersion:
+                    case BattleActionOperateType.BattleOpResetBattleData:
+                    case BattleActionOperateType.BattleOpEnablePassiveSkill:
+                    case BattleActionOperateType.BattleOpTriggerKeyword:
+                    case BattleActionOperateType.BattleOpShieldValueModify:
+                    case BattleActionOperateType.BattleOpUpdateAtbInfo:
+                    case BattleActionOperateType.BattleOpModifyBattleState:
+                    case BattleActionOperateType.BattleOpModifyPoiseValue:
+                    case BattleActionOperateType.BattleOpSetBuffEnableState:
+                    case BattleActionOperateType.BattleOpAddBuff:
+                    case BattleActionOperateType.BattleOpFinishBuff:
+                    case BattleActionOperateType.BattleOpSkillAttach:
+                    case BattleActionOperateType.BattleOpSkillDetach:
+                    case BattleActionOperateType.BattleOpSwitchMode:
                         break;
                     default:
                         Logger.PrintWarn($"Unimplemented BattleActionOperateType.{data.OpType}");
@@ -50,12 +63,12 @@ namespace Campofinale.Packets.Cs
             {
                 if (Server.config.logOptions.debugPrint)
                 {
-                    Logger.PrintWarn("Killed entity with guid: "+data.EntityInstId);
+                    Logger.PrintWarn("Killed entity with guid: " + data.EntityInstId);
                 }
                 session.sceneManager.KillEntity(data.EntityInstId);
             }
-                
-            
+
+
         }
 
         private static void OnTriggerAction(Player session, BattleTriggerActionOpData data)
@@ -64,10 +77,10 @@ namespace Campofinale.Packets.Cs
             switch (data.Action.ActionType)
             {
                 case ServerBattleActionType.BattleActionDamage:
-                    foreach(BattleDamageDetail item in data.Action.DamageAction.Details)
+                    foreach (BattleDamageDetail item in data.Action.DamageAction.Details)
                     {
                         DamageEntity(session, item);
-                        
+
                     }
                     break;
                 case ServerBattleActionType.BattleActionHeal:
@@ -77,12 +90,15 @@ namespace Campofinale.Packets.Cs
                     }
                     break;
                 case ServerBattleActionType.BattleActionSpawnEnemy:
-                    if(data.Action.SpawnEnemyAction!=null)
-                    foreach(BattleSpawnEnemyActionDetail enemy in data.Action.SpawnEnemyAction.Details)
-                    {
-                        Scene scene = session.sceneManager.GetScene(enemy.SceneNumId);
-                        scene.SpawnEnemy(enemy);
-                    }
+                    if (data.Action.SpawnEnemyAction != null)
+                        foreach (BattleSpawnEnemyActionDetail enemy in data.Action.SpawnEnemyAction.Details)
+                        {
+                            Scene scene = session.sceneManager.GetScene(enemy.SceneNumId);
+                            scene.SpawnEnemy(enemy);
+                        }
+                    break;
+                case ServerBattleActionType.BattleActionCreateBuff:
+                case ServerBattleActionType.BattleActionLaunchProjectile:
                     break;
                 default:
                     Logger.PrintWarn($"Unimplemented ServerBattleActionType.{data.Action.ActionType}");
@@ -99,17 +115,17 @@ namespace Campofinale.Packets.Cs
                 en.Heal(detail.Value);
             }
         }
-        
+
         public static void DamageEntity(Player session, BattleDamageDetail detail)
         {
-            Entity en=session.sceneManager.GetEntity(detail.TargetId);
+            Entity en = session.sceneManager.GetEntity(detail.TargetId);
 
             if (en != null)
             {
                 en.Damage(detail.Value);
                 if (Server.config.logOptions.debugPrint)
                 {
-                    Logger.PrintWarn("Damaged entity with dmg: "+detail.Value);
+                    Logger.PrintWarn("Damaged entity with dmg: " + detail.Value);
                 }
             }
         }
@@ -126,10 +142,10 @@ namespace Campofinale.Packets.Cs
                         Hp = character.curHp,
                         Ultimatesp = character.ultimateSp
                     },
-                    Objid=character.guid,
-                    
+                    Objid = character.guid,
+
                 };
-                
+
                 session.Send(ScMsgId.ScCharSyncStatus, s);
             }
             else
@@ -140,7 +156,7 @@ namespace Campofinale.Packets.Cs
         private static void OnSkillEndCast(Player session, BattleClientOpData data)
         {
             ulong casterId = data.OwnerId;
-            
+
             Character character = session.chars.Find(c => c.guid == casterId);
             if (character != null)
             {
@@ -166,7 +182,7 @@ namespace Campofinale.Packets.Cs
             Character character = session.chars.Find(c => c.guid == data.EntityValueModifyData.EntityInstId);
             if (character != null)
             {
-               
+
                 character.curHp = data.EntityValueModifyData.Value.Hp;
                 character.ultimateSp = data.EntityValueModifyData.Value.Ultimatesp;
                 ScCharSyncStatus s = new()
