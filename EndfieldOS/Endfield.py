@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 # ================= Webhook =================
 webhook_urls = [
     os.environ.get("WEBHOOK"),
-    os.environ.get("WEBHOOK2"),
+    os.environ.get("WEBHOOK1"),
     os.environ.get("WEBHOOK2"),
 ]
 
