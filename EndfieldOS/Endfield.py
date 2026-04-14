@@ -81,7 +81,7 @@ def log_and_check(api_url, name):
     return False, data
 
 # ================= Embed =================
-def split_text_to_embeds(title, text, color=255, max_len=1024, image_url=None):
+def split_text_to_embeds(title, text, color=16776960, max_len=1024, image_url=None):
     if not text:
         return []
 
