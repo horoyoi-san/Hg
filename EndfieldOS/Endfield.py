@@ -225,7 +225,9 @@ def check_for_updates():
     if changed_l:
         data = convert_launcher()
         if data:
-            send_webhook(data, "Endfield", webhook_urls[0], image_url)
+            for url in webhook_urls:
+                send_webhook(data, "Endfield", url, image_url)
+
 
     else:
         print("Launcher: no change")
@@ -233,7 +235,9 @@ def check_for_updates():
     if changed_g:
         data = convert_game()
         if data:
-            send_webhook(data, "Endfield", webhook_urls[0], image_url)
+            for url in webhook_urls:
+                send_webhook(data, "Endfield", url, image_url)
+
 
     else:
         print("Game: no change")
