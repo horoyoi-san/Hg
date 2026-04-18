@@ -12,9 +12,9 @@ webhook_urls = [
 ]
 
 # ================= API =================
-IMAGE_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield-api/refs/heads/main/output/akEndfield/launcher/web/6/main_bg_image/th-th/all.json"
-LAUNCHER_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield-api/refs/heads/main/output/akEndfield/launcher/launcher/Official/6/all.json"
-GAME_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield-api/refs/heads/main/output/akEndfield/launcher/game/6/all.json"
+IMAGE_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/web/6/main_bg_image/th-th/all.json"
+LAUNCHER_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/launcher/Official/6/all.json"
+GAME_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/game/6/all.json"
 
 # ================= Utils =================
 def fetch_json(url):
