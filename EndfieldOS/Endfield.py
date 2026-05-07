@@ -11,6 +11,10 @@ webhook_urls = [
     os.environ.get("WEBHOOK2"),
 ]
 
+# ================= Branding =================
+BOT_NAME = "Endfield PROD"
+BOT_ICON = "https://raw.githubusercontent.com/horoyoi-san/ngp/main/assets/ananta_icon.png"
+
 # ================= API =================
 IMAGE_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/web/6/main_bg_image/th-th/all.json"
 LAUNCHER_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/launcher/Official/6/all.json"
@@ -96,7 +100,8 @@ def split_text_to_embeds(title, text, color=16776960, max_len=1024, image_url=No
                 "title": f"{title} {part}",
                 "description": current,
                 "color": color,
-                "image": {"url": image_url} if image_url else {}
+                "image": {"url": image_url} if image_url else {},
+                "thumbnail": {"url": BOT_ICON},
             })
             current = line
             part += 1
@@ -108,7 +113,8 @@ def split_text_to_embeds(title, text, color=16776960, max_len=1024, image_url=No
             "title": f"{title} {part}",
             "description": current,
             "color": color,
-            "image": {"url": image_url} if image_url else {}
+            "image": {"url": image_url} if image_url else {},
+            "thumbnail": {"url": BOT_ICON},
         })
 
     return embeds
@@ -207,7 +213,15 @@ def send_webhook(data, title, webhook_url, image_url=None):
     # send
     for i, embed in enumerate(blocks, 1):
         try:
-            r = requests.post(webhook_url, json={"embeds": [embed]}, timeout=10)
+            r = requests.post(
+                    webhook_url,
+                    json={
+                        "username": BOT_NAME,
+                        "avatar_url": BOT_ICON,
+                        "embeds": [embed]
+                    },
+                    timeout=10
+                )
             if r.status_code == 204:
                 print(f"✅ ส่ง {title} embed {i}")
             else:
