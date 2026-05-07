@@ -13,7 +13,7 @@ webhook_urls = [
 
 # ================= Branding =================
 BOT_NAME = "Endfield PROD"
-BOT_ICON = "https://github.com/horoyoi-san/Hg/blob/webhook/assets/endfield.png?raw=true"
+BOT_ICON = "https://github.com/horoyoi-san/Hg/blob/webhook/assets/endfield.png"
 
 # ================= API =================
 IMAGE_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/web/6/main_bg_image/th-th/all.json"
@@ -222,7 +222,10 @@ def send_webhook(data, title, webhook_url, image_url=None):
                     },
                     timeout=10
                 )
-            if r.status_code == 204:
+            print(r.status_code)
+            print(r.text)
+
+            if r.status_code in [200, 204]:
                 print(f"✅ ส่ง {title} embed {i}")
             else:
                 print(f"❌ {r.status_code} {r.text}")
