@@ -16,7 +16,7 @@ BOT_NAME = "明日方舟：终末地"
 BOT_ICON = "https://raw.githubusercontent.com/horoyoi-san/Hg/refs/heads/webhook/assets/endfield.png"
 
 # ================= API =================
-IMAGE_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/web/6/main_bg_image/th-th/all.json"
+IMAGE_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/web/1/main_bg_image/zh-cn/all.json"
 LAUNCHER_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/launcher/Official/1/all.json"
 GAME_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/game/1/all.json"
 
