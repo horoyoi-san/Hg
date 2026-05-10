@@ -11,8 +11,8 @@ from datetime import datetime, timezone
 # Discord Bot
 # =========================================================
 
-TOKEN = os.environ.get("DISCORD_TOKEN")
-
+# TOKEN = os.environ.get("DISCORD_TOKEN")
+TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 intents = discord.Intents.default()
 
 bot = commands.Bot(
@@ -24,7 +24,7 @@ bot = commands.Bot(
 # Branding
 # =========================================================
 
-BOT_NAME = "明日方舟：终末地"
+BOT_NAME = "Arknights：Endfield"
 
 BOT_ICON = (
     "https://raw.githubusercontent.com/"
@@ -39,9 +39,8 @@ BOT_ICON = (
 
 CHANNELS = {
     "endfield": [
-        1292097230924283965, # Test
-        1291728736739131402, # 1
-        1267379122338791435, # 2
+        9999999999999999999999,
+        99999999999999999999999,
     ],
 }
 
@@ -52,19 +51,19 @@ CHANNELS = {
 IMAGE_API = (
     "https://raw.githubusercontent.com/"
     "horoyoi-san/Endfield/refs/heads/main/"
-    "output/akEndfield/launcher/web/6/main_bg_image/zh-cn/all.json"
+    "output/akEndfield/launcher/web/6/main_bg_image/th-th/all.json"
 )
 
 LAUNCHER_API = (
     "https://raw.githubusercontent.com/"
     "horoyoi-san/Endfield/refs/heads/main/"
-    "output/akEndfield/launcher/launcher/Official/1/all.json"
+    "output/akEndfield/launcher/launcher/Official/6/all.json"
 )
 
 GAME_API = (
     "https://raw.githubusercontent.com/"
     "horoyoi-san/Endfield/refs/heads/main/"
-    "output/akEndfield/launcher/game/1/all.json"
+    "output/akEndfield/launcher/game/6/all.json"
 )
 
 # =========================================================
@@ -220,7 +219,7 @@ def split_text_to_embeds(
                 )
 
             embed.set_footer(
-                text="明日方舟：终末地 Update"
+                text="Arknights：Endfield Update"
             )
 
             embeds.append(embed)
@@ -479,7 +478,7 @@ async def check_for_updates():
 
     changed_l, _ = log_and_check(
         LAUNCHER_API,
-        "明日方舟：终末地 Launcher"
+        "Arknights：Endfield Launcher"
     )
 
     if changed_l:
@@ -492,7 +491,7 @@ async def check_for_updates():
 
             embeds = build_launcher_embeds(
                 data,
-                "明日方舟：终末地 Game",
+                "Arknights：Endfield",
                 image_url
             )
 
@@ -512,7 +511,7 @@ async def check_for_updates():
 
     changed_g, _ = log_and_check(
         GAME_API,
-        "明日方舟：终末地 Game"
+        "Arknights：Endfield Game"
     )
 
     if changed_g:
@@ -525,7 +524,7 @@ async def check_for_updates():
 
             embeds = build_game_embeds(
                 data,
-                "明日方舟：终末地",
+                "Arknights：Endfield",
                 image_url
             )
 
@@ -555,7 +554,7 @@ async def on_ready():
 
         activity=discord.Activity(
             type=discord.ActivityType.watching,
-            name="明日方舟：终末地"
+            name="Arknights：Endfield"
         )
     )
 
