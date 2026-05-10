@@ -253,7 +253,7 @@ def check_for_updates():
         data = convert_game()
         if data:
             for url in webhook_urls:
-                send_webhook(data, "Endfield", url, image_url)
+                send_webhook(data, "明日方舟：终末地", url, image_url)
 
 
     else:
