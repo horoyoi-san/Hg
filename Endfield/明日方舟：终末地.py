@@ -220,7 +220,7 @@ def split_text_to_embeds(
                 )
 
             embed.set_footer(
-                text="Arknights：Endfield Update"
+                text="https://endfield-game.vercel.app"
             )
 
             embeds.append(embed)
@@ -252,7 +252,7 @@ def split_text_to_embeds(
             )
 
         embed.set_footer(
-            text="Horoyoi-san | Mortenax Blade ඞ"
+            text="https://endfield-game.vercel.app"
         )
 
         embeds.append(embed)
