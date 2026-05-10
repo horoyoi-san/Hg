@@ -1,5 +1,6 @@
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
+import asyncio
 
 import requests
 import json
@@ -15,8 +16,7 @@ TOKEN = os.environ.get("DISCORD_TOKEN")
 
 intents = discord.Intents.default()
 
-bot = commands.Bot(
-    command_prefix="!",
+bot = discord.Client(
     intents=intents
 )
 
@@ -332,10 +332,12 @@ async def send_discord(
     channel_id,
     embeds
 ):
-    channel = bot.get_channel(channel_id)
+    try:
+        channel = await bot.fetch_channel(channel_id)
 
-    if not channel:
-        print(f"❌ Channel not found: {channel_id}")
+    except Exception as e:
+        print(f"❌ Channel fetch error: {channel_id}")
+        print(e)
         return
 
     for i, embed in enumerate(embeds, 1):
@@ -462,14 +464,11 @@ def build_game_embeds(
 
     return blocks
 
-# =========================================================
-# Main Update Check
-# =========================================================
+async def main():
 
-@tasks.loop(minutes=5)
-async def check_for_updates():
+    await bot.login(TOKEN)
 
-    print("🔍 checking updates")
+    print(f"✅ Logged in as {bot.user}")
 
     image_url = get_latest_image()
 
@@ -539,31 +538,10 @@ async def check_for_updates():
     else:
         print("Game: no change")
 
-# =========================================================
-# Events
-# =========================================================
-
-@bot.event
-async def on_ready():
-
-    print(f"✅ Logged in as {bot.user}")
-
-    # activity
-    await bot.change_presence(
-
-        status=discord.Status.online,
-
-        activity=discord.Activity(
-            type=discord.ActivityType.watching,
-            name="Arknights：Endfield"
-        )
-    )
-
-    # start loop
-    check_for_updates.start()
+    await bot.close()
 
 # =========================================================
-# Run
+# Run Once
 # =========================================================
 
-bot.run(TOKEN)
+asyncio.run(main())
