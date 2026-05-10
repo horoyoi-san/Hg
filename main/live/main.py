@@ -76,7 +76,7 @@ def process_game(env, config):
     if version:
         base_name = url.split('?')[0].split('/')[-1]
         filename = f"{base_name}.json"
-        game_directory = f"{env}/game/{version}"
+        game_directory = f"main/{env}/game/{version}"
         
         content = json.dumps(data, indent=4, ensure_ascii=False).encode('utf-8')
         save_file(game_directory, filename, content)
@@ -123,7 +123,7 @@ def process_game(env, config):
                 res_content = json.dumps(res_data, indent=4, ensure_ascii=False).encode('utf-8')
                 res_filename = "get_latest_resources.json"
                 
-                resource_directory = f"{env}/resources/{version}/{res_version}"
+                resource_directory = f"main/{env}/resources/{version}/{res_version}"
                 
                 save_file(resource_directory, res_filename, res_content)
                 print(f"Saved {res_filename} to {resource_directory}")
@@ -148,7 +148,7 @@ def process_launcher(env, config):
     if version:
         base_name = url.split('?')[0].split('/')[-1]
         filename = f"{base_name}.json"
-        directory = f"{env}/launcher/{version}"
+        directory = f"main/{env}/launcher/{version}"
         
         content = json.dumps(data, indent=4, ensure_ascii=False).encode('utf-8')
         save_file(directory, filename, content)

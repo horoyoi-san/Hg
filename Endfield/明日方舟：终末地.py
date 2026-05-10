@@ -12,13 +12,13 @@ webhook_urls = [
 ]
 
 # ================= Branding =================
-BOT_NAME = "Endfield PROD"
+BOT_NAME = "明日方舟：终末地"
 BOT_ICON = "https://raw.githubusercontent.com/horoyoi-san/Hg/refs/heads/webhook/assets/endfield.png"
 
 # ================= API =================
 IMAGE_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/web/6/main_bg_image/th-th/all.json"
-LAUNCHER_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/launcher/Official/6/all.json"
-GAME_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/game/6/all.json"
+LAUNCHER_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/launcher/Official/1/all.json"
+GAME_API = "https://raw.githubusercontent.com/horoyoi-san/Endfield/refs/heads/main/output/akEndfield/launcher/game/1/all.json"
 
 # ================= Utils =================
 def fetch_json(url):
@@ -236,14 +236,14 @@ def send_webhook(data, title, webhook_url, image_url=None):
 def check_for_updates():
     image_url = get_latest_image()
 
-    changed_l, _ = log_and_check(LAUNCHER_API, "Endfield Launcher")
-    changed_g, _ = log_and_check(GAME_API, "Endfield Game")
+    changed_l, _ = log_and_check(LAUNCHER_API, "明日方舟：终末地 Launcher")
+    changed_g, _ = log_and_check(GAME_API, "明日方舟：终末地 Game")
 
     if changed_l:
         data = convert_launcher()
         if data:
             for url in webhook_urls:
-                send_webhook(data, "Endfield", url, image_url)
+                send_webhook(data, "明日方舟：终末地", url, image_url)
 
 
     else:
