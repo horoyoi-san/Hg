@@ -491,7 +491,7 @@ async def main():
 
             embeds = build_launcher_embeds(
                 data,
-                "明日方舟：终末地 Game",
+                "明日方舟：终末地",
                 image_url
             )
 
