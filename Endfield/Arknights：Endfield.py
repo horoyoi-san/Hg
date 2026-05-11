@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import asyncio
+import time
 
 import requests
 import json
@@ -538,10 +539,24 @@ async def main():
     else:
         print("Game: no change")
 
+# =========================================================
+# Start
+# =========================================================
+
+async def runner():
+
+    task = asyncio.create_task(
+        bot.start(TOKEN)
+    )
+
+    await asyncio.sleep(5)
+
+    await main()
+
+    await asyncio.sleep(60)
+
     await bot.close()
 
-# =========================================================
-# Run Once
-# =========================================================
+    await task
 
-asyncio.run(main())
+asyncio.run(runner())
