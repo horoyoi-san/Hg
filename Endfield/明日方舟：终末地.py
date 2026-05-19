@@ -525,7 +525,7 @@ async def main():
 
             embeds = build_game_embeds(
                 data,
-                "Arknights：Endfield",
+                "明日方舟：终末地",
                 image_url
             )
 
