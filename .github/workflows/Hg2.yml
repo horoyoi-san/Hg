@@ -1,0 +1,66 @@
+name: Hg PROD Monitor 15:10
+
+on:
+  schedule:
+    - cron: "10 10 * * *"
+  workflow_dispatch:
+
+jobs:
+  prod-monitor:
+    name: Run PROD Monitor 15:10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+          pip install -U discord.py
+
+      # =====================================================
+      # Endfield Bot
+      # =====================================================
+
+      - name: Run Endfield Bot
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN_1 }}
+
+        run: |
+          python "Endfield/Arknights：Endfield.py"
+          python "Endfield/明日方舟：终末地.py"
+
+      # =====================================================
+      # Commit Logs
+      # =====================================================
+
+      - name: Commit and Push PROD logs
+        env:
+          PAT: ${{ secrets.PAT }}
+
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+          mkdir -p Hg/log
+
+          git add Hg/log
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Update logs [skip ci]"
+
+            git push \
+            https://x-access-token:${PAT}@github.com/${{ github.repository }} \
+            HEAD:webhook
+
+          else
+            echo "No changes to commit"
+          fi
