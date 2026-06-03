@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 # =========================================================
 
 #TOKEN = os.environ.get("DISCORD_TOKEN")
-TOKEN = "กดหหหหหหหหหหหหหหหหหหหห"
+TOKEN = "GAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 intents = discord.Intents.default()
 
 bot = discord.Client(intents=intents)
@@ -38,9 +38,9 @@ BOT_ICON = (
 
 CHANNELS = {
     "endfield": [
-        2222222222222222,  # Test
-        #22222222222222222222222222,  # 1
-        #5444444444444444,  # 2
+        67676767676766767676767,  # Test
+        #67676767676767676767676767767,  # 1
+        #67676767676767676767676767,  # 2
     ],
 }
 
