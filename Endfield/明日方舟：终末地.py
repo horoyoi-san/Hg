@@ -390,40 +390,25 @@ def convert_launcher():
 
 def convert_game():
 
-    # =========================
-    # GAME API
-    # =========================
-
     game_rsp = fetch_json(GAME_API)
-
     if not game_rsp:
         return None
-
-    # =========================
-    # WEB API
-    # =========================
 
     web_rsp = get_latest_game_web()
 
     version = game_rsp.get("version", "Unknown")
-
     pkg = game_rsp.get("pkg", {})
 
     pre_patch = web_rsp.get("pre_patch") or {}
 
-    patch_list = []
+    full_list = []
+    pre_list = []
 
-    # =========================
-    # FULL GAME
-    # =========================
-
+    # ================= FULL =================
     for p in pkg.get("packs", []):
-
         url = p.get("url")
-
         if url:
-
-            patch_list.append({
+            full_list.append({
                 "type": "FULL",
                 "version": version,
                 "url": url,
@@ -431,19 +416,13 @@ def convert_game():
                 "size": p.get("package_size", "0"),
             })
 
-    # =========================
-    # PRE PATCH
-    # =========================
-
+    # ================= PRE =================
     pre_patch_version = pre_patch.get("version")
 
     for p in pre_patch.get("patches", []):
-
         url = p.get("url")
-
         if url:
-
-            patch_list.append({
+            pre_list.append({
                 "type": "PRE PATCH",
                 "version": pre_patch_version,
                 "url": url,
@@ -451,17 +430,20 @@ def convert_game():
                 "size": p.get("package_size", "0"),
             })
 
+    # ✅ RETURN ต้องอยู่นอก loop เท่านั้น
     return {
         "default": {
             "config": {
                 "version": version,
                 "file_path": pkg.get("file_path", ""),
                 "md5": pkg.get("game_files_md5", ""),
-                "patches": patch_list,
+                "patches": {
+                    "full": full_list,
+                    "pre": pre_list
+                }
             }
         }
     }
-
 
 # =========================================================
 # Discord Send
@@ -581,16 +563,32 @@ def build_game_embeds(data, title, image_url=None):
     add_block(f"## File Path\n{file_path}")
 
     # ===== Patch section (IMPORTANT FIX) =====
-    for patch in config.get("patches", []):
+    patches = config.get("patches", {})
+
+    # ===== FULL =====
+    for patch in patches.get("full", []):
         block = (
-            f"## {patch['type']}\n"
+            f"## FULL\n"
+            f"Version: `{patch['version']}`\n"
+            f"{patch['url']}"
+        )
+        add_block(block)
+
+    # 🔥 บังคับแยก section ตรงนี้
+    push()
+    current_text = ""
+    part += 1
+
+    # ===== PRE =====
+    for patch in patches.get("pre", []):
+        block = (
+            f"## PRE PATCH\n"
             f"Version: `{patch['version']}`\n"
             f"{patch['url']}"
         )
         add_block(block)
 
     push()
-
     return embeds
 
 
