@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 # Discord Bot
 # =========================================================
 
-# TOKEN = os.environ.get("DISCORD_TOKEN")
+TOKEN = os.environ.get("DISCORD_TOKEN")
 
 intents = discord.Intents.default()
 
