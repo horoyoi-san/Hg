@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 # Discord Bot
 # =========================================================
 
-TOKEN = os.environ.get("DISCORD_TOKEN")
+#TOKEN = os.environ.get("DISCORD_TOKEN")
 
 intents = discord.Intents.default()
 
@@ -48,22 +48,18 @@ CHANNELS = {
 # API
 # =========================================================
 
-IMAGE_API = (
-    "https://raw.githubusercontent.com/"
-    "horoyoi-san/Endfield/refs/heads/main/"
-    "output/akEndfield/launcher/web/6/main_bg_image/zh-cn/all.json"
+LAUNCHER_WEB_API = (
+    "https://launcher.hypergryph.com/api/proxy/web/batch_proxy"
 )
 
 LAUNCHER_API = (
-    "https://raw.githubusercontent.com/"
-    "horoyoi-san/Endfield/refs/heads/main/"
-    "output/akEndfield/launcher/launcher/Official/1/all.json"
+    "https://launcher.hypergryph.com/api/launcher/get_latest_launcher"
+    "?appcode=abYeZZ16BPluCFyT&channel=1&sub_channel=1"
 )
 
 GAME_API = (
-    "https://raw.githubusercontent.com/"
-    "horoyoi-san/Endfield/refs/heads/main/"
-    "output/akEndfield/launcher/game/1/all.json"
+    "https://launcher.hypergryph.com/api/game/get_latest"
+    "?appcode=6LL0KJuqHBVz33WK&channel=1&sub_channel=1"
 )
 
 # =========================================================
@@ -82,26 +78,65 @@ def fetch_json(url):
         return []
 
 
-def get_latest(items):
-    if not items:
+def get_main_bg_image():
+
+    payload = {
+        "proxy_reqs": [
+            {
+                "kind": "get_main_bg_image",
+                "get_main_bg_image_req": {
+                    "appcode": "6LL0KJuqHBVz33WK",
+                    "channel": "1",
+                    "sub_channel": "1",
+                    "language": "zh-cn",
+                    "platform": "Windows",
+                    "source": "launcher",
+                },
+            }
+        ]
+    }
+
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/143.0.0.0 Safari/537.36"
+        ),
+        "Content-Type": "application/json;charset=UTF-8",
+    }
+
+    try:
+
+        resp = requests.post(
+            LAUNCHER_WEB_API,
+            json=payload,
+            headers=headers,
+            timeout=15,
+        )
+
+        data = resp.json()
+
+        print(json.dumps(data, indent=2, ensure_ascii=False))
+
+        for item in data.get("proxy_rsps", []):
+
+            if item.get("kind") == "get_main_bg_image":
+
+                rsp = item.get("get_main_bg_image_rsp", {})
+
+                main_bg = rsp.get("main_bg_image", {})
+
+                return main_bg.get("url")
+
         return None
 
-    return sorted(
-        items, key=lambda x: x.get("rsp", {}).get("version", ""), reverse=True
-    )[0]
+    except Exception as e:
 
+        print("❌ get_main_bg_image error")
+        print(e)
 
-def get_latest_image():
-    data = fetch_json(IMAGE_API)
-
-    if not data:
         return None
-
-    latest = sorted(data, key=lambda x: x.get("updatedAt", ""), reverse=True)[0]
-
-    return latest.get("rsp", {}).get("main_bg_image", {}).get("url")
-
-
+    
 # =========================================================
 # Logging
 # =========================================================
@@ -221,36 +256,28 @@ def split_text_to_embeds(title, text, color=0xFFD700, max_len=4000, image_url=No
 
 
 def convert_launcher():
-    data = fetch_json(LAUNCHER_API)
+    rsp = fetch_json(LAUNCHER_API)
 
-    latest = get_latest(data)
-
-    if not latest:
+    if not rsp:
         return None
-
-    rsp = latest.get("rsp", {})
 
     return {
         "default": {
             "resource": {
                 "version": rsp.get("version"),
-                "size": rsp.get("package_size", 0),
-                "md5": rsp.get("md5", ""),
-                "path": rsp.get("zip_package_url"),
+                "size": rsp.get("exe_size", 0),
+                "md5": "",
+                "path": rsp.get("exe_url"),
             }
         }
     }
 
 
 def convert_game():
-    data = fetch_json(GAME_API)
+    rsp = fetch_json(GAME_API)
 
-    latest = get_latest(data)
-
-    if not latest:
+    if not rsp:
         return None
-
-    rsp = latest.get("rsp", {})
 
     pkg = rsp.get("pkg", {})
 
@@ -260,10 +287,15 @@ def convert_game():
 
     for p in packs:
 
-        if p.get("url"):
+        url = p.get("url")
+
+        if url:
 
             patch_list.append(
-                {"version": rsp.get("version"), "indexFile": p.get("url")}
+                {
+                    "version": rsp.get("version"),
+                    "indexFile": url,
+                }
             )
 
     return {
@@ -375,7 +407,7 @@ async def main():
 
     print(f"✅ Logged in as {bot.user}")
 
-    image_url = get_latest_image()
+    image_url = get_main_bg_image()
 
     # =====================================================
     # Launcher
