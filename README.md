@@ -1,3 +1,11 @@
+# Arknights Endfield Download API
+| Version | File name | Download link|
+| :--- | :--- | :--- |
+| CN | launcher | https://launcher.hypergryph.com/api/launcher/get_latest_launcher?appcode=abYeZZ16BPluCFyT&channel=1&sub_channel=1 |
+| CN | game | https://launcher.hypergryph.com/api/game/get_latest?appcode=6LL0KJuqHBVz33WK&channel=1&sub_channel=1 |
+| OS | launcher | https://launcher.gryphline.com/api/game/get_latest?appcode=YDUTE5gscDZ229CW&channel=6&sub_channel=6 |
+| OS | game | https://launcher.gryphline.com/api/launcher/get_latest_launcher?appcode=TiaytKBUIEdoEwRT&channel=6&sub_channel=6 |
+
 # Arknights Endfield BETA Download 
 
 # Arknights Endfield CBT2 Download OS 0.5.28
