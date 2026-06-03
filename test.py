@@ -14,18 +14,16 @@ from datetime import datetime, timezone
 # =========================================================
 
 # TOKEN = os.environ.get("DISCORD_TOKEN")
-TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+TOKEN = "GAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 intents = discord.Intents.default()
 
-bot = discord.Client(
-    intents=intents
-)
+bot = discord.Client(intents=intents)
 
 # =========================================================
 # Branding
 # =========================================================
 
-BOT_NAME = "Arknights：Endfield"
+BOT_NAME = "明日方舟：终末地"
 
 BOT_ICON = (
     "https://raw.githubusercontent.com/"
@@ -40,8 +38,9 @@ BOT_ICON = (
 
 CHANNELS = {
     "endfield": [
-        9999999999999999999999,
-        99999999999999999999999,
+        999999999999999,  # Test
+        #888888888888888,  # 1
+        #444444444444444444,  # 2
     ],
 }
 
@@ -49,27 +48,24 @@ CHANNELS = {
 # API
 # =========================================================
 
-IMAGE_API = (
-    "https://raw.githubusercontent.com/"
-    "horoyoi-san/Endfield/refs/heads/main/"
-    "output/akEndfield/launcher/web/6/main_bg_image/th-th/all.json"
+LAUNCHER_WEB_API = (
+    "https://launcher.hypergryph.com/api/proxy/web/batch_proxy"
 )
 
 LAUNCHER_API = (
-    "https://raw.githubusercontent.com/"
-    "horoyoi-san/Endfield/refs/heads/main/"
-    "output/akEndfield/launcher/launcher/Official/6/all.json"
+    "https://launcher.hypergryph.com/api/launcher/get_latest_launcher"
+    "?appcode=abYeZZ16BPluCFyT&channel=1&sub_channel=1"
 )
 
 GAME_API = (
-    "https://raw.githubusercontent.com/"
-    "horoyoi-san/Endfield/refs/heads/main/"
-    "output/akEndfield/launcher/game/6/all.json"
+    "https://launcher.hypergryph.com/api/game/get_latest"
+    "?appcode=6LL0KJuqHBVz33WK&channel=1&sub_channel=1"
 )
 
 # =========================================================
 # Utils
 # =========================================================
+
 
 def fetch_json(url):
     try:
@@ -81,38 +77,193 @@ def fetch_json(url):
 
         return []
 
-def get_latest(items):
-    if not items:
+
+def get_main_bg_image():
+
+    payload = {
+        "proxy_reqs": [
+            {
+                "kind": "get_main_bg_image",
+                "get_main_bg_image_req": {
+                    "appcode": "6LL0KJuqHBVz33WK",
+                    "channel": "1",
+                    "sub_channel": "1",
+                    "language": "zh-cn",
+                    "platform": "Windows",
+                    "source": "launcher",
+                },
+            }
+        ]
+    }
+
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/143.0.0.0 Safari/537.36"
+        ),
+        "Content-Type": "application/json;charset=UTF-8",
+    }
+
+    try:
+
+        resp = requests.post(
+            LAUNCHER_WEB_API,
+            json=payload,
+            headers=headers,
+            timeout=15,
+        )
+
+        data = resp.json()
+
+        print(json.dumps(data, indent=2, ensure_ascii=False))
+
+        for item in data.get("proxy_rsps", []):
+
+            if item.get("kind") == "get_main_bg_image":
+
+                rsp = item.get("get_main_bg_image_rsp", {})
+
+                main_bg = rsp.get("main_bg_image", {})
+
+                return main_bg.get("url")
+
         return None
 
-    return sorted(
-        items,
-        key=lambda x: x.get("rsp", {}).get("version", ""),
-        reverse=True
-    )[0]
+    except Exception as e:
 
-def get_latest_image():
-    data = fetch_json(IMAGE_API)
+        print("❌ get_main_bg_image error")
+        print(e)
 
-    if not data:
         return None
+    
+def get_latest_game_web():
 
-    latest = sorted(
-        data,
-        key=lambda x: x.get("updatedAt", ""),
-        reverse=True
-    )[0]
+    # =====================================================
+    # ดึง current game version ก่อน
+    # =====================================================
 
-    return (
-        latest
-        .get("rsp", {})
-        .get("main_bg_image", {})
-        .get("url")
+    game_rsp = fetch_json(GAME_API)
+
+    current_version = game_rsp.get("version", "")
+
+    print(f"Current Version: {current_version}")
+
+    payload = {
+        "proxy_reqs": [
+            {
+                "kind": "get_latest_game",
+                "get_latest_game_req": {
+                    "appcode": "6LL0KJuqHBVz33WK",
+                    "channel": "1",
+                    "sub_channel": "1",
+                    "platform": "Windows",
+                    "version": current_version
+                },
+            }
+        ]
+    }
+
+    headers = {
+        "User-Agent": "HGLauncher",
+        "Content-Type": "application/json"
+    }
+
+    try:
+
+        resp = requests.post(
+            "https://launcher.hypergryph.com/api/proxy/batch_proxy",
+            json=payload,
+            headers=headers,
+            timeout=15,
+        )
+
+        data = resp.json()
+
+        print(json.dumps(data, indent=2, ensure_ascii=False))
+
+        for item in data.get("proxy_rsps", []):
+
+            if item.get("kind") == "get_latest_game":
+
+                return item.get("get_latest_game_rsp", {})
+
+        return {}
+
+    except Exception as e:
+
+        print("❌ get_latest_game_web error")
+        print(e)
+
+        return {}
+    
+    
+def log_and_check_web_game():
+
+    try:
+
+        data = get_latest_game_web()
+
+        text = json.dumps(
+            data,
+            ensure_ascii=False,
+            sort_keys=True
+        )
+
+    except Exception as e:
+
+        print("❌ Error fetching WEB GAME")
+        print(e)
+
+        return False, None
+
+    current_hash = hashlib.md5(text.encode()).hexdigest()
+
+    log_dir = os.path.join(
+        os.getcwd(),
+        "Hg",
+        "log",
+        "明日方舟：终末地 Web Game"
     )
 
+    os.makedirs(log_dir, exist_ok=True)
+
+    hash_file = os.path.join(log_dir, "last_hash.txt")
+
+    raw_file = os.path.join(log_dir, "raw_log.jsonl")
+
+    with open(raw_file, "a", encoding="utf-8") as f:
+
+        f.write(
+            json.dumps(
+                {
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "data": data
+                },
+                ensure_ascii=False
+            ) + "\n"
+        )
+
+    last_hash = ""
+
+    if os.path.exists(hash_file):
+
+        with open(hash_file, "r", encoding="utf-8") as f:
+            last_hash = f.read().strip()
+
+    if current_hash != last_hash:
+
+        with open(hash_file, "w", encoding="utf-8") as f:
+            f.write(current_hash)
+
+        return True, data
+
+    return False, data
+  
 # =========================================================
 # Logging
 # =========================================================
+
 
 def log_and_check(api_url, name):
     try:
@@ -128,39 +279,25 @@ def log_and_check(api_url, name):
 
         return False, None
 
-    current_hash = hashlib.md5(
-        text.encode()
-    ).hexdigest()
+    current_hash = hashlib.md5(text.encode()).hexdigest()
 
-    log_dir = os.path.join(
-        os.getcwd(),
-        "Hg",
-        "log",
-        name
-    )
+    log_dir = os.path.join(os.getcwd(), "Hg", "log", name)
 
     os.makedirs(log_dir, exist_ok=True)
 
-    hash_file = os.path.join(
-        log_dir,
-        "last_hash.txt"
-    )
+    hash_file = os.path.join(log_dir, "last_hash.txt")
 
-    raw_file = os.path.join(
-        log_dir,
-        "raw_log.jsonl"
-    )
+    raw_file = os.path.join(log_dir, "raw_log.jsonl")
 
     # write raw log
     with open(raw_file, "a", encoding="utf-8") as f:
-        f.write(json.dumps({
-            "timestamp": datetime.now(
-                timezone.utc
-            ).isoformat(),
-
-            "data": data
-
-        }, ensure_ascii=False) + "\n")
+        f.write(
+            json.dumps(
+                {"timestamp": datetime.now(timezone.utc).isoformat(), "data": data},
+                ensure_ascii=False,
+            )
+            + "\n"
+        )
 
     last_hash = ""
 
@@ -178,160 +315,160 @@ def log_and_check(api_url, name):
 
     return False, data
 
+
 # =========================================================
 # Embed
 # =========================================================
 
-def split_text_to_embeds(
-    title,
-    text,
-    color=0xFFD700,
-    max_len=4000,
-    image_url=None
-):
-    if not text:
-        return []
 
+def split_text_to_embeds(title, text, color=0xFFD700, max_len=4000, image_url=None):
     embeds = []
 
-    lines = text.split("\n")
-
-    current = ""
-
-    part = 1
-
-    for line in lines:
-
-        if len(current) + len(line) + 1 > max_len:
-
-            embed = discord.Embed(
-                title=f"{title} {part}",
-                description=current,
-                color=color
-            )
-
-            embed.set_thumbnail(
-                url=BOT_ICON
-            )
-
-            if image_url:
-                embed.set_image(
-                    url=image_url
-                )
-
-            embed.set_footer(
-                text="Arknights：Endfield Update"
-            )
-
-            embeds.append(embed)
-
-            current = line
-
-            part += 1
-
-        else:
-            current += (
-                "\n" if current else ""
-            ) + line
-
-    if current:
-
+    def push(part_text, part_num):
         embed = discord.Embed(
-            title=f"{title} {part}",
-            description=current,
+            title=f"{title} {part_num}",
+            description=part_text,
             color=color
         )
-
-        embed.set_thumbnail(
-            url=BOT_ICON
-        )
-
+        embed.set_thumbnail(url=BOT_ICON)
         if image_url:
-            embed.set_image(
-                url=image_url
-            )
-
-        embed.set_footer(
-            text="Horoyoi-san | Mortenax Blade ඞ"
-        )
-
+            embed.set_image(url=image_url)
+        embed.set_footer(text="https://endfield-game.vercel.app")
         embeds.append(embed)
 
+    part = 1
+    current = ""
+
+    for line in text.split("\n"):
+        # ถ้า line เดียวใหญ่เกิน → ต้อง "ตัดในตัวมันเอง"
+        while len(line) > max_len:
+            chunk = line[:max_len]
+            line = line[max_len:]
+
+            if len(current) + len(chunk) > max_len:
+                push(current, part)
+                part += 1
+                current = chunk
+            else:
+                current += ("\n" if current else "") + chunk
+
+        # ปกติ
+        if len(current) + len(line) + 1 > max_len:
+            push(current, part)
+            part += 1
+            current = line
+        else:
+            current += ("\n" if current else "") + line
+
+    if current:
+        push(current, part)
+
     return embeds
+
 
 # =========================================================
 # Convert
 # =========================================================
 
+
 def convert_launcher():
-    data = fetch_json(LAUNCHER_API)
+    rsp = fetch_json(LAUNCHER_API)
 
-    latest = get_latest(data)
-
-    if not latest:
+    if not rsp:
         return None
-
-    rsp = latest.get("rsp", {})
 
     return {
         "default": {
             "resource": {
                 "version": rsp.get("version"),
-                "size": rsp.get("package_size", 0),
-                "md5": rsp.get("md5", ""),
-                "path": rsp.get("zip_package_url")
+                "size": rsp.get("exe_size", 0),
+                "md5": "",
+                "path": rsp.get("exe_url"),
             }
         }
     }
 
 def convert_game():
-    data = fetch_json(GAME_API)
 
-    latest = get_latest(data)
+    # =========================
+    # GAME API
+    # =========================
 
-    if not latest:
+    game_rsp = fetch_json(GAME_API)
+
+    if not game_rsp:
         return None
 
-    rsp = latest.get("rsp", {})
+    # =========================
+    # WEB API
+    # =========================
 
-    pkg = rsp.get("pkg", {})
+    web_rsp = get_latest_game_web()
 
-    packs = pkg.get("packs", [])
+    version = game_rsp.get("version", "Unknown")
+
+    pkg = game_rsp.get("pkg", {})
+
+    pre_patch = web_rsp.get("pre_patch") or {}
 
     patch_list = []
 
-    for p in packs:
+    # =========================
+    # FULL GAME
+    # =========================
 
-        if p.get("url"):
+    for p in pkg.get("packs", []):
+
+        url = p.get("url")
+
+        if url:
 
             patch_list.append({
-                "version": rsp.get("version"),
-                "indexFile": p.get("url")
+                "type": "FULL",
+                "version": version,
+                "url": url,
+                "md5": p.get("md5", ""),
+                "size": p.get("package_size", "0"),
+            })
+
+    # =========================
+    # PRE PATCH
+    # =========================
+
+    pre_patch_version = pre_patch.get("version")
+
+    for p in pre_patch.get("patches", []):
+
+        url = p.get("url")
+
+        if url:
+
+            patch_list.append({
+                "type": "PRE PATCH",
+                "version": pre_patch_version,
+                "url": url,
+                "md5": p.get("md5", ""),
+                "size": p.get("package_size", "0"),
             })
 
     return {
         "default": {
             "config": {
-                "version": rsp.get("version"),
-                "size": pkg.get("total_size", 0),
-                "indexFileMd5": pkg.get(
-                    "game_files_md5",
-                    ""
-                ),
-
-                "patchConfig": patch_list
+                "version": version,
+                "file_path": pkg.get("file_path", ""),
+                "md5": pkg.get("game_files_md5", ""),
+                "patches": patch_list,
             }
         }
     }
+
 
 # =========================================================
 # Discord Send
 # =========================================================
 
-async def send_discord(
-    channel_id,
-    embeds
-):
+
+async def send_discord(channel_id, embeds):
     try:
         channel = await bot.fetch_channel(channel_id)
 
@@ -345,26 +482,20 @@ async def send_discord(
         try:
             await channel.send(embed=embed)
 
-            print(
-                f"✅ sent embed {i} -> {channel_id}"
-            )
+            print(f"✅ sent embed {i} -> {channel_id}")
 
         except Exception as e:
-            print(
-                f"❌ send error -> {channel_id}"
-            )
+            print(f"❌ send error -> {channel_id}")
 
             print(e)
+
 
 # =========================================================
 # Build Embeds
 # =========================================================
 
-def build_launcher_embeds(
-    data,
-    title,
-    image_url=None
-):
+
+def build_launcher_embeds(data, title, image_url=None):
     blocks = []
 
     default = data.get("default")
@@ -377,92 +508,91 @@ def build_launcher_embeds(
     if not resource:
         return []
 
-    version = resource.get(
-        "version",
-        "No version"
-    )
+    version = resource.get("version", "No version")
 
-    path = resource.get(
-        "path",
-        ""
-    )
+    path = resource.get("path", "")
 
-    size = resource.get(
-        "size",
-        0
-    )
+    size = resource.get("size", 0)
 
-    md5 = resource.get(
-        "md5",
-        ""
-    )
+    md5 = resource.get("md5", "")
 
-    desc = (
-        f"## Version {version}\n"
-        f"## Download\n"
-        f"{path}\n"
-    )
+    desc = f"## Version {version}\n" f"## Download\n" f"{path}\n"
 
-    blocks += split_text_to_embeds(
-        title + " — Launcher",
-        desc,
-        image_url=image_url
-    )
+    blocks += split_text_to_embeds(title + " — Launcher", desc, image_url=image_url)
 
     return blocks
 
-def build_game_embeds(
-    data,
-    title,
-    image_url=None
-):
-    blocks = []
+
+def build_game_embeds(data, title, image_url=None):
 
     default = data.get("default")
-
     if not default:
         return []
 
-    config = default.get(
-        "config",
-        {}
-    )
+    config = default.get("config", {})
 
-    version = config.get(
-        "version",
-        "No version"
-    )
+    version = config.get("version", "Unknown")
+    file_path = config.get("file_path", "")
 
-    patch_lines = []
+    embeds = []
+    current_text = ""
+    part = 1
 
-    for patch in config.get(
-        "patchConfig",
-        []
-    ):
+    def push():
+        nonlocal current_text, part
+        if not current_text:
+            return
 
-        ver = patch.get("version")
-
-        url = patch.get("indexFile")
-
-        patch_lines.append(
-            f"{ver}\n{url}"
+        embed = discord.Embed(
+            title=f"{title} — Game {part}",
+            description=current_text,
+            color=0xFFD700
         )
+        embed.set_thumbnail(url=BOT_ICON)
+        if image_url:
+            embed.set_image(url=image_url)
+        embed.set_footer(text="https://endfield-game.vercel.app")
 
-    desc = (
-        f"## Version\n"
-        f"`{version}`\n\n"
+        embeds.append(embed)
 
-        f"## Download\n"
-        + "\n\n".join(patch_lines)
-    )
+        current_text = ""
+        part += 1
 
-    blocks += split_text_to_embeds(
-        title + " — Game",
-        desc,
-        image_url=image_url
-    )
+    def add_block(block):
+        nonlocal current_text
 
-    return blocks
+        # ถ้า block เดียวใหญ่ → ต้อง force push
+        if len(block) > 4000:
+            push()
+            embeds.append(discord.Embed(
+                title=f"{title} — Game {part}",
+                description=block[:4000],
+                color=0xFFD700
+            ))
+            return
+
+        if len(current_text) + len(block) > 4000:
+            push()
+
+        current_text += ("\n\n" if current_text else "") + block
+
+    # ===== Version section =====
+    add_block(f"## Current Version\n`{version}`")
+    add_block(f"## File Path\n{file_path}")
+
+    # ===== Patch section (IMPORTANT FIX) =====
+    for patch in config.get("patches", []):
+        block = (
+            f"## {patch['type']}\n"
+            f"Version: `{patch['version']}`\n"
+            f"{patch['url']}"
+        )
+        add_block(block)
+
+    push()
+
+    return embeds
+
 
 async def main():
 
@@ -470,7 +600,7 @@ async def main():
 
     print(f"✅ Logged in as {bot.user}")
 
-    image_url = get_latest_image()
+    image_url = get_main_bg_image()
 
     # =====================================================
     # Launcher
@@ -478,7 +608,7 @@ async def main():
 
     changed_l, _ = log_and_check(
         LAUNCHER_API,
-        "Arknights_Endfield_Launcher"
+        "明日方舟：终末地 Launcher"
     )
 
     if changed_l:
@@ -491,16 +621,13 @@ async def main():
 
             embeds = build_launcher_embeds(
                 data,
-                "Arknights：Endfield",
+                "明日方舟：终末地",
                 image_url
             )
 
             for channel_id in CHANNELS["endfield"]:
 
-                await send_discord(
-                    channel_id,
-                    embeds
-                )
+                await send_discord(channel_id, embeds)
 
     else:
         print("Launcher: no change")
@@ -509,14 +636,16 @@ async def main():
     # Game
     # =====================================================
 
-    changed_g, _ = log_and_check(
+    changed_game, _ = log_and_check(
         GAME_API,
-        "Arknights_Endfield_Game"
+        "明日方舟：终末地 Game"
     )
 
-    if changed_g:
+    changed_pre, _ = log_and_check_web_game()
 
-        print("✅ game changed")
+    if changed_game or changed_pre:
+
+        print("✅ game/pre changed")
 
         data = convert_game()
 
@@ -524,29 +653,26 @@ async def main():
 
             embeds = build_game_embeds(
                 data,
-                "Arknights：Endfield",
+                "明日方舟：终末地",
                 image_url
             )
 
             for channel_id in CHANNELS["endfield"]:
 
-                await send_discord(
-                    channel_id,
-                    embeds
-                )
+                await send_discord(channel_id, embeds)
 
     else:
         print("Game: no change")
+
 
 # =========================================================
 # Start
 # =========================================================
 
+
 async def runner():
 
-    task = asyncio.create_task(
-        bot.start(TOKEN)
-    )
+    task = asyncio.create_task(bot.start(TOKEN))
 
     await asyncio.sleep(5)
 
@@ -557,5 +683,6 @@ async def runner():
     await bot.close()
 
     await task
+
 
 asyncio.run(runner())
