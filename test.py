@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 # =========================================================
 
 #TOKEN = os.environ.get("DISCORD_TOKEN")
-TOKEN = "GAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+TOKEN = "GYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 intents = discord.Intents.default()
 
 bot = discord.Client(intents=intents)
@@ -23,7 +23,7 @@ bot = discord.Client(intents=intents)
 # Branding
 # =========================================================
 
-BOT_NAME = "Arknights：Endfield"
+BOT_NAME = "明日方舟：终末地"
 
 BOT_ICON = (
     "https://raw.githubusercontent.com/"
@@ -38,9 +38,9 @@ BOT_ICON = (
 
 CHANNELS = {
     "endfield": [
-        67676767676766767676767,  # Test
-        #67676767676767676767676767767,  # 1
-        #67676767676767676767676767,  # 2
+        999999999999999999,  # Test
+        #999999999999999,  # 1
+        #999999999999999999999,  # 2
     ],
 }
 
@@ -49,17 +49,17 @@ CHANNELS = {
 # =========================================================
 
 LAUNCHER_WEB_API = (
-    "https://launcher.gryphline.com/api/proxy/web/batch_proxy"
+    "https://launcher.hypergryph.com/api/proxy/web/batch_proxy"
 )
 
 LAUNCHER_API = (
-    "https://launcher.gryphline.com/api/launcher/get_latest_launcher"
-    "?appcode=TiaytKBUIEdoEwRT&channel=6&sub_channel=6"
+    "https://launcher.hypergryph.com/api/launcher/get_latest_launcher"
+    "?appcode=abYeZZ16BPluCFyT&channel=1&sub_channel=1"
 )
 
 GAME_API = (
-    "https://launcher.gryphline.com/api/game/get_latest"
-    "?appcode=YDUTE5gscDZ229CW&channel=6&sub_channel=6"
+    "https://launcher.hypergryph.com/api/game/get_latest"
+    "?appcode=6LL0KJuqHBVz33WK&channel=1&sub_channel=1"
 )
 
 # =========================================================
@@ -85,10 +85,10 @@ def get_main_bg_image():
             {
                 "kind": "get_main_bg_image",
                 "get_main_bg_image_req": {
-                    "appcode": "YDUTE5gscDZ229CW",
-                    "channel": "6",
-                    "sub_channel": "6",
-                    "language": "th-th",
+                    "appcode": "6LL0KJuqHBVz33WK",
+                    "channel": "1",
+                    "sub_channel": "1",
+                    "language": "zh-cn",
                     "platform": "Windows",
                     "source": "launcher",
                 },
@@ -154,9 +154,9 @@ def get_latest_game_web():
             {
                 "kind": "get_latest_game",
                 "get_latest_game_req": {
-                    "appcode": "YDUTE5gscDZ229CW",
-                    "channel": "6",
-                    "sub_channel": "6",
+                    "appcode": "6LL0KJuqHBVz33WK",
+                    "channel": "1",
+                    "sub_channel": "1",
                     "platform": "Windows",
                     "version": current_version
                 },
@@ -172,7 +172,7 @@ def get_latest_game_web():
     try:
 
         resp = requests.post(
-            "https://launcher.gryphline.com/api/proxy/batch_proxy",
+            "https://launcher.hypergryph.com/api/proxy/batch_proxy",
             json=payload,
             headers=headers,
             timeout=15,
@@ -223,7 +223,7 @@ def log_and_check_web_game():
         os.getcwd(),
         "Hg",
         "log",
-        "Arknights：Endfield Web Game"
+        "明日方舟：终末地 Web Game"
     )
 
     os.makedirs(log_dir, exist_ok=True)
@@ -279,7 +279,26 @@ def log_and_check(api_url, name):
 
         return False, None
 
-    current_hash = hashlib.md5(text.encode()).hexdigest()
+    # Create a stable, canonical representation for hashing.
+    # Strip dynamic URL query params (e.g. auth_key) to avoid spurious changes.
+    def _sanitize(obj):
+        if isinstance(obj, dict):
+            return {k: _sanitize(v) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [_sanitize(v) for v in obj]
+        if isinstance(obj, str):
+            if obj.startswith("http://") or obj.startswith("https://"):
+                return obj.split("?", 1)[0]
+            return obj
+        return obj
+
+    try:
+        sanitized = _sanitize(data)
+        canonical = json.dumps(sanitized, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    except Exception:
+        canonical = json.dumps(data, ensure_ascii=False, sort_keys=True)
+
+    current_hash = hashlib.md5(canonical.encode("utf-8")).hexdigest()
 
     log_dir = os.path.join(os.getcwd(), "Hg", "log", name)
 
@@ -606,7 +625,7 @@ async def main():
 
     changed_l, _ = log_and_check(
         LAUNCHER_API,
-        "Arknights：Endfield Launcher"
+        "明日方舟：终末地 Launcher"
     )
 
     if changed_l:
@@ -619,7 +638,7 @@ async def main():
 
             embeds = build_launcher_embeds(
                 data,
-                "Arknights：Endfield",
+                "明日方舟：终末地",
                 image_url
             )
 
@@ -636,7 +655,7 @@ async def main():
 
     changed_game, _ = log_and_check(
         GAME_API,
-        "Arknights：Endfield Game"
+        "明日方舟：终末地 Game"
     )
 
     changed_pre, _ = log_and_check_web_game()
@@ -651,7 +670,7 @@ async def main():
 
             embeds = build_game_embeds(
                 data,
-                "Arknights：Endfield",
+                "明日方舟：终末地",
                 image_url
             )
 

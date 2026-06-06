@@ -279,7 +279,26 @@ def log_and_check(api_url, name):
 
         return False, None
 
-    current_hash = hashlib.md5(text.encode()).hexdigest()
+    # Create a stable, canonical representation for hashing.
+    # Strip dynamic URL query params (e.g. auth_key) to avoid spurious changes.
+    def _sanitize(obj):
+        if isinstance(obj, dict):
+            return {k: _sanitize(v) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [_sanitize(v) for v in obj]
+        if isinstance(obj, str):
+            if obj.startswith("http://") or obj.startswith("https://"):
+                return obj.split("?", 1)[0]
+            return obj
+        return obj
+
+    try:
+        sanitized = _sanitize(data)
+        canonical = json.dumps(sanitized, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    except Exception:
+        canonical = json.dumps(data, ensure_ascii=False, sort_keys=True)
+
+    current_hash = hashlib.md5(canonical.encode("utf-8")).hexdigest()
 
     log_dir = os.path.join(os.getcwd(), "Hg", "log", name)
 
