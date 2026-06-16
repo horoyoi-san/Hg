@@ -13,8 +13,8 @@ from datetime import datetime, timezone
 # Discord Bot
 # =========================================================
 
-#TOKEN = os.environ.get("DISCORD_TOKEN")
-TOKEN = "GAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+TOKEN = os.environ.get("DISCORD_TOKEN")
+
 intents = discord.Intents.default()
 
 bot = discord.Client(intents=intents)
@@ -39,8 +39,8 @@ BOT_ICON = (
 CHANNELS = {
     "endfield": [
         1292097230924283965,  # Test
-       # 1267379122338791435,  # 1
-       # 1290277256626835478,  # 2
+        1267379122338791435,  # 1
+        1290277256626835478,  # 2
     ],
 }
 
