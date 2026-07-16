@@ -7,8 +7,8 @@ CONFIG = {
         "Drip": bangkok_datetime(2026, 7, 10, 18, 0),
         "BETA": bangkok_datetime(2026, 7, 10, 10, 0),
         "Live": bangkok_datetime(2026, 8, 28, 18, 0),
-        "Predownload": bangkok_datetime(2026, 9, 2, 13, 0),
-        "Release": bangkok_datetime(2026, 9, 4, 10, 0),
+        "Predownload": bangkok_datetime(2026, 9, 1, 13, 0),
+        "Release": bangkok_datetime(2026, 9, 3, 10, 0),
     },
     "intervals": {
         "Drip": 49,
