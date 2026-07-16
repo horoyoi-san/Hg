@@ -212,7 +212,7 @@ def log_and_check_web_game():
 
     except Exception as e:
 
-        print("❌ Error fetching WEB GAME")
+        print("❌ Error fetching Pre Game")
         print(e)
 
         return False, None
@@ -223,7 +223,7 @@ def log_and_check_web_game():
         os.getcwd(),
         "Hg",
         "log",
-        "Arknights：Endfield Web Game"
+        "Arknights：Endfield Pre Game"
     )
 
     os.makedirs(log_dir, exist_ok=True)
