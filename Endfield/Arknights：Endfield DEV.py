@@ -23,7 +23,7 @@ bot = discord.Client(intents=intents)
 # Branding
 # =========================================================
 
-BOT_NAME = "明日方舟：终末地 DEV"
+BOT_NAME = "Arknights：Endfield DEV"
 
 BOT_ICON = (
     "https://raw.githubusercontent.com/"
@@ -88,7 +88,7 @@ def get_main_bg_image():
                     "appcode": "DtPIU2c3bP4Y9Rpo",
                     "channel": "1",
                     "sub_channel": "1",
-                    "language": "zh-cn",
+                    "language": "en-en",
                     "platform": "Windows",
                     "source": "launcher",
                 },
@@ -223,7 +223,7 @@ def log_and_check_web_game():
         os.getcwd(),
         "Hg",
         "log",
-        "明日方舟：终末地 DEV Pre Game"
+        "Arknights：Endfield DEV Pre Game"
     )
 
     os.makedirs(log_dir, exist_ok=True)
@@ -625,7 +625,7 @@ async def main():
 
     changed_l, _ = log_and_check(
         LAUNCHER_API,
-        "明日方舟：终末地 DEV Launcher"
+        "Arknights：Endfield DEV Launcher"
     )
 
     if changed_l:
@@ -638,7 +638,7 @@ async def main():
 
             embeds = build_launcher_embeds(
                 data,
-                "明日方舟：终末地 DEV",
+                "Arknights：Endfield DEV",
                 image_url
             )
 
@@ -655,7 +655,7 @@ async def main():
 
     changed_game, _ = log_and_check(
         GAME_API,
-        "明日方舟：终末地 DEV Game"
+        "Arknights：Endfield DEV Game"
     )
 
     changed_pre, _ = log_and_check_web_game()
@@ -670,7 +670,7 @@ async def main():
 
             embeds = build_game_embeds(
                 data,
-                "明日方舟：终末地 DEV",
+                "Arknights：Endfield DEV",
                 image_url
             )
 
