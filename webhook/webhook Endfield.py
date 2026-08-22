@@ -26,8 +26,8 @@ def load_env_file():
 load_env_file()
 
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "YOUR_DISCORD")
-BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN", "YOUR_BOT_TOKEN")
-CHANNEL_ID = os.getenv("DISCORD_HKRPG_CHANNEL_ID", os.getenv("DISCORD_CHANNEL_ID", "YOUR_CHANNEL_ID"))
+BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN", "")
+CHANNEL_ID = os.getenv("DISCORD_HKRPG_CHANNEL_ID", os.getenv("DISCORD_CHANNEL_ID", ""))
 DISCORD_API_URL = "https://discord.com/api/v10"
 
 

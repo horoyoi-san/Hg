@@ -4,7 +4,7 @@ from timeline_utils import bangkok_datetime, run_timeline
 CONFIG = {
     "game_name": "Arknights: Endfield",
     "start_dates": {
-        "Drip": bangkok_datetime(2026, 7, 10, 18, 0),
+        "Drip": bangkok_datetime(2026, 8, 21, 6, 0),
         "BETA": bangkok_datetime(2026, 7, 10, 10, 0),
         "Live": bangkok_datetime(2026, 8, 21, 19, 30),
         "Predownload": bangkok_datetime(2026, 9, 1, 13, 0),
