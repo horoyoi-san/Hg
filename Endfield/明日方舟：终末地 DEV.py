@@ -23,7 +23,7 @@ bot = discord.Client(intents=intents)
 # Branding
 # =========================================================
 
-BOT_NAME = "Arknights：Endfield DEV"
+BOT_NAME = "明日方舟：终末地 DEV"
 
 BOT_ICON = (
     "https://raw.githubusercontent.com/"
@@ -39,7 +39,7 @@ BOT_ICON = (
 CHANNELS = {
     "endfield": [
         1292097230924283965,  # Test
-        1267379122338791435,  # 1
+        1208310099748327444,  # 1
         1290277256626835478,  # 2
     ],
 }
@@ -212,7 +212,7 @@ def log_and_check_web_game():
 
     except Exception as e:
 
-        print("❌ Error fetching Pre Game")
+        print("❌ Error fetching Pre")
         print(e)
 
         return False, None
@@ -223,7 +223,7 @@ def log_and_check_web_game():
         os.getcwd(),
         "Hg",
         "log",
-        "Arknights：Endfield DEV Pre Game"
+        "明日方舟：终末地 DEV Pre"
     )
 
     os.makedirs(log_dir, exist_ok=True)
@@ -625,7 +625,7 @@ async def main():
 
     changed_l, _ = log_and_check(
         LAUNCHER_API,
-        "Arknights：Endfield DEV Launcher"
+        "明日方舟：终末地 DEV Launcher"
     )
 
     if changed_l:
@@ -638,7 +638,7 @@ async def main():
 
             embeds = build_launcher_embeds(
                 data,
-                "Arknights：Endfield DEV",
+                "明日方舟：终末地 DEV",
                 image_url
             )
 
@@ -655,7 +655,7 @@ async def main():
 
     changed_game, _ = log_and_check(
         GAME_API,
-        "Arknights：Endfield DEV Game"
+        "明日方舟：终末地 DEV Game"
     )
 
     changed_pre, _ = log_and_check_web_game()
@@ -670,7 +670,7 @@ async def main():
 
             embeds = build_game_embeds(
                 data,
-                "Arknights：Endfield DEV",
+                "明日方舟：终末地 DEV",
                 image_url
             )
 
